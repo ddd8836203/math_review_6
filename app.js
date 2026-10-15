@@ -406,10 +406,14 @@
       : '★'.repeat(q.difficulty || 2) + '☆'.repeat(Math.max(0, 5 - (q.difficulty || 2)));
     const isError = state.errorBook.includes(q.id);
 
+    // 檢查本題是否在當前場次中已被作答過（回頭看上一題情況）
+    const existingAnswer = state.sessionAnswers.find(a => a.qId === q.id);
+    const isAnswered = !!existingAnswer;
+
     const hasOptions = Array.isArray(q.options) && q.options.length > 0;
+    const correctKey = (q.answerKey || q.answer.trim().charAt(0)).toUpperCase();
     let answerDisplay = q.answer;
     if (hasOptions) {
-      const correctKey = (q.answerKey || q.answer.trim().charAt(0)).toUpperCase();
       const optIdx = ['A', 'B', 'C', 'D'].indexOf(correctKey);
       if (optIdx >= 0 && q.options[optIdx]) {
         const cleanOpt = q.options[optIdx].replace(/^[A-D]\.\s*/, '');
@@ -422,8 +426,20 @@
         ${q.options.map((opt, i) => {
           const letter = ['A', 'B', 'C', 'D'][i] || String(i + 1);
           const cleanText = opt.replace(/^[A-D]\.\s*/, '');
+          let btnClass = 'opt-btn';
+          let disabledAttr = '';
+          if (isAnswered) {
+            disabledAttr = 'disabled';
+            if (letter === correctKey) {
+              btnClass += ' opt-correct';
+            } else if (letter === existingAnswer.userChoice && existingAnswer.result === 'bad') {
+              btnClass += ' opt-wrong';
+            } else {
+              btnClass += ' opt-dim';
+            }
+          }
           return `
-            <button type="button" class="opt-btn" data-opt-key="${letter}">
+            <button type="button" class="${btnClass}" data-opt-key="${letter}" ${disabledAttr}>
               <span class="opt-letter">${letter}</span>
               <span class="opt-text">${cleanText}</span>
             </button>
@@ -450,11 +466,22 @@
       </div>
     `;
 
+    const alertHtml = isAnswered && hasOptions ? `
+      <div id="mental-feedback-alert" class="mental-feedback-alert ${existingAnswer.result === 'ok' ? 'ok' : 'bad'}" style="display: block;">
+        ${existingAnswer.result === 'ok' ? '🎯 <b>直覺精準！完全不用拿筆就秒殺！</b>' : '💡 <b>掉進思維盲點了！快看不用動筆的秒殺邏輯：</b>'}
+      </div>
+    ` : `
+      <div id="mental-feedback-alert" style="display: none;"></div>
+    `;
+
     const app = document.getElementById('app');
     app.innerHTML = `
       <div class="view quiz">
         <div class="quiz-head">
-          <button class="btn btn-ghost" id="btn-back-dash">← 結束測驗</button>
+          <div class="quiz-nav-left">
+            <button class="btn btn-ghost" id="btn-back-dash" title="離開測驗">← 結束測驗</button>
+            ${state.quizIndex > 0 ? `<button class="btn btn-ghost" id="btn-prev-q" title="回頭看上一題答題狀況">⏮️ 上一題</button>` : ''}
+          </div>
           <span class="crumb">${unitObj.title} · 第 ${cur} 題</span>
           <div class="progress"><i style="width: ${pct}%"></i></div>
           <span class="count">${cur} / ${total}</span>
@@ -477,17 +504,17 @@
 
           ${hasOptions ? optionsHtml : ''}
 
-          <div id="mental-feedback-alert" style="display: none;"></div>
+          ${alertHtml}
 
           ${!hasOptions ? `
-            <div class="reveal" id="reveal-area">
+            <div class="reveal" id="reveal-area" style="${isAnswered ? 'display: none;' : ''}">
               <button class="btn btn-primary btn-lg btn-block" id="btn-show-answer">
                 👁️ 查看正解與推導步驟
               </button>
             </div>
           ` : ''}
 
-          <div class="answer" id="answer-area" style="display: none;">
+          <div class="answer" id="answer-area" style="${isAnswered ? 'display: grid;' : 'display: none;'}">
             <div class="box final">
               <h4>🎯 正確答案</h4>
               <div class="ans">${answerDisplay}</div>
@@ -504,7 +531,7 @@
 
             ${q.insight ? `
               <div class="box insight">
-                <h4>💡 ${isMental ? '純腦力秒殺思維（為什麼完全不用拿筆算）' : '奧數秒殺思維（競賽直覺）'}</h4>
+                <h4>💡 ${isMental ? '純腦力秒殺思維（為什麼完全不用拿筆算）' : '奧數秒殺思維（競賽直矩）'}</h4>
                 <div>${q.insight}</div>
               </div>
             ` : ''}
@@ -520,17 +547,17 @@
               <div class="feedback">
                 <p>請誠實回饋你剛才的紙筆作答狀況：</p>
                 <div class="fb-row">
-                  <button type="button" class="fb ok" data-fb="ok">
+                  <button type="button" class="fb ok ${isAnswered && existingAnswer.result === 'ok' ? 'picked' : (isAnswered ? 'dim' : '')}" data-fb="ok" ${isAnswered ? 'disabled' : ''}>
                     <span class="emo">👍</span>
                     我算對了
                     <small>思路清晰順暢</small>
                   </button>
-                  <button type="button" class="fb slow" data-fb="slow">
+                  <button type="button" class="fb slow ${isAnswered && existingAnswer.result === 'slow' ? 'picked' : (isAnswered ? 'dim' : '')}" data-fb="slow" ${isAnswered ? 'disabled' : ''}>
                     <span class="emo">⏳</span>
                     算對但想很久
                     <small>需要加強熟練</small>
                   </button>
-                  <button type="button" class="fb bad" data-fb="bad">
+                  <button type="button" class="fb bad ${isAnswered && existingAnswer.result === 'bad' ? 'picked' : (isAnswered ? 'dim' : '')}" data-fb="bad" ${isAnswered ? 'disabled' : ''}>
                     <span class="emo">❌</span>
                     我有算錯
                     <small>記進錯題本</small>
@@ -541,17 +568,20 @@
               <div class="feedback" style="padding: 14px 18px;">
                 <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
                   <span style="font-size: 14px; color: var(--ink-2); font-weight: 700;">若是「猜對但想太久」，可手動標記：</span>
-                  <button type="button" class="btn btn-ghost" id="btn-mark-slow" style="padding: 6px 14px; font-size: 14px;">
-                    ⏳ 想很久（標記熟練度）
+                  <button type="button" class="btn btn-ghost" id="btn-mark-slow" style="padding: 6px 14px; font-size: 14px;" ${(state.slowCounts[q.id] || 0) > 0 ? 'disabled' : ''}>
+                    ${(state.slowCounts[q.id] || 0) > 0 ? '✔ 已標記為想很久' : '⏳ 想很久（標記熟練度）'}
                   </button>
                 </div>
               </div>
             `}
 
-            <div class="next-row" id="next-row" style="display: none;">
-              <button class="btn btn-primary btn-lg btn-block" id="btn-next-q">
-                進入下一題 →
-              </button>
+            <div class="next-row" id="next-row" style="${isAnswered ? 'display: block;' : 'display: none;'}">
+              <div style="display: flex; gap: 12px; align-items: center;">
+                ${state.quizIndex > 0 ? `<button class="btn btn-ghost btn-lg" id="btn-prev-q-bottom" style="flex: 1;">⏮️ 上一題</button>` : ''}
+                <button class="btn btn-primary btn-lg" id="btn-next-q" style="flex: ${state.quizIndex > 0 ? '2' : '1'};">
+                  ${cur === total ? '完成測驗並結算 🏁' : '進入下一題 →'}
+                </button>
+              </div>
             </div>
           </div>
         </article>
@@ -560,54 +590,67 @@
 
     renderMath(app);
 
-    // 綁定按鈕
+    // 綁定中斷/離開按鈕
     document.getElementById('btn-back-dash').addEventListener('click', () => {
       if (confirm('確定要中斷測驗嗎？已作答的紀錄將會保存。')) {
         finishQuiz();
       }
     });
 
+    // 綁定「上一題」按鈕（頂部與底部）
+    const handlePrev = () => {
+      if (state.quizIndex > 0) {
+        state.quizIndex--;
+        renderQuizQuestion();
+      }
+    };
+    const prevBtn = document.getElementById('btn-prev-q');
+    if (prevBtn) prevBtn.addEventListener('click', handlePrev);
+    const prevBtnBottom = document.getElementById('btn-prev-q-bottom');
+    if (prevBtnBottom) prevBtnBottom.addEventListener('click', handlePrev);
+
     const ansArea = document.getElementById('answer-area');
 
     if (hasOptions) {
-      app.querySelectorAll('.opt-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const chosen = btn.getAttribute('data-opt-key');
-          const correctKey = (q.answerKey || q.answer.trim().charAt(0)).toUpperCase();
-          const isCorrect = (chosen.toUpperCase() === correctKey);
+      if (!isAnswered) {
+        app.querySelectorAll('.opt-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const chosen = btn.getAttribute('data-opt-key');
+            const isCorrect = (chosen.toUpperCase() === correctKey);
 
-          app.querySelectorAll('.opt-btn').forEach(b => {
-            b.disabled = true;
-            const k = b.getAttribute('data-opt-key').toUpperCase();
-            if (k === correctKey) {
-              b.classList.add('opt-correct');
-            } else if (b === btn && !isCorrect) {
-              b.classList.add('opt-wrong');
-            } else {
-              b.classList.add('opt-dim');
+            app.querySelectorAll('.opt-btn').forEach(b => {
+              b.disabled = true;
+              const k = b.getAttribute('data-opt-key').toUpperCase();
+              if (k === correctKey) {
+                b.classList.add('opt-correct');
+              } else if (b === btn && !isCorrect) {
+                b.classList.add('opt-wrong');
+              } else {
+                b.classList.add('opt-dim');
+              }
+            });
+
+            recordAnswer(q, isCorrect ? 'ok' : 'bad', chosen);
+
+            const alertDiv = document.getElementById('mental-feedback-alert');
+            if (alertDiv) {
+              alertDiv.style.display = 'block';
+              alertDiv.className = `mental-feedback-alert ${isCorrect ? 'ok' : 'bad'}`;
+              alertDiv.innerHTML = isCorrect
+                ? '🎯 <b>直覺精準！完全不用拿筆就秒殺！</b>'
+                : '💡 <b>掉進思維盲點了！快看不用動筆的秒殺邏輯：</b>';
             }
+
+            ansArea.style.display = 'grid';
+            renderMath(ansArea);
+            document.getElementById('next-row').style.display = 'block';
+            ansArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           });
-
-          recordAnswer(q, isCorrect ? 'ok' : 'bad');
-
-          const alertDiv = document.getElementById('mental-feedback-alert');
-          if (alertDiv) {
-            alertDiv.style.display = 'block';
-            alertDiv.className = `mental-feedback-alert ${isCorrect ? 'ok' : 'bad'}`;
-            alertDiv.innerHTML = isCorrect
-              ? '🎯 <b>直覺精準！完全不用拿筆就秒殺！</b>'
-              : '💡 <b>掉進思維盲點了！快看不用動筆的秒殺邏輯：</b>';
-          }
-
-          ansArea.style.display = 'grid';
-          renderMath(ansArea);
-          document.getElementById('next-row').style.display = 'block';
-          ansArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         });
-      });
+      }
 
       const markSlowBtn = document.getElementById('btn-mark-slow');
-      if (markSlowBtn) {
+      if (markSlowBtn && !markSlowBtn.disabled) {
         markSlowBtn.addEventListener('click', () => {
           state.slowCounts[q.id] = (state.slowCounts[q.id] || 0) + 1;
           saveState();
@@ -616,31 +659,35 @@
         });
       }
     } else {
-      const showBtn = document.getElementById('btn-show-answer');
-      showBtn.addEventListener('click', () => {
-        showBtn.style.display = 'none';
-        ansArea.style.display = 'grid';
-        renderMath(ansArea);
-        ansArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      });
-
-      const fbButtons = app.querySelectorAll('[data-fb]');
-      fbButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const val = btn.getAttribute('data-fb');
-          recordAnswer(q, val);
-
-          fbButtons.forEach(b => {
-            b.disabled = true;
-            if (b === btn) b.classList.add('picked');
-            else b.classList.add('dim');
+      if (!isAnswered) {
+        const showBtn = document.getElementById('btn-show-answer');
+        if (showBtn) {
+          showBtn.addEventListener('click', () => {
+            showBtn.style.display = 'none';
+            ansArea.style.display = 'grid';
+            renderMath(ansArea);
+            ansArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           });
+        }
 
-          const nextRow = document.getElementById('next-row');
-          nextRow.style.display = 'block';
-          nextRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        const fbButtons = app.querySelectorAll('[data-fb]');
+        fbButtons.forEach(btn => {
+          btn.addEventListener('click', () => {
+            const val = btn.getAttribute('data-fb');
+            recordAnswer(q, val, val);
+
+            fbButtons.forEach(b => {
+              b.disabled = true;
+              if (b === btn) b.classList.add('picked');
+              else b.classList.add('dim');
+            });
+
+            const nextRow = document.getElementById('next-row');
+            nextRow.style.display = 'block';
+            nextRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          });
         });
-      });
+      }
     }
 
     const nextBtn = document.getElementById('btn-next-q');
@@ -653,29 +700,49 @@
     }
   }
 
-  function recordAnswer(q, result) {
-    const timeStr = new Date().toISOString();
-    state.sessionAnswers.push({
+  function recordAnswer(q, result, userChoice = null) {
+    const existingIndex = state.sessionAnswers.findIndex(a => a.qId === q.id);
+    const answerRecord = {
       qId: q.id,
       unitId: q.unitId,
       category: q.category,
-      level: q.level,
+      level: q.level || q.stars || 1,
       result: result, // 'ok' | 'slow' | 'bad'
+      userChoice: userChoice, // 'A' | 'B' | 'C' | 'D' or 'ok' | 'slow' | 'bad'
       trapCode: q.trap ? q.trap.code : null,
-      time: timeStr,
-    });
+      time: new Date().toISOString(),
+    };
 
-    if (result === 'ok') {
-      state.successCounts[q.id] = (state.successCounts[q.id] || 0) + 1;
-      // 答對則自錯題本消滅
-      state.errorBook = state.errorBook.filter(id => id !== q.id);
-    } else if (result === 'slow') {
-      state.slowCounts[q.id] = (state.slowCounts[q.id] || 0) + 1;
-      // 想很久保留或視情況列入觀察
-    } else if (result === 'bad') {
-      state.errorCounts[q.id] = (state.errorCounts[q.id] || 0) + 1;
-      if (!state.errorBook.includes(q.id)) {
-        state.errorBook.push(q.id);
+    if (existingIndex >= 0) {
+      const old = state.sessionAnswers[existingIndex];
+      if (old.result !== result) {
+        if (old.result === 'ok') state.successCounts[q.id] = Math.max(0, (state.successCounts[q.id] || 1) - 1);
+        if (old.result === 'slow') state.slowCounts[q.id] = Math.max(0, (state.slowCounts[q.id] || 1) - 1);
+        if (old.result === 'bad') state.errorCounts[q.id] = Math.max(0, (state.errorCounts[q.id] || 1) - 1);
+
+        if (result === 'ok') {
+          state.successCounts[q.id] = (state.successCounts[q.id] || 0) + 1;
+          state.errorBook = state.errorBook.filter(id => id !== q.id);
+        } else if (result === 'slow') {
+          state.slowCounts[q.id] = (state.slowCounts[q.id] || 0) + 1;
+        } else if (result === 'bad') {
+          state.errorCounts[q.id] = (state.errorCounts[q.id] || 0) + 1;
+          if (!state.errorBook.includes(q.id)) state.errorBook.push(q.id);
+        }
+      }
+      state.sessionAnswers[existingIndex] = answerRecord;
+    } else {
+      state.sessionAnswers.push(answerRecord);
+      if (result === 'ok') {
+        state.successCounts[q.id] = (state.successCounts[q.id] || 0) + 1;
+        state.errorBook = state.errorBook.filter(id => id !== q.id);
+      } else if (result === 'slow') {
+        state.slowCounts[q.id] = (state.slowCounts[q.id] || 0) + 1;
+      } else if (result === 'bad') {
+        state.errorCounts[q.id] = (state.errorCounts[q.id] || 0) + 1;
+        if (!state.errorBook.includes(q.id)) {
+          state.errorBook.push(q.id);
+        }
       }
     }
     saveState();
@@ -712,10 +779,113 @@
     state.fullHistory.push(sessionRecord);
     saveState();
 
+    const reviewItemsHtml = state.sessionAnswers.map((ans, idx) => {
+      const q = QUESTION_BANK.find(x => x.id === (ans.qId || ans.id));
+      if (!q) return '';
+      const u = UNITS.find(x => x.id === q.unitId) || { title: '綜合特訓' };
+      const isMental = q.batch === '純腦力體操' || (q.options && q.options.length > 0);
+      const isCorrect = ans.result === 'ok';
+      const isSlow = ans.result === 'slow';
+
+      const statusTag = isCorrect
+        ? '<span class="tag ok">✅ 答對秒殺</span>'
+        : isSlow
+        ? '<span class="tag" style="background:#eef2ff; color:#3730a3; font-weight:700;">⏳ 算對想很久</span>'
+        : '<span class="tag bad">❌ 答錯入庫</span>';
+
+      let choiceHtml = '';
+      if (q.options && q.options.length > 0) {
+        const userKey = (ans.userChoice || '').toUpperCase();
+        const optIdx = ['A', 'B', 'C', 'D'].indexOf(userKey);
+        const userOptText = optIdx >= 0 && q.options[optIdx] ? q.options[optIdx].replace(/^[A-D]\.\s*/, '') : (ans.userChoice || '未作答');
+
+        const correctKey = (q.answerKey || q.answer.trim().charAt(0)).toUpperCase();
+        const corIdx = ['A', 'B', 'C', 'D'].indexOf(correctKey);
+        const corOptText = corIdx >= 0 && q.options[corIdx] ? q.options[corIdx].replace(/^[A-D]\.\s*/, '') : q.answer;
+
+        choiceHtml = `
+          <div class="review-choice-grid">
+            <div class="review-choice-pill ${isCorrect ? 'correct' : 'wrong'}">
+              <span class="label">你的選擇：</span>
+              <b>(${userKey}) ${userOptText}</b>
+            </div>
+            ${!isCorrect ? `
+              <div class="review-choice-pill correct">
+                <span class="label">標準正解：</span>
+                <b>(${correctKey}) ${corOptText}</b>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      } else {
+        choiceHtml = `
+          <div class="review-choice-grid">
+            <div class="review-choice-pill ${isCorrect ? 'correct' : isSlow ? 'slow' : 'wrong'}">
+              <span class="label">作答狀況：</span>
+              <b>${isCorrect ? '👍 我算對了' : isSlow ? '⏳ 算對但想很久' : '❌ 我有算錯'}</b>
+            </div>
+            <div class="review-choice-pill correct">
+              <span class="label">標準正解：</span>
+              <b>${q.answer}</b>
+            </div>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="review-item ${ans.result}">
+          <div class="review-item-head">
+            <div class="review-item-meta">
+              <span class="review-q-num">第 ${idx + 1} 題</span>
+              <span class="tag">${u.title}</span>
+              <span class="tag lv">${isMental ? `⭐ ${q.stars || 1}★` : `L${q.level || 1}`}</span>
+              ${statusTag}
+            </div>
+            <button type="button" class="btn btn-ghost btn-sm btn-toggle-detail" data-target="detail-${idx}">
+              📖 看詳解 ▾
+            </button>
+          </div>
+
+          <div class="review-q-text">${q.question}</div>
+          ${q.svg ? `<div class="review-q-fig">${q.svg}</div>` : ''}
+
+          ${choiceHtml}
+
+          <div class="review-sol-panel" id="detail-${idx}" style="display: none;">
+            <div class="box final">
+              <h4>🎯 正確答案</h4>
+              <div class="ans">${q.answer}</div>
+            </div>
+
+            ${q.steps && q.steps.length > 0 ? `
+              <div class="box steps">
+                <h4>📐 ${isMental ? '邏輯推理分析' : '步驟拆解與推導過程'}</h4>
+                <ol>${q.steps.map(s => `<li>${s}</li>`).join('')}</ol>
+              </div>
+            ` : ''}
+
+            ${q.insight ? `
+              <div class="box insight">
+                <h4>💡 ${isMental ? '純腦力秒殺思維（為什麼完全不用拿筆算）' : '奧數秒殺思維（競賽直覺）'}</h4>
+                <div>${q.insight}</div>
+              </div>
+            ` : ''}
+
+            ${q.trap ? `
+              <div class="box trap">
+                <h4>⚠️ 典型錯誤防坑診斷 <code>${q.trap.code || ''}</code></h4>
+                <div>${q.trap.text}</div>
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `;
+    }).join('');
+
     const app = document.getElementById('app');
     app.innerHTML = `
       <div class="view result">
-        <div class="glass result-card" style="padding: 40px; max-width: 680px; margin: 0 auto;">
+        <div class="glass result-card wide" style="padding: 40px; margin: 0 auto;">
           <div style="font-size: 64px; line-height: 1">
             ${score >= 80 ? '🎉' : score >= 60 ? '💪' : '🌱'}
           </div>
@@ -735,9 +905,21 @@
             ${state.errorBook.length > 0 ? `<button class="btn btn-ghost btn-lg" id="btn-goto-errors">查看錯題本 (${state.errorBook.length})</button>` : ''}
             <button class="btn btn-ghost btn-lg" id="btn-res-home">返回首頁</button>
           </div>
+
+          <div class="review-section">
+            <div class="review-header-bar">
+              <h3>📋 本次測驗答題明細回顧 (${total} 題)</h3>
+              <span style="font-size: 13px; color: var(--ink-2);">點擊「📖 看詳解」可展開解題推導與秒殺思維</span>
+            </div>
+            <div class="review-list">
+              ${reviewItemsHtml}
+            </div>
+          </div>
         </div>
       </div>
     `;
+
+    renderMath(app);
 
     document.getElementById('btn-restart-unit').addEventListener('click', () => {
       startQuiz(state.quizMode, state.currentUnitId);
@@ -749,6 +931,22 @@
     document.getElementById('btn-res-home').addEventListener('click', () => {
       state.view = 'dashboard';
       renderDashboardView();
+    });
+
+    // 詳解展開/收合事件綁定
+    app.querySelectorAll('.btn-toggle-detail').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-target');
+        const panel = document.getElementById(targetId);
+        if (panel) {
+          const isHidden = (panel.style.display === 'none');
+          panel.style.display = isHidden ? 'grid' : 'none';
+          btn.textContent = isHidden ? '收起詳解 ▴' : '📖 看詳解 ▾';
+          if (isHidden) {
+            renderMath(panel);
+          }
+        }
+      });
     });
   }
 
