@@ -702,3 +702,285 @@ h1, h2, h3, h4 { margin: 0; line-height: 1.3; }
   gap: 12px;
   animation: fadeIn .2s ease;
 }
+
+/* =========================================================
+   段考全真題庫專屬樣式 (方案 C & 原圖切換 & Lightbox)
+   ========================================================= */
+
+/* 段考單元專屬金色豪華卡片 */
+.unit-card.exam-card {
+  --hue: 38;
+  background: linear-gradient(145deg, #ffffff 0%, #fffcf5 100%);
+  border: 2px solid #fcd34d;
+  box-shadow: 0 12px 28px -10px rgba(245, 158, 11, 0.28);
+}
+.unit-card.exam-card::before {
+  height: 8px;
+  background: linear-gradient(90deg, #f59e0b, #ec4899, #8b5cf6);
+}
+.unit-card.exam-card .u-no {
+  color: #b45309;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tag.exam-badge {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  color: #92400e;
+  border: 1px solid #fcd34d;
+  font-weight: 800;
+}
+
+/* 方案 C：學校分頁切換 Bar (Exam School Tabs) */
+.exam-school-tabs-wrap {
+  margin: 0 0 20px 0;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid var(--line);
+  border-radius: 18px;
+  padding: 10px 14px;
+  box-shadow: var(--shadow);
+}
+.exam-tabs-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  padding: 0 4px;
+}
+.exam-tabs-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--ink-2);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.exam-school-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+.exam-school-tabs::-webkit-scrollbar {
+  height: 6px;
+}
+.exam-school-tabs::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 999px;
+}
+.school-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  background: #f8fafc;
+  color: var(--ink-2);
+  border: 1.5px solid var(--line);
+  transition: all .18s cubic-bezier(.2, .8, .2, 1);
+  cursor: pointer;
+  user-select: none;
+}
+.school-tab-btn:hover {
+  background: #ffffff;
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-1px);
+}
+.school-tab-btn.active {
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 4px 14px -3px rgba(91, 75, 219, 0.5);
+}
+.school-tab-btn .badge-cnt {
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.08);
+}
+.school-tab-btn.active .badge-cnt {
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+/* 題目卡片原圖切換按鈕列 */
+.q-top-action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.btn-crop-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 12px;
+  font-size: 13.5px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+  border: 1.5px solid #86efac;
+  color: #166534;
+  cursor: pointer;
+  transition: all .15s ease;
+  box-shadow: 0 2px 6px rgba(22, 101, 52, 0.08);
+}
+.btn-crop-toggle:hover {
+  background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(22, 101, 52, 0.15);
+}
+.btn-crop-toggle.active {
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  border-color: #93c5fd;
+  color: #1e40af;
+}
+
+/* 考卷原圖裁切展示容器 */
+.crop-image-container {
+  margin: 16px 0 20px 0;
+  padding: 16px;
+  border-radius: 18px;
+  background: #ffffff;
+  border: 2px solid #e2e8f0;
+  box-shadow: 0 6px 20px -6px rgba(0, 0, 0, 0.08);
+  animation: fadeIn .25s ease;
+  text-align: center;
+}
+.crop-img-wrap {
+  position: relative;
+  display: inline-block;
+  cursor: zoom-in;
+  max-width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+.exam-crop-img {
+  display: block;
+  max-width: 100%;
+  max-height: 480px;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 10px;
+  transition: transform .2s ease;
+}
+.crop-img-wrap:hover .exam-crop-img {
+  transform: scale(1.01);
+}
+.crop-zoom-hint {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.75);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  backdrop-filter: blur(6px);
+  pointer-events: none;
+}
+.crop-footer-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 12px;
+  font-size: 13px;
+}
+.btn-view-page {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--primary);
+  font-weight: 700;
+  cursor: pointer;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: var(--primary-soft);
+  transition: background .15s ease;
+}
+.btn-view-page:hover {
+  background: #ddd6fe;
+}
+
+/* 考卷原圖超高解析 Lightbox 彈窗 */
+.lightbox-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn .2s ease;
+}
+.lightbox-header {
+  position: absolute;
+  top: 16px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #ffffff;
+  z-index: 1001;
+}
+.lightbox-title {
+  font-size: 16px;
+  font-weight: 800;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+.lightbox-close-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-size: 24px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: all .15s ease;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.lightbox-close-btn:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(1.1);
+}
+.lightbox-body {
+  max-width: 95vw;
+  max-height: 85vh;
+  overflow: auto;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+.lightbox-body img {
+  max-width: 100%;
+  max-height: 82vh;
+  display: block;
+  border-radius: 8px;
+}
+

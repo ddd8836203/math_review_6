@@ -8,10 +8,24 @@
   // -------------------------------------------------------
   // 全域狀態
   // -------------------------------------------------------
+  // 全域狀態
+  // -------------------------------------------------------
+  const EXAM_SCHOOLS = [
+    { id: 'ALL', name: '全部學校 (綜合練習)', shortName: '🎲 全部名校綜合', count: 215 },
+    { id: '臺北市立西松國小', name: '臺北市立西松國小', shortName: '西松國小', count: 24 },
+    { id: '桃子腳國民中小學', name: '桃子腳國民中小學', shortName: '桃子腳國中小', count: 32 },
+    { id: '高雄市立獅湖國小', name: '高雄市立獅湖國小', shortName: '獅湖國小', count: 42 },
+    { id: '高雄市鳳山區忠孝國小', name: '高雄市鳳山區忠孝國小', shortName: '忠孝國小', count: 50 },
+    { id: '桃園市普仁國小', name: '桃園市普仁國小', shortName: '普仁國小', count: 40 },
+    { id: '臺南市和順國小', name: '臺南市和順國小', shortName: '和順國小', count: 27 },
+  ];
+
   const state = {
     view: 'dashboard', // 'dashboard' | 'quiz' | 'result' | 'error_book' | 'print'
-    selectedBatches: ['課本原型題', '奧數天梯', '純腦力體操'], // 預設篩選
+    selectedBatches: ['課本原型題', '奧數天梯', '純腦力體操', '段考真題'], // 預設篩選
     currentUnitId: null,
+    examSchool: 'ALL', // 段考測驗選定學校 ('ALL' | 各校名稱)
+    imgModeQuestions: {}, // 各題是否切換成原圖檢視模式 { [qId]: boolean }
     quizMode: 'unit', // 'unit' | 'error_book' | 'mixed'
     quizQuestions: [],
     quizIndex: 0,
@@ -60,8 +74,11 @@
         if (!state.selectedBatches.includes('純腦力體操')) {
           state.selectedBatches.push('純腦力體操');
         }
+        if (!state.selectedBatches.includes('段考真題')) {
+          state.selectedBatches.push('段考真題');
+        }
       } else {
-        state.selectedBatches = ['課本原型題', '奧數天梯', '純腦力體操'];
+        state.selectedBatches = ['課本原型題', '奧數天梯', '純腦力體操', '段考真題'];
       }
     } catch (e) {
       console.warn('LocalStorage 載入失敗：', e);
@@ -116,6 +133,46 @@
     el.classList.add('show');
     clearTimeout(el._t);
     el._t = setTimeout(() => el.classList.remove('show'), 2400);
+  }
+
+  // -------------------------------------------------------
+  // 考卷原圖超高解析 Lightbox 檢視
+  // -------------------------------------------------------
+  function openLightbox(imgSrc, title = '考卷原圖超清檢視') {
+    let modal = document.getElementById('lightbox-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'lightbox-modal';
+      modal.className = 'lightbox-modal';
+      document.body.appendChild(modal);
+    }
+    modal.innerHTML = `
+      <div class="lightbox-header">
+        <span class="lightbox-title">📷 ${title}</span>
+        <button type="button" class="lightbox-close-btn" id="lightbox-close" title="關閉">✕</button>
+      </div>
+      <div class="lightbox-body" id="lightbox-body">
+        <img src="${imgSrc}" alt="${title}">
+      </div>
+    `;
+    modal.style.display = 'flex';
+
+    const closeModal = () => {
+      modal.style.display = 'none';
+      document.removeEventListener('keydown', handleKey);
+    };
+
+    const handleKey = (e) => {
+      if (e.key === 'Escape') closeModal();
+    };
+
+    document.getElementById('lightbox-close').onclick = closeModal;
+    modal.onclick = (e) => {
+      if (e.target === modal || e.target.id === 'lightbox-body') {
+        closeModal();
+      }
+    };
+    document.addEventListener('keydown', handleKey);
   }
 
   // -------------------------------------------------------
@@ -186,7 +243,7 @@
 
     const chipsHtml = batches.map(b => {
       const on = state.selectedBatches.includes(b);
-      const icon = b === '純腦力體操' ? '🧠 ' : b === '奧數天梯' ? '🪜 ' : '📖 ';
+      const icon = b === '純腦力體操' ? '🧠 ' : b === '奧數天梯' ? '🪜 ' : b === '段考真題' ? '🏆 ' : '📖 ';
       return `<button type="button" class="chip ${on ? 'on' : ''}" data-batch="${b}"><span class="dot"></span>${icon}${b}</button>`;
     }).join('');
 
@@ -194,20 +251,31 @@
       const st = getUnitStats(u.id);
       const isLocked = st.total === 0;
       const isMentalActive = state.selectedBatches.length === 1 && state.selectedBatches[0] === '純腦力體操';
+      const isExamUnit = !!u.isExam;
+
       return `
-        <article class="unit-card ${isLocked ? 'locked' : ''}" style="--hue: ${u.hue}">
-          <span class="u-no">UNIT ${String(u.no).padStart(2, '0')} · ${u.pages}</span>
-          <h3>第 ${u.no} 單元 ${u.title}</h3>
+        <article class="unit-card ${isExamUnit ? 'exam-card' : ''} ${isLocked ? 'locked' : ''}" style="--hue: ${u.hue}">
+          <span class="u-no">${isExamUnit ? '🏆 段考特訓' : `UNIT ${String(u.no).padStart(2, '0')}`} · ${u.pages}</span>
+          <h3>${isExamUnit ? u.title : `第 ${u.no} 單元 ${u.title}`}</h3>
           <div class="progress" title="掌握度 ${st.pct}%"><i style="width: ${st.pct}%"></i></div>
           <div class="u-meta">
             <span class="tag ${st.pct === 100 ? 'ok' : ''}">掌握 ${st.pct}%</span>
             ${st.errCount > 0 ? `<span class="tag bad">🔥 ${st.errCount} 題待消滅</span>` : ''}
-            <span class="tag lv">${st.hasMental ? `⭐ 10★天梯` : `天梯 L${st.maxLevel}`}</span>
+            ${isExamUnit ? `<span class="tag exam-badge">🏆 6校全真考卷</span>` : `<span class="tag lv">${st.hasMental ? `⭐ 10★天梯` : `天梯 L${st.maxLevel}`}</span>`}
             <span class="tag">${st.total} 題</span>
           </div>
-          <div class="u-actions">
+
+          ${isExamUnit ? `
+            <div class="exam-card-quick-select" style="margin-top: 6px;">
+              <select class="exam-school-select" data-exam-select="${u.id}" style="width: 100%; padding: 8px 10px; border-radius: 10px; border: 1.5px solid #fcd34d; font-size: 13px; font-weight: 700; color: #78350f; background: #fffdf5; outline: none; cursor: pointer;">
+                ${EXAM_SCHOOLS.map(sch => `<option value="${sch.id}" ${state.examSchool === sch.id ? 'selected' : ''}>${sch.shortName} (${sch.count}題)</option>`).join('')}
+              </select>
+            </div>
+          ` : ''}
+
+          <div class="u-actions" style="margin-top: ${isExamUnit ? '10px' : 'auto'};">
             <button class="btn btn-primary" data-start-unit="${u.id}" ${isLocked ? 'disabled' : ''}>
-              ${st.errCount > 0 ? '消滅錯題' : (isMentalActive ? '🧠 開始體操' : '開始特訓')}
+              ${st.errCount > 0 ? '消滅錯題' : (isExamUnit ? '🏆 開始段考' : isMentalActive ? '🧠 開始體操' : '開始特訓')}
             </button>
             <button class="btn btn-ghost" data-print-unit="${u.id}" ${isLocked ? 'disabled' : ''}>
               A4 出卷
@@ -246,7 +314,7 @@
           </div>
           <div class="mental-quick-actions" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
             <select id="select-mental-unit" style="padding: 10px 14px; border-radius: 10px; border: 1.5px solid #c7d2fe; background: #ffffff; color: #3730a3; font-weight: 700; font-size: 14px; outline: none; cursor: pointer; box-shadow: 0 2px 8px rgba(99,102,241,0.08);">
-              ${UNITS.map(u => `<option value="${u.id}">第 ${u.no} 單元：${u.title} (20題)</option>`).join('')}
+              ${UNITS.filter(u => !u.isExam).map(u => `<option value="${u.id}">第 ${u.no} 單元：${u.title} (20題)</option>`).join('')}
               <option value="all_mixed">🎲 全冊 8 單元綜合挑戰 (20題 1~10★跨單元升級)</option>
             </select>
             <button class="btn btn-primary" id="btn-quick-mental" style="white-space: nowrap;">
@@ -267,7 +335,7 @@
 
         <div class="section-title">
           <h2>📚 單元進度地圖</h2>
-          <span class="muted">翰林版第十一冊 · 全 8 單元</span>
+          <span class="muted">翰林版第十一冊 · 全 8 單元 + 六校段考全真題庫</span>
         </div>
         <section class="unit-grid">
           ${unitCardsHtml}
@@ -312,7 +380,13 @@
     app.querySelectorAll('[data-start-unit]').forEach(btn => {
       btn.addEventListener('click', () => {
         const uId = btn.getAttribute('data-start-unit');
-        startQuiz('unit', uId);
+        if (uId === 'EXAM_MID1') {
+          const sel = app.querySelector(`[data-exam-select="${uId}"]`);
+          const school = sel ? sel.value : (state.examSchool || 'ALL');
+          startQuiz('unit', uId, school);
+        } else {
+          startQuiz('unit', uId);
+        }
       });
     });
 
@@ -333,7 +407,7 @@
   // -------------------------------------------------------
   // 視圖渲染器：2. 測驗與對答案 (Quiz View)
   // -------------------------------------------------------
-  function startQuiz(mode, unitId = null) {
+  function startQuiz(mode, unitId = null, schoolId = null) {
     state.quizMode = mode;
     state.currentUnitId = unitId;
     state.quizIndex = 0;
@@ -341,18 +415,34 @@
 
     let pool = [];
     if (mode === 'unit') {
-      pool = QUESTION_BANK.filter(q => q.unitId === unitId);
-      pool = filterQuestionsByBatches(pool);
+      if (unitId === 'EXAM_MID1') {
+        if (schoolId) {
+          state.examSchool = schoolId;
+        } else if (!state.examSchool) {
+          state.examSchool = 'ALL';
+        }
 
-      // 若當前題目全部是「純腦力體操」，嚴格按 1 顆星到 10 顆星由易到難升級排序！
-      const isMentalOnly = pool.length > 0 && pool.every(q => q.batch === '純腦力體操');
-      if (isMentalOnly) {
-        pool.sort((a, b) => (a.stars || a.level || 1) - (b.stars || b.level || 1));
+        let examPool = QUESTION_BANK.filter(q => q.unitId === 'EXAM_MID1');
+        if (state.examSchool && state.examSchool !== 'ALL') {
+          examPool = examPool.filter(q => q.school === state.examSchool);
+        } else {
+          examPool = shuffle(examPool);
+        }
+        pool = examPool;
       } else {
-        // 若該單元有錯題，錯題排在最前面優先複習
-        const errs = pool.filter(q => state.errorBook.includes(q.id));
-        const normals = pool.filter(q => !state.errorBook.includes(q.id));
-        pool = [...shuffle(errs), ...shuffle(normals)];
+        pool = QUESTION_BANK.filter(q => q.unitId === unitId);
+        pool = filterQuestionsByBatches(pool);
+
+        // 若當前題目全部是「純腦力體操」，嚴格按 1 顆星到 10 顆星由易到難升級排序！
+        const isMentalOnly = pool.length > 0 && pool.every(q => q.batch === '純腦力體操');
+        if (isMentalOnly) {
+          pool.sort((a, b) => (a.stars || a.level || 1) - (b.stars || b.level || 1));
+        } else {
+          // 若該單元有錯題，錯題排在最前面優先複習
+          const errs = pool.filter(q => state.errorBook.includes(q.id));
+          const normals = pool.filter(q => !state.errorBook.includes(q.id));
+          pool = [...shuffle(errs), ...shuffle(normals)];
+        }
       }
     } else if (mode === 'mental_mixed') {
       // 全冊純腦力體操綜合：從 1★ 到 10★，每顆星從全冊隨機抽 2 題，總共 20 題嚴格由易到難！
@@ -377,7 +467,7 @@
         state.view = 'dashboard';
         renderDashboardView();
       } else {
-        showToast('目前沒有符合條件的題目喔！');
+        showToast('目前沒有符合條件的題目喔！請檢查上方題庫範圍是否包含此題型。');
       }
       return;
     }
@@ -398,13 +488,17 @@
     const cur = state.quizIndex + 1;
     const pct = Math.round((cur / total) * 100);
 
-    const unitObj = UNITS.find(u => u.id === q.unitId) || { title: '綜合特訓' };
-    const isMental = q.batch === '純腦力體操' || (q.options && q.options.length > 0);
+    const isExamUnit = q.unitId === 'EXAM_MID1' || (state.currentUnitId === 'EXAM_MID1');
+    const unitObj = UNITS.find(u => u.id === q.unitId) || { title: isExamUnit ? '六年級上_第一次段考' : '綜合特訓' };
+    const isMental = q.batch === '純腦力體操' || (q.options && q.options.length > 0 && !isExamUnit);
     const starNum = q.stars || q.level || 1;
     const starsHtml = isMental
       ? `<span class="tag star-badge">⭐ ${starNum} 顆星天梯</span>`
       : '★'.repeat(q.difficulty || 2) + '☆'.repeat(Math.max(0, 5 - (q.difficulty || 2)));
     const isError = state.errorBook.includes(q.id);
+
+    const hasImage = !!(q.cropImage || q.examPageImage);
+    const isImgMode = !!state.imgModeQuestions[q.id];
 
     // 檢查本題是否在當前場次中已被作答過（回頭看上一題情況）
     const existingAnswer = state.sessionAnswers.find(a => a.qId === q.id);
@@ -456,6 +550,14 @@
           <div style="font-size: 14px; opacity: .88">請直接點選選項！運用數感、奇偶性、倍數特徵或極值推導秒殺。</div>
         </div>
       </div>
+    ` : isExamUnit ? `
+      <div class="paper-hint" style="background: linear-gradient(135deg, #fefce8, #fef9c3); border: 1.5px solid #fde047; color: #854d0e;">
+        <span style="font-size: 24px">🏆</span>
+        <div>
+          <b>段考全真題紙筆作答時間</b>
+          <div style="font-size: 14px; opacity: .9">考卷題目與選項 100% 忠實還原，請先在紙上計算，算好後核對標準答案。如看不清題意可點右上角查看原卷！</div>
+        </div>
+      </div>
     ` : `
       <div class="paper-hint">
         <span style="font-size: 24px">📝</span>
@@ -474,6 +576,26 @@
       <div id="mental-feedback-alert" style="display: none;"></div>
     `;
 
+    const examTabsHtml = isExamUnit ? `
+      <div class="exam-school-tabs-wrap">
+        <div class="exam-tabs-header">
+          <span class="exam-tabs-title">🏫 選擇段考學校（方案 C 雙模速換）：</span>
+          <span class="muted" style="font-size: 12.5px;">目前模式：<b>${EXAM_SCHOOLS.find(s => s.id === state.examSchool)?.name || '全部學校綜合'}</b></span>
+        </div>
+        <div class="exam-school-tabs">
+          ${EXAM_SCHOOLS.map(sch => {
+            const active = (state.examSchool || 'ALL') === sch.id ? 'active' : '';
+            return `
+              <button type="button" class="school-tab-btn ${active}" data-school-tab="${sch.id}">
+                <span>${sch.shortName}</span>
+                <span class="badge-cnt">${sch.count}題</span>
+              </button>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    ` : '';
+
     const app = document.getElementById('app');
     app.innerHTML = `
       <div class="view quiz">
@@ -487,16 +609,50 @@
           <span class="count">${cur} / ${total}</span>
         </div>
 
+        ${examTabsHtml}
+
         <article class="glass q-card">
-          <div class="q-tags">
-            <span class="tag">${q.category || '觀念綜合'}</span>
-            <span class="tag lv">${isMental ? `純腦力 ${starNum}★` : `天梯 Level ${q.level || 1}`}</span>
-            ${starsHtml}
-            <span class="tag">${q.source || ''}</span>
-            ${isError ? `<span class="tag bad">🔥 錯題待消滅</span>` : ''}
+          <div class="q-top-action-bar">
+            <div class="q-tags" style="margin-bottom: 0;">
+              ${q.school ? `<span class="tag" style="background:#e0e7ff; color:#3730a3; font-weight:800;">🏫 ${q.school}</span>` : ''}
+              <span class="tag">${q.category || '觀念綜合'}</span>
+              <span class="tag lv">${isMental ? `純腦力 ${starNum}★` : isExamUnit ? `段考題` : `天梯 Level ${q.level || 1}`}</span>
+              ${starsHtml}
+              <span class="tag">${q.source || ''}</span>
+              ${isError ? `<span class="tag bad">🔥 錯題待消滅</span>` : ''}
+              ${q.cropImage ? `<span class="tag" style="background:#f0fdf4; color:#166534; font-weight:700;">📷 附原卷圖表裁切</span>` : ''}
+            </div>
+
+            ${hasImage ? `
+              <button type="button" class="btn-crop-toggle ${isImgMode ? 'active' : ''}" id="btn-crop-toggle" title="切換文字題目與考卷原圖">
+                ${isImgMode ? '📝 返回文字題目' : '📷 查看考卷原圖'}
+              </button>
+            ` : ''}
           </div>
 
-          <div class="q-text" id="q-content">${q.question}</div>
+          <div class="q-text" id="q-content" style="${isImgMode ? 'display: none;' : ''}">${q.question}</div>
+
+          ${hasImage ? `
+            <div class="crop-image-container" id="crop-image-container" style="${isImgMode ? 'display: block;' : 'display: none;'}">
+              <div class="crop-img-wrap" id="crop-img-wrap" title="點擊放大超高清檢視">
+                <img src="${q.cropImage || q.examPageImage}" alt="考卷題目原圖" class="exam-crop-img" id="exam-crop-img">
+                <div class="crop-zoom-hint">🔍 點擊查看超清大圖</div>
+              </div>
+              ${q.examPageImage && q.cropImage ? `
+                <div class="crop-footer-actions">
+                  <button type="button" class="btn-view-page" id="btn-view-full-page">
+                    📄 查看考卷整頁原圖
+                  </button>
+                </div>
+              ` : ''}
+            </div>
+          ` : ''}
+
+          ${hasImage && !isImgMode ? `
+            <div style="font-size: 13px; color: #047857; margin: 8px 0 14px; font-weight: 700;">
+              💡 本題附有全真考卷圖表裁切，如需核對考卷排版與插圖，請點右上角「📷 查看考卷原圖」！
+            </div>
+          ` : ''}
 
           ${q.svg ? `<div class="q-figure">${q.svg}</div>` : ''}
 
@@ -531,7 +687,7 @@
 
             ${q.insight ? `
               <div class="box insight">
-                <h4>💡 ${isMental ? '純腦力秒殺思維（為什麼完全不用拿筆算）' : '奧數秒殺思維（競賽直矩）'}</h4>
+                <h4>💡 ${isMental ? '純腦力秒殺思維（為什麼完全不用拿筆算）' : '奧數秒殺思維（競賽直覺速算）'}</h4>
                 <div>${q.insight}</div>
               </div>
             ` : ''}
@@ -608,6 +764,56 @@
     if (prevBtn) prevBtn.addEventListener('click', handlePrev);
     const prevBtnBottom = document.getElementById('btn-prev-q-bottom');
     if (prevBtnBottom) prevBtnBottom.addEventListener('click', handlePrev);
+
+    // 方案 C：學校分頁切換按鈕事件
+    app.querySelectorAll('[data-school-tab]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetSchool = btn.getAttribute('data-school-tab');
+        if (state.examSchool === targetSchool) return;
+        if (state.sessionAnswers.length > 0) {
+          if (!confirm('切換學校將會重新開始該校段考測驗，確定切換嗎？')) return;
+        }
+        startQuiz('unit', 'EXAM_MID1', targetSchool);
+      });
+    });
+
+    // 考卷原圖切換按鈕事件
+    const cropToggleBtn = document.getElementById('btn-crop-toggle');
+    if (cropToggleBtn) {
+      cropToggleBtn.addEventListener('click', () => {
+        const newMode = !state.imgModeQuestions[q.id];
+        state.imgModeQuestions[q.id] = newMode;
+        const qContent = document.getElementById('q-content');
+        const cropContainer = document.getElementById('crop-image-container');
+        if (newMode) {
+          if (qContent) qContent.style.display = 'none';
+          if (cropContainer) cropContainer.style.display = 'block';
+          cropToggleBtn.classList.add('active');
+          cropToggleBtn.textContent = '📝 返回文字題目';
+        } else {
+          if (qContent) qContent.style.display = 'block';
+          if (cropContainer) cropContainer.style.display = 'none';
+          cropToggleBtn.classList.remove('active');
+          cropToggleBtn.textContent = '📷 查看考卷原圖';
+        }
+      });
+    }
+
+    // 點擊原圖開啟 Lightbox 超高清放大
+    const cropWrap = document.getElementById('crop-img-wrap');
+    if (cropWrap) {
+      cropWrap.addEventListener('click', () => {
+        openLightbox(q.cropImage || q.examPageImage, `${q.school || '段考'} - 題目原卷裁切`);
+      });
+    }
+
+    // 查看整頁考卷原圖
+    const fullPageBtn = document.getElementById('btn-view-full-page');
+    if (fullPageBtn) {
+      fullPageBtn.addEventListener('click', () => {
+        openLightbox(q.examPageImage, `${q.school || '段考'} - 考卷整頁原圖`);
+      });
+    }
 
     const ansArea = document.getElementById('answer-area');
 
@@ -963,20 +1169,23 @@
       ...UNITS.map(u => {
         const cnt = errorQuestions.filter(q => q.unitId === u.id).length;
         if (cnt === 0) return '';
-        return `<button class="chip ${filterUnit === u.id ? 'on' : ''}" data-filter-unit="${u.id}">第${u.no}單元 (${cnt})</button>`;
+        const titleText = u.isExam ? `🏆 段考真題 (${cnt})` : `第${u.no}單元 (${cnt})`;
+        return `<button class="chip ${filterUnit === u.id ? 'on' : ''}" data-filter-unit="${u.id}">${titleText}</button>`;
       })
     ].join('');
 
     const listHtml = displayed.length > 0 ? displayed.map(q => {
       const u = UNITS.find(x => x.id === q.unitId) || {};
       const ec = state.errorCounts[q.id] || 1;
+      const unitLabel = u.isExam ? `🏆 六上第一次段考` : `第 ${u.no} 單元 ${u.title}`;
       return `
         <div class="err-item">
           <div>
             <div class="q-mini">${q.question}</div>
             <div class="meta">
-              <span class="tag">第 ${u.no} 單元 ${u.title}</span>
-              <span class="tag">${q.category}</span>
+              <span class="tag">${unitLabel}</span>
+              ${q.school ? `<span class="tag" style="background:#e0e7ff; color:#3730a3; font-weight:700;">🏫 ${q.school}</span>` : ''}
+              <span class="tag">${q.category || ''}</span>
               <span class="tag bad">🔥 累計錯 ${ec} 次</span>
               ${q.trap ? `<span class="tag" style="background: #fef2f2; color: #991b1b">盲點：${q.trap.text}</span>` : ''}
             </div>
@@ -1054,10 +1263,11 @@
 
     const unitChecksHtml = UNITS.map(u => {
       const chk = state.printConfig.unitIds.includes(u.id) ? 'checked' : '';
+      const labelText = u.isExam ? `🏆 ${u.title}` : `第 ${u.no} 單元 ${u.title}`;
       return `
         <label>
           <input type="checkbox" value="${u.id}" ${chk} data-print-unit-toggle>
-          <span>第 ${u.no} 單元 ${u.title}</span>
+          <span>${labelText}</span>
         </label>
       `;
     }).join('');
