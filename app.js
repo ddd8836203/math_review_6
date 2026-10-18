@@ -29,6 +29,7 @@
     quizMode: 'unit', // 'unit' | 'error_book' | 'mixed'
     quizQuestions: [],
     quizIndex: 0,
+    unitProgress: {}, // 各單元進行到的最後題號 { [unitId]: lastIndex }
     sessionAnswers: [], // { qId, result: 'ok'|'slow'|'bad', time }
     errorBook: [], // [ qId, ... ]
     errorCounts: {}, // { [qId]: count }
@@ -54,6 +55,7 @@
     slowCounts: 'g6_math_slow_counts',
     history: 'g6_math_full_history',
     batches: 'g6_math_selected_batches',
+    unitProgress: 'g6_math_unit_progress',
   };
 
   function loadState() {
@@ -68,6 +70,8 @@
       if (sl) state.slowCounts = JSON.parse(sl);
       const fh = localStorage.getItem(STORAGE_KEYS.history);
       if (fh) state.fullHistory = JSON.parse(fh);
+      const up = localStorage.getItem(STORAGE_KEYS.unitProgress);
+      if (up) state.unitProgress = JSON.parse(up);
       const sb = localStorage.getItem(STORAGE_KEYS.batches);
       if (sb) {
         state.selectedBatches = JSON.parse(sb);
@@ -93,6 +97,7 @@
       localStorage.setItem(STORAGE_KEYS.slowCounts, JSON.stringify(state.slowCounts));
       localStorage.setItem(STORAGE_KEYS.history, JSON.stringify(state.fullHistory));
       localStorage.setItem(STORAGE_KEYS.batches, JSON.stringify(state.selectedBatches));
+      localStorage.setItem(STORAGE_KEYS.unitProgress, JSON.stringify(state.unitProgress));
     } catch (e) {
       console.warn('LocalStorage 儲存失敗：', e);
     }
@@ -100,15 +105,30 @@
   }
 
   // -------------------------------------------------------
+  // 國小 12 歲兒童數學排版防禦函式
+  // -------------------------------------------------------
+  function formatMathForKids(str) {
+    if (!str || typeof str !== 'string') return str;
+    let res = str;
+    // 檢查是否有裸露的 \frac{...}{...}（前後沒有 $）
+    res = res.replace(/(^|[^\$])((?:\d+\s*)?\\frac\{[^{}]+\}\{[^{}]+\})([^\$]|$)/g, '$1$$$2$$$3');
+    return res;
+  }
+
+  // -------------------------------------------------------
   // KaTeX 數學渲染與 QR Code
   // -------------------------------------------------------
   function renderMath(targetEl) {
+    if (!targetEl) return;
     if (window.renderMathInElement) {
       window.renderMathInElement(targetEl, {
         delimiters: [
           { left: '$$', right: '$$', display: true },
           { left: '$', right: '$', display: false },
+          { left: '\\(', right: '\\)', display: false },
+          { left: '\\[', right: '\\]', display: true },
         ],
+        ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
         throwOnError: false,
       });
     }
@@ -273,14 +293,30 @@
             </div>
           ` : ''}
 
-          <div class="u-actions" style="margin-top: ${isExamUnit ? '10px' : 'auto'};">
-            <button class="btn btn-primary" data-start-unit="${u.id}" ${isLocked ? 'disabled' : ''}>
-              ${st.errCount > 0 ? '消滅錯題' : (isExamUnit ? '🏆 開始段考' : isMentalActive ? '🧠 開始體操' : '開始特訓')}
-            </button>
-            <button class="btn btn-ghost" data-print-unit="${u.id}" ${isLocked ? 'disabled' : ''}>
-              A4 出卷
-            </button>
-          </div>
+          ${st.errCount > 0 ? `
+            <div class="u-actions has-errors" style="margin-top: ${isExamUnit ? '10px' : 'auto'};">
+              <div class="u-actions-top-row">
+                <button class="btn btn-primary" data-start-unit="${u.id}" ${isLocked ? 'disabled' : ''}>
+                  ${isExamUnit ? '🏆 開始段考' : isMentalActive ? '🧠 開始體操' : '開始特訓'}
+                </button>
+                <button class="btn btn-kill-err" data-kill-unit-errors="${u.id}">
+                  🔥 消滅錯題 (${st.errCount})
+                </button>
+              </div>
+              <button class="btn btn-ghost btn-block" data-print-unit="${u.id}" ${isLocked ? 'disabled' : ''}>
+                🖨️ A4 出卷
+              </button>
+            </div>
+          ` : `
+            <div class="u-actions" style="margin-top: ${isExamUnit ? '10px' : 'auto'};">
+              <button class="btn btn-primary" data-start-unit="${u.id}" ${isLocked ? 'disabled' : ''}>
+                ${isExamUnit ? '🏆 開始段考' : isMentalActive ? '🧠 開始體操' : '開始特訓'}
+              </button>
+              <button class="btn btn-ghost" data-print-unit="${u.id}" ${isLocked ? 'disabled' : ''}>
+                🖨️ A4 出卷
+              </button>
+            </div>
+          `}
         </article>
       `;
     }).join('');
@@ -390,6 +426,13 @@
       });
     });
 
+    app.querySelectorAll('[data-kill-unit-errors]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const uId = btn.getAttribute('data-kill-unit-errors');
+        startQuiz('unit_error', uId);
+      });
+    });
+
     app.querySelectorAll('[data-print-unit]').forEach(btn => {
       btn.addEventListener('click', () => {
         const uId = btn.getAttribute('data-print-unit');
@@ -438,12 +481,13 @@
         if (isMentalOnly) {
           pool.sort((a, b) => (a.stars || a.level || 1) - (b.stars || b.level || 1));
         } else {
-          // 若該單元有錯題，錯題排在最前面優先複習
-          const errs = pool.filter(q => state.errorBook.includes(q.id));
-          const normals = pool.filter(q => !state.errorBook.includes(q.id));
-          pool = [...shuffle(errs), ...shuffle(normals)];
+          pool = shuffle(pool);
         }
       }
+    } else if (mode === 'unit_error') {
+      // 專屬消滅該單元的錯題
+      pool = QUESTION_BANK.filter(q => q.unitId === unitId && state.errorBook.includes(q.id));
+      pool = shuffle(pool);
     } else if (mode === 'mental_mixed') {
       // 全冊純腦力體操綜合：從 1★ 到 10★，每顆星從全冊隨機抽 2 題，總共 20 題嚴格由易到難！
       const mentalPool = QUESTION_BANK.filter(q => q.batch === '純腦力體操');
@@ -488,6 +532,34 @@
     const cur = state.quizIndex + 1;
     const pct = Math.round((cur / total) * 100);
 
+    // 儲存目前練習題號進度
+    if (q.unitId) {
+      state.unitProgress[q.unitId] = state.quizIndex;
+      saveState();
+    }
+
+    const lastSavedIdx = state.unitProgress[q.unitId];
+    const canResume = (typeof lastSavedIdx === 'number' && lastSavedIdx !== state.quizIndex && lastSavedIdx < total);
+
+    // 產生題號速跳抽屜盤 HTML
+    const drawerGridHtml = state.quizQuestions.map((item, i) => {
+      const ans = state.sessionAnswers.find(a => a.qId === item.id);
+      let statusClass = 'unanswered';
+      let badgeText = '';
+      if (ans) {
+        if (ans.result === 'ok') { statusClass = 'correct'; badgeText = '✓'; }
+        else if (ans.result === 'slow') { statusClass = 'slow'; badgeText = '⏳'; }
+        else if (ans.result === 'bad') { statusClass = 'wrong'; badgeText = '✗'; }
+      }
+      const isCurrent = (i === state.quizIndex) ? 'current' : '';
+      return `
+        <button type="button" class="drawer-q-btn ${statusClass} ${isCurrent}" data-jump-idx="${i}">
+          <span>${i + 1}</span>
+          ${badgeText ? `<span class="drawer-badge">${badgeText}</span>` : ''}
+        </button>
+      `;
+    }).join('');
+
     const isExamUnit = q.unitId === 'EXAM_MID1' || (state.currentUnitId === 'EXAM_MID1');
     const unitObj = UNITS.find(u => u.id === q.unitId) || { title: isExamUnit ? '六年級上_第一次段考' : '綜合特訓' };
     const isMental = q.batch === '純腦力體操' || (q.options && q.options.length > 0 && !isExamUnit);
@@ -506,11 +578,11 @@
 
     const hasOptions = Array.isArray(q.options) && q.options.length > 0;
     const correctKey = (q.answerKey || q.answer.trim().charAt(0)).toUpperCase();
-    let answerDisplay = q.answer;
+    let answerDisplay = formatMathForKids(q.answer);
     if (hasOptions) {
       const optIdx = ['A', 'B', 'C', 'D'].indexOf(correctKey);
       if (optIdx >= 0 && q.options[optIdx]) {
-        const cleanOpt = q.options[optIdx].replace(/^[A-D]\.\s*/, '');
+        const cleanOpt = formatMathForKids(q.options[optIdx].replace(/^[A-D]\.\s*/, ''));
         answerDisplay = `${correctKey} · ${cleanOpt}`;
       }
     }
@@ -519,7 +591,7 @@
       <div class="options-grid" id="options-grid">
         ${q.options.map((opt, i) => {
           const letter = ['A', 'B', 'C', 'D'][i] || String(i + 1);
-          const cleanText = opt.replace(/^[A-D]\.\s*/, '');
+          const cleanText = formatMathForKids(opt.replace(/^[A-D]\.\s*/, ''));
           let btnClass = 'opt-btn';
           let disabledAttr = '';
           if (isAnswered) {
@@ -602,12 +674,32 @@
         <div class="quiz-head">
           <div class="quiz-nav-left">
             <button class="btn btn-ghost" id="btn-back-dash" title="離開測驗">← 結束測驗</button>
-            ${state.quizIndex > 0 ? `<button class="btn btn-ghost" id="btn-prev-q" title="回頭看上一題答題狀況">⏮️ 上一題</button>` : ''}
+            <button class="btn btn-ghost" id="btn-prev-q" title="回頭看上一題" ${state.quizIndex === 0 ? 'disabled' : ''}>⏮️ 上一題</button>
+            <button class="btn btn-ghost" id="btn-next-q-top" title="跳至下一題">${cur === total ? '結算 🏁' : '下一題 ⏭️'}</button>
           </div>
-          <span class="crumb">${unitObj.title} · 第 ${cur} 題</span>
+          <span class="crumb">${unitObj.title}</span>
           <div class="progress"><i style="width: ${pct}%"></i></div>
-          <span class="count">${cur} / ${total}</span>
+          <button type="button" class="count-badge-btn" id="btn-toggle-drawer" title="展開題號速跳盤">
+            第 ${cur} / ${total} 題 ▾
+          </button>
         </div>
+
+        <div class="quiz-grid-drawer" id="quiz-grid-drawer" style="display: none;">
+          <div class="grid-drawer-head">
+            <span>🔢 題號速跳盤（綠色答對・紅色答錯・灰色未答，點擊直接跳題）</span>
+            <button type="button" class="btn-close-drawer" id="btn-close-drawer">✕</button>
+          </div>
+          <div class="drawer-q-grid">
+            ${drawerGridHtml}
+          </div>
+        </div>
+
+        ${canResume ? `
+          <div class="resume-hint-bar">
+            <span>📌 上次練習記錄進行到第 ${lastSavedIdx + 1} 題</span>
+            <button type="button" class="btn btn-sm btn-jump-resume" id="btn-resume-jump" data-resume-idx="${lastSavedIdx}">👉 直接跳轉第 ${lastSavedIdx + 1} 題</button>
+          </div>
+        ` : ''}
 
         ${examTabsHtml}
 
@@ -731,14 +823,24 @@
               </div>
             `}
 
-            <div class="next-row" id="next-row" style="${isAnswered ? 'display: block;' : 'display: none;'}">
-              <div style="display: flex; gap: 12px; align-items: center;">
-                ${state.quizIndex > 0 ? `<button class="btn btn-ghost btn-lg" id="btn-prev-q-bottom" style="flex: 1;">⏮️ 上一題</button>` : ''}
-                <button class="btn btn-primary btn-lg" id="btn-next-q" style="flex: ${state.quizIndex > 0 ? '2' : '1'};">
-                  ${cur === total ? '完成測驗並結算 🏁' : '進入下一題 →'}
-                </button>
-              </div>
-            </div>
+          </div>
+
+          <div class="quiz-bottom-nav">
+            <button type="button" class="btn btn-ghost btn-lg" id="btn-prev-q-bottom" ${state.quizIndex === 0 ? 'disabled' : ''}>
+              ⏮️ 上一題
+            </button>
+            <button type="button" class="btn btn-ghost btn-lg btn-jump-drawer" id="btn-bottom-drawer" title="展開題號速跳盤">
+              🔢 快速跳題
+            </button>
+            ${isAnswered ? `
+              <button type="button" class="btn btn-primary btn-lg" id="btn-next-q">
+                ${cur === total ? '完成測驗並結算 🏁' : '進入下一題 →'}
+              </button>
+            ` : `
+              <button type="button" class="btn btn-secondary btn-lg btn-skip-next" id="btn-next-q" title="先跳過本題直接做下一題">
+                ${cur === total ? '測驗結算 🏁' : '跳至下一題 ❯'}
+              </button>
+            `}
           </div>
         </article>
       </div>
@@ -746,14 +848,12 @@
 
     renderMath(app);
 
-    // 綁定中斷/離開按鈕
+    // 綁定中斷/離開按鈕（直接結算並回顧）
     document.getElementById('btn-back-dash').addEventListener('click', () => {
-      if (confirm('確定要中斷測驗嗎？已作答的紀錄將會保存。')) {
-        finishQuiz();
-      }
+      finishQuiz();
     });
 
-    // 綁定「上一題」按鈕（頂部與底部）
+    // 綁定雙向導航切換
     const handlePrev = () => {
       if (state.quizIndex > 0) {
         state.quizIndex--;
@@ -764,6 +864,56 @@
     if (prevBtn) prevBtn.addEventListener('click', handlePrev);
     const prevBtnBottom = document.getElementById('btn-prev-q-bottom');
     if (prevBtnBottom) prevBtnBottom.addEventListener('click', handlePrev);
+
+    const handleNext = () => {
+      if (state.quizIndex < state.quizQuestions.length - 1) {
+        state.quizIndex++;
+        renderQuizQuestion();
+      } else {
+        finishQuiz();
+      }
+    };
+    const nextBtnTop = document.getElementById('btn-next-q-top');
+    if (nextBtnTop) nextBtnTop.addEventListener('click', handleNext);
+    const nextBtn = document.getElementById('btn-next-q');
+    if (nextBtn) nextBtn.addEventListener('click', handleNext);
+
+    // 抽屜盤切換事件
+    const toggleDrawer = () => {
+      const drawer = document.getElementById('quiz-grid-drawer');
+      if (drawer) {
+        drawer.style.display = drawer.style.display === 'none' ? 'block' : 'none';
+      }
+    };
+    const drawerToggleBtn = document.getElementById('btn-toggle-drawer');
+    if (drawerToggleBtn) drawerToggleBtn.addEventListener('click', toggleDrawer);
+    const bottomDrawerBtn = document.getElementById('btn-bottom-drawer');
+    if (bottomDrawerBtn) bottomDrawerBtn.addEventListener('click', toggleDrawer);
+    const closeDrawerBtn = document.getElementById('btn-close-drawer');
+    if (closeDrawerBtn) closeDrawerBtn.addEventListener('click', toggleDrawer);
+
+    // 抽屜盤題目按鈕跳轉
+    app.querySelectorAll('[data-jump-idx]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const idx = parseInt(btn.getAttribute('data-jump-idx'), 10);
+        if (!isNaN(idx) && idx >= 0 && idx < state.quizQuestions.length) {
+          state.quizIndex = idx;
+          renderQuizQuestion();
+        }
+      });
+    });
+
+    // 續考跳轉按鈕事件
+    const resumeBtn = document.getElementById('btn-resume-jump');
+    if (resumeBtn) {
+      resumeBtn.addEventListener('click', () => {
+        const targetIdx = parseInt(resumeBtn.getAttribute('data-resume-idx'), 10);
+        if (!isNaN(targetIdx) && targetIdx >= 0 && targetIdx < state.quizQuestions.length) {
+          state.quizIndex = targetIdx;
+          renderQuizQuestion();
+        }
+      });
+    }
 
     // 方案 C：學校分頁切換按鈕事件
     app.querySelectorAll('[data-school-tab]').forEach(btn => {
@@ -849,7 +999,12 @@
 
             ansArea.style.display = 'grid';
             renderMath(ansArea);
-            document.getElementById('next-row').style.display = 'block';
+            const bNext = document.getElementById('btn-next-q');
+            if (bNext) {
+              bNext.className = 'btn btn-primary btn-lg';
+              bNext.textContent = (cur === total) ? '完成測驗並結算 🏁' : '進入下一題 →';
+              bNext.removeAttribute('title');
+            }
             ansArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           });
         });
@@ -888,21 +1043,16 @@
               else b.classList.add('dim');
             });
 
-            const nextRow = document.getElementById('next-row');
-            nextRow.style.display = 'block';
-            nextRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            const bNext = document.getElementById('btn-next-q');
+            if (bNext) {
+              bNext.className = 'btn btn-primary btn-lg';
+              bNext.textContent = (cur === total) ? '完成測驗並結算 🏁' : '進入下一題 →';
+              bNext.removeAttribute('title');
+            }
+            ansArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           });
         });
       }
-    }
-
-    const nextBtn = document.getElementById('btn-next-q');
-    if (nextBtn) {
-      nextBtn.addEventListener('click', () => {
-        nextBtn.disabled = true;
-        state.quizIndex++;
-        renderQuizQuestion();
-      });
     }
   }
 
@@ -959,22 +1109,27 @@
   // -------------------------------------------------------
   function finishQuiz() {
     if (state.sessionAnswers.length === 0) {
+      showToast('本場次未作答任何題目，已返回首頁');
       state.view = 'dashboard';
       renderDashboardView();
       return;
     }
 
-    const total = state.sessionAnswers.length;
+    const answeredTotal = state.sessionAnswers.length;
+    const testTotal = state.quizQuestions.length;
     const okCnt = state.sessionAnswers.filter(a => a.result === 'ok').length;
     const slowCnt = state.sessionAnswers.filter(a => a.result === 'slow').length;
     const badCnt = state.sessionAnswers.filter(a => a.result === 'bad').length;
-    const score = Math.round((okCnt / total) * 100);
+    const skippedCnt = Math.max(0, testTotal - answeredTotal);
+    const score = answeredTotal > 0 ? Math.round((okCnt / answeredTotal) * 100) : 0;
 
     const sessionRecord = {
       date: new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' }),
       mode: state.quizMode,
       unitId: state.currentUnitId,
-      total,
+      total: testTotal,
+      answeredTotal,
+      skippedCnt,
       okCnt,
       slowCnt,
       badCnt,
@@ -985,29 +1140,44 @@
     state.fullHistory.push(sessionRecord);
     saveState();
 
-    const reviewItemsHtml = state.sessionAnswers.map((ans, idx) => {
-      const q = QUESTION_BANK.find(x => x.id === (ans.qId || ans.id));
-      if (!q) return '';
+    const reviewItemsHtml = state.quizQuestions.map((q, idx) => {
+      const ans = state.sessionAnswers.find(a => a.qId === q.id);
       const u = UNITS.find(x => x.id === q.unitId) || { title: '綜合特訓' };
       const isMental = q.batch === '純腦力體操' || (q.options && q.options.length > 0);
-      const isCorrect = ans.result === 'ok';
-      const isSlow = ans.result === 'slow';
+      const isAnswered = !!ans;
+      const isCorrect = ans && ans.result === 'ok';
+      const isSlow = ans && ans.result === 'slow';
 
-      const statusTag = isCorrect
+      const statusTag = !isAnswered
+        ? '<span class="tag" style="background:#f1f5f9; color:#64748b; font-weight:700;">⚪ 未作答 (已跳過)</span>'
+        : isCorrect
         ? '<span class="tag ok">✅ 答對秒殺</span>'
         : isSlow
         ? '<span class="tag" style="background:#eef2ff; color:#3730a3; font-weight:700;">⏳ 算對想很久</span>'
         : '<span class="tag bad">❌ 答錯入庫</span>';
 
       let choiceHtml = '';
-      if (q.options && q.options.length > 0) {
+      if (!isAnswered) {
+        choiceHtml = `
+          <div class="review-choice-grid">
+            <div class="review-choice-pill skipped">
+              <span class="label">作答狀況：</span>
+              <b>⚪ 本題跳過未作答（不計入錯題）</b>
+            </div>
+            <div class="review-choice-pill correct">
+              <span class="label">標準正解：</span>
+              <b>${q.answer}</b>
+            </div>
+          </div>
+        `;
+      } else if (q.options && q.options.length > 0) {
         const userKey = (ans.userChoice || '').toUpperCase();
         const optIdx = ['A', 'B', 'C', 'D'].indexOf(userKey);
-        const userOptText = optIdx >= 0 && q.options[optIdx] ? q.options[optIdx].replace(/^[A-D]\.\s*/, '') : (ans.userChoice || '未作答');
+        const userOptText = optIdx >= 0 && q.options[optIdx] ? formatMathForKids(q.options[optIdx].replace(/^[A-D]\.\s*/, '')) : (ans.userChoice || '未作答');
 
         const correctKey = (q.answerKey || q.answer.trim().charAt(0)).toUpperCase();
         const corIdx = ['A', 'B', 'C', 'D'].indexOf(correctKey);
-        const corOptText = corIdx >= 0 && q.options[corIdx] ? q.options[corIdx].replace(/^[A-D]\.\s*/, '') : q.answer;
+        const corOptText = corIdx >= 0 && q.options[corIdx] ? formatMathForKids(q.options[corIdx].replace(/^[A-D]\.\s*/, '')) : formatMathForKids(q.answer);
 
         choiceHtml = `
           <div class="review-choice-grid">
@@ -1039,7 +1209,7 @@
       }
 
       return `
-        <div class="review-item ${ans.result}">
+        <div class="review-item ${!isAnswered ? 'skipped' : ans.result}">
           <div class="review-item-head">
             <div class="review-item-meta">
               <span class="review-q-num">第 ${idx + 1} 題</span>
@@ -1098,12 +1268,19 @@
           <div class="big" style="color: ${score >= 80 ? 'var(--ok)' : score >= 60 ? 'var(--slow)' : 'var(--bad)'}; margin: 12px 0;">
             ${score} 分
           </div>
-          <p class="muted">${state.sessionAnswers.some(a => { const q = QUESTION_BANK.find(x => x.id === (a.qId || a.id)); return q && q.batch === '純腦力體操'; }) ? `完成 ${total} 題早餐純腦力思維天梯挑戰` : `完成 ${total} 題紙筆計算特訓`}</p>
+          <p class="muted">
+            已作答 ${answeredTotal} 題 ${skippedCnt > 0 ? `（另有 ${skippedCnt} 題跳過未作答）` : ''} · 總題數 ${testTotal} 題
+          </p>
 
           <div class="result-bars">
             <div class="stat ok"><b>${okCnt}</b><span>秒殺熟練</span></div>
             <div class="stat pri"><b>${slowCnt}</b><span>想很久</span></div>
             <div class="stat bad"><b>${badCnt}</b><span>答錯進錯題</span></div>
+            ${skippedCnt > 0 ? `
+              <div class="stat" style="background: #f8fafc; border-color: #cbd5e1; color: #475569;">
+                <b>${skippedCnt}</b><span>跳過未答</span>
+              </div>
+            ` : ''}
           </div>
 
           <div class="result-actions">
@@ -1114,7 +1291,7 @@
 
           <div class="review-section">
             <div class="review-header-bar">
-              <h3>📋 本次測驗答題明細回顧 (${total} 題)</h3>
+              <h3>📋 本次測驗答題明細回顧 (${testTotal} 題)</h3>
               <span style="font-size: 13px; color: var(--ink-2);">點擊「📖 看詳解」可展開解題推導與秒殺思維</span>
             </div>
             <div class="review-list">

@@ -182,6 +182,38 @@ h1, h2, h3, h4 { margin: 0; line-height: 1.3; }
 .u-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: auto; }
 .u-actions .btn { padding: 11px 10px; font-size: 15px; }
 
+/* 單元卡片雙軌特訓按鈕（特訓 + 消滅錯題並存） */
+.u-actions.has-errors {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+}
+.u-actions-top-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.btn-kill-err {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 11px 8px;
+  border-radius: var(--radius-sm);
+  font-weight: 800;
+  font-size: 14px;
+  background: linear-gradient(135deg, #fb7185, #e11d48);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(225, 29, 72, 0.28);
+  transition: transform .15s ease, box-shadow .15s ease;
+  white-space: nowrap;
+}
+.btn-kill-err:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(225, 29, 72, 0.4);
+}
+
 .banner-error {
   display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
   margin-top: 22px; padding: 22px 24px; border-radius: var(--radius); color: #fff;
@@ -497,7 +529,18 @@ h1, h2, h3, h4 { margin: 0; line-height: 1.3; }
   flex-shrink: 0;
   transition: all .15s ease;
 }
-.opt-text { flex: 1; }
+.opt-text {
+  flex: 1;
+  font-size: 19px;
+  line-height: 1.6;
+}
+.opt-text .katex {
+  font-size: 1.18em;
+  font-weight: 500;
+}
+.opt-text .katex .mfrac {
+  vertical-align: -0.25em;
+}
 
 .opt-btn.opt-correct {
   border-color: #10b981 !important;
@@ -983,4 +1026,172 @@ h1, h2, h3, h4 { margin: 0; line-height: 1.3; }
   display: block;
   border-radius: 8px;
 }
+
+/* =========================================================
+   題號快速跳轉盤、常駐雙向導航與續考樣式
+   ========================================================= */
+
+/* 頂部題號切換按鈕 */
+.count-badge-btn {
+  font-family: var(--font-num);
+  font-weight: 800;
+  font-size: 14px;
+  color: var(--primary);
+  background: var(--primary-soft);
+  border: 1px solid #c7d2fe;
+  border-radius: 999px;
+  padding: 4px 12px;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.count-badge-btn:hover {
+  background: #ddd6fe;
+  transform: translateY(-1px);
+}
+
+/* 題號速跳抽屜盤 (Grid Drawer) */
+.quiz-grid-drawer {
+  margin: 0 0 18px 0;
+  background: #ffffff;
+  border: 2px solid var(--line);
+  border-radius: 18px;
+  padding: 16px 20px;
+  box-shadow: var(--shadow);
+  animation: fadeIn .2s ease;
+}
+.grid-drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--ink-2);
+}
+.btn-close-drawer {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  color: var(--ink-2);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 900;
+}
+.btn-close-drawer:hover {
+  background: #e2e8f0;
+}
+.drawer-q-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(46px, 1fr));
+  gap: 8px;
+  max-height: 220px;
+  overflow-y: auto;
+  padding: 4px 2px;
+}
+.drawer-q-btn {
+  position: relative;
+  height: 42px;
+  border-radius: 12px;
+  border: 1.5px solid var(--line);
+  background: #f8fafc;
+  color: var(--ink);
+  font-family: var(--font-num);
+  font-weight: 800;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.drawer-q-btn:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(91, 75, 219, 0.15);
+}
+.drawer-q-btn.current {
+  border-color: var(--primary) !important;
+  background: var(--primary-soft) !important;
+  color: var(--primary) !important;
+  box-shadow: 0 0 0 3px rgba(91, 75, 219, 0.25);
+}
+.drawer-q-btn.ok {
+  border-color: #10b981;
+  background: #ecfdf5;
+  color: #065f46;
+}
+.drawer-q-btn.slow {
+  border-color: #6366f1;
+  background: #eef2ff;
+  color: #3730a3;
+}
+.drawer-q-btn.bad {
+  border-color: #f43f5e;
+  background: #fff1f2;
+  color: #9f1239;
+}
+.drawer-q-btn .q-ic {
+  position: absolute;
+  top: 2px;
+  right: 3px;
+  font-size: 9px;
+  line-height: 1;
+}
+
+/* 續考進度提示條 */
+.resume-hint-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding: 10px 16px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #ede9fe, #fae8ff);
+  border: 1.5px solid #d8b4fe;
+  color: #581c87;
+  font-size: 13.5px;
+  font-weight: 700;
+  animation: fadeIn .2s ease;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.btn-jump-resume {
+  background: #7e22ce;
+  color: #ffffff;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 6px rgba(126, 34, 206, 0.3);
+  transition: transform .15s ease;
+}
+.btn-jump-resume:hover {
+  transform: translateY(-1px);
+  background: #6b21a8;
+}
+
+/* 底部常駐雙向操作列 */
+.quiz-bottom-nav {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1.5px solid var(--line);
+}
+
+/* 結算明細跳過未作答樣式 */
+.review-choice-pill.skipped {
+  background: #f1f5f9;
+  color: #64748b;
+  border-color: #cbd5e1;
+}
+.review-item.skipped {
+  border-left: 6px solid #94a3b8;
+  opacity: 0.92;
+}
+
 
