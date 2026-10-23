@@ -224,117 +224,6 @@ h1, h2, h3, h4 { margin: 0; line-height: 1.3; }
 .banner-error p { margin: 4px 0 0; opacity: .92; }
 .banner-error .btn { background: #fff; color: #e11d48; }
 
-/* ---------- 早餐純腦力體操橫幅 ---------- */
-.banner-mental {
-  display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-  margin-top: 22px; padding: 22px 24px; border-radius: var(--radius);
-  background: linear-gradient(125deg, rgba(254, 243, 199, 0.88), rgba(253, 230, 138, 0.72));
-  border: 2px solid #f59e0b;
-  box-shadow: 0 16px 32px -16px rgba(245, 158, 11, 0.4);
-}
-.banner-mental h3 { font-size: 21px; font-weight: 900; color: #78350f; margin: 0; }
-.banner-mental p { margin: 4px 0 0; color: #92400e; font-weight: 600; font-size: 15px; }
-.banner-mental .btn { background: #d97706; color: #fff; border: none; font-weight: 900; box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35); }
-.banner-mental .btn:hover { background: #b45309; }
-
-.star-badge {
-  background: linear-gradient(135deg, #fef3c7, #fde68a);
-  color: #b45309;
-  font-weight: 900;
-  border: 1px solid #f59e0b;
-  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.2);
-}
-.mental-hint {
-  background: linear-gradient(135deg, #fdf4ff, #fae8ff);
-  color: #86198f;
-  border: 1.5px solid #f0abfc;
-}
-
-/* ---------- 純腦力選擇題 iPad 觸控組件 ---------- */
-.options-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-  margin: 24px 0;
-}
-@media (max-width: 640px) {
-  .options-grid { grid-template-columns: 1fr; }
-}
-.opt-btn {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 16px 20px;
-  border-radius: 18px;
-  border: 2px solid var(--line);
-  background: #ffffff;
-  color: var(--ink);
-  font-size: 18px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all .2s cubic-bezier(.2, .8, .2, 1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-  text-align: left;
-}
-.opt-btn:hover:not(:disabled) {
-  border-color: var(--primary);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px -6px rgba(91, 75, 219, 0.2);
-}
-.opt-letter {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 12px;
-  background: #f4f3fb;
-  color: var(--primary);
-  font-weight: 900;
-  font-size: 17px;
-  flex-shrink: 0;
-  transition: background .2s, color .2s;
-}
-.opt-text { flex: 1; line-height: 1.5; }
-.opt-btn.opt-correct {
-  border-color: #10b981 !important;
-  background: linear-gradient(135deg, #ecfdf5, #d1fae5) !important;
-  color: #065f46 !important;
-  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.25) !important;
-}
-.opt-btn.opt-correct .opt-letter {
-  background: #10b981 !important;
-  color: #ffffff !important;
-}
-.opt-btn.opt-wrong {
-  border-color: #ef4444 !important;
-  background: linear-gradient(135deg, #fef2f2, #fee2e2) !important;
-  color: #991b1b !important;
-  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.25) !important;
-}
-.opt-btn.opt-wrong .opt-letter {
-  background: #ef4444 !important;
-  color: #ffffff !important;
-}
-.mental-feedback-alert {
-  padding: 14px 18px;
-  border-radius: 14px;
-  margin: 16px 0;
-  font-weight: 800;
-  font-size: 16px;
-  animation: rise .3s ease both;
-}
-.mental-feedback-alert.ok {
-  background: #d1fae5;
-  color: #065f46;
-  border: 1.5px solid #6ee7b7;
-}
-.mental-feedback-alert.bad {
-  background: #fee2e2;
-  color: #991b1b;
-  border: 1.5px solid #fca5a5;
-}
-
 /* ---------- 作答頁 ---------- */
 .quiz-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 16px; }
 .quiz-head .crumb { font-weight: 900; font-size: 18px; }
@@ -1119,7 +1008,8 @@ h1, h2, h3, h4 { margin: 0; line-height: 1.3; }
   color: var(--primary) !important;
   box-shadow: 0 0 0 3px rgba(91, 75, 219, 0.25);
 }
-.drawer-q-btn.ok {
+.drawer-q-btn.ok,
+.drawer-q-btn.correct {
   border-color: #10b981;
   background: #ecfdf5;
   color: #065f46;
@@ -1129,12 +1019,14 @@ h1, h2, h3, h4 { margin: 0; line-height: 1.3; }
   background: #eef2ff;
   color: #3730a3;
 }
-.drawer-q-btn.bad {
+.drawer-q-btn.bad,
+.drawer-q-btn.wrong {
   border-color: #f43f5e;
   background: #fff1f2;
   color: #9f1239;
 }
-.drawer-q-btn .q-ic {
+.drawer-q-btn .q-ic,
+.drawer-q-btn .drawer-badge {
   position: absolute;
   top: 2px;
   right: 3px;
@@ -1193,5 +1085,296 @@ h1, h2, h3, h4 { margin: 0; line-height: 1.3; }
   border-left: 6px solid #94a3b8;
   opacity: 0.92;
 }
+
+/* =========================================================
+   4 人學習帳號切換系統與雲端同步中心樣式
+   ========================================================= */
+.user-switch-btn {
+  border: 2px solid var(--primary);
+  font-weight: 800;
+}
+.user-switch-btn .user-caret {
+  font-size: 11px;
+  opacity: 0.75;
+}
+
+.user-switcher-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 18px;
+  margin-bottom: 18px;
+  border: 2px solid var(--active-user-color, var(--primary));
+  background: rgba(255, 255, 255, 0.9);
+}
+.user-bar-left {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.user-bar-label {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--ink-2);
+}
+.user-pills-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.user-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 800;
+  border: 1.5px solid var(--line);
+  background: #ffffff;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.user-pill-btn:hover {
+  border-color: var(--u-color, var(--primary));
+  transform: translateY(-1px);
+}
+.user-pill-btn.active {
+  background: var(--u-color, var(--primary));
+  border-color: var(--u-color, var(--primary));
+  color: #ffffff;
+  box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.22);
+}
+.u-err-dot {
+  display: inline-block;
+  min-width: 18px;
+  height: 18px;
+  line-height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-family: var(--font-num);
+  text-align: center;
+  background: var(--bad);
+  color: #ffffff;
+}
+.user-pill-btn.active .u-err-dot {
+  background: #ffffff;
+  color: var(--bad);
+}
+
+.user-bar-right {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.test-mode-tag {
+  font-size: 12.5px;
+  font-weight: 800;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fcd34d;
+}
+.rex-mode-tag {
+  font-size: 12.5px;
+  font-weight: 800;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #ede9fe;
+  color: #5b21b6;
+  border: 1px solid #ddd6fe;
+}
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 10px;
+}
+.btn-clear-cur-test {
+  border-color: #fca5a5 !important;
+  color: #be123c !important;
+  background: #fff1f2 !important;
+}
+.btn-clear-cur-test:hover {
+  background: #ffe4e6 !important;
+}
+
+/* 帳號管理與雲端設定彈窗 */
+.user-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 950;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.user-modal-panel {
+  width: 100%;
+  max-width: 580px;
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 24px;
+  box-shadow: var(--shadow-lg);
+  animation: rise .22s ease both;
+}
+.user-modal-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1.5px solid var(--line);
+}
+.user-modal-head h3 {
+  font-size: 19px;
+  font-weight: 900;
+}
+.user-cards-list {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0;
+}
+.user-profile-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 16px;
+  border: 2px solid var(--line);
+  background: #faf9ff;
+  transition: all .15s ease;
+}
+.user-profile-card.active {
+  border-color: var(--u-color);
+  background: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+.u-card-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  cursor: pointer;
+}
+.u-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: var(--u-bg);
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.u-name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.u-name-row b {
+  font-size: 17px;
+  font-weight: 900;
+}
+.u-role-tag {
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.u-cur-badge {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #059669;
+}
+.u-stats-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--ink-2);
+  margin-top: 3px;
+}
+.u-stats-row .err-txt {
+  color: var(--bad);
+  font-weight: 700;
+}
+.u-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.u-protect-tag {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-3);
+  padding: 4px 8px;
+}
+.btn-reset-test {
+  color: #be123c;
+  border-color: #fecdd3;
+}
+
+.cloud-sync-box {
+  margin-top: 14px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+}
+.cloud-sync-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 13.5px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+.cloud-badge {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #e2e8f0;
+  color: #475569;
+}
+.cloud-badge.on {
+  background: #d1fae5;
+  color: #065f46;
+}
+.cloud-input-row {
+  display: flex;
+  gap: 8px;
+}
+.cloud-input-row input {
+  flex: 1;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1.5px solid #cbd5e1;
+  font-size: 13.5px;
+  outline: none;
+}
+.cloud-input-row input:focus {
+  border-color: var(--primary);
+}
+.cloud-sync-hint {
+  font-size: 12px;
+  color: var(--ink-3);
+  margin-top: 8px;
+}
+
 
 

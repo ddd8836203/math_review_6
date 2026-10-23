@@ -20,7 +20,23 @@
     { id: '臺南市和順國小', name: '臺南市和順國小', shortName: '和順國小', count: 27 },
   ];
 
+  // -------------------------------------------------------
+  // 多人學習帳號設定 (預設 4 人：Rex + Test 1~3)
+  // -------------------------------------------------------
+  const USERS = [
+    { id: 'rex',   name: 'Rex',    icon: '🦖', role: '正式學員', color: '#5b4bdb', bg: '#ede9fe', isTest: false },
+    { id: 'test1', name: 'Test 1', icon: '🧪', role: '測試帳號 1', color: '#059669', bg: '#d1fae5', isTest: true },
+    { id: 'test2', name: 'Test 2', icon: '🔬', role: '測試帳號 2', color: '#d97706', bg: '#fef3c7', isTest: true },
+    { id: 'test3', name: 'Test 3', icon: '🛠️', role: '測試帳號 3', color: '#0284c7', bg: '#e0f2fe', isTest: true },
+  ];
+
+  // 預設雲端資料庫網址（已綁定 Firebase Realtime DB，電腦與 iPad 免設定自動同步）
+  const DEFAULT_CLOUD_DB_URL = 'https://math-review-6-default-rtdb.asia-southeast1.firebasedatabase.app';
+
   const state = {
+    currentUser: 'rex', // 'rex' | 'test1' | 'test2' | 'test3'
+    cloudDbUrl: '', // Firebase Realtime Database URL
+    cloudSyncStatus: 'local', // 'local' | 'syncing' | 'synced' | 'offline'
     view: 'dashboard', // 'dashboard' | 'quiz' | 'result' | 'error_book' | 'print'
     selectedBatches: ['課本原型題', '奧數天梯', '純腦力體操', '段考真題'], // 預設篩選
     currentUnitId: null,
@@ -29,6 +45,7 @@
     quizMode: 'unit', // 'unit' | 'error_book' | 'mixed'
     quizQuestions: [],
     quizIndex: 0,
+    resumeTargetIdx: null, // 進入測驗時偵測到的上次斷點題號
     unitProgress: {}, // 各單元進行到的最後題號 { [unitId]: lastIndex }
     sessionAnswers: [], // { qId, result: 'ok'|'slow'|'bad', time }
     errorBook: [], // [ qId, ... ]
@@ -36,17 +53,18 @@
     successCounts: {}, // { [qId]: count }
     slowCounts: {}, // { [qId]: count }
     fullHistory: [], // [ session, ... ]
+    updatedAt: 0,
     printConfig: {
       unitIds: ['U01'],
       count: 6,
       workSize: 'md', // 'sm' | 'md' | 'lg'
       includeInsight: false,
-      batches: ['課本原型題', '奧數天梯'],
+      batches: ['課本原型題', '奧數天梯', '段考真題'],
     },
   };
 
   // -------------------------------------------------------
-  // 本地儲存 (LocalStorage)
+  // 本地儲存 (LocalStorage 多帳號命名空間隔離 + 舊資料無損移轉)
   // -------------------------------------------------------
   const STORAGE_KEYS = {
     errorBook: 'g6_math_error_book',
@@ -56,23 +74,98 @@
     history: 'g6_math_full_history',
     batches: 'g6_math_selected_batches',
     unitProgress: 'g6_math_unit_progress',
+    updatedAt: 'g6_math_updated_at',
   };
 
-  function loadState() {
+  const GLOBAL_STORAGE_KEYS = {
+    currentUser: 'g6_math_current_user',
+    migratedV1: 'g6_math_user_migrated_v1',
+    cloudDbUrl: 'g6_math_cloud_db_url',
+  };
+
+  function getCurrentUserObj() {
+    return USERS.find(u => u.id === state.currentUser) || USERS[0];
+  }
+
+  function getUserStorageKey(baseKey, userId = state.currentUser) {
+    return `${baseKey}__${userId}`;
+  }
+
+  // 將舊版無帳號後綴的資料自動無損遷移至預設主人 Rex 名下
+  function migrateLegacyDataToRex() {
     try {
-      const eb = localStorage.getItem(STORAGE_KEYS.errorBook);
-      if (eb) state.errorBook = JSON.parse(eb);
-      const ec = localStorage.getItem(STORAGE_KEYS.errorCounts);
-      if (ec) state.errorCounts = JSON.parse(ec);
-      const sc = localStorage.getItem(STORAGE_KEYS.successCounts);
-      if (sc) state.successCounts = JSON.parse(sc);
-      const sl = localStorage.getItem(STORAGE_KEYS.slowCounts);
-      if (sl) state.slowCounts = JSON.parse(sl);
-      const fh = localStorage.getItem(STORAGE_KEYS.history);
-      if (fh) state.fullHistory = JSON.parse(fh);
-      const up = localStorage.getItem(STORAGE_KEYS.unitProgress);
-      if (up) state.unitProgress = JSON.parse(up);
-      const sb = localStorage.getItem(STORAGE_KEYS.batches);
+      if (localStorage.getItem(GLOBAL_STORAGE_KEYS.migratedV1) === '1') return;
+      let migratedAny = false;
+      Object.values(STORAGE_KEYS).forEach(baseKey => {
+        const legacyVal = localStorage.getItem(baseKey);
+        const rexKey = getUserStorageKey(baseKey, 'rex');
+        if (legacyVal !== null && localStorage.getItem(rexKey) === null) {
+          localStorage.setItem(rexKey, legacyVal);
+          migratedAny = true;
+        }
+      });
+      if (migratedAny) {
+        localStorage.setItem(getUserStorageKey(STORAGE_KEYS.updatedAt, 'rex'), String(Date.now()));
+      }
+      localStorage.setItem(GLOBAL_STORAGE_KEYS.migratedV1, '1');
+    } catch (e) {
+      console.warn('舊資料遷移失敗：', e);
+    }
+  }
+
+  function loadUserStatsSummary(userId) {
+    try {
+      const ebRaw = localStorage.getItem(getUserStorageKey(STORAGE_KEYS.errorBook, userId));
+      const scRaw = localStorage.getItem(getUserStorageKey(STORAGE_KEYS.successCounts, userId));
+      const fhRaw = localStorage.getItem(getUserStorageKey(STORAGE_KEYS.history, userId));
+      const eb = ebRaw ? JSON.parse(ebRaw) : [];
+      const sc = scRaw ? JSON.parse(scRaw) : {};
+      const fh = fhRaw ? JSON.parse(fhRaw) : [];
+      const mastered = QUESTION_BANK.filter(q => (sc[q.id] || 0) >= 1 && !eb.includes(q.id)).length;
+      const pct = QUESTION_BANK.length > 0 ? Math.round((mastered / QUESTION_BANK.length) * 100) : 0;
+      return { errCount: eb.length, mastered, pct, sessions: fh.length };
+    } catch (e) {
+      return { errCount: 0, mastered: 0, pct: 0, sessions: 0 };
+    }
+  }
+
+  function loadState(userId = state.currentUser) {
+    try {
+      migrateLegacyDataToRex();
+
+      const savedUser = localStorage.getItem(GLOBAL_STORAGE_KEYS.currentUser);
+      if (!userId && savedUser && USERS.some(u => u.id === savedUser)) {
+        state.currentUser = savedUser;
+      } else if (userId && USERS.some(u => u.id === userId)) {
+        state.currentUser = userId;
+      }
+
+      const savedCloudUrl = localStorage.getItem(GLOBAL_STORAGE_KEYS.cloudDbUrl);
+      state.cloudDbUrl = (savedCloudUrl && savedCloudUrl.trim()) ? savedCloudUrl.trim() : DEFAULT_CLOUD_DB_URL;
+
+      const uid = state.currentUser;
+      const eb = localStorage.getItem(getUserStorageKey(STORAGE_KEYS.errorBook, uid));
+      state.errorBook = eb ? JSON.parse(eb) : [];
+
+      const ec = localStorage.getItem(getUserStorageKey(STORAGE_KEYS.errorCounts, uid));
+      state.errorCounts = ec ? JSON.parse(ec) : {};
+
+      const sc = localStorage.getItem(getUserStorageKey(STORAGE_KEYS.successCounts, uid));
+      state.successCounts = sc ? JSON.parse(sc) : {};
+
+      const sl = localStorage.getItem(getUserStorageKey(STORAGE_KEYS.slowCounts, uid));
+      state.slowCounts = sl ? JSON.parse(sl) : {};
+
+      const fh = localStorage.getItem(getUserStorageKey(STORAGE_KEYS.history, uid));
+      state.fullHistory = fh ? JSON.parse(fh) : [];
+
+      const up = localStorage.getItem(getUserStorageKey(STORAGE_KEYS.unitProgress, uid));
+      state.unitProgress = up ? JSON.parse(up) : {};
+
+      const ua = localStorage.getItem(getUserStorageKey(STORAGE_KEYS.updatedAt, uid));
+      state.updatedAt = ua ? parseInt(ua, 10) || 0 : 0;
+
+      const sb = localStorage.getItem(getUserStorageKey(STORAGE_KEYS.batches, uid));
       if (sb) {
         state.selectedBatches = JSON.parse(sb);
         if (!state.selectedBatches.includes('純腦力體操')) {
@@ -87,21 +180,235 @@
     } catch (e) {
       console.warn('LocalStorage 載入失敗：', e);
     }
+    updateNavUserUI();
   }
 
-  function saveState() {
+  let cloudSyncTimer = null;
+
+  function saveState(skipCloudPush = false) {
+    const uid = state.currentUser;
+    state.updatedAt = Date.now();
     try {
-      localStorage.setItem(STORAGE_KEYS.errorBook, JSON.stringify(state.errorBook));
-      localStorage.setItem(STORAGE_KEYS.errorCounts, JSON.stringify(state.errorCounts));
-      localStorage.setItem(STORAGE_KEYS.successCounts, JSON.stringify(state.successCounts));
-      localStorage.setItem(STORAGE_KEYS.slowCounts, JSON.stringify(state.slowCounts));
-      localStorage.setItem(STORAGE_KEYS.history, JSON.stringify(state.fullHistory));
-      localStorage.setItem(STORAGE_KEYS.batches, JSON.stringify(state.selectedBatches));
-      localStorage.setItem(STORAGE_KEYS.unitProgress, JSON.stringify(state.unitProgress));
+      localStorage.setItem(GLOBAL_STORAGE_KEYS.currentUser, uid);
+      localStorage.setItem(getUserStorageKey(STORAGE_KEYS.errorBook, uid), JSON.stringify(state.errorBook));
+      localStorage.setItem(getUserStorageKey(STORAGE_KEYS.errorCounts, uid), JSON.stringify(state.errorCounts));
+      localStorage.setItem(getUserStorageKey(STORAGE_KEYS.successCounts, uid), JSON.stringify(state.successCounts));
+      localStorage.setItem(getUserStorageKey(STORAGE_KEYS.slowCounts, uid), JSON.stringify(state.slowCounts));
+      localStorage.setItem(getUserStorageKey(STORAGE_KEYS.history, uid), JSON.stringify(state.fullHistory));
+      localStorage.setItem(getUserStorageKey(STORAGE_KEYS.batches, uid), JSON.stringify(state.selectedBatches));
+      localStorage.setItem(getUserStorageKey(STORAGE_KEYS.unitProgress, uid), JSON.stringify(state.unitProgress));
+      localStorage.setItem(getUserStorageKey(STORAGE_KEYS.updatedAt, uid), String(state.updatedAt));
     } catch (e) {
       console.warn('LocalStorage 儲存失敗：', e);
     }
     updateNavBadge();
+    updateNavUserUI();
+
+    if (!skipCloudPush && state.cloudDbUrl) {
+      clearTimeout(cloudSyncTimer);
+      cloudSyncTimer = setTimeout(() => pushToCloud(uid), 450);
+    }
+  }
+
+  // -------------------------------------------------------
+  // 跨裝置雲端同步引擎 (Firebase Realtime DB REST API)
+  // -------------------------------------------------------
+  function normalizeCloudUrl(url) {
+    if (!url) return '';
+    return url.trim().replace(/\/+$/, '').replace(/\.json$/i, '');
+  }
+
+  async function pushToCloud(userId = state.currentUser) {
+    const base = normalizeCloudUrl(state.cloudDbUrl);
+    if (!base) return false;
+    state.cloudSyncStatus = 'syncing';
+    const payload = {
+      userId,
+      updatedAt: state.updatedAt || Date.now(),
+      errorBook: state.errorBook,
+      errorCounts: state.errorCounts,
+      successCounts: state.successCounts,
+      slowCounts: state.slowCounts,
+      fullHistory: state.fullHistory,
+      selectedBatches: state.selectedBatches,
+      unitProgress: state.unitProgress,
+    };
+    try {
+      const res = await fetch(`${base}/g6_math_users/${userId}.json`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (res.ok) {
+        state.cloudSyncStatus = 'synced';
+        return true;
+      }
+    } catch (e) {
+      state.cloudSyncStatus = 'offline';
+    }
+    return false;
+  }
+
+  async function syncFromCloud(userId = state.currentUser, showFeedback = false) {
+    const base = normalizeCloudUrl(state.cloudDbUrl);
+    if (!base) return false;
+    state.cloudSyncStatus = 'syncing';
+    try {
+      const res = await fetch(`${base}/g6_math_users.json`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const allCloudUsers = (await res.json()) || {};
+
+      // 先同步其他 3 個非當前帳號的摘要快取至本機 LocalStorage，讓切換膠囊與彈窗即時顯示最新數字
+      USERS.forEach(u => {
+        if (u.id === userId) return;
+        const cData = allCloudUsers[u.id];
+        if (!cData || typeof cData !== 'object') return;
+        const lUp = parseInt(localStorage.getItem(getUserStorageKey(STORAGE_KEYS.updatedAt, u.id)) || '0', 10) || 0;
+        const cUp = cData.updatedAt || 0;
+        if (cUp > lUp) {
+          localStorage.setItem(getUserStorageKey(STORAGE_KEYS.errorBook, u.id), JSON.stringify(cData.errorBook || []));
+          localStorage.setItem(getUserStorageKey(STORAGE_KEYS.errorCounts, u.id), JSON.stringify(cData.errorCounts || {}));
+          localStorage.setItem(getUserStorageKey(STORAGE_KEYS.successCounts, u.id), JSON.stringify(cData.successCounts || {}));
+          localStorage.setItem(getUserStorageKey(STORAGE_KEYS.slowCounts, u.id), JSON.stringify(cData.slowCounts || {}));
+          localStorage.setItem(getUserStorageKey(STORAGE_KEYS.history, u.id), JSON.stringify(cData.fullHistory || []));
+          localStorage.setItem(getUserStorageKey(STORAGE_KEYS.unitProgress, u.id), JSON.stringify(cData.unitProgress || {}));
+          if (Array.isArray(cData.selectedBatches) && cData.selectedBatches.length > 0) {
+            localStorage.setItem(getUserStorageKey(STORAGE_KEYS.batches, u.id), JSON.stringify(cData.selectedBatches));
+          }
+          localStorage.setItem(getUserStorageKey(STORAGE_KEYS.updatedAt, u.id), String(cUp));
+        }
+      });
+
+      const cloudData = allCloudUsers[userId];
+      const localUpdated = state.updatedAt || 0;
+      const localActivityCount = (state.fullHistory?.length || 0) + Object.keys(state.successCounts || {}).length + (state.errorBook?.length || 0);
+
+      if (cloudData && typeof cloudData === 'object') {
+        const cloudUpdated = cloudData.updatedAt || 0;
+        const cloudActivityCount = (cloudData.fullHistory?.length || 0) + Object.keys(cloudData.successCounts || {}).length + (cloudData.errorBook?.length || 0);
+
+        // 當雲端時間戳記較新，或本機從未初始化 (localUpdated === 0) 但雲端有紀錄時，套用雲端資料
+        if (cloudUpdated > localUpdated || (localUpdated === 0 && cloudActivityCount > 0)) {
+          state.errorBook = Array.isArray(cloudData.errorBook) ? cloudData.errorBook : [];
+          state.errorCounts = cloudData.errorCounts || {};
+          state.successCounts = cloudData.successCounts || {};
+          state.slowCounts = cloudData.slowCounts || {};
+          state.fullHistory = Array.isArray(cloudData.fullHistory) ? cloudData.fullHistory : [];
+          state.unitProgress = cloudData.unitProgress || {};
+          if (Array.isArray(cloudData.selectedBatches) && cloudData.selectedBatches.length > 0) {
+            state.selectedBatches = cloudData.selectedBatches;
+          }
+          state.updatedAt = cloudUpdated;
+          saveState(true);
+          if (state.view === 'dashboard') renderDashboardView();
+          else if (state.view === 'error_book') renderErrorBookView();
+          else if (state.view === 'print') renderPrintSetupView();
+          const uObj = USERS.find(u => u.id === userId) || { name: userId };
+          showToast(`☁️ 已同步【${uObj.name}】的最新雲端進度！`);
+        } else if (localUpdated > cloudUpdated && localActivityCount > 0) {
+          await pushToCloud(userId);
+          if (showFeedback) showToast('☁️ 本機進度較新，已推送更新至雲端！');
+        } else {
+          if (state.view === 'dashboard') renderDashboardView();
+          if (showFeedback) showToast('☁️ 目前已是最新雲端同步狀態！');
+        }
+      } else if (localActivityCount > 0) {
+        // 雲端尚無此人員節點，直接將本機資料推上雲端初始化
+        await pushToCloud(userId);
+        if (showFeedback) showToast('☁️ 已將本機紀錄首次備份至雲端！');
+      }
+      state.cloudSyncStatus = 'synced';
+      return true;
+    } catch (e) {
+      state.cloudSyncStatus = 'offline';
+      if (showFeedback) showToast('⚠️ 雲端連線失敗，請檢查網址與資料庫權限設定');
+      return false;
+    }
+  }
+
+  // 切換使用者帳號
+  function switchUser(newUserId, showMsg = true) {
+    const target = USERS.find(u => u.id === newUserId);
+    if (!target) return;
+    state.currentUser = target.id;
+    localStorage.setItem(GLOBAL_STORAGE_KEYS.currentUser, target.id);
+    state.sessionAnswers = [];
+    state.resumeTargetIdx = null;
+    loadState(target.id);
+    updateNavBadge();
+    updateNavUserUI();
+
+    if (showMsg) {
+      showToast(`${target.icon} 已切換為：${target.name}（${target.role}）`);
+    }
+
+    if (state.cloudDbUrl) {
+      syncFromCloud(target.id, false);
+    }
+
+    if (state.view === 'error_book') {
+      renderErrorBookView();
+    } else if (state.view === 'print') {
+      renderPrintSetupView();
+    } else {
+      state.view = 'dashboard';
+      renderDashboardView();
+    }
+  }
+
+  // 一鍵清空重置測試帳號資料（僅限 Test 1 ~ Test 3，保護 Rex，並同步清空雲端節點）
+  async function resetTestUser(userId) {
+    const target = USERS.find(u => u.id === userId);
+    if (!target || !target.isTest) {
+      showToast('🔒 Rex 為正式學員帳號，受系統保護不可一鍵清空！');
+      return;
+    }
+    const nowTs = Date.now();
+    Object.values(STORAGE_KEYS).forEach(baseKey => {
+      localStorage.removeItem(getUserStorageKey(baseKey, userId));
+    });
+    localStorage.setItem(getUserStorageKey(STORAGE_KEYS.updatedAt, userId), String(nowTs));
+
+    if (state.currentUser === userId) {
+      state.errorBook = [];
+      state.errorCounts = {};
+      state.successCounts = {};
+      state.slowCounts = {};
+      state.fullHistory = [];
+      state.unitProgress = {};
+      state.sessionAnswers = [];
+      state.resumeTargetIdx = null;
+      state.updatedAt = nowTs;
+      saveState(true);
+      if (state.view === 'dashboard') renderDashboardView();
+      else if (state.view === 'error_book') renderErrorBookView();
+    }
+
+    // 同步將雲端上的該測試帳號歸零
+    const base = normalizeCloudUrl(state.cloudDbUrl);
+    if (base) {
+      try {
+        await fetch(`${base}/g6_math_users/${userId}.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            userId,
+            updatedAt: nowTs,
+            errorBook: [],
+            errorCounts: {},
+            successCounts: {},
+            slowCounts: {},
+            fullHistory: [],
+            selectedBatches: ['課本原型題', '奧數天梯', '純腦力體操', '段考真題'],
+            unitProgress: {},
+          }),
+        });
+      } catch (e) {
+        console.warn('雲端重置測試帳號失敗：', e);
+      }
+    }
+
+    showToast(`🧹 已將【${target.name}】的本機與雲端紀錄全部歸零重置！`);
   }
 
   // -------------------------------------------------------
@@ -113,6 +420,16 @@
     // 檢查是否有裸露的 \frac{...}{...}（前後沒有 $）
     res = res.replace(/(^|[^\$])((?:\d+\s*)?\\frac\{[^{}]+\}\{[^{}]+\})([^\$]|$)/g, '$1$$$2$$$3');
     return res;
+  }
+
+  function cleanOptionText(opt) {
+    if (!opt || typeof opt !== 'string') return '';
+    return formatMathForKids(opt.replace(/^(?:[A-D]\.|\([1-4A-D]\)|[①-④])\s*/i, ''));
+  }
+
+  function getProgressKey(unitId) {
+    if (!unitId) return null;
+    return unitId === 'EXAM_MID1' ? `EXAM_MID1_${state.examSchool || 'ALL'}` : unitId;
   }
 
   // -------------------------------------------------------
@@ -196,7 +513,7 @@
   }
 
   // -------------------------------------------------------
-  // 導航列更新
+  // 導航列更新與帳號管理彈窗
   // -------------------------------------------------------
   function updateNavBadge() {
     const badge = document.getElementById('nav-error-count');
@@ -206,6 +523,149 @@
       if (cnt === 0) badge.classList.add('zero');
       else badge.classList.remove('zero');
     }
+  }
+
+  function updateNavUserUI() {
+    const curUser = getCurrentUserObj();
+    const btn = document.getElementById('nav-user');
+    const iconEl = document.getElementById('nav-user-icon');
+    const nameEl = document.getElementById('nav-user-name');
+    if (iconEl) iconEl.textContent = curUser.icon;
+    if (nameEl) nameEl.textContent = curUser.name;
+    if (btn) {
+      btn.style.borderColor = curUser.color;
+      btn.style.background = curUser.bg;
+      btn.style.color = curUser.color;
+    }
+  }
+
+  function openUserModal() {
+    let modal = document.getElementById('user-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'user-modal';
+      modal.className = 'user-modal-backdrop';
+      document.body.appendChild(modal);
+    }
+
+    const renderModalContent = () => {
+      const userCardsHtml = USERS.map(u => {
+        const isCurrent = u.id === state.currentUser;
+        const st = loadUserStatsSummary(u.id);
+        return `
+          <div class="user-profile-card ${isCurrent ? 'active' : ''}" style="--u-color: ${u.color}; --u-bg: ${u.bg};">
+            <div class="u-card-left" data-pick-user="${u.id}">
+              <span class="u-avatar">${u.icon}</span>
+              <div class="u-info">
+                <div class="u-name-row">
+                  <b>${u.name}</b>
+                  <span class="u-role-tag" style="background:${u.bg}; color:${u.color};">${u.role}</span>
+                  ${isCurrent ? `<span class="u-cur-badge">✔ 使用中</span>` : ''}
+                </div>
+                <div class="u-stats-row">
+                  <span>掌握度 <b>${st.pct}%</b> (${st.mastered}題)</span>
+                  <span>·</span>
+                  <span class="${st.errCount > 0 ? 'err-txt' : ''}">錯題 <b>${st.errCount}</b></span>
+                  <span>·</span>
+                  <span>練習 <b>${st.sessions}</b> 場</span>
+                </div>
+              </div>
+            </div>
+            <div class="u-card-actions">
+              ${!isCurrent ? `
+                <button type="button" class="btn btn-sm btn-primary" data-pick-user="${u.id}">切換</button>
+              ` : ''}
+              ${u.isTest ? `
+                <button type="button" class="btn btn-sm btn-ghost btn-reset-test" data-reset-user="${u.id}" title="將此測試帳號的錯題與進度歸零">
+                  🧹 清空
+                </button>
+              ` : `
+                <span class="u-protect-tag" title="正式學員資料受保護，防止誤刪">🔒 保護中</span>
+              `}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      modal.innerHTML = `
+        <div class="user-modal-panel glass" role="dialog" aria-label="切換學習帳號與雲端設定">
+          <div class="user-modal-head">
+            <div>
+              <h3>👥 切換使用人員（錯題本與進度獨立隔離）</h3>
+              <p class="muted" style="font-size: 13px; margin: 4px 0 0;">點擊人員即可立即切換，測試帳號可隨時一鍵清空重置，絕不影響 Rex 的紀錄。</p>
+            </div>
+            <button type="button" class="btn-close-drawer" id="user-modal-close">✕</button>
+          </div>
+
+          <div class="user-cards-list">
+            ${userCardsHtml}
+          </div>
+
+          <div class="cloud-sync-box">
+            <div class="cloud-sync-head">
+              <span>☁️ 跨裝置雲端同步（Firebase Realtime DB 網址）</span>
+              <span class="cloud-badge ${state.cloudDbUrl ? 'on' : ''}">${state.cloudDbUrl ? '🟢 已啟用雲端同步' : '⚪ 目前為本機獨立儲存'}</span>
+            </div>
+            <div class="cloud-input-row">
+              <input type="url" id="input-cloud-url" placeholder="貼上 https://你的專案.firebasedatabase.app" value="${state.cloudDbUrl || ''}">
+              <button type="button" class="btn btn-primary btn-sm" id="btn-save-cloud">儲存並同步</button>
+            </div>
+            <div class="cloud-sync-hint">
+              填入免費 Firebase Realtime Database 網址後，4 個人的帳號進度將在電腦與 iPad 間自動即時同步。
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('user-modal-close').onclick = closeModal;
+      modal.querySelectorAll('[data-pick-user]').forEach(el => {
+        el.onclick = () => {
+          const uid = el.getAttribute('data-pick-user');
+          switchUser(uid);
+          closeModal();
+        };
+      });
+
+      modal.querySelectorAll('[data-reset-user]').forEach(btn => {
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          const uid = btn.getAttribute('data-reset-user');
+          const uObj = USERS.find(x => x.id === uid);
+          if (uObj && confirm(`確定要清空測試帳號【${uObj.name}】的所有錯題本與練習進度嗎？（Rex 的資料不會受影響）`)) {
+            resetTestUser(uid);
+            renderModalContent();
+          }
+        };
+      });
+
+      const saveCloudBtn = document.getElementById('btn-save-cloud');
+      if (saveCloudBtn) {
+        saveCloudBtn.onclick = async () => {
+          const val = (document.getElementById('input-cloud-url')?.value || '').trim();
+          state.cloudDbUrl = val;
+          localStorage.setItem(GLOBAL_STORAGE_KEYS.cloudDbUrl, val);
+          if (val) {
+            saveCloudBtn.disabled = true;
+            saveCloudBtn.textContent = '同步中...';
+            await syncFromCloud(state.currentUser, true);
+          } else {
+            showToast('已關閉雲端同步，改為純本機儲存模式');
+          }
+          renderModalContent();
+        };
+      }
+    };
+
+    const closeModal = () => {
+      modal.style.display = 'none';
+    };
+
+    modal.onclick = (e) => {
+      if (e.target === modal) closeModal();
+    };
+
+    renderModalContent();
+    modal.style.display = 'flex';
   }
 
   // -------------------------------------------------------
@@ -321,12 +781,43 @@
       `;
     }).join('');
 
+    const curUser = getCurrentUserObj();
+    const userSwitcherHtml = `
+      <section class="user-switcher-bar glass" style="--active-user-color: ${curUser.color}; --active-user-bg: ${curUser.bg};">
+        <div class="user-bar-left">
+          <span class="user-bar-label">👤 目前使用人員：</span>
+          <div class="user-pills-row">
+            ${USERS.map(u => {
+              const active = u.id === state.currentUser;
+              const st = loadUserStatsSummary(u.id);
+              return `
+                <button type="button" class="user-pill-btn ${active ? 'active' : ''}" data-quick-user="${u.id}" style="--u-color: ${u.color}; --u-bg: ${u.bg};">
+                  <span>${u.icon} ${u.name}</span>
+                  ${st.errCount > 0 ? `<b class="u-err-dot" title="${st.errCount} 題待消滅">${st.errCount}</b>` : ''}
+                </button>
+              `;
+            }).join('')}
+          </div>
+        </div>
+        <div class="user-bar-right">
+          ${curUser.isTest ? `
+            <span class="test-mode-tag">🧪 測試隔離模式（不影響 Rex 紀錄）</span>
+            <button type="button" class="btn btn-sm btn-ghost btn-clear-cur-test" id="btn-dash-reset-test">🧹 清空 ${curUser.name} 紀錄</button>
+          ` : `
+            <span class="rex-mode-tag">🦖 Rex 正式學習模式（進度保護中）</span>
+          `}
+          <button type="button" class="btn btn-sm btn-ghost" id="btn-open-user-modal">⚙️ 帳號與雲端</button>
+        </div>
+      </section>
+    `;
+
     const app = document.getElementById('app');
     app.innerHTML = `
       <div class="view dashboard">
+        ${userSwitcherHtml}
         <section class="glass hero">
           <div>
-            <h2>六上數學特訓 <span class="grad">奧數能力天梯</span></h2>
+            <h2>${curUser.icon} ${curUser.name} 的六上數學特訓 <span class="grad">奧數能力天梯</span></h2>
             <p>先在實體紙筆計算，再上網即時對答案。自動建立專屬錯題本，無縫對接 AMC 8 競賽思維。</p>
             <div class="filters">
               <span class="label">題庫範圍：</span>
@@ -445,6 +936,31 @@
     if (killBtn) {
       killBtn.addEventListener('click', () => startQuiz('error_book'));
     }
+
+    // 綁定首頁人員快速切換與測試帳號清空事件
+    app.querySelectorAll('[data-quick-user]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const uid = btn.getAttribute('data-quick-user');
+        if (uid && uid !== state.currentUser) {
+          switchUser(uid);
+        }
+      });
+    });
+
+    const dashResetBtn = document.getElementById('btn-dash-reset-test');
+    if (dashResetBtn) {
+      dashResetBtn.addEventListener('click', () => {
+        const curU = getCurrentUserObj();
+        if (curU.isTest && confirm(`確定要將測試帳號【${curU.name}】的錯題本與練習進度全部歸零嗎？`)) {
+          resetTestUser(curU.id);
+        }
+      });
+    }
+
+    const openModalBtn = document.getElementById('btn-open-user-modal');
+    if (openModalBtn) {
+      openModalBtn.addEventListener('click', () => openUserModal());
+    }
   }
 
   // -------------------------------------------------------
@@ -518,11 +1034,27 @@
 
     state.quizQuestions = pool;
     state.view = 'quiz';
+
+    // 記錄進入測驗前的上次題號（若是 EXAM_MID1 則區分學校，並向下相容舊版進度鍵值）
+    const progKey = getProgressKey(unitId);
+    let savedIdx = progKey ? state.unitProgress[progKey] : undefined;
+    if (savedIdx === undefined && unitId) {
+      savedIdx = state.unitProgress[unitId];
+    }
+    state.resumeTargetIdx = (typeof savedIdx === 'number' && savedIdx > 0 && savedIdx < pool.length)
+      ? savedIdx
+      : null;
+
     renderQuizQuestion();
   }
 
   function renderQuizQuestion() {
     if (state.quizIndex >= state.quizQuestions.length) {
+      const progKey = getProgressKey(state.currentUnitId);
+      if (progKey) {
+        state.unitProgress[progKey] = 0;
+        saveState();
+      }
       finishQuiz();
       return;
     }
@@ -532,14 +1064,16 @@
     const cur = state.quizIndex + 1;
     const pct = Math.round((cur / total) * 100);
 
-    // 儲存目前練習題號進度
-    if (q.unitId) {
-      state.unitProgress[q.unitId] = state.quizIndex;
+    const progKey = getProgressKey(state.currentUnitId || q.unitId);
+    const canResume = (state.quizIndex === 0 && typeof state.resumeTargetIdx === 'number' && state.resumeTargetIdx > 0 && state.resumeTargetIdx < total);
+    const lastSavedIdx = state.resumeTargetIdx;
+
+    // 當推進離開第 0 題，或本身沒有待續考提示時，才覆寫儲存目前練習題號進度
+    if (progKey && (state.quizIndex > 0 || !canResume)) {
+      if (state.quizIndex > 0) state.resumeTargetIdx = null;
+      state.unitProgress[progKey] = state.quizIndex;
       saveState();
     }
-
-    const lastSavedIdx = state.unitProgress[q.unitId];
-    const canResume = (typeof lastSavedIdx === 'number' && lastSavedIdx !== state.quizIndex && lastSavedIdx < total);
 
     // 產生題號速跳抽屜盤 HTML
     const drawerGridHtml = state.quizQuestions.map((item, i) => {
@@ -547,15 +1081,15 @@
       let statusClass = 'unanswered';
       let badgeText = '';
       if (ans) {
-        if (ans.result === 'ok') { statusClass = 'correct'; badgeText = '✓'; }
+        if (ans.result === 'ok') { statusClass = 'ok'; badgeText = '✓'; }
         else if (ans.result === 'slow') { statusClass = 'slow'; badgeText = '⏳'; }
-        else if (ans.result === 'bad') { statusClass = 'wrong'; badgeText = '✗'; }
+        else if (ans.result === 'bad') { statusClass = 'bad'; badgeText = '✗'; }
       }
       const isCurrent = (i === state.quizIndex) ? 'current' : '';
       return `
         <button type="button" class="drawer-q-btn ${statusClass} ${isCurrent}" data-jump-idx="${i}">
           <span>${i + 1}</span>
-          ${badgeText ? `<span class="drawer-badge">${badgeText}</span>` : ''}
+          ${badgeText ? `<span class="q-ic">${badgeText}</span>` : ''}
         </button>
       `;
     }).join('');
@@ -582,7 +1116,7 @@
     if (hasOptions) {
       const optIdx = ['A', 'B', 'C', 'D'].indexOf(correctKey);
       if (optIdx >= 0 && q.options[optIdx]) {
-        const cleanOpt = formatMathForKids(q.options[optIdx].replace(/^[A-D]\.\s*/, ''));
+        const cleanOpt = cleanOptionText(q.options[optIdx]);
         answerDisplay = `${correctKey} · ${cleanOpt}`;
       }
     }
@@ -591,7 +1125,7 @@
       <div class="options-grid" id="options-grid">
         ${q.options.map((opt, i) => {
           const letter = ['A', 'B', 'C', 'D'][i] || String(i + 1);
-          const cleanText = formatMathForKids(opt.replace(/^[A-D]\.\s*/, ''));
+          const cleanText = cleanOptionText(opt);
           let btnClass = 'opt-btn';
           let disabledAttr = '';
           if (isAnswered) {
@@ -909,6 +1443,7 @@
       resumeBtn.addEventListener('click', () => {
         const targetIdx = parseInt(resumeBtn.getAttribute('data-resume-idx'), 10);
         if (!isNaN(targetIdx) && targetIdx >= 0 && targetIdx < state.quizQuestions.length) {
+          state.resumeTargetIdx = null;
           state.quizIndex = targetIdx;
           renderQuizQuestion();
         }
@@ -1173,11 +1708,11 @@
       } else if (q.options && q.options.length > 0) {
         const userKey = (ans.userChoice || '').toUpperCase();
         const optIdx = ['A', 'B', 'C', 'D'].indexOf(userKey);
-        const userOptText = optIdx >= 0 && q.options[optIdx] ? formatMathForKids(q.options[optIdx].replace(/^[A-D]\.\s*/, '')) : (ans.userChoice || '未作答');
+        const userOptText = optIdx >= 0 && q.options[optIdx] ? cleanOptionText(q.options[optIdx]) : (ans.userChoice || '未作答');
 
         const correctKey = (q.answerKey || q.answer.trim().charAt(0)).toUpperCase();
         const corIdx = ['A', 'B', 'C', 'D'].indexOf(correctKey);
-        const corOptText = corIdx >= 0 && q.options[corIdx] ? formatMathForKids(q.options[corIdx].replace(/^[A-D]\.\s*/, '')) : formatMathForKids(q.answer);
+        const corOptText = corIdx >= 0 && q.options[corIdx] ? cleanOptionText(q.options[corIdx]) : formatMathForKids(q.answer);
 
         choiceHtml = `
           <div class="review-choice-grid">
@@ -1380,11 +1915,12 @@
       </div>
     `;
 
+    const curUser = getCurrentUserObj();
     const app = document.getElementById('app');
     app.innerHTML = `
       <div class="view error-book">
         <div class="section-title">
-          <h2>🔥 終身錯題本</h2>
+          <h2>🔥 ${curUser.icon} ${curUser.name} 的終身錯題本</h2>
           <div style="display: flex; gap: 8px;">
             ${errorQuestions.length > 0 ? `<button class="btn btn-primary" id="btn-drill-all-errors">一鍵消滅全部錯題</button>` : ''}
             <button class="btn btn-ghost" id="btn-err-back">← 回首頁</button>
@@ -1449,7 +1985,7 @@
       `;
     }).join('');
 
-    const printBatches = state.printConfig.batches || ['課本原型題', '奧數天梯'];
+    const printBatches = state.printConfig.batches || ['課本原型題', '奧數天梯', '段考真題'];
     const isPaperOnly = printBatches.includes('課本原型題') && printBatches.includes('奧數天梯') && !printBatches.includes('純腦力體操');
     const isMentalOnly = printBatches.length === 1 && printBatches[0] === '純腦力體操';
     const isAllBatch = printBatches.includes('純腦力體操') && printBatches.includes('課本原型題');
@@ -1533,11 +2069,11 @@
       btn.addEventListener('click', () => {
         const mode = btn.getAttribute('data-print-batch-mode');
         if (mode === 'paper') {
-          state.printConfig.batches = ['課本原型題', '奧數天梯'];
+          state.printConfig.batches = ['課本原型題', '奧數天梯', '段考真題'];
         } else if (mode === 'mental') {
           state.printConfig.batches = ['純腦力體操'];
         } else {
-          state.printConfig.batches = ['課本原型題', '奧數天梯', '純腦力體操'];
+          state.printConfig.batches = ['課本原型題', '奧數天梯', '純腦力體操', '段考真題'];
         }
         app.querySelectorAll('[data-print-batch-mode]').forEach(b => b.classList.remove('on'));
         btn.classList.add('on');
@@ -1586,42 +2122,48 @@
 
     // 挑選題目：根據考卷獨立設定的 batches，不互相干擾首頁 dashboard 的選定批次
     let pool = QUESTION_BANK.filter(q => state.printConfig.unitIds.includes(q.unitId));
-    const pBatches = state.printConfig.batches || ['課本原型題', '奧數天梯'];
+    const pBatches = state.printConfig.batches || ['課本原型題', '奧數天梯', '段考真題'];
     pool = pool.filter(q => pBatches.includes(q.batch || '課本原型題'));
     if (pool.length === 0) {
       pool = QUESTION_BANK.filter(q => state.printConfig.unitIds.includes(q.unitId));
     }
     const selected = shuffle(pool).slice(0, state.printConfig.count);
 
-    // 依題目 ID 組裝 QR Code 網址，支援直接在 iPad 掃描對答案
+    // 依人員與題目 ID 組裝 QR Code 網址，支援直接在 iPad 掃描時自動切回該人員帳號對答案
+    const curUser = getCurrentUserObj();
     const qIds = selected.map(q => q.id).join(',');
-    const checkUrl = `${window.location.origin}${window.location.pathname}?quiz_ids=${encodeURIComponent(qIds)}`;
+    const checkUrl = `${window.location.origin}${window.location.pathname}?user=${encodeURIComponent(state.currentUser)}&quiz_ids=${encodeURIComponent(qIds)}`;
     const qrSvg = makeQRCode(checkUrl);
 
     const titleUnits = state.printConfig.unitIds.map(uId => {
       const u = UNITS.find(x => x.id === uId);
-      return u ? `第${u.no}單元` : '';
+      if (!u) return '';
+      return u.isExam ? u.title : `第${u.no}單元`;
     }).join('、');
 
     const questionsHtml = selected.map((q, idx) => {
       const workClass = q.work || state.printConfig.workSize;
       const isMentalQ = q.batch === '純腦力體操' || (q.options && q.options.length > 0);
+      const isSpecificCrop = q.cropImage && !/_p\d+\.png$/i.test(q.cropImage);
+      const figHtml = q.svg
+        ? `<div class="pq-fig">${q.svg}</div>`
+        : (isSpecificCrop ? `<div class="pq-fig"><img src="${q.cropImage}" alt="考卷題圖" style="max-width:140mm; max-height:55mm; object-fit:contain;"></div>` : '');
       return `
         <div class="pq">
           <div class="pq-title">
             <span class="pq-no">${idx + 1}.</span>
-            <div style="flex: 1">${q.question}</div>
+            <div style="flex: 1">${formatMathForKids(q.question)}</div>
           </div>
           ${q.options && q.options.length > 0 ? `
             <div class="pq-options" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px 16px; margin: 8px 0 12px; font-size: 14px; font-weight: 600;">
               ${q.options.map((opt, i) => {
                 const letter = ['(A)', '(B)', '(C)', '(D)'][i] || `(${i+1})`;
-                const clean = opt.replace(/^[A-D]\.\s*/, '');
+                const clean = cleanOptionText(opt);
                 return `<div><b>${letter}</b> ${clean}</div>`;
               }).join('')}
             </div>
           ` : ''}
-          ${q.svg ? `<div class="pq-fig">${q.svg}</div>` : ''}
+          ${figHtml}
           <div class="work-grid ${workClass}" title="${isMentalQ ? '直覺思考/草稿格' : '5mm 手寫草稿格'}"></div>
           <div class="pq-ans">答：<i></i></div>
         </div>
@@ -1637,13 +2179,13 @@
             <div class="paper-fields">
               <span>班級：<i></i></span>
               <span>座號：<i></i></span>
-              <span>姓名：<i></i></span>
+              <span>姓名：<i style="font-style: normal; font-weight: 800; text-align: center; padding: 0 4px;">${curUser.name}</i></span>
               <span>日期：<i></i></span>
             </div>
           </div>
           <div class="paper-qr">
             ${qrSvg}
-            <div>📱 掃碼線上對答案</div>
+            <div>📱 掃碼線上對答案 (${curUser.name})</div>
           </div>
         </header>
 
@@ -1664,13 +2206,14 @@
   // AI 閉環匯出：Markdown + 專業教研 Prompt
   // -------------------------------------------------------
   function exportToAI() {
+    const curUser = getCurrentUserObj();
     const errorQuestions = QUESTION_BANK.filter(q => state.errorBook.includes(q.id));
     const allAnswers = state.fullHistory.flatMap(h => h.answers || []);
     const dateStr = new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' });
 
-    let md = `# [System Prompt] 國小六年級數學資優教研出題指令
+    let md = `# [System Prompt] 國小六年級數學資優教研出題指令（學員：${curUser.name}）
 
-你是一位「國小數學資優培訓與奧數教研專家」。這是學生最近在「六上數學特訓網」的手寫作答與三態自評紀錄。
+你是一位「國小數學資優培訓與奧數教研專家」。這是學員【${curUser.name}】最近在「六上數學特訓網」的手寫作答與三態自評紀錄。
 請深入分析學生的錯題弱點與卡關題目，精準派生新題，並輸出成可直接加入題庫的 JavaScript 程式碼。
 
 ## 【學生弱點診斷目標】：
@@ -1688,8 +2231,9 @@
    - 請只輸出 JavaScript 代碼區塊 \`QUESTION_BANK.push(...);\`，不說任何客套廢話！
 
 ==================================================
-# 📖 六上數學特訓 — 學生歷史作答與錯題總表
+# 📖 六上數學特訓 — 學員【${curUser.name}】歷史作答與錯題總表
 匯出時間：${dateStr}
+使用帳號：${curUser.name} (${curUser.role})
 待消滅錯題總數：${errorQuestions.length} 題
 累積練習場次：${state.fullHistory.length} 場
 
@@ -1723,32 +2267,38 @@
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     const fDate = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    const safeName = curUser.name.replace(/\s+/g, '_');
     a.href = url;
-    a.download = `六上數學特訓紀錄_AI派題_${fDate}.md`;
+    a.download = `六上數學特訓紀錄_${safeName}_AI派題_${fDate}.md`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    showToast('已匯出 AI 診斷 Prompt Markdown！');
+    showToast(`已匯出【${curUser.name}】的 AI 診斷 Prompt Markdown！`);
   }
 
   // -------------------------------------------------------
-  // URL 參數深度連結（支援 QR Code 掃描直接對答案）
+  // URL 參數深度連結（支援 QR Code 掃描直接切回指定帳號對答案）
   // -------------------------------------------------------
   function checkUrlParams() {
     const params = new URLSearchParams(window.location.search);
+    const userParam = params.get('user');
+    if (userParam && USERS.some(u => u.id === userParam.toLowerCase())) {
+      switchUser(userParam.toLowerCase(), false);
+    }
     const quizIds = params.get('quiz_ids');
     if (quizIds) {
       const ids = quizIds.split(',');
       const selected = QUESTION_BANK.filter(q => ids.includes(q.id));
       if (selected.length > 0) {
+        const curU = getCurrentUserObj();
         state.quizQuestions = selected;
         state.quizIndex = 0;
         state.quizMode = 'mixed';
         state.sessionAnswers = [];
         state.view = 'quiz';
         renderQuizQuestion();
-        showToast('已由考卷 QR Code 載入對應題目！');
+        showToast(`已載入【${curU.name}】的考卷對應題目！`);
         return true;
       }
     }
@@ -1759,10 +2309,23 @@
   // 初始化與事件監聽
   // -------------------------------------------------------
   function init() {
-    loadState();
+    const savedUser = localStorage.getItem(GLOBAL_STORAGE_KEYS.currentUser) || 'rex';
+    loadState(savedUser);
     updateNavBadge();
+    updateNavUserUI();
+
+    if (state.cloudDbUrl) {
+      syncFromCloud(state.currentUser, false);
+    }
 
     // 導航列按鈕
+    const navUserBtn = document.getElementById('nav-user');
+    if (navUserBtn) {
+      navUserBtn.addEventListener('click', () => {
+        openUserModal();
+      });
+    }
+
     document.getElementById('nav-home').addEventListener('click', () => {
       state.view = 'dashboard';
       renderDashboardView();

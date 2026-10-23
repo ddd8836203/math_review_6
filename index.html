@@ -13,14 +13,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Outfit:wght@500;700;800&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20261023_2">
 
   <!-- defer：依序執行，且都在 DOMContentLoaded 之前跑完 -->
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
-  <script defer src="math_data.js"></script>
-  <script defer src="app.js"></script>
+  <script defer src="math_data.js?v=20261023_2"></script>
+  <script defer src="app.js?v=20261023_2"></script>
 </head>
 <body>
   <div class="bg-blobs" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -34,6 +34,11 @@
       </span>
     </button>
     <nav class="nav" aria-label="主選單">
+      <button class="nav-btn user-switch-btn" id="nav-user" type="button" title="切換使用人員 / 帳號管理">
+        <span id="nav-user-icon">🦖</span>
+        <span id="nav-user-name">Rex</span>
+        <span class="user-caret">▾</span>
+      </button>
       <button class="nav-btn" id="nav-errors" type="button">🔥 <span class="nav-label">錯題本</span> <b class="pill" id="nav-error-count">0</b></button>
       <button class="nav-btn" id="nav-print" type="button">🖨️ <span class="nav-label">A4 出卷</span></button>
       <button class="nav-btn primary" id="nav-export" type="button">📤 <span class="nav-label">匯出給 AI</span></button>
