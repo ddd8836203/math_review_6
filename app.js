@@ -1075,21 +1075,32 @@
       saveState();
     }
 
-    // 產生題號速跳抽屜盤 HTML
+    // 產生題號速跳抽屜盤 HTML（3 數字 ＋ 淨錯誤熱力色階）
     const drawerGridHtml = state.quizQuestions.map((item, i) => {
-      const ans = state.sessionAnswers.find(a => a.qId === item.id);
-      let statusClass = 'unanswered';
-      let badgeText = '';
-      if (ans) {
-        if (ans.result === 'ok') { statusClass = 'ok'; badgeText = '✓'; }
-        else if (ans.result === 'slow') { statusClass = 'slow'; badgeText = '⏳'; }
-        else if (ans.result === 'bad') { statusClass = 'bad'; badgeText = '✗'; }
+      const okCnt = state.successCounts[item.id] || 0;
+      const errCnt = state.errorCounts[item.id] || 0;
+      const slowCnt = state.slowCounts[item.id] || 0;
+      const netErr = errCnt - okCnt;
+
+      // 計算熱力深淺色階（錯越多越紅）
+      let heatCls = 'heat-none';
+      if (errCnt > 0 || okCnt > 0) {
+        if (netErr >= 3) heatCls = 'heat-bad-heavy';
+        else if (netErr >= 2) heatCls = 'heat-bad-mid';
+        else if (netErr >= 1) heatCls = 'heat-bad-light';
+        else if (netErr === 0) heatCls = 'heat-tie';
+        else if (netErr <= -3) heatCls = 'heat-ok-heavy';
+        else if (netErr <= -1) heatCls = 'heat-ok-light';
       }
       const isCurrent = (i === state.quizIndex) ? 'current' : '';
+      let tip = `第 ${i + 1} 題：答對 ${okCnt} 次 · 答錯 ${errCnt} 次 (淨錯 ${netErr})`;
+      if (slowCnt > 0) tip += ` · 想很久 ${slowCnt} 次`;
+
       return `
-        <button type="button" class="drawer-q-btn ${statusClass} ${isCurrent}" data-jump-idx="${i}">
-          <span>${i + 1}</span>
-          ${badgeText ? `<span class="q-ic">${badgeText}</span>` : ''}
+        <button type="button" class="drawer-q-btn ${heatCls} ${isCurrent}" data-jump-idx="${i}" title="${tip}">
+          ${okCnt > 0 ? `<span class="q-badge-ok">${okCnt}</span>` : ''}
+          ${errCnt > 0 ? `<span class="q-badge-bad">${errCnt}</span>` : ''}
+          <span class="q-num-center">${i + 1}</span>
         </button>
       `;
     }).join('');
@@ -1220,7 +1231,11 @@
 
         <div class="quiz-grid-drawer" id="quiz-grid-drawer" style="display: none;">
           <div class="grid-drawer-head">
-            <span>🔢 題號速跳盤（綠色答對・紅色答錯・灰色未答，點擊直接跳題）</span>
+            <div class="drawer-legend-bar">
+              <span class="leg-item"><b class="leg-dot ok"></b> 綠小字=答對次數</span>
+              <span class="leg-item"><b class="leg-dot bad"></b> 紅小字=答錯次數</span>
+              <span class="leg-item"><b class="leg-dot red-shade"></b> 底色越紅代表錯越多</span>
+            </div>
             <button type="button" class="btn-close-drawer" id="btn-close-drawer">✕</button>
           </div>
           <div class="drawer-q-grid">
