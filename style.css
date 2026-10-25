@@ -310,6 +310,20 @@ h1, h2, h3, h4 { margin: 0; line-height: 1.3; }
 .check-list label {
   display: flex; gap: 8px; align-items: center; padding: 8px 10px; border-radius: 12px;
   background: #fff; border: 1px solid var(--line); font-weight: 700; font-size: 14px; cursor: pointer;
+  transition: all .15s ease;
+}
+.check-list label.unit-error-book {
+  background: #fff1f2;
+  border-color: #fecdd3;
+  color: #9f1239;
+}
+.check-list label.unit-error-book input {
+  accent-color: #e11d48;
+}
+.check-list label.disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  background: #f8fafc;
 }
 .check-list input { accent-color: var(--primary); width: 18px; height: 18px; }
 .range-row { display: flex; align-items: center; gap: 12px; }

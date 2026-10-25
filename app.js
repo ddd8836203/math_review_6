@@ -1937,7 +1937,10 @@
         <div class="section-title">
           <h2>🔥 ${curUser.icon} ${curUser.name} 的終身錯題本</h2>
           <div style="display: flex; gap: 8px;">
-            ${errorQuestions.length > 0 ? `<button class="btn btn-primary" id="btn-drill-all-errors">一鍵消滅全部錯題</button>` : ''}
+            ${errorQuestions.length > 0 ? `
+              <button class="btn btn-primary" id="btn-drill-all-errors">一鍵消滅全部錯題</button>
+              <button class="btn btn-ghost" id="btn-print-errors" title="將當前錯題排版為 A4 考卷列印">🖨️ A4 錯題出卷</button>
+            ` : ''}
             <button class="btn btn-ghost" id="btn-err-back">← 回首頁</button>
           </div>
         </div>
@@ -1957,6 +1960,15 @@
     const drillBtn = document.getElementById('btn-drill-all-errors');
     if (drillBtn) {
       drillBtn.addEventListener('click', () => startQuiz('error_book'));
+    }
+
+    const printErrorsBtn = document.getElementById('btn-print-errors');
+    if (printErrorsBtn) {
+      printErrorsBtn.addEventListener('click', () => {
+        state.printConfig.unitIds = ['ERROR_BOOK'];
+        state.printConfig.count = Math.max(1, state.errorBook.length);
+        renderPrintSetupView();
+      });
     }
 
     app.querySelectorAll('[data-filter-unit]').forEach(btn => {
@@ -1983,13 +1995,44 @@
     });
   }
 
+  // 取得當前 A4 出卷設定下符合所有條件（單元/錯題本 + 題型分類）的可用題目池
+  function getPrintPool() {
+    const hasErrorBook = state.printConfig.unitIds.includes('ERROR_BOOK');
+    const normalUnitIds = state.printConfig.unitIds.filter(id => id !== 'ERROR_BOOK');
+    let pool = [];
+    if (hasErrorBook) {
+      const errPool = QUESTION_BANK.filter(q => state.errorBook.includes(q.id));
+      pool = (normalUnitIds.length > 0) ? errPool.filter(q => normalUnitIds.includes(q.unitId)) : errPool;
+    } else {
+      pool = QUESTION_BANK.filter(q => normalUnitIds.includes(q.unitId));
+    }
+
+    const pBatches = state.printConfig.batches || ['課本原型題', '奧數天梯', '段考真題'];
+    let filteredPool = pool.filter(q => pBatches.includes(q.batch || '課本原型題'));
+    if (filteredPool.length === 0 && pool.length > 0) {
+      filteredPool = pool;
+    }
+    return filteredPool;
+  }
+
   // -------------------------------------------------------
   // 視圖渲染器：5. A4 考卷排版與出卷 (Print Setup View)
   // -------------------------------------------------------
   function renderPrintSetupView() {
     state.view = 'print';
 
-    const unitChecksHtml = UNITS.map(u => {
+    const errCount = state.errorBook.length;
+    const isErrChecked = state.printConfig.unitIds.includes('ERROR_BOOK');
+    const curU = getCurrentUserObj();
+
+    const errorBookCheckHtml = `
+      <label class="unit-error-book ${errCount === 0 ? 'disabled' : ''}" title="${errCount === 0 ? '目前沒有任何待消滅錯題' : '從錯題本中篩選出題'}">
+        <input type="checkbox" value="ERROR_BOOK" ${isErrChecked ? 'checked' : ''} ${errCount === 0 ? 'disabled' : ''} data-print-unit-toggle>
+        <span>🔥 <b>${curU.name} 的錯題本</b> <small style="color:${errCount > 0 ? '#e11d48' : '#94a3b8'}; font-weight:800;">(${errCount} 題)</small></span>
+      </label>
+    `;
+
+    const unitChecksHtml = errorBookCheckHtml + UNITS.map(u => {
       const chk = state.printConfig.unitIds.includes(u.id) ? 'checked' : '';
       const labelText = u.isExam ? `🏆 ${u.title}` : `第 ${u.no} 單元 ${u.title}`;
       return `
@@ -2004,6 +2047,15 @@
     const isPaperOnly = printBatches.includes('課本原型題') && printBatches.includes('奧數天梯') && !printBatches.includes('純腦力體操');
     const isMentalOnly = printBatches.length === 1 && printBatches[0] === '純腦力體操';
     const isAllBatch = printBatches.includes('純腦力體操') && printBatches.includes('課本原型題');
+
+    const initialPool = getPrintPool();
+    const totalAvail = initialPool.length;
+    const sliderMax = Math.max(30, totalAvail);
+    if (!state.printConfig.count || state.printConfig.count < 1) {
+      state.printConfig.count = Math.min(6, sliderMax);
+    } else if (state.printConfig.count > sliderMax) {
+      state.printConfig.count = sliderMax;
+    }
 
     const app = document.getElementById('app');
     app.innerHTML = `
@@ -2026,9 +2078,14 @@
           </div>
 
           <div class="field">
-            <label>題目數量：</label>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <label style="margin-bottom: 0;">題目數量：</label>
+              <button type="button" class="btn btn-sm btn-ghost" id="btn-print-pick-all" style="padding: 2px 10px; font-size: 12.5px; border-radius: 8px; font-weight: 700; color: var(--primary);" title="直接將題數設為當前篩選的所有可用題目">
+                ⚡ 出齊全部 (<span id="avail-pool-count">${totalAvail}</span> 題)
+              </button>
+            </div>
             <div class="range-row">
-              <input type="range" id="print-q-count" min="3" max="15" value="${state.printConfig.count}">
+              <input type="range" id="print-q-count" min="1" max="${sliderMax}" value="${state.printConfig.count}">
               <b id="print-q-count-val">${state.printConfig.count}</b>
             </div>
           </div>
@@ -2061,6 +2118,23 @@
 
     renderPaperSheet();
 
+    const updatePrintSliderUI = () => {
+      const p = getPrintPool();
+      const cntEl = document.getElementById('avail-pool-count');
+      if (cntEl) cntEl.textContent = p.length;
+      const sMax = Math.max(30, p.length);
+      const rInput = document.getElementById('print-q-count');
+      const rVal = document.getElementById('print-q-count-val');
+      if (rInput && rVal) {
+        rInput.max = sMax;
+        if (state.printConfig.count > sMax) {
+          state.printConfig.count = sMax;
+        }
+        rInput.value = state.printConfig.count;
+        rVal.textContent = state.printConfig.count;
+      }
+    };
+
     // 綁定事件
     app.querySelectorAll('[data-print-unit-toggle]').forEach(chk => {
       chk.addEventListener('change', () => {
@@ -2076,6 +2150,7 @@
           showToast('至少勾選一個單元！');
           return;
         }
+        updatePrintSliderUI();
         renderPaperSheet();
       });
     });
@@ -2092,6 +2167,7 @@
         }
         app.querySelectorAll('[data-print-batch-mode]').forEach(b => b.classList.remove('on'));
         btn.classList.add('on');
+        updatePrintSliderUI();
         renderPaperSheet();
       });
     });
@@ -2103,6 +2179,25 @@
       rangeVal.textContent = state.printConfig.count;
       renderPaperSheet();
     });
+
+    const pickAllBtn = document.getElementById('btn-print-pick-all');
+    if (pickAllBtn) {
+      pickAllBtn.addEventListener('click', () => {
+        const p = getPrintPool();
+        if (p.length > 0) {
+          state.printConfig.count = p.length;
+          if (rangeInput && rangeVal) {
+            rangeInput.max = Math.max(30, p.length);
+            rangeInput.value = p.length;
+            rangeVal.textContent = p.length;
+          }
+          renderPaperSheet();
+          showToast(`已設定出齊全部 ${p.length} 題！`);
+        } else {
+          showToast('目前條件下沒有任何可用題目');
+        }
+      });
+    }
 
     app.querySelectorAll('[data-work]').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -2135,26 +2230,53 @@
     const container = document.getElementById('paper-container');
     if (!container) return;
 
-    // 挑選題目：根據考卷獨立設定的 batches，不互相干擾首頁 dashboard 的選定批次
-    let pool = QUESTION_BANK.filter(q => state.printConfig.unitIds.includes(q.unitId));
-    const pBatches = state.printConfig.batches || ['課本原型題', '奧數天梯', '段考真題'];
-    pool = pool.filter(q => pBatches.includes(q.batch || '課本原型題'));
-    if (pool.length === 0) {
-      pool = QUESTION_BANK.filter(q => state.printConfig.unitIds.includes(q.unitId));
-    }
-    const selected = shuffle(pool).slice(0, state.printConfig.count);
-
-    // 依人員與題目 ID 組裝 QR Code 網址，支援直接在 iPad 掃描時自動切回該人員帳號對答案
+    const hasErrorBook = state.printConfig.unitIds.includes('ERROR_BOOK');
+    const normalUnitIds = state.printConfig.unitIds.filter(id => id !== 'ERROR_BOOK');
     const curUser = getCurrentUserObj();
+
+    // 取得當前設定下的題目池
+    const pool = getPrintPool();
+
+    if (pool.length === 0) {
+      container.innerHTML = `
+        <article class="paper" style="padding: 60px 40px; text-align: center; color: var(--ink-soft);">
+          <div style="font-size: 52px; margin-bottom: 16px;">📑</div>
+          <h2 style="font-size: 20pt; color: var(--ink); margin-bottom: 12px;">目前條件下無可出題目</h2>
+          <p style="font-size: 13pt; line-height: 1.8;">
+            ${hasErrorBook 
+              ? (normalUnitIds.length > 0 ? `太好了！【${curUser.name}】在所選單元中目前沒有累積任何錯題！` : `太棒了！【${curUser.name}】目前錯題本中沒有待消滅的題目！`)
+              : '所選取的單元目前無符合分類之題目，請嘗試切換題型分類或勾選其他單元。'}
+          </p>
+        </article>
+      `;
+      return;
+    }
+
+    const actualCount = Math.min(pool.length, state.printConfig.count);
+    const selected = shuffle(pool).slice(0, actualCount);
+
+    // 依人員與題目 ID 組裝 QR Code 網址，支援直接在 iPad 掃描時自動切回該人員帳號對答案（錯題卷模式附帶 mode=error_book）
     const qIds = selected.map(q => q.id).join(',');
-    const checkUrl = `${window.location.origin}${window.location.pathname}?user=${encodeURIComponent(state.currentUser)}&quiz_ids=${encodeURIComponent(qIds)}`;
+    const modeParam = hasErrorBook ? '&mode=error_book' : '';
+    const checkUrl = `${window.location.origin}${window.location.pathname}?user=${encodeURIComponent(state.currentUser)}${modeParam}&quiz_ids=${encodeURIComponent(qIds)}`;
     const qrSvg = makeQRCode(checkUrl);
 
-    const titleUnits = state.printConfig.unitIds.map(uId => {
-      const u = UNITS.find(x => x.id === uId);
-      if (!u) return '';
-      return u.isExam ? u.title : `第${u.no}單元`;
-    }).join('、');
+    let mainTitle = '';
+    if (hasErrorBook && normalUnitIds.length === 0) {
+      mainTitle = `翰林版國小六上數學 🔥【${curUser.name} 弱點錯題消滅卷】`;
+    } else if (hasErrorBook && normalUnitIds.length > 0) {
+      const uNames = normalUnitIds.map(uId => {
+        const u = UNITS.find(x => x.id === uId);
+        return u ? (u.isExam ? u.title : `第${u.no}單元`) : '';
+      }).filter(Boolean).join('、');
+      mainTitle = `翰林版國小六上數學 🔥【${curUser.name} 錯題消滅卷・${uNames}】`;
+    } else {
+      const uNames = normalUnitIds.map(uId => {
+        const u = UNITS.find(x => x.id === uId);
+        return u ? (u.isExam ? u.title : `第${u.no}單元`) : '';
+      }).filter(Boolean).join('、');
+      mainTitle = `翰林版國小六上數學 特訓測驗卷 【${uNames}】`;
+    }
 
     const questionsHtml = selected.map((q, idx) => {
       const workClass = q.work || state.printConfig.workSize;
@@ -2189,7 +2311,7 @@
       <article class="paper">
         <header class="paper-head">
           <div>
-            <h2>翰林版國小六上數學 特訓測驗卷 【${titleUnits}】</h2>
+            <h2>${mainTitle}</h2>
             <div class="sub">得分：________　作答時間：___ 分 ___ 秒</div>
             <div class="paper-fields">
               <span>班級：<i></i></span>
@@ -2200,7 +2322,7 @@
           </div>
           <div class="paper-qr">
             ${qrSvg}
-            <div>📱 掃碼線上對答案 (${curUser.name})</div>
+            <div>📱 掃碼線上對答案 (${curUser.name}${hasErrorBook ? ' · 錯題消滅' : ''})</div>
           </div>
         </header>
 
@@ -2302,6 +2424,7 @@
       switchUser(userParam.toLowerCase(), false);
     }
     const quizIds = params.get('quiz_ids');
+    const modeParam = params.get('mode');
     if (quizIds) {
       const ids = quizIds.split(',');
       const selected = QUESTION_BANK.filter(q => ids.includes(q.id));
@@ -2309,11 +2432,15 @@
         const curU = getCurrentUserObj();
         state.quizQuestions = selected;
         state.quizIndex = 0;
-        state.quizMode = 'mixed';
+        state.quizMode = (modeParam === 'error_book') ? 'error_book' : 'mixed';
         state.sessionAnswers = [];
         state.view = 'quiz';
         renderQuizQuestion();
-        showToast(`已載入【${curU.name}】的考卷對應題目！`);
+        if (modeParam === 'error_book') {
+          showToast(`已載入【${curU.name}】的 A4 錯題消滅卷！算對自動消滅錯題！`);
+        } else {
+          showToast(`已載入【${curU.name}】的考卷對應題目！`);
+        }
         return true;
       }
     }
