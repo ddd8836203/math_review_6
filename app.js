@@ -54,13 +54,27 @@
     slowCounts: {}, // { [qId]: count }
     fullHistory: [], // [ session, ... ]
     updatedAt: 0,
+    u05LegacyBackup: null, // P9: 保留 u05_* 轉移前備份，確保回滾無損
+    arenaFilter: {
+      unit: 'U05',
+      batch: 'ALL',
+      school: 'ALL',
+      band: 'ALL',
+      errorsOnly: false,
+      examMode: 'instant',
+      explicitIds: null,
+      sortOrder: 'default',
+    },
+    arenaRounds: {}, // P9: 本機單輪作答暫存（不推雲端，僅保存當輪未完成/批改畫面）
     printConfig: {
       unitIds: ['U01'],
       count: 6,
       workSize: 'md', // 'sm' | 'md' | 'lg'
+      printMode: 'student', // 'student' | 'teacher'
       includeInsight: false,
       batches: ['課本原型題', '奧數天梯', '段考真題'],
     },
+    printSelectionIds: null, // 保存當前預覽卷題目順序，切換學生卷／家長詳解卷時保持同一份題目
   };
 
   // -------------------------------------------------------
@@ -75,6 +89,12 @@
     batches: 'g6_math_selected_batches',
     unitProgress: 'g6_math_unit_progress',
     updatedAt: 'g6_math_updated_at',
+  };
+
+  const LOCAL_ARENA_KEYS = {
+    rounds: 'g6_math_arena_rounds',
+    filter: 'g6_math_arena_filter',
+    legacyBackup: 'g6_math_u05_legacy_backup',
   };
 
   const GLOBAL_STORAGE_KEYS = {
@@ -118,12 +138,21 @@
       const ebRaw = localStorage.getItem(getUserStorageKey(STORAGE_KEYS.errorBook, userId));
       const scRaw = localStorage.getItem(getUserStorageKey(STORAGE_KEYS.successCounts, userId));
       const fhRaw = localStorage.getItem(getUserStorageKey(STORAGE_KEYS.history, userId));
-      const eb = ebRaw ? JSON.parse(ebRaw) : [];
-      const sc = scRaw ? JSON.parse(scRaw) : {};
+      const ebOrig = ebRaw ? JSON.parse(ebRaw) : [];
+      const scOrig = scRaw ? JSON.parse(scRaw) : {};
       const fh = fhRaw ? JSON.parse(fhRaw) : [];
-      const mastered = QUESTION_BANK.filter(q => (sc[q.id] || 0) >= 1 && !eb.includes(q.id)).length;
+      const lMap = (window.MathArena && window.MathArena.buildLegacyIdMap)
+        ? window.MathArena.buildLegacyIdMap(QUESTION_BANK)
+        : {};
+      const ebSet = new Set(ebOrig.map(id => lMap[id] || id));
+      const sc = {};
+      Object.keys(scOrig).forEach(k => {
+        const nk = lMap[k] || k;
+        sc[nk] = (sc[nk] || 0) + (Number(scOrig[k]) || 0);
+      });
+      const mastered = QUESTION_BANK.filter(q => (sc[q.id] || 0) >= 1 && !ebSet.has(q.id)).length;
       const pct = QUESTION_BANK.length > 0 ? Math.round((mastered / QUESTION_BANK.length) * 100) : 0;
-      return { errCount: eb.length, mastered, pct, sessions: fh.length };
+      return { errCount: ebSet.size, mastered, pct, sessions: fh.length };
     } catch (e) {
       return { errCount: 0, mastered: 0, pct: 0, sessions: 0 };
     }
@@ -177,6 +206,33 @@
       } else {
         state.selectedBatches = ['課本原型題', '奧數天梯', '純腦力體操', '段考真題'];
       }
+
+      const arRaw = localStorage.getItem(getUserStorageKey(LOCAL_ARENA_KEYS.rounds, uid));
+      state.arenaRounds = arRaw ? JSON.parse(arRaw) : {};
+      const afRaw = localStorage.getItem(getUserStorageKey(LOCAL_ARENA_KEYS.filter, uid));
+      if (afRaw) {
+        state.arenaFilter = Object.assign({
+          unit: 'U05', batch: 'ALL', school: 'ALL', band: 'ALL',
+          errorsOnly: false, examMode: 'instant', explicitIds: null, sortOrder: 'default',
+        }, JSON.parse(afRaw));
+      }
+      const lbRaw = localStorage.getItem(getUserStorageKey(LOCAL_ARENA_KEYS.legacyBackup, uid));
+      state.u05LegacyBackup = lbRaw ? JSON.parse(lbRaw) : null;
+
+      // P9: 自動將舊版 u05_* ID 無損轉移至新版 U05-* 4D ID（冪等，保留 u05LegacyBackup）
+      if (window.MathArena && window.MathArena.migrateLegacyIdsInState) {
+        const mig = window.MathArena.migrateLegacyIdsInState(state, QUESTION_BANK);
+        if (mig.migratedCount > 0) {
+          localStorage.setItem(getUserStorageKey(STORAGE_KEYS.errorBook, uid), JSON.stringify(state.errorBook));
+          localStorage.setItem(getUserStorageKey(STORAGE_KEYS.errorCounts, uid), JSON.stringify(state.errorCounts));
+          localStorage.setItem(getUserStorageKey(STORAGE_KEYS.successCounts, uid), JSON.stringify(state.successCounts));
+          localStorage.setItem(getUserStorageKey(STORAGE_KEYS.slowCounts, uid), JSON.stringify(state.slowCounts));
+          localStorage.setItem(getUserStorageKey(STORAGE_KEYS.history, uid), JSON.stringify(state.fullHistory));
+          if (state.u05LegacyBackup) {
+            localStorage.setItem(getUserStorageKey(LOCAL_ARENA_KEYS.legacyBackup, uid), JSON.stringify(state.u05LegacyBackup));
+          }
+        }
+      }
     } catch (e) {
       console.warn('LocalStorage 載入失敗：', e);
     }
@@ -185,9 +241,19 @@
 
   let cloudSyncTimer = null;
 
-  function saveState(skipCloudPush = false) {
+  function saveArenaLocalState() {
     const uid = state.currentUser;
-    state.updatedAt = Date.now();
+    try {
+      localStorage.setItem(getUserStorageKey(LOCAL_ARENA_KEYS.rounds, uid), JSON.stringify(state.arenaRounds || {}));
+      localStorage.setItem(getUserStorageKey(LOCAL_ARENA_KEYS.filter, uid), JSON.stringify(state.arenaFilter || {}));
+    } catch (e) {
+      console.warn('Arena 本機狀態寫入失敗：', e);
+    }
+  }
+
+  function saveState(skipCloudPush = false, preservedUpdatedAt = null) {
+    const uid = state.currentUser;
+    state.updatedAt = (preservedUpdatedAt && preservedUpdatedAt > 0) ? preservedUpdatedAt : Date.now();
     try {
       localStorage.setItem(GLOBAL_STORAGE_KEYS.currentUser, uid);
       localStorage.setItem(getUserStorageKey(STORAGE_KEYS.errorBook, uid), JSON.stringify(state.errorBook));
@@ -198,6 +264,12 @@
       localStorage.setItem(getUserStorageKey(STORAGE_KEYS.batches, uid), JSON.stringify(state.selectedBatches));
       localStorage.setItem(getUserStorageKey(STORAGE_KEYS.unitProgress, uid), JSON.stringify(state.unitProgress));
       localStorage.setItem(getUserStorageKey(STORAGE_KEYS.updatedAt, uid), String(state.updatedAt));
+      if (state.u05LegacyBackup) {
+        localStorage.setItem(getUserStorageKey(LOCAL_ARENA_KEYS.legacyBackup, uid), JSON.stringify(state.u05LegacyBackup));
+      } else {
+        localStorage.removeItem(getUserStorageKey(LOCAL_ARENA_KEYS.legacyBackup, uid));
+      }
+      saveArenaLocalState();
     } catch (e) {
       console.warn('LocalStorage 儲存失敗：', e);
     }
@@ -211,28 +283,60 @@
   }
 
   // -------------------------------------------------------
-  // 跨裝置雲端同步引擎 (Firebase Realtime DB REST API)
+  // 跨裝置雲端同步引擎 (Firebase Realtime DB REST API + 空本機保護)
   // -------------------------------------------------------
   function normalizeCloudUrl(url) {
     if (!url) return '';
     return url.trim().replace(/\/+$/, '').replace(/\.json$/i, '');
   }
 
-  async function pushToCloud(userId = state.currentUser) {
+  function readLocalUserSnap(uid) {
+    try {
+      const parseSafe = (key, fallback) => {
+        const raw = localStorage.getItem(getUserStorageKey(key, uid));
+        return raw ? JSON.parse(raw) : fallback;
+      };
+      return {
+        updatedAt: parseInt(localStorage.getItem(getUserStorageKey(STORAGE_KEYS.updatedAt, uid)) || '0', 10) || 0,
+        errorBook: parseSafe(STORAGE_KEYS.errorBook, []),
+        errorCounts: parseSafe(STORAGE_KEYS.errorCounts, {}),
+        successCounts: parseSafe(STORAGE_KEYS.successCounts, {}),
+        slowCounts: parseSafe(STORAGE_KEYS.slowCounts, {}),
+        fullHistory: parseSafe(STORAGE_KEYS.history, []),
+      };
+    } catch (e) {
+      return { updatedAt: 0, errorBook: [], errorCounts: {}, successCounts: {}, slowCounts: {}, fullHistory: [] };
+    }
+  }
+
+  async function pushToCloud(userId = state.currentUser, opts = {}) {
     const base = normalizeCloudUrl(state.cloudDbUrl);
     if (!base) return false;
+
+    const activityCnt = window.MathArena && window.MathArena.computeCloudActivityCount
+      ? window.MathArena.computeCloudActivityCount(state)
+      : ((state.fullHistory?.length || 0) + Object.keys(state.successCounts || {}).length + (state.errorBook?.length || 0));
+
+    // P12 守衛：禁止尚未載入完成的空本機狀態蓋掉雲端紀錄（除非為合法重置請求）
+    if (activityCnt === 0 && !opts.forceReset) {
+      state.cloudSyncStatus = 'synced';
+      return false;
+    }
+
     state.cloudSyncStatus = 'syncing';
-    const payload = {
-      userId,
-      updatedAt: state.updatedAt || Date.now(),
-      errorBook: state.errorBook,
-      errorCounts: state.errorCounts,
-      successCounts: state.successCounts,
-      slowCounts: state.slowCounts,
-      fullHistory: state.fullHistory,
-      selectedBatches: state.selectedBatches,
-      unitProgress: state.unitProgress,
-    };
+    const payload = window.MathArena && window.MathArena.buildCloudPayload
+      ? window.MathArena.buildCloudPayload(state, { userId, updatedAt: state.updatedAt || Date.now(), resetAt: opts.resetAt })
+      : {
+          userId,
+          updatedAt: state.updatedAt || Date.now(),
+          errorBook: state.errorBook,
+          errorCounts: state.errorCounts,
+          successCounts: state.successCounts,
+          slowCounts: state.slowCounts,
+          fullHistory: state.fullHistory,
+          selectedBatches: state.selectedBatches,
+          unitProgress: state.unitProgress,
+        };
     try {
       const res = await fetch(`${base}/g6_math_users/${userId}.json`, {
         method: 'PUT',
@@ -258,64 +362,85 @@
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const allCloudUsers = (await res.json()) || {};
 
-      // 先同步其他 3 個非當前帳號的摘要快取至本機 LocalStorage，讓切換膠囊與彈窗即時顯示最新數字
+      // 先同步並無損遷移其他 3 個非當前帳號的摘要快取至本機 LocalStorage
       USERS.forEach(u => {
         if (u.id === userId) return;
-        const cData = allCloudUsers[u.id];
-        if (!cData || typeof cData !== 'object') return;
-        const lUp = parseInt(localStorage.getItem(getUserStorageKey(STORAGE_KEYS.updatedAt, u.id)) || '0', 10) || 0;
-        const cUp = cData.updatedAt || 0;
-        if (cUp > lUp) {
-          localStorage.setItem(getUserStorageKey(STORAGE_KEYS.errorBook, u.id), JSON.stringify(cData.errorBook || []));
-          localStorage.setItem(getUserStorageKey(STORAGE_KEYS.errorCounts, u.id), JSON.stringify(cData.errorCounts || {}));
-          localStorage.setItem(getUserStorageKey(STORAGE_KEYS.successCounts, u.id), JSON.stringify(cData.successCounts || {}));
-          localStorage.setItem(getUserStorageKey(STORAGE_KEYS.slowCounts, u.id), JSON.stringify(cData.slowCounts || {}));
-          localStorage.setItem(getUserStorageKey(STORAGE_KEYS.history, u.id), JSON.stringify(cData.fullHistory || []));
-          localStorage.setItem(getUserStorageKey(STORAGE_KEYS.unitProgress, u.id), JSON.stringify(cData.unitProgress || {}));
-          if (Array.isArray(cData.selectedBatches) && cData.selectedBatches.length > 0) {
-            localStorage.setItem(getUserStorageKey(STORAGE_KEYS.batches, u.id), JSON.stringify(cData.selectedBatches));
+        const rawOther = allCloudUsers[u.id];
+        if (!rawOther || typeof rawOther !== 'object') return;
+        const cleanOther = window.MathArena && window.MathArena.sanitizeAndMigrateCloudUser
+          ? window.MathArena.sanitizeAndMigrateCloudUser(rawOther, QUESTION_BANK).data
+          : rawOther;
+        if (!cleanOther) return;
+
+        const localOther = readLocalUserSnap(u.id);
+        const decision = window.MathArena && window.MathArena.decideCloudSyncAction
+          ? window.MathArena.decideCloudSyncAction(localOther, cleanOther)
+          : { action: (cleanOther.updatedAt || 0) > (localOther.updatedAt || 0) ? 'pull' : 'noop' };
+
+        if (decision.action === 'pull') {
+          localStorage.setItem(getUserStorageKey(STORAGE_KEYS.errorBook, u.id), JSON.stringify(cleanOther.errorBook || []));
+          localStorage.setItem(getUserStorageKey(STORAGE_KEYS.errorCounts, u.id), JSON.stringify(cleanOther.errorCounts || {}));
+          localStorage.setItem(getUserStorageKey(STORAGE_KEYS.successCounts, u.id), JSON.stringify(cleanOther.successCounts || {}));
+          localStorage.setItem(getUserStorageKey(STORAGE_KEYS.slowCounts, u.id), JSON.stringify(cleanOther.slowCounts || {}));
+          localStorage.setItem(getUserStorageKey(STORAGE_KEYS.history, u.id), JSON.stringify(cleanOther.fullHistory || []));
+          localStorage.setItem(getUserStorageKey(STORAGE_KEYS.unitProgress, u.id), JSON.stringify(cleanOther.unitProgress || {}));
+          if (Array.isArray(cleanOther.selectedBatches) && cleanOther.selectedBatches.length > 0) {
+            localStorage.setItem(getUserStorageKey(STORAGE_KEYS.batches, u.id), JSON.stringify(cleanOther.selectedBatches));
           }
-          localStorage.setItem(getUserStorageKey(STORAGE_KEYS.updatedAt, u.id), String(cUp));
+          if (cleanOther.u05LegacyBackup) {
+            localStorage.setItem(getUserStorageKey(LOCAL_ARENA_KEYS.legacyBackup, u.id), JSON.stringify(cleanOther.u05LegacyBackup));
+          } else {
+            localStorage.removeItem(getUserStorageKey(LOCAL_ARENA_KEYS.legacyBackup, u.id));
+          }
+          localStorage.setItem(getUserStorageKey(STORAGE_KEYS.updatedAt, u.id), String(cleanOther.updatedAt || 0));
         }
       });
 
-      const cloudData = allCloudUsers[userId];
-      const localUpdated = state.updatedAt || 0;
-      const localActivityCount = (state.fullHistory?.length || 0) + Object.keys(state.successCounts || {}).length + (state.errorBook?.length || 0);
+      const rawCloudData = allCloudUsers[userId];
+      const cleanRes = window.MathArena && window.MathArena.sanitizeAndMigrateCloudUser
+        ? window.MathArena.sanitizeAndMigrateCloudUser(rawCloudData, QUESTION_BANK)
+        : { data: rawCloudData, migratedCount: 0 };
+      const cloudData = cleanRes.data;
 
-      if (cloudData && typeof cloudData === 'object') {
-        const cloudUpdated = cloudData.updatedAt || 0;
-        const cloudActivityCount = (cloudData.fullHistory?.length || 0) + Object.keys(cloudData.successCounts || {}).length + (cloudData.errorBook?.length || 0);
+      const decision = window.MathArena && window.MathArena.decideCloudSyncAction
+        ? window.MathArena.decideCloudSyncAction(state, cloudData)
+        : { action: cloudData ? 'pull' : 'noop', reason: 'fallback' };
 
-        // 當雲端時間戳記較新，或本機從未初始化 (localUpdated === 0) 但雲端有紀錄時，套用雲端資料
-        if (cloudUpdated > localUpdated || (localUpdated === 0 && cloudActivityCount > 0)) {
-          state.errorBook = Array.isArray(cloudData.errorBook) ? cloudData.errorBook : [];
-          state.errorCounts = cloudData.errorCounts || {};
-          state.successCounts = cloudData.successCounts || {};
-          state.slowCounts = cloudData.slowCounts || {};
-          state.fullHistory = Array.isArray(cloudData.fullHistory) ? cloudData.fullHistory : [];
-          state.unitProgress = cloudData.unitProgress || {};
-          if (Array.isArray(cloudData.selectedBatches) && cloudData.selectedBatches.length > 0) {
-            state.selectedBatches = cloudData.selectedBatches;
-          }
-          state.updatedAt = cloudUpdated;
-          saveState(true);
-          if (state.view === 'dashboard') renderDashboardView();
-          else if (state.view === 'error_book') renderErrorBookView();
-          else if (state.view === 'print') renderPrintSetupView();
-          const uObj = USERS.find(u => u.id === userId) || { name: userId };
-          showToast(`☁️ 已同步【${uObj.name}】的最新雲端進度！`);
-        } else if (localUpdated > cloudUpdated && localActivityCount > 0) {
-          await pushToCloud(userId);
-          if (showFeedback) showToast('☁️ 本機進度較新，已推送更新至雲端！');
-        } else {
-          if (state.view === 'dashboard') renderDashboardView();
-          if (showFeedback) showToast('☁️ 目前已是最新雲端同步狀態！');
+      if (decision.action === 'pull' && cloudData) {
+        state.errorBook = Array.isArray(cloudData.errorBook) ? cloudData.errorBook : [];
+        state.errorCounts = cloudData.errorCounts || {};
+        state.successCounts = cloudData.successCounts || {};
+        state.slowCounts = cloudData.slowCounts || {};
+        state.fullHistory = Array.isArray(cloudData.fullHistory) ? cloudData.fullHistory : [];
+        state.unitProgress = cloudData.unitProgress || {};
+        if (Array.isArray(cloudData.selectedBatches) && cloudData.selectedBatches.length > 0) {
+          state.selectedBatches = cloudData.selectedBatches;
         }
-      } else if (localActivityCount > 0) {
-        // 雲端尚無此人員節點，直接將本機資料推上雲端初始化
+        if (cloudData.u05LegacyBackup) {
+          state.u05LegacyBackup = cloudData.u05LegacyBackup;
+        } else if (decision.reason === 'remote_reset') {
+          state.u05LegacyBackup = null;
+        }
+        if (window.MathArena && window.MathArena.migrateLegacyIdsInState) {
+          window.MathArena.migrateLegacyIdsInState(state, QUESTION_BANK);
+        }
+        saveState(true, cloudData.updatedAt || Date.now());
+        if (state.view === 'dashboard') renderDashboardView();
+        else if (state.view === 'arena') renderArenaView();
+        else if (state.view === 'error_book') renderErrorBookView();
+        else if (state.view === 'print') renderPrintSetupView();
+        const uObj = USERS.find(u => u.id === userId) || { name: userId };
+        showToast(decision.reason === 'remote_reset'
+          ? `🧹 【${uObj.name}】已在其他裝置重置，已同步歸零！`
+          : `☁️ 已同步【${uObj.name}】的最新雲端進度！`);
+      } else if (decision.action === 'push') {
         await pushToCloud(userId);
-        if (showFeedback) showToast('☁️ 已將本機紀錄首次備份至雲端！');
+        if (showFeedback) {
+          showToast(decision.reason === 'init_cloud' ? '☁️ 已將本機紀錄首次備份至雲端！' : '☁️ 本機進度較新，已推送更新至雲端！');
+        }
+      } else {
+        if (state.view === 'dashboard') renderDashboardView();
+        if (showFeedback) showToast('☁️ 目前已是最新雲端同步狀態！');
       }
       state.cloudSyncStatus = 'synced';
       return true;
@@ -348,6 +473,8 @@
 
     if (state.view === 'error_book') {
       renderErrorBookView();
+    } else if (state.view === 'arena') {
+      renderArenaView();
     } else if (state.view === 'print') {
       renderPrintSetupView();
     } else {
@@ -367,6 +494,9 @@
     Object.values(STORAGE_KEYS).forEach(baseKey => {
       localStorage.removeItem(getUserStorageKey(baseKey, userId));
     });
+    Object.values(LOCAL_ARENA_KEYS).forEach(baseKey => {
+      localStorage.removeItem(getUserStorageKey(baseKey, userId));
+    });
     localStorage.setItem(getUserStorageKey(STORAGE_KEYS.updatedAt, userId), String(nowTs));
 
     if (state.currentUser === userId) {
@@ -378,30 +508,38 @@
       state.unitProgress = {};
       state.sessionAnswers = [];
       state.resumeTargetIdx = null;
+      state.arenaRounds = {};
+      state.u05LegacyBackup = null;
       state.updatedAt = nowTs;
-      saveState(true);
+      saveState(true, nowTs);
       if (state.view === 'dashboard') renderDashboardView();
+      else if (state.view === 'arena') renderArenaView();
       else if (state.view === 'error_book') renderErrorBookView();
     }
 
-    // 同步將雲端上的該測試帳號歸零
+    // 同步將雲端上的該測試帳號歸零（附帶 resetAt 讓其他裝置同步歸零）
     const base = normalizeCloudUrl(state.cloudDbUrl);
     if (base) {
       try {
+        const zeroState = {
+          currentUser: userId,
+          updatedAt: nowTs,
+          errorBook: [],
+          errorCounts: {},
+          successCounts: {},
+          slowCounts: {},
+          fullHistory: [],
+          selectedBatches: ['課本原型題', '奧數天梯', '純腦力體操', '段考真題'],
+          unitProgress: {},
+          u05LegacyBackup: null,
+        };
+        const resetPayload = window.MathArena && window.MathArena.buildCloudPayload
+          ? window.MathArena.buildCloudPayload(zeroState, { userId, updatedAt: nowTs, resetAt: nowTs })
+          : Object.assign({ userId, resetAt: nowTs }, zeroState);
         await fetch(`${base}/g6_math_users/${userId}.json`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            userId,
-            updatedAt: nowTs,
-            errorBook: [],
-            errorCounts: {},
-            successCounts: {},
-            slowCounts: {},
-            fullHistory: [],
-            selectedBatches: ['課本原型題', '奧數天梯', '純腦力體操', '段考真題'],
-            unitProgress: {},
-          }),
+          body: JSON.stringify(resetPayload),
         });
       } catch (e) {
         console.warn('雲端重置測試帳號失敗：', e);
@@ -964,650 +1102,526 @@
   }
 
   // -------------------------------------------------------
-  // 視圖渲染器：2. 測驗與對答案 (Quiz View)
+  // 視圖渲染器：2. 4D 智慧數學考場 (#view-arena)
   // -------------------------------------------------------
-  function startQuiz(mode, unitId = null, schoolId = null) {
-    state.quizMode = mode;
-    state.currentUnitId = unitId;
-    state.quizIndex = 0;
-    state.sessionAnswers = [];
-
-    let pool = [];
-    if (mode === 'unit') {
-      if (unitId === 'EXAM_MID1') {
-        if (schoolId) {
-          state.examSchool = schoolId;
-        } else if (!state.examSchool) {
-          state.examSchool = 'ALL';
-        }
-
-        let examPool = QUESTION_BANK.filter(q => q.unitId === 'EXAM_MID1');
-        if (state.examSchool && state.examSchool !== 'ALL') {
-          examPool = examPool.filter(q => q.school === state.examSchool);
-        } else {
-          examPool = shuffle(examPool);
-        }
-        pool = examPool;
-      } else {
-        pool = QUESTION_BANK.filter(q => q.unitId === unitId);
-        pool = filterQuestionsByBatches(pool);
-
-        // 若當前題目全部是「純腦力體操」，嚴格按 1 顆星到 10 顆星由易到難升級排序！
-        const isMentalOnly = pool.length > 0 && pool.every(q => q.batch === '純腦力體操');
-        if (isMentalOnly) {
-          pool.sort((a, b) => (a.stars || a.level || 1) - (b.stars || b.level || 1));
-        } else {
-          pool = shuffle(pool);
-        }
-      }
-    } else if (mode === 'unit_error') {
-      // 專屬消滅該單元的錯題
-      pool = QUESTION_BANK.filter(q => q.unitId === unitId && state.errorBook.includes(q.id));
-      pool = shuffle(pool);
-    } else if (mode === 'mental_mixed') {
-      // 全冊純腦力體操綜合：從 1★ 到 10★，每顆星從全冊隨機抽 2 題，總共 20 題嚴格由易到難！
-      const mentalPool = QUESTION_BANK.filter(q => q.batch === '純腦力體操');
-      let ladder = [];
-      for (let s = 1; s <= 10; s++) {
-        const starPool = shuffle(mentalPool.filter(q => (q.stars || q.level) === s));
-        ladder.push(...starPool.slice(0, 2));
-      }
-      pool = ladder;
-    } else if (mode === 'error_book') {
-      pool = QUESTION_BANK.filter(q => state.errorBook.includes(q.id));
-      pool = shuffle(pool);
-    } else if (mode === 'mixed') {
-      pool = filterQuestionsByBatches(QUESTION_BANK);
-      pool = shuffle(pool).slice(0, 10);
-    }
-
-    if (pool.length === 0) {
-      if (mode === 'error_book') {
-        showToast('🎉 太棒了！錯題已全部消滅完畢！');
-        state.view = 'dashboard';
-        renderDashboardView();
-      } else {
-        showToast('目前沒有符合條件的題目喔！請檢查上方題庫範圍是否包含此題型。');
-      }
-      return;
-    }
-
-    state.quizQuestions = pool;
-    state.view = 'quiz';
-
-    // 記錄進入測驗前的上次題號（若是 EXAM_MID1 則區分學校，並向下相容舊版進度鍵值）
-    const progKey = getProgressKey(unitId);
-    let savedIdx = progKey ? state.unitProgress[progKey] : undefined;
-    if (savedIdx === undefined && unitId) {
-      savedIdx = state.unitProgress[unitId];
-    }
-    state.resumeTargetIdx = (typeof savedIdx === 'number' && savedIdx > 0 && savedIdx < pool.length)
-      ? savedIdx
-      : null;
-
-    renderQuizQuestion();
+  function buildArenaFilterKey(f) {
+    const exp = Array.isArray(f.explicitIds) && f.explicitIds.length > 0 ? f.explicitIds.join(',') : '';
+    return [f.unit || 'U05', f.batch || 'ALL', f.school || 'ALL', f.band || 'ALL', f.errorsOnly ? 1 : 0, f.examMode || 'instant', exp].join('|');
   }
 
-  function renderQuizQuestion() {
-    if (state.quizIndex >= state.quizQuestions.length) {
-      const progKey = getProgressKey(state.currentUnitId);
-      if (progKey) {
-        state.unitProgress[progKey] = 0;
-        saveState();
+  function getOrCreateArenaRound(pool, forceRebuildQueue = false) {
+    const f = state.arenaFilter;
+    const key = buildArenaFilterKey(f);
+    let r = state.arenaRounds[key];
+    const poolIds = pool.map(q => q.id);
+    const poolSet = new Set(poolIds);
+
+    if (!r || forceRebuildQueue) {
+      let orderedIds = poolIds;
+      if (f.explicitIds && f.explicitIds.length > 0) {
+        orderedIds = f.explicitIds.filter(id => poolSet.has(id));
+      } else if (f.unit === 'ERROR_BOOK' || f.errorsOnly || f.unit === 'EXAM_MID1') {
+        orderedIds = (f.unit === 'EXAM_MID1' && f.school && f.school !== 'ALL') ? poolIds : shuffle(poolIds);
       }
-      finishQuiz();
+      r = {
+        roundKey: key,
+        queueIds: orderedIds,
+        cursor: 0,
+        answered: {},
+        examDrafts: {},
+        openRevealed: {},
+        openExt: {},
+        hideOptions: false,
+        examSubmitted: false,
+        startedAt: Date.now(),
+      };
+      state.arenaRounds[key] = r;
+    } else {
+      // Sync queueIds with current pool (keeping order of remaining items, appending new items cleanly)
+      const kept = (r.queueIds || []).filter(id => poolSet.has(id));
+      const keptSet = new Set(kept);
+      for (const id of poolIds) {
+        if (!keptSet.has(id)) kept.push(id);
+      }
+      r.queueIds = kept;
+      if (r.cursor >= kept.length) r.cursor = Math.max(0, kept.length - 1);
+    }
+    return r;
+  }
+
+  function renderArenaView() {
+    state.view = 'arena';
+    const app = document.getElementById('app');
+    if (!window.MathArena) {
+      app.innerHTML = '<p class="loading">考場模組載入失敗，請重新整理頁面。</p>';
       return;
     }
 
-    const q = state.quizQuestions[state.quizIndex];
-    const total = state.quizQuestions.length;
-    const cur = state.quizIndex + 1;
-    const pct = Math.round((cur / total) * 100);
-
-    const progKey = getProgressKey(state.currentUnitId || q.unitId);
-    const canResume = (state.quizIndex === 0 && typeof state.resumeTargetIdx === 'number' && state.resumeTargetIdx > 0 && state.resumeTargetIdx < total);
-    const lastSavedIdx = state.resumeTargetIdx;
-
-    // 當推進離開第 0 題，或本身沒有待續考提示時，才覆寫儲存目前練習題號進度
-    if (progKey && (state.quizIndex > 0 || !canResume)) {
-      if (state.quizIndex > 0) state.resumeTargetIdx = null;
-      state.unitProgress[progKey] = state.quizIndex;
-      saveState();
+    const f = state.arenaFilter;
+    // Cascading guard: if current batch or band became 0 after upstream change, reset cleanly to ALL
+    const c1 = MathArena.getCascadeStats(QUESTION_BANK, state, f);
+    if (!f.explicitIds && f.batch !== 'ALL' && (c1.batchCounts[f.batch] || 0) === 0) {
+      f.batch = 'ALL';
+    }
+    const c2 = MathArena.getCascadeStats(QUESTION_BANK, state, f);
+    if (!f.explicitIds && f.band !== 'ALL' && (c2.bandCounts[f.band] || 0) === 0) {
+      f.band = 'ALL';
     }
 
-    // 產生題號速跳抽屜盤 HTML（3 數字 ＋ 淨錯誤熱力色階）
-    const drawerGridHtml = state.quizQuestions.map((item, i) => {
-      const okCnt = state.successCounts[item.id] || 0;
-      const errCnt = state.errorCounts[item.id] || 0;
-      const slowCnt = state.slowCounts[item.id] || 0;
-      const netErr = errCnt - okCnt;
+    const rawPool = MathArena.filterArenaPool(QUESTION_BANK, state, f);
+    const round = getOrCreateArenaRound(rawPool, false);
+    const byId = new Map(rawPool.map(q => [q.id, q]));
+    const orderedPool = (round.queueIds || []).map(id => byId.get(id)).filter(Boolean);
 
-      // 計算熱力深淺色階（錯越多越紅）
-      let heatCls = 'heat-none';
-      if (errCnt > 0 || okCnt > 0) {
-        if (netErr >= 3) heatCls = 'heat-bad-heavy';
-        else if (netErr >= 2) heatCls = 'heat-bad-mid';
-        else if (netErr >= 1) heatCls = 'heat-bad-light';
-        else if (netErr === 0) heatCls = 'heat-tie';
-        else if (netErr <= -3) heatCls = 'heat-ok-heavy';
-        else if (netErr <= -1) heatCls = 'heat-ok-light';
-      }
-      const isCurrent = (i === state.quizIndex) ? 'current' : '';
-      let tip = `第 ${i + 1} 題：答對 ${okCnt} 次 · 答錯 ${errCnt} 次 (淨錯 ${netErr})`;
-      if (slowCnt > 0) tip += ` · 想很久 ${slowCnt} 次`;
+    state.quizQuestions = orderedPool;
+    state.quizIndex = round.cursor || 0;
+    state.currentUnitId = (f.unit !== 'ALL' && f.unit !== 'ERROR_BOOK') ? f.unit : (orderedPool[0] ? orderedPool[0].unitId : null);
 
-      return `
-        <button type="button" class="drawer-q-btn ${heatCls} ${isCurrent}" data-jump-idx="${i}" title="${tip}">
-          ${okCnt > 0 ? `<span class="q-badge-ok">${okCnt}</span>` : ''}
-          ${errCnt > 0 ? `<span class="q-badge-bad">${errCnt}</span>` : ''}
-          <span class="q-num-center">${i + 1}</span>
-        </button>
-      `;
-    }).join('');
+    app.innerHTML = MathArena.renderArenaHtml({
+      units: UNITS,
+      examSchools: EXAM_SCHOOLS,
+      questionBank: QUESTION_BANK,
+      state,
+      filter: f,
+      round,
+      pool: orderedPool,
+      hideCascadeBar: Array.isArray(f.explicitIds) && f.explicitIds.length > 0,
+      formatMathForKids,
+      kidsMath: window.KidsMath || null,
+    });
 
-    const isExamUnit = q.unitId === 'EXAM_MID1' || (state.currentUnitId === 'EXAM_MID1');
-    const unitObj = UNITS.find(u => u.id === q.unitId) || { title: isExamUnit ? '六年級上_第一次段考' : '綜合特訓' };
-    const isMental = q.batch === '純腦力體操' || (q.options && q.options.length > 0 && !isExamUnit);
-    const starNum = q.stars || q.level || 1;
-    const starsHtml = isMental
-      ? `<span class="tag star-badge">⭐ ${starNum} 顆星天梯</span>`
-      : '★'.repeat(q.difficulty || 2) + '☆'.repeat(Math.max(0, 5 - (q.difficulty || 2)));
-    const isError = state.errorBook.includes(q.id);
-
-    const hasImage = !!(q.cropImage || q.examPageImage);
-    const isImgMode = !!state.imgModeQuestions[q.id];
-
-    // 檢查本題是否在當前場次中已被作答過（回頭看上一題情況）
-    const existingAnswer = state.sessionAnswers.find(a => a.qId === q.id);
-    const isAnswered = !!existingAnswer;
-
-    const hasOptions = Array.isArray(q.options) && q.options.length > 0;
-    const correctKey = (q.answerKey || q.answer.trim().charAt(0)).toUpperCase();
-    let answerDisplay = formatMathForKids(q.answer);
-    if (hasOptions) {
-      const optIdx = ['A', 'B', 'C', 'D'].indexOf(correctKey);
-      if (optIdx >= 0 && q.options[optIdx]) {
-        const cleanOpt = cleanOptionText(q.options[optIdx]);
-        answerDisplay = `${correctKey} · ${cleanOpt}`;
-      }
-    }
-
-    const optionsHtml = hasOptions ? `
-      <div class="options-grid" id="options-grid">
-        ${q.options.map((opt, i) => {
-          const letter = ['A', 'B', 'C', 'D'][i] || String(i + 1);
-          const cleanText = cleanOptionText(opt);
-          let btnClass = 'opt-btn';
-          let disabledAttr = '';
-          if (isAnswered) {
-            disabledAttr = 'disabled';
-            if (letter === correctKey) {
-              btnClass += ' opt-correct';
-            } else if (letter === existingAnswer.userChoice && existingAnswer.result === 'bad') {
-              btnClass += ' opt-wrong';
-            } else {
-              btnClass += ' opt-dim';
-            }
-          }
-          return `
-            <button type="button" class="${btnClass}" data-opt-key="${letter}" ${disabledAttr}>
-              <span class="opt-letter">${letter}</span>
-              <span class="opt-text">${cleanText}</span>
-            </button>
-          `;
-        }).join('')}
-      </div>
-    ` : '';
-
-    const hintHtml = isMental ? `
-      <div class="paper-hint mental-hint">
-        <span style="font-size: 26px">🧠</span>
-        <div>
-          <b>早餐純腦力直覺・完全不需拿筆計算</b>
-          <div style="font-size: 14px; opacity: .88">請直接點選選項！運用數感、奇偶性、倍數特徵或極值推導秒殺。</div>
-        </div>
-      </div>
-    ` : isExamUnit ? `
-      <div class="paper-hint" style="background: linear-gradient(135deg, #fefce8, #fef9c3); border: 1.5px solid #fde047; color: #854d0e;">
-        <span style="font-size: 24px">🏆</span>
-        <div>
-          <b>段考全真題紙筆作答時間</b>
-          <div style="font-size: 14px; opacity: .9">考卷題目與選項 100% 忠實還原，請先在紙上計算，算好後核對標準答案。如看不清題意可點右上角查看原卷！</div>
-        </div>
-      </div>
-    ` : `
-      <div class="paper-hint">
-        <span style="font-size: 24px">📝</span>
-        <div>
-          <b>紙筆計算時間</b>
-          <div style="font-size: 14px; opacity: .85">請先在計算紙上完整列出算式與推導，算好後再點擊下方對答案。</div>
-        </div>
-      </div>
-    `;
-
-    const alertHtml = isAnswered && hasOptions ? `
-      <div id="mental-feedback-alert" class="mental-feedback-alert ${existingAnswer.result === 'ok' ? 'ok' : 'bad'}" style="display: block;">
-        ${existingAnswer.result === 'ok' ? '🎯 <b>直覺精準！完全不用拿筆就秒殺！</b>' : '💡 <b>掉進思維盲點了！快看不用動筆的秒殺邏輯：</b>'}
-      </div>
-    ` : `
-      <div id="mental-feedback-alert" style="display: none;"></div>
-    `;
-
-    const examTabsHtml = isExamUnit ? `
-      <div class="exam-school-tabs-wrap">
-        <div class="exam-tabs-header">
-          <span class="exam-tabs-title">🏫 選擇段考學校（方案 C 雙模速換）：</span>
-          <span class="muted" style="font-size: 12.5px;">目前模式：<b>${EXAM_SCHOOLS.find(s => s.id === state.examSchool)?.name || '全部學校綜合'}</b></span>
-        </div>
-        <div class="exam-school-tabs">
-          ${EXAM_SCHOOLS.map(sch => {
-            const active = (state.examSchool || 'ALL') === sch.id ? 'active' : '';
-            return `
-              <button type="button" class="school-tab-btn ${active}" data-school-tab="${sch.id}">
-                <span>${sch.shortName}</span>
-                <span class="badge-cnt">${sch.count}題</span>
-              </button>
-            `;
-          }).join('')}
-        </div>
-      </div>
-    ` : '';
-
-    const app = document.getElementById('app');
-    app.innerHTML = `
-      <div class="view quiz">
-        <div class="quiz-head">
-          <div class="quiz-nav-left">
-            <button class="btn btn-ghost" id="btn-back-dash" title="離開測驗">← 結束測驗</button>
-            <button class="btn btn-ghost" id="btn-prev-q" title="回頭看上一題" ${state.quizIndex === 0 ? 'disabled' : ''}>⏮️ 上一題</button>
-            <button class="btn btn-ghost" id="btn-next-q-top" title="跳至下一題">${cur === total ? '結算 🏁' : '下一題 ⏭️'}</button>
-          </div>
-          <span class="crumb">${unitObj.title}</span>
-          <div class="progress"><i style="width: ${pct}%"></i></div>
-          <button type="button" class="count-badge-btn" id="btn-toggle-drawer" title="展開題號速跳盤">
-            第 ${cur} / ${total} 題 ▾
-          </button>
-        </div>
-
-        <div class="quiz-grid-drawer" id="quiz-grid-drawer" style="display: none;">
-          <div class="grid-drawer-head">
-            <div class="drawer-legend-bar">
-              <span class="leg-item"><b class="leg-dot ok"></b> 綠小字=答對次數</span>
-              <span class="leg-item"><b class="leg-dot bad"></b> 紅小字=答錯次數</span>
-              <span class="leg-item"><b class="leg-dot red-shade"></b> 底色越紅代表錯越多</span>
-            </div>
-            <button type="button" class="btn-close-drawer" id="btn-close-drawer">✕</button>
-          </div>
-          <div class="drawer-q-grid">
-            ${drawerGridHtml}
-          </div>
-        </div>
-
-        ${canResume ? `
-          <div class="resume-hint-bar">
-            <span>📌 上次練習記錄進行到第 ${lastSavedIdx + 1} 題</span>
-            <button type="button" class="btn btn-sm btn-jump-resume" id="btn-resume-jump" data-resume-idx="${lastSavedIdx}">👉 直接跳轉第 ${lastSavedIdx + 1} 題</button>
-          </div>
-        ` : ''}
-
-        ${examTabsHtml}
-
-        <article class="glass q-card">
-          <div class="q-top-action-bar">
-            <div class="q-tags" style="margin-bottom: 0;">
-              ${q.school ? `<span class="tag" style="background:#e0e7ff; color:#3730a3; font-weight:800;">🏫 ${q.school}</span>` : ''}
-              <span class="tag">${q.category || '觀念綜合'}</span>
-              <span class="tag lv">${isMental ? `純腦力 ${starNum}★` : isExamUnit ? `段考題` : `天梯 Level ${q.level || 1}`}</span>
-              ${starsHtml}
-              <span class="tag">${q.source || ''}</span>
-              ${isError ? `<span class="tag bad">🔥 錯題待消滅</span>` : ''}
-              ${q.cropImage ? `<span class="tag" style="background:#f0fdf4; color:#166534; font-weight:700;">📷 附原卷圖表裁切</span>` : ''}
-            </div>
-
-            ${hasImage ? `
-              <button type="button" class="btn-crop-toggle ${isImgMode ? 'active' : ''}" id="btn-crop-toggle" title="切換文字題目與考卷原圖">
-                ${isImgMode ? '📝 返回文字題目' : '📷 查看考卷原圖'}
-              </button>
-            ` : ''}
-          </div>
-
-          <div class="q-text" id="q-content" style="${isImgMode ? 'display: none;' : ''}">${q.question}</div>
-
-          ${hasImage ? `
-            <div class="crop-image-container" id="crop-image-container" style="${isImgMode ? 'display: block;' : 'display: none;'}">
-              <div class="crop-img-wrap" id="crop-img-wrap" title="點擊放大超高清檢視">
-                <img src="${q.cropImage || q.examPageImage}" alt="考卷題目原圖" class="exam-crop-img" id="exam-crop-img">
-                <div class="crop-zoom-hint">🔍 點擊查看超清大圖</div>
-              </div>
-              ${q.examPageImage && q.cropImage ? `
-                <div class="crop-footer-actions">
-                  <button type="button" class="btn-view-page" id="btn-view-full-page">
-                    📄 查看考卷整頁原圖
-                  </button>
-                </div>
-              ` : ''}
-            </div>
-          ` : ''}
-
-          ${hasImage && !isImgMode ? `
-            <div style="font-size: 13px; color: #047857; margin: 8px 0 14px; font-weight: 700;">
-              💡 本題附有全真考卷圖表裁切，如需核對考卷排版與插圖，請點右上角「📷 查看考卷原圖」！
-            </div>
-          ` : ''}
-
-          ${q.svg ? `<div class="q-figure">${q.svg}</div>` : ''}
-
-          ${hintHtml}
-
-          ${hasOptions ? optionsHtml : ''}
-
-          ${alertHtml}
-
-          ${!hasOptions ? `
-            <div class="reveal" id="reveal-area" style="${isAnswered ? 'display: none;' : ''}">
-              <button class="btn btn-primary btn-lg btn-block" id="btn-show-answer">
-                👁️ 查看正解與推導步驟
-              </button>
-            </div>
-          ` : ''}
-
-          <div class="answer" id="answer-area" style="${isAnswered ? 'display: grid;' : 'display: none;'}">
-            <div class="box final">
-              <h4>🎯 正確答案</h4>
-              <div class="ans">${answerDisplay}</div>
-            </div>
-
-            ${q.steps && q.steps.length > 0 ? `
-              <div class="box steps">
-                <h4>📐 ${isMental ? '邏輯推理分析' : '步驟拆解與推導過程'}</h4>
-                <ol>
-                  ${q.steps.map(s => `<li>${s}</li>`).join('')}
-                </ol>
-              </div>
-            ` : ''}
-
-            ${q.insight ? `
-              <div class="box insight">
-                <h4>💡 ${isMental ? '純腦力秒殺思維（為什麼完全不用拿筆算）' : '奧數秒殺思維（競賽直覺速算）'}</h4>
-                <div>${q.insight}</div>
-              </div>
-            ` : ''}
-
-            ${q.trap ? `
-              <div class="box trap">
-                <h4>⚠️ 典型錯誤防坑診斷 <code>${q.trap.code || ''}</code></h4>
-                <div>${q.trap.text}</div>
-              </div>
-            ` : ''}
-
-            ${!hasOptions ? `
-              <div class="feedback">
-                <p>請誠實回饋你剛才的紙筆作答狀況：</p>
-                <div class="fb-row">
-                  <button type="button" class="fb ok ${isAnswered && existingAnswer.result === 'ok' ? 'picked' : (isAnswered ? 'dim' : '')}" data-fb="ok" ${isAnswered ? 'disabled' : ''}>
-                    <span class="emo">👍</span>
-                    我算對了
-                    <small>思路清晰順暢</small>
-                  </button>
-                  <button type="button" class="fb slow ${isAnswered && existingAnswer.result === 'slow' ? 'picked' : (isAnswered ? 'dim' : '')}" data-fb="slow" ${isAnswered ? 'disabled' : ''}>
-                    <span class="emo">⏳</span>
-                    算對但想很久
-                    <small>需要加強熟練</small>
-                  </button>
-                  <button type="button" class="fb bad ${isAnswered && existingAnswer.result === 'bad' ? 'picked' : (isAnswered ? 'dim' : '')}" data-fb="bad" ${isAnswered ? 'disabled' : ''}>
-                    <span class="emo">❌</span>
-                    我有算錯
-                    <small>記進錯題本</small>
-                  </button>
-                </div>
-              </div>
-            ` : `
-              <div class="feedback" style="padding: 14px 18px;">
-                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-                  <span style="font-size: 14px; color: var(--ink-2); font-weight: 700;">若是「猜對但想太久」，可手動標記：</span>
-                  <button type="button" class="btn btn-ghost" id="btn-mark-slow" style="padding: 6px 14px; font-size: 14px;" ${(state.slowCounts[q.id] || 0) > 0 ? 'disabled' : ''}>
-                    ${(state.slowCounts[q.id] || 0) > 0 ? '✔ 已標記為想很久' : '⏳ 想很久（標記熟練度）'}
-                  </button>
-                </div>
-              </div>
-            `}
-
-          </div>
-
-          <div class="quiz-bottom-nav">
-            <button type="button" class="btn btn-ghost btn-lg" id="btn-prev-q-bottom" ${state.quizIndex === 0 ? 'disabled' : ''}>
-              ⏮️ 上一題
-            </button>
-            <button type="button" class="btn btn-ghost btn-lg btn-jump-drawer" id="btn-bottom-drawer" title="展開題號速跳盤">
-              🔢 快速跳題
-            </button>
-            ${isAnswered ? `
-              <button type="button" class="btn btn-primary btn-lg" id="btn-next-q">
-                ${cur === total ? '完成測驗並結算 🏁' : '進入下一題 →'}
-              </button>
-            ` : `
-              <button type="button" class="btn btn-secondary btn-lg btn-skip-next" id="btn-next-q" title="先跳過本題直接做下一題">
-                ${cur === total ? '測驗結算 🏁' : '跳至下一題 ❯'}
-              </button>
-            `}
-          </div>
-        </article>
-      </div>
-    `;
-
+    // KaTeX runs smoothly on legacy questions while 4D uses pure KidsMath HTML
     renderMath(app);
+    bindArenaViewEvents(app, round, orderedPool);
+  }
 
-    // 綁定中斷/離開按鈕（直接結算並回顧）
-    document.getElementById('btn-back-dash').addEventListener('click', () => {
-      finishQuiz();
+  function bindArenaViewEvents(app, round, pool) {
+    const q = pool[round.cursor] || null;
+    const nq = q ? MathArena.normalizeQuestion(q, { kidsMath: window.KidsMath, formatMathForKids }) : null;
+
+    const playSfx = (name) => {
+      if (window.MathSound && typeof window.MathSound[name] === 'function') {
+        window.MathSound[name]();
+      }
+    };
+
+    const homeBtn = document.getElementById('btn-arena-home');
+    if (homeBtn) {
+      homeBtn.addEventListener('click', () => {
+        saveArenaLocalState();
+        state.view = 'dashboard';
+        renderDashboardView();
+      });
+    }
+
+    const openCascadeBtn = document.getElementById('btn-arena-open-cascade');
+    if (openCascadeBtn) {
+      openCascadeBtn.addEventListener('click', () => {
+        state.arenaFilter.explicitIds = null;
+        saveArenaLocalState();
+        renderArenaView();
+      });
+    }
+
+    const resetFilterBtn = document.getElementById('btn-arena-reset-filters');
+    if (resetFilterBtn) {
+      resetFilterBtn.addEventListener('click', () => {
+        state.arenaFilter = {
+          unit: 'U05', batch: 'ALL', school: 'ALL', band: 'ALL',
+          errorsOnly: false, examMode: state.arenaFilter.examMode || 'instant',
+          explicitIds: null, sortOrder: 'default',
+        };
+        saveArenaLocalState();
+        renderArenaView();
+      });
+    }
+
+    // 3-layer cascading filter pills
+    app.querySelectorAll('[data-filter-unit]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.arenaFilter.unit = btn.getAttribute('data-filter-unit');
+        state.arenaFilter.explicitIds = null;
+        state.arenaFilter.errorsOnly = false;
+        saveArenaLocalState();
+        renderArenaView();
+      });
     });
 
-    // 綁定雙向導航切換
-    const handlePrev = () => {
-      if (state.quizIndex > 0) {
-        state.quizIndex--;
-        renderQuizQuestion();
-      }
-    };
-    const prevBtn = document.getElementById('btn-prev-q');
-    if (prevBtn) prevBtn.addEventListener('click', handlePrev);
-    const prevBtnBottom = document.getElementById('btn-prev-q-bottom');
-    if (prevBtnBottom) prevBtnBottom.addEventListener('click', handlePrev);
+    app.querySelectorAll('[data-filter-batch]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.disabled) return;
+        state.arenaFilter.batch = btn.getAttribute('data-filter-batch');
+        state.arenaFilter.explicitIds = null;
+        saveArenaLocalState();
+        renderArenaView();
+      });
+    });
 
-    const handleNext = () => {
-      if (state.quizIndex < state.quizQuestions.length - 1) {
-        state.quizIndex++;
-        renderQuizQuestion();
-      } else {
-        finishQuiz();
-      }
-    };
-    const nextBtnTop = document.getElementById('btn-next-q-top');
-    if (nextBtnTop) nextBtnTop.addEventListener('click', handleNext);
-    const nextBtn = document.getElementById('btn-next-q');
-    if (nextBtn) nextBtn.addEventListener('click', handleNext);
+    const schoolSel = document.getElementById('arena-school-select');
+    if (schoolSel) {
+      schoolSel.addEventListener('change', () => {
+        state.arenaFilter.school = schoolSel.value;
+        state.examSchool = schoolSel.value;
+        saveArenaLocalState();
+        renderArenaView();
+      });
+    }
 
-    // 抽屜盤切換事件
+    app.querySelectorAll('[data-filter-band]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.disabled) return;
+        state.arenaFilter.band = btn.getAttribute('data-filter-band');
+        state.arenaFilter.explicitIds = null;
+        saveArenaLocalState();
+        renderArenaView();
+      });
+    });
+
+    app.querySelectorAll('[data-arena-mode]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const mode = btn.getAttribute('data-arena-mode');
+        if (mode === state.arenaFilter.examMode) return;
+        state.arenaFilter.examMode = mode;
+        saveArenaLocalState();
+        renderArenaView();
+      });
+    });
+
+    const resetRoundBtn = document.getElementById('btn-arena-reset-round');
+    if (resetRoundBtn) {
+      resetRoundBtn.addEventListener('click', () => {
+        round.answered = {};
+        round.examDrafts = {};
+        round.openRevealed = {};
+        round.openExt = {};
+        round.examSubmitted = false;
+        round.cursor = 0;
+        state.sessionAnswers = [];
+        saveArenaLocalState();
+        showToast('🔄 本輪已恢復全部未答（歷史累計統計完整保留）');
+        renderArenaView();
+      });
+    }
+
+    const retryThisBtn = document.getElementById('btn-arena-retry-this');
+    if (retryThisBtn && q) {
+      retryThisBtn.addEventListener('click', () => {
+        delete round.answered[q.id];
+        delete round.openRevealed[q.id];
+        delete round.examDrafts[q.id];
+        saveArenaLocalState();
+        renderArenaView();
+      });
+    }
+
+    // Drawer toggle & quick jump
     const toggleDrawer = () => {
-      const drawer = document.getElementById('quiz-grid-drawer');
-      if (drawer) {
-        drawer.style.display = drawer.style.display === 'none' ? 'block' : 'none';
-      }
+      const d = document.getElementById('arena-grid-drawer');
+      if (d) d.style.display = d.style.display === 'none' ? 'block' : 'none';
     };
-    const drawerToggleBtn = document.getElementById('btn-toggle-drawer');
-    if (drawerToggleBtn) drawerToggleBtn.addEventListener('click', toggleDrawer);
-    const bottomDrawerBtn = document.getElementById('btn-bottom-drawer');
-    if (bottomDrawerBtn) bottomDrawerBtn.addEventListener('click', toggleDrawer);
-    const closeDrawerBtn = document.getElementById('btn-close-drawer');
-    if (closeDrawerBtn) closeDrawerBtn.addEventListener('click', toggleDrawer);
+    const dt1 = document.getElementById('btn-arena-drawer-toggle');
+    const dt2 = document.getElementById('btn-arena-drawer-bottom');
+    const dt3 = document.getElementById('btn-arena-drawer-close');
+    if (dt1) dt1.addEventListener('click', toggleDrawer);
+    if (dt2) dt2.addEventListener('click', toggleDrawer);
+    if (dt3) dt3.addEventListener('click', toggleDrawer);
 
-    // 抽屜盤題目按鈕跳轉
-    app.querySelectorAll('[data-jump-idx]').forEach(btn => {
+    app.querySelectorAll('[data-arena-jump]').forEach(btn => {
       btn.addEventListener('click', () => {
-        const idx = parseInt(btn.getAttribute('data-jump-idx'), 10);
-        if (!isNaN(idx) && idx >= 0 && idx < state.quizQuestions.length) {
-          state.quizIndex = idx;
-          renderQuizQuestion();
+        const idx = parseInt(btn.getAttribute('data-arena-jump'), 10);
+        if (!isNaN(idx) && idx >= 0 && idx < pool.length) {
+          round.cursor = idx;
+          saveArenaLocalState();
+          renderArenaView();
         }
       });
     });
 
-    // 續考跳轉按鈕事件
-    const resumeBtn = document.getElementById('btn-resume-jump');
-    if (resumeBtn) {
-      resumeBtn.addEventListener('click', () => {
-        const targetIdx = parseInt(resumeBtn.getAttribute('data-resume-idx'), 10);
-        if (!isNaN(targetIdx) && targetIdx >= 0 && targetIdx < state.quizQuestions.length) {
-          state.resumeTargetIdx = null;
-          state.quizIndex = targetIdx;
-          renderQuizQuestion();
-        }
+    // Blind options toggle (paper-first discipline)
+    const blindBtn = document.getElementById('btn-toggle-blind');
+    if (blindBtn) {
+      blindBtn.addEventListener('click', () => {
+        round.hideOptions = !round.hideOptions;
+        saveArenaLocalState();
+        renderArenaView();
       });
     }
 
-    // 方案 C：學校分頁切換按鈕事件
-    app.querySelectorAll('[data-school-tab]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const targetSchool = btn.getAttribute('data-school-tab');
-        if (state.examSchool === targetSchool) return;
-        if (state.sessionAnswers.length > 0) {
-          if (!confirm('切換學校將會重新開始該校段考測驗，確定切換嗎？')) return;
-        }
-        startQuiz('unit', 'EXAM_MID1', targetSchool);
-      });
-    });
-
-    // 考卷原圖切換按鈕事件
-    const cropToggleBtn = document.getElementById('btn-crop-toggle');
-    if (cropToggleBtn) {
-      cropToggleBtn.addEventListener('click', () => {
-        const newMode = !state.imgModeQuestions[q.id];
-        state.imgModeQuestions[q.id] = newMode;
-        const qContent = document.getElementById('q-content');
-        const cropContainer = document.getElementById('crop-image-container');
-        if (newMode) {
-          if (qContent) qContent.style.display = 'none';
-          if (cropContainer) cropContainer.style.display = 'block';
-          cropToggleBtn.classList.add('active');
-          cropToggleBtn.textContent = '📝 返回文字題目';
-        } else {
-          if (qContent) qContent.style.display = 'block';
-          if (cropContainer) cropContainer.style.display = 'none';
-          cropToggleBtn.classList.remove('active');
-          cropToggleBtn.textContent = '📷 查看考卷原圖';
-        }
+    // Original exam crop image toggle & lightbox
+    const cropBtn = document.getElementById('btn-arena-crop-toggle');
+    if (cropBtn && q) {
+      cropBtn.addEventListener('click', () => {
+        state.imgModeQuestions[q.id] = !state.imgModeQuestions[q.id];
+        renderArenaView();
       });
     }
-
-    // 點擊原圖開啟 Lightbox 超高清放大
-    const cropWrap = document.getElementById('crop-img-wrap');
-    if (cropWrap) {
-      cropWrap.addEventListener('click', () => {
+    const cropZoom = document.getElementById('arena-crop-zoom');
+    if (cropZoom && q) {
+      cropZoom.addEventListener('click', () => {
         openLightbox(q.cropImage || q.examPageImage, `${q.school || '段考'} - 題目原卷裁切`);
       });
     }
-
-    // 查看整頁考卷原圖
-    const fullPageBtn = document.getElementById('btn-view-full-page');
-    if (fullPageBtn) {
+    const fullPageBtn = document.getElementById('btn-arena-full-page');
+    if (fullPageBtn && q) {
       fullPageBtn.addEventListener('click', () => {
         openLightbox(q.examPageImage, `${q.school || '段考'} - 考卷整頁原圖`);
       });
     }
 
-    const ansArea = document.getElementById('answer-area');
-
-    if (hasOptions) {
-      if (!isAnswered) {
-        app.querySelectorAll('.opt-btn').forEach(btn => {
-          btn.addEventListener('click', () => {
-            const chosen = btn.getAttribute('data-opt-key');
-            const isCorrect = (chosen.toUpperCase() === correctKey);
-
-            app.querySelectorAll('.opt-btn').forEach(b => {
-              b.disabled = true;
-              const k = b.getAttribute('data-opt-key').toUpperCase();
-              if (k === correctKey) {
-                b.classList.add('opt-correct');
-              } else if (b === btn && !isCorrect) {
-                b.classList.add('opt-wrong');
-              } else {
-                b.classList.add('opt-dim');
-              }
-            });
-
-            recordAnswer(q, isCorrect ? 'ok' : 'bad', chosen);
-
-            const alertDiv = document.getElementById('mental-feedback-alert');
-            if (alertDiv) {
-              alertDiv.style.display = 'block';
-              alertDiv.className = `mental-feedback-alert ${isCorrect ? 'ok' : 'bad'}`;
-              alertDiv.innerHTML = isCorrect
-                ? '🎯 <b>直覺精準！完全不用拿筆就秒殺！</b>'
-                : '💡 <b>掉進思維盲點了！快看不用動筆的秒殺邏輯：</b>';
-            }
-
-            ansArea.style.display = 'grid';
-            renderMath(ansArea);
-            const bNext = document.getElementById('btn-next-q');
-            if (bNext) {
-              bNext.className = 'btn btn-primary btn-lg';
-              bNext.textContent = (cur === total) ? '完成測驗並結算 🏁' : '進入下一題 →';
-              bNext.removeAttribute('title');
-            }
-            ansArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          });
+    // Choice option clicks
+    if (q && nq && nq.hasOptions) {
+      app.querySelectorAll('[data-arena-opt]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (btn.disabled) return;
+          const chosen = btn.getAttribute('data-arena-opt').toUpperCase();
+          if (state.arenaFilter.examMode === 'exam' && !round.examSubmitted) {
+            round.examDrafts[q.id] = chosen;
+            saveArenaLocalState();
+            playSfx('click');
+            renderArenaView();
+            return;
+          }
+          const isCorrect = (chosen === nq.answerKey);
+          const result = isCorrect ? 'ok' : 'bad';
+          const trapCode = (!isCorrect && nq.options)
+            ? (nq.options.find(o => o.key === chosen)?.trapCode || null)
+            : null;
+          recordAnswer(q, result, chosen, trapCode);
+          round.answered[q.id] = { result, userChoice: chosen };
+          saveArenaLocalState();
+          playSfx(isCorrect ? 'ok' : 'bad');
+          renderArenaView();
         });
-      }
+      });
+    }
 
-      const markSlowBtn = document.getElementById('btn-mark-slow');
-      if (markSlowBtn && !markSlowBtn.disabled) {
-        markSlowBtn.addEventListener('click', () => {
-          state.slowCounts[q.id] = (state.slowCounts[q.id] || 0) + 1;
-          saveState();
-          markSlowBtn.disabled = true;
-          markSlowBtn.textContent = '✔ 已標記為想很久';
-        });
-      }
-    } else {
-      if (!isAnswered) {
-        const showBtn = document.getElementById('btn-show-answer');
-        if (showBtn) {
-          showBtn.addEventListener('click', () => {
-            showBtn.style.display = 'none';
-            ansArea.style.display = 'grid';
-            renderMath(ansArea);
-            ansArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          });
+    // Legacy non-option reveal & 3-state self-grading
+    const revealOpenBtn = document.getElementById('btn-arena-reveal-open');
+    if (revealOpenBtn && q) {
+      revealOpenBtn.addEventListener('click', () => {
+        round.openRevealed[q.id] = true;
+        saveArenaLocalState();
+        renderArenaView();
+      });
+    }
+    app.querySelectorAll('[data-arena-fb]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.disabled || !q) return;
+        const val = btn.getAttribute('data-arena-fb');
+        recordAnswer(q, val, val);
+        round.answered[q.id] = { result: val, userChoice: val };
+        saveArenaLocalState();
+        playSfx(val === 'ok' ? 'ok' : val === 'slow' ? 'slow' : 'bad');
+        renderArenaView();
+      });
+    });
+
+    const slowMarkBtn = document.getElementById('btn-arena-mark-slow');
+    if (slowMarkBtn && q && !slowMarkBtn.disabled) {
+      slowMarkBtn.addEventListener('click', () => {
+        state.slowCounts[q.id] = (state.slowCounts[q.id] || 0) + 1;
+        saveState();
+        playSfx('slow');
+        renderArenaView();
+      });
+    }
+
+    const extToggleBtn = document.getElementById('btn-arena-ext-toggle');
+    if (extToggleBtn && q) {
+      extToggleBtn.addEventListener('click', () => {
+        round.openExt = round.openExt || {};
+        round.openExt[q.id] = !round.openExt[q.id];
+        saveArenaLocalState();
+        renderArenaView();
+      });
+    }
+
+    const submitExamAndFinish = () => {
+      if (state.arenaFilter.examMode === 'exam' && !round.examSubmitted) {
+        const drafts = round.examDrafts || {};
+        const draftedIds = Object.keys(drafts);
+        if (draftedIds.length === 0) {
+          showToast('你還沒有點選任何題目的答案喔！');
+          return;
         }
-
-        const fbButtons = app.querySelectorAll('[data-fb]');
-        fbButtons.forEach(btn => {
-          btn.addEventListener('click', () => {
-            const val = btn.getAttribute('data-fb');
-            recordAnswer(q, val, val);
-
-            fbButtons.forEach(b => {
-              b.disabled = true;
-              if (b === btn) b.classList.add('picked');
-              else b.classList.add('dim');
+        state.sessionAnswers = [];
+        for (const item of pool) {
+          const ch = drafts[item.id];
+          if (!ch) continue;
+          const normItem = MathArena.normalizeQuestion(item, { kidsMath: window.KidsMath, formatMathForKids });
+          if (normItem.hasOptions) {
+            const ok = (ch === normItem.answerKey);
+            const res = ok ? 'ok' : 'bad';
+            const tc = (!ok && normItem.options) ? (normItem.options.find(o => o.key === ch)?.trapCode || null) : null;
+            recordAnswer(item, res, ch, tc);
+            round.answered[item.id] = { result: res, userChoice: ch };
+          }
+        }
+        round.examSubmitted = true;
+        saveArenaLocalState();
+      } else {
+        state.sessionAnswers = [];
+        for (const item of pool) {
+          const rec = round.answered && round.answered[item.id];
+          if (rec) {
+            state.sessionAnswers.push({
+              qId: item.id,
+              unitId: item.unitId,
+              category: item.category,
+              level: item.level || item.stars || 1,
+              result: rec.result,
+              userChoice: rec.userChoice,
+              trapCode: null,
+              time: new Date().toISOString(),
             });
-
-            const bNext = document.getElementById('btn-next-q');
-            if (bNext) {
-              bNext.className = 'btn btn-primary btn-lg';
-              bNext.textContent = (cur === total) ? '完成測驗並結算 🏁' : '進入下一題 →';
-              bNext.removeAttribute('title');
-            }
-            ansArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          });
-        });
+          }
+        }
       }
+      playSfx('fanfare');
+      finishQuiz();
+    };
+
+    const submitExamBtn = document.getElementById('btn-arena-submit-exam');
+    if (submitExamBtn) {
+      submitExamAndFinish && submitExamBtn.addEventListener('click', submitExamAndFinish);
+    }
+
+    const prevBtn = document.getElementById('btn-arena-prev');
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        if (round.cursor > 0) {
+          round.cursor--;
+          saveArenaLocalState();
+          renderArenaView();
+        }
+      });
+    }
+
+    const nextBtn = document.getElementById('btn-arena-next');
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        if (round.cursor < pool.length - 1) {
+          round.cursor++;
+          saveArenaLocalState();
+          renderArenaView();
+        } else {
+          submitExamAndFinish();
+        }
+      });
     }
   }
 
-  function recordAnswer(q, result, userChoice = null) {
+  function startQuiz(mode, unitId = null, schoolId = null, explicitIds = null) {
+    state.quizMode = mode;
+    state.currentUnitId = unitId;
+    state.sessionAnswers = [];
+
+    if (schoolId) state.examSchool = schoolId;
+
+    const batchesSel = state.selectedBatches || [];
+    const singleMental = batchesSel.length === 1 && batchesSel[0] === '純腦力體操';
+
+    if (Array.isArray(explicitIds) && explicitIds.length > 0) {
+      state.arenaFilter = {
+        unit: unitId || 'ALL',
+        batch: 'ALL',
+        school: state.examSchool || 'ALL',
+        band: 'ALL',
+        errorsOnly: false,
+        examMode: 'instant',
+        explicitIds: [...explicitIds],
+        sortOrder: 'default',
+      };
+    } else if (mode === 'unit') {
+      state.arenaFilter = {
+        unit: unitId || 'U05',
+        batch: singleMental ? '純腦力體操' : 'ALL',
+        school: unitId === 'EXAM_MID1' ? (state.examSchool || 'ALL') : 'ALL',
+        band: 'ALL',
+        errorsOnly: false,
+        examMode: 'instant',
+        explicitIds: null,
+        sortOrder: unitId === 'U05' ? 'ladder' : 'default',
+      };
+    } else if (mode === 'unit_error') {
+      state.arenaFilter = {
+        unit: unitId || 'U05',
+        batch: 'ALL',
+        school: 'ALL',
+        band: 'ALL',
+        errorsOnly: true,
+        examMode: 'instant',
+        explicitIds: null,
+        sortOrder: 'default',
+      };
+    } else if (mode === 'error_book') {
+      state.arenaFilter = {
+        unit: 'ERROR_BOOK',
+        batch: 'ALL',
+        school: 'ALL',
+        band: 'ALL',
+        errorsOnly: false,
+        examMode: 'instant',
+        explicitIds: null,
+        sortOrder: 'default',
+      };
+    } else if (mode === 'mental_mixed') {
+      const mentalPool = QUESTION_BANK.filter(q => q.batch === '純腦力體操');
+      const ladder = [];
+      for (let s = 1; s <= 10; s++) {
+        ladder.push(...shuffle(mentalPool.filter(q => (q.stars || q.level) === s)).slice(0, 2));
+      }
+      state.arenaFilter = {
+        unit: 'ALL',
+        batch: '純腦力體操',
+        school: 'ALL',
+        band: 'ALL',
+        errorsOnly: false,
+        examMode: 'instant',
+        explicitIds: ladder.map(q => q.id),
+        sortOrder: 'ladder',
+      };
+    } else {
+      const filtered = filterQuestionsByBatches(QUESTION_BANK);
+      state.arenaFilter = {
+        unit: 'ALL',
+        batch: 'ALL',
+        school: 'ALL',
+        band: 'ALL',
+        errorsOnly: false,
+        examMode: 'instant',
+        explicitIds: shuffle(filtered).slice(0, 10).map(q => q.id),
+        sortOrder: 'default',
+      };
+    }
+
+    const poolCheck = MathArena.filterArenaPool(QUESTION_BANK, state, state.arenaFilter);
+    if (poolCheck.length === 0) {
+      if (mode === 'error_book' || mode === 'unit_error') {
+        showToast('🎉 太棒了！該範圍的錯題已全部消滅完畢！');
+        state.view = 'dashboard';
+        renderDashboardView();
+      } else {
+        showToast('目前沒有符合條件的題目喔！請調整篩選條件。');
+        renderArenaView();
+      }
+      return;
+    }
+
+    // Build fresh shuffled round when starting unit_error / error_book / explicit
+    const round = getOrCreateArenaRound(poolCheck, (mode === 'error_book' || mode === 'unit_error' || mode === 'mental_mixed' || mode === 'mixed'));
+    round.cursor = 0;
+    round.answered = {};
+    round.examDrafts = {};
+    round.openRevealed = {};
+    round.examSubmitted = false;
+    saveArenaLocalState();
+    renderArenaView();
+  }
+
+  function recordAnswer(q, result, userChoice = null, trapCodeOverride = null) {
     const existingIndex = state.sessionAnswers.findIndex(a => a.qId === q.id);
+    const derivedTrap = trapCodeOverride || (q.trap ? q.trap.code : null);
     const answerRecord = {
       qId: q.id,
       unitId: q.unitId,
@@ -1615,7 +1629,7 @@
       level: q.level || q.stars || 1,
       result: result, // 'ok' | 'slow' | 'bad'
       userChoice: userChoice, // 'A' | 'B' | 'C' | 'D' or 'ok' | 'slow' | 'bad'
-      trapCode: q.trap ? q.trap.code : null,
+      trapCode: derivedTrap,
       time: new Date().toISOString(),
     };
 
@@ -1691,9 +1705,10 @@
     saveState();
 
     const reviewItemsHtml = state.quizQuestions.map((q, idx) => {
+      const nq = MathArena.normalizeQuestion(q, { kidsMath: window.KidsMath, formatMathForKids });
       const ans = state.sessionAnswers.find(a => a.qId === q.id);
       const u = UNITS.find(x => x.id === q.unitId) || { title: '綜合特訓' };
-      const isMental = q.batch === '純腦力體操' || (q.options && q.options.length > 0);
+      const isMental = q.batch === '純腦力體操' || nq.hasOptions;
       const isAnswered = !!ans;
       const isCorrect = ans && ans.result === 'ok';
       const isSlow = ans && ans.result === 'slow';
@@ -1716,18 +1731,16 @@
             </div>
             <div class="review-choice-pill correct">
               <span class="label">標準正解：</span>
-              <b>${q.answer}</b>
+              <b>${nq.answerDisplayHtml}</b>
             </div>
           </div>
         `;
-      } else if (q.options && q.options.length > 0) {
+      } else if (nq.hasOptions) {
         const userKey = (ans.userChoice || '').toUpperCase();
-        const optIdx = ['A', 'B', 'C', 'D'].indexOf(userKey);
-        const userOptText = optIdx >= 0 && q.options[optIdx] ? cleanOptionText(q.options[optIdx]) : (ans.userChoice || '未作答');
-
-        const correctKey = (q.answerKey || q.answer.trim().charAt(0)).toUpperCase();
-        const corIdx = ['A', 'B', 'C', 'D'].indexOf(correctKey);
-        const corOptText = corIdx >= 0 && q.options[corIdx] ? cleanOptionText(q.options[corIdx]) : formatMathForKids(q.answer);
+        const userOpt = nq.options.find(o => o.key === userKey);
+        const userOptText = userOpt ? userOpt.html : (ans.userChoice || '未作答');
+        const corOpt = nq.options.find(o => o.key === nq.answerKey);
+        const corOptText = corOpt ? corOpt.html : formatMathForKids(q.answer);
 
         choiceHtml = `
           <div class="review-choice-grid">
@@ -1738,7 +1751,7 @@
             ${!isCorrect ? `
               <div class="review-choice-pill correct">
                 <span class="label">標準正解：</span>
-                <b>(${correctKey}) ${corOptText}</b>
+                <b>(${nq.answerKey}) ${corOptText}</b>
               </div>
             ` : ''}
           </div>
@@ -1752,7 +1765,7 @@
             </div>
             <div class="review-choice-pill correct">
               <span class="label">標準正解：</span>
-              <b>${q.answer}</b>
+              <b>${nq.answerDisplayHtml}</b>
             </div>
           </div>
         `;
@@ -1764,7 +1777,7 @@
             <div class="review-item-meta">
               <span class="review-q-num">第 ${idx + 1} 題</span>
               <span class="tag">${u.title}</span>
-              <span class="tag lv">${isMental ? `⭐ ${q.stars || 1}★` : `L${q.level || 1}`}</span>
+              <span class="tag lv">${isMental && q.stars ? `⭐ ${q.stars}★` : `L${nq.level}`}</span>
               ${statusTag}
             </div>
             <button type="button" class="btn btn-ghost btn-sm btn-toggle-detail" data-target="detail-${idx}">
@@ -1772,35 +1785,42 @@
             </button>
           </div>
 
-          <div class="review-q-text">${q.question}</div>
-          ${q.svg ? `<div class="review-q-fig">${q.svg}</div>` : ''}
+          <div class="review-q-text">${nq.questionHtml}</div>
+          ${nq.stemFigureHtml ? `<div class="review-q-fig">${nq.stemFigureHtml}</div>` : ''}
 
           ${choiceHtml}
 
           <div class="review-sol-panel" id="detail-${idx}" style="display: none;">
             <div class="box final">
               <h4>🎯 正確答案</h4>
-              <div class="ans">${q.answer}</div>
+              <div class="ans">${nq.answerDisplayHtml}</div>
             </div>
 
-            ${q.steps && q.steps.length > 0 ? `
+            ${nq.examPurposeHtml ? `
+              <div class="box purpose">
+                <h4>🎯 考點核心</h4>
+                <div>${nq.examPurposeHtml}</div>
+              </div>
+            ` : ''}
+
+            ${nq.stepBlocksHtml.length > 0 ? `
               <div class="box steps">
                 <h4>📐 ${isMental ? '邏輯推理分析' : '步驟拆解與推導過程'}</h4>
-                <ol>${q.steps.map(s => `<li>${s}</li>`).join('')}</ol>
+                <div class="km-steps-flow">${nq.stepBlocksHtml.map(s => s.html).join('')}</div>
               </div>
             ` : ''}
 
-            ${q.insight ? `
+            ${nq.insightHtml ? `
               <div class="box insight">
-                <h4>💡 ${isMental ? '純腦力秒殺思維（為什麼完全不用拿筆算）' : '奧數秒殺思維（競賽直覺）'}</h4>
-                <div>${q.insight}</div>
+                <h4>💡 ${isMental ? '純腦力秒殺思維' : '奧數秒殺思維（競賽直覺）'}</h4>
+                <div>${nq.insightHtml}</div>
               </div>
             ` : ''}
 
-            ${q.trap ? `
+            ${nq.primaryTrap ? `
               <div class="box trap">
-                <h4>⚠️ 典型錯誤防坑診斷 <code>${q.trap.code || ''}</code></h4>
-                <div>${q.trap.text}</div>
+                <h4>⚠️ 典型錯誤防坑診斷 <code>${nq.primaryTrap.code || ''}</code></h4>
+                <div>${nq.primaryTrap.text}</div>
               </div>
             ` : ''}
           </div>
@@ -1902,19 +1922,20 @@
     ].join('');
 
     const listHtml = displayed.length > 0 ? displayed.map(q => {
+      const nq = MathArena.normalizeQuestion(q, { kidsMath: window.KidsMath, formatMathForKids });
       const u = UNITS.find(x => x.id === q.unitId) || {};
       const ec = state.errorCounts[q.id] || 1;
       const unitLabel = u.isExam ? `🏆 六上第一次段考` : `第 ${u.no} 單元 ${u.title}`;
       return `
         <div class="err-item">
           <div>
-            <div class="q-mini">${q.question}</div>
+            <div class="q-mini">${nq.questionHtml}</div>
             <div class="meta">
               <span class="tag">${unitLabel}</span>
               ${q.school ? `<span class="tag" style="background:#e0e7ff; color:#3730a3; font-weight:700;">🏫 ${q.school}</span>` : ''}
               <span class="tag">${q.category || ''}</span>
               <span class="tag bad">🔥 累計錯 ${ec} 次</span>
-              ${q.trap ? `<span class="tag" style="background: #fef2f2; color: #991b1b">盲點：${q.trap.text}</span>` : ''}
+              ${nq.primaryTrap ? `<span class="tag" style="background: #fef2f2; color: #991b1b">盲點：${nq.primaryTrap.text}</span>` : ''}
             </div>
           </div>
           <div>
@@ -1983,13 +2004,7 @@
         const qId = btn.getAttribute('data-retry-q');
         const q = QUESTION_BANK.find(x => x.id === qId);
         if (q) {
-          state.quizQuestions = [q];
-          state.quizIndex = 0;
-          state.quizMode = 'error_book';
-          state.currentUnitId = q.unitId;
-          state.sessionAnswers = [];
-          state.view = 'quiz';
-          renderQuizQuestion();
+          startQuiz('error_book', q.unitId, null, [q.id]);
         }
       });
     });
@@ -2091,6 +2106,14 @@
           </div>
 
           <div class="field">
+            <label>考卷類型（同一份試卷可一鍵印出空白卷 ＋ 家長詳解）：</label>
+            <div class="seg">
+              <button type="button" class="chip ${(state.printConfig.printMode || 'student') === 'student' ? 'on' : ''}" data-print-mode="student">📄 學生空白卷</button>
+              <button type="button" class="chip ${state.printConfig.printMode === 'teacher' ? 'on' : ''}" data-print-mode="teacher">🔑 家長詳解卷</button>
+            </div>
+          </div>
+
+          <div class="field">
             <label>草稿方格大小：</label>
             <div class="seg">
               <button type="button" class="chip ${state.printConfig.workSize === 'sm' ? 'on' : ''}" data-work="sm">緊湊 (35mm)</button>
@@ -2136,6 +2159,15 @@
     };
 
     // 綁定事件
+    app.querySelectorAll('[data-print-mode]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.printConfig.printMode = btn.getAttribute('data-print-mode') === 'teacher' ? 'teacher' : 'student';
+        app.querySelectorAll('[data-print-mode]').forEach(b => b.classList.remove('on'));
+        btn.classList.add('on');
+        renderPaperSheet(false);
+      });
+    });
+
     app.querySelectorAll('[data-print-unit-toggle]').forEach(chk => {
       chk.addEventListener('change', () => {
         const uId = chk.value;
@@ -2151,7 +2183,7 @@
           return;
         }
         updatePrintSliderUI();
-        renderPaperSheet();
+        renderPaperSheet(true);
       });
     });
 
@@ -2168,7 +2200,7 @@
         app.querySelectorAll('[data-print-batch-mode]').forEach(b => b.classList.remove('on'));
         btn.classList.add('on');
         updatePrintSliderUI();
-        renderPaperSheet();
+        renderPaperSheet(true);
       });
     });
 
@@ -2177,7 +2209,7 @@
     rangeInput.addEventListener('input', () => {
       state.printConfig.count = parseInt(rangeInput.value, 10);
       rangeVal.textContent = state.printConfig.count;
-      renderPaperSheet();
+      renderPaperSheet(true);
     });
 
     const pickAllBtn = document.getElementById('btn-print-pick-all');
@@ -2191,7 +2223,7 @@
             rangeInput.value = p.length;
             rangeVal.textContent = p.length;
           }
-          renderPaperSheet();
+          renderPaperSheet(true);
           showToast(`已設定出齊全部 ${p.length} 題！`);
         } else {
           showToast('目前條件下沒有任何可用題目');
@@ -2204,14 +2236,14 @@
         state.printConfig.workSize = btn.getAttribute('data-work');
         app.querySelectorAll('[data-work]').forEach(b => b.classList.remove('on'));
         btn.classList.add('on');
-        renderPaperSheet();
+        renderPaperSheet(false);
       });
     });
 
     const shufflePrintBtn = document.getElementById('btn-shuffle-print');
     if (shufflePrintBtn) {
       shufflePrintBtn.addEventListener('click', () => {
-        renderPaperSheet();
+        renderPaperSheet(true);
         showToast('已隨機換一批全新考卷題目！');
       });
     }
@@ -2226,7 +2258,7 @@
     });
   }
 
-  function renderPaperSheet() {
+  function renderPaperSheet(forceReshuffle = false) {
     const container = document.getElementById('paper-container');
     if (!container) return;
 
@@ -2238,6 +2270,7 @@
     const pool = getPrintPool();
 
     if (pool.length === 0) {
+      state.printSelectionIds = null;
       container.innerHTML = `
         <article class="paper" style="padding: 60px 40px; text-align: center; color: var(--ink-soft);">
           <div style="font-size: 52px; margin-bottom: 16px;">📑</div>
@@ -2253,7 +2286,16 @@
     }
 
     const actualCount = Math.min(pool.length, state.printConfig.count);
-    const selected = shuffle(pool).slice(0, actualCount);
+    const poolById = new Map(pool.map(q => [q.id, q]));
+    let selected = [];
+    if (!forceReshuffle && Array.isArray(state.printSelectionIds) && state.printSelectionIds.length === actualCount) {
+      const reused = state.printSelectionIds.map(id => poolById.get(id)).filter(Boolean);
+      if (reused.length === actualCount) selected = reused;
+    }
+    if (selected.length === 0) {
+      selected = shuffle(pool).slice(0, actualCount);
+      state.printSelectionIds = selected.map(q => q.id);
+    }
 
     // 依人員與題目 ID 組裝 QR Code 網址，支援直接在 iPad 掃描時自動切回該人員帳號對答案（錯題卷模式附帶 mode=error_book）
     const qIds = selected.map(q => q.id).join(',');
@@ -2278,63 +2320,16 @@
       mainTitle = `翰林版國小六上數學 特訓測驗卷 【${uNames}】`;
     }
 
-    const questionsHtml = selected.map((q, idx) => {
-      const workClass = q.work || state.printConfig.workSize;
-      const isMentalQ = q.batch === '純腦力體操' || (q.options && q.options.length > 0);
-      const isSpecificCrop = q.cropImage && !/_p\d+\.png$/i.test(q.cropImage);
-      const figHtml = q.svg
-        ? `<div class="pq-fig">${q.svg}</div>`
-        : (isSpecificCrop ? `<div class="pq-fig"><img src="${q.cropImage}" alt="考卷題圖" style="max-width:140mm; max-height:55mm; object-fit:contain;"></div>` : '');
-      return `
-        <div class="pq">
-          <div class="pq-title">
-            <span class="pq-no">${idx + 1}.</span>
-            <div style="flex: 1">${formatMathForKids(q.question)}</div>
-          </div>
-          ${q.options && q.options.length > 0 ? `
-            <div class="pq-options" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px 16px; margin: 8px 0 12px; font-size: 14px; font-weight: 600;">
-              ${q.options.map((opt, i) => {
-                const letter = ['(A)', '(B)', '(C)', '(D)'][i] || `(${i+1})`;
-                const clean = cleanOptionText(opt);
-                return `<div><b>${letter}</b> ${clean}</div>`;
-              }).join('')}
-            </div>
-          ` : ''}
-          ${figHtml}
-          <div class="work-grid ${workClass}" title="${isMentalQ ? '直覺思考/草稿格' : '5mm 手寫草稿格'}"></div>
-          <div class="pq-ans">答：<i></i></div>
-        </div>
-      `;
-    }).join('');
-
-    container.innerHTML = `
-      <article class="paper">
-        <header class="paper-head">
-          <div>
-            <h2>${mainTitle}</h2>
-            <div class="sub">得分：________　作答時間：___ 分 ___ 秒</div>
-            <div class="paper-fields">
-              <span>班級：<i></i></span>
-              <span>座號：<i></i></span>
-              <span>姓名：<i style="font-style: normal; font-weight: 800; text-align: center; padding: 0 4px;">${curUser.name}</i></span>
-              <span>日期：<i></i></span>
-            </div>
-          </div>
-          <div class="paper-qr">
-            ${qrSvg}
-            <div>📱 掃碼線上對答案 (${curUser.name}${hasErrorBook ? ' · 錯題消滅' : ''})</div>
-          </div>
-        </header>
-
-        <section class="paper-body">
-          ${questionsHtml}
-        </section>
-
-        <footer class="paper-foot">
-          六上數學特訓 · 題目完成後請掃描右上角 QR Code 進行即時對答案與思路診斷
-        </footer>
-      </article>
-    `;
+    container.innerHTML = MathArena.buildPaperSheetHtml(selected, {
+      printMode: state.printConfig.printMode || 'student',
+      curUser,
+      workSize: state.printConfig.workSize,
+      qrSvg,
+      hasErrorBook,
+      mainTitle,
+      kidsMath: window.KidsMath || null,
+      formatMathForKids,
+    });
 
     renderMath(container);
   }
@@ -2381,13 +2376,14 @@
       md += `目前沒有任何錯題，全冊課本掌握狀況極佳！請直接調用 AMC 8 奧數天梯出題。\n\n`;
     } else {
       errorQuestions.forEach((q, idx) => {
+        const nq = MathArena.normalizeQuestion(q, { kidsMath: window.KidsMath, formatMathForKids });
         const u = UNITS.find(x => x.id === q.unitId) || {};
-        md += `### ${idx + 1}. [${u.title}] ${q.category} (天梯 L${q.level || 1})\n`;
-        md += `- **題目：** ${q.question.replace(/<br>/g, ' ')}\n`;
-        md += `- **正確答案：** ${q.answer}\n`;
-        md += `- **推導步驟：** ${(q.steps || []).join(' → ')}\n`;
-        if (q.trap) {
-          md += `- **盲點代碼：** \`${q.trap.code}\` — ${q.trap.text}\n`;
+        md += `### ${idx + 1}. [${u.title}] ${q.category} (天梯 L${nq.level})\n`;
+        md += `- **題目：** ${nq.questionPlain}\n`;
+        md += `- **正確答案：** ${nq.answerPlainText}\n`;
+        md += `- **推導步驟：** ${nq.stepsPlain.join(' → ')}\n`;
+        if (nq.primaryTrap) {
+          md += `- **盲點代碼：** \`${nq.primaryTrap.code}\` — ${nq.primaryTrap.text}\n`;
         }
         md += `- **累計錯誤次數：** ${state.errorCounts[q.id] || 1} 次\n\n`;
       });
@@ -2426,16 +2422,15 @@
     const quizIds = params.get('quiz_ids');
     const modeParam = params.get('mode');
     if (quizIds) {
-      const ids = quizIds.split(',');
+      const lMap = (window.MathArena && window.MathArena.buildLegacyIdMap)
+        ? window.MathArena.buildLegacyIdMap(QUESTION_BANK)
+        : {};
+      const ids = quizIds.split(',').map(id => lMap[id.trim()] || id.trim());
       const selected = QUESTION_BANK.filter(q => ids.includes(q.id));
       if (selected.length > 0) {
         const curU = getCurrentUserObj();
-        state.quizQuestions = selected;
-        state.quizIndex = 0;
-        state.quizMode = (modeParam === 'error_book') ? 'error_book' : 'mixed';
-        state.sessionAnswers = [];
-        state.view = 'quiz';
-        renderQuizQuestion();
+        const mode = (modeParam === 'error_book') ? 'error_book' : 'mixed';
+        startQuiz(mode, selected[0].unitId, null, selected.map(q => q.id));
         if (modeParam === 'error_book') {
           showToast(`已載入【${curU.name}】的 A4 錯題消滅卷！算對自動消滅錯題！`);
         } else {
@@ -2450,11 +2445,38 @@
   // -------------------------------------------------------
   // 初始化與事件監聽
   // -------------------------------------------------------
+  const FONT_SCALES = [0.9, 1, 1.15, 1.3, 1.4];
+  const FONT_SCALE_KEY = 'g6_math_font_scale';
+
+  function applyFontScale(scale) {
+    const valid = FONT_SCALES.includes(scale) ? scale : 1;
+    document.documentElement.style.setProperty('--font-scale', String(valid));
+    const lbl = document.getElementById('nav-font-label');
+    if (lbl) lbl.textContent = `${Math.round(valid * 100)}%`;
+    try {
+      localStorage.setItem(FONT_SCALE_KEY, String(valid));
+    } catch (e) {}
+    return valid;
+  }
+
+  function updateSoundButtonUI() {
+    const btn = document.getElementById('nav-sound');
+    if (!btn) return;
+    const on = window.MathSound ? window.MathSound.isEnabled() : true;
+    btn.textContent = on ? '🔊' : '🔇';
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    btn.title = on ? '音效已開啟（點擊靜音）' : '音效已靜音（點擊開啟）';
+  }
+
   function init() {
     const savedUser = localStorage.getItem(GLOBAL_STORAGE_KEYS.currentUser) || 'rex';
     loadState(savedUser);
     updateNavBadge();
     updateNavUserUI();
+
+    const savedScale = parseFloat(localStorage.getItem(FONT_SCALE_KEY) || '1');
+    applyFontScale(savedScale);
+    updateSoundButtonUI();
 
     if (state.cloudDbUrl) {
       syncFromCloud(state.currentUser, false);
@@ -2468,10 +2490,40 @@
       });
     }
 
+    const navFontBtn = document.getElementById('nav-font');
+    if (navFontBtn) {
+      navFontBtn.addEventListener('click', () => {
+        const cur = parseFloat(localStorage.getItem(FONT_SCALE_KEY) || '1');
+        const idx = FONT_SCALES.indexOf(cur);
+        const next = FONT_SCALES[(idx + 1) % FONT_SCALES.length];
+        applyFontScale(next);
+        showToast(`🔠 題目字級切換為 ${Math.round(next * 100)}%`);
+      });
+    }
+
+    const navSoundBtn = document.getElementById('nav-sound');
+    if (navSoundBtn) {
+      navSoundBtn.addEventListener('click', () => {
+        if (window.MathSound) {
+          const on = window.MathSound.toggle();
+          updateSoundButtonUI();
+          showToast(on ? '🔊 已開啟答題音效' : '🔇 已靜音');
+        }
+      });
+    }
+
     document.getElementById('nav-home').addEventListener('click', () => {
       state.view = 'dashboard';
       renderDashboardView();
     });
+
+    const navArenaBtn = document.getElementById('nav-arena');
+    if (navArenaBtn) {
+      navArenaBtn.addEventListener('click', () => {
+        state.arenaFilter.explicitIds = null;
+        renderArenaView();
+      });
+    }
 
     document.getElementById('nav-errors').addEventListener('click', () => {
       renderErrorBookView();

@@ -7,8 +7,9 @@
   --ink-2: #4c4a73;
   --ink-3: #8b89ad;
   --line: #e4e1fb;
-  --card: rgba(255, 255, 255, 0.78);
+  --card: #ffffff;
   --card-solid: #ffffff;
+  --font-scale: 1;
 
   --primary: #5b4bdb;
   --primary-2: #8b5cf6;
@@ -31,7 +32,7 @@
 }
 
 * { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
+html, body { margin: 0; padding: 0; overflow-x: clip; }
 body {
   font-family: var(--font);
   color: var(--ink);
@@ -60,23 +61,23 @@ h1, h2, h3, h4 { margin: 0; line-height: 1.3; }
 .topbar {
   position: sticky; top: 0; z-index: 20;
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  padding: 12px clamp(14px, 3vw, 32px);
-  background: rgba(245, 243, 255, 0.72);
-  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(91, 75, 219, 0.1);
+  padding: max(12px, env(safe-area-inset-top)) clamp(14px, 3vw, 32px) 12px;
+  background: #f8f7ff;
+  border-bottom: 1.5px solid #e2e0f8;
+  box-shadow: 0 4px 16px rgba(67, 56, 202, 0.06);
 }
-.brand { display: flex; align-items: center; gap: 12px; text-align: left; }
+.brand { display: flex; align-items: center; gap: 12px; text-align: left; flex-shrink: 0; }
 .brand-mark {
-  display: grid; place-items: center; width: 44px; height: 44px; border-radius: 14px;
+  display: grid; place-items: center; width: 44px; height: 44px; border-radius: 14px; flex-shrink: 0;
   font-family: var(--font-num); font-weight: 800; font-size: 24px; color: #fff;
   background: linear-gradient(135deg, var(--primary), var(--primary-2));
   box-shadow: 0 8px 18px -6px rgba(91, 75, 219, 0.6);
 }
-.brand-text h1 { font-size: 19px; font-weight: 900; letter-spacing: 0.02em; }
-.brand-text small { color: var(--ink-3); font-size: 12px; font-weight: 500; }
-.nav { display: flex; gap: 8px; }
+.brand-text h1 { font-size: 19px; font-weight: 900; letter-spacing: 0.02em; white-space: nowrap; }
+.brand-text small { color: var(--ink-3); font-size: 12px; font-weight: 500; white-space: nowrap; }
+.nav { display: flex; gap: 8px; align-items: center; min-width: 0; }
 .nav-btn {
-  display: inline-flex; align-items: center; gap: 6px;
+  display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; flex-shrink: 0;
   padding: 10px 14px; border-radius: 999px; font-weight: 700; font-size: 15px;
   background: var(--card-solid); border: 1px solid var(--line);
   transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
@@ -96,9 +97,8 @@ h1, h2, h3, h4 { margin: 0; line-height: 1.3; }
 @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 
 .glass {
-  background: var(--card);
-  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.9);
+  background: #ffffff;
+  border: 1.5px solid #e4e1fb;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
 }
@@ -681,9 +681,7 @@ h1, h2, h3, h4 { margin: 0; line-height: 1.3; }
 /* 方案 C：學校分頁切換 Bar (Exam School Tabs) */
 .exam-school-tabs-wrap {
   margin: 0 0 20px 0;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: #ffffff;
   border: 1.5px solid var(--line);
   border-radius: 18px;
   padding: 10px 14px;
@@ -832,11 +830,10 @@ h1, h2, h3, h4 { margin: 0; line-height: 1.3; }
   bottom: 10px;
   padding: 5px 10px;
   border-radius: 8px;
-  background: rgba(15, 23, 42, 0.75);
+  background: #0f172a;
   color: #ffffff;
   font-size: 12px;
   font-weight: 700;
-  backdrop-filter: blur(6px);
   pointer-events: none;
 }
 .crop-footer-actions {
@@ -868,9 +865,7 @@ h1, h2, h3, h4 { margin: 0; line-height: 1.3; }
   position: fixed;
   inset: 0;
   z-index: 1000;
-  background: rgba(15, 23, 42, 0.88);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(15, 23, 42, 0.94);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1294,9 +1289,7 @@ h1, h2, h3, h4 { margin: 0; line-height: 1.3; }
   position: fixed;
   inset: 0;
   z-index: 950;
-  background: rgba(15, 23, 42, 0.55);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(15, 23, 42, 0.65);
   display: none;
   align-items: center;
   justify-content: center;
@@ -1459,5 +1452,754 @@ h1, h2, h3, h4 { margin: 0; line-height: 1.3; }
   margin-top: 8px;
 }
 
+/* ============================================================================
+   Kids Math Rendering Engine (.km-*) — 小學六年級自然數學樣式（螢幕與列印共用）
+   ============================================================================ */
+.km-frac {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  margin: 0 3px;
+  line-height: 1.05;
+  font-family: 'Outfit', 'Noto Sans TC', sans-serif;
+  font-weight: 700;
+}
+.km-frac .km-num,
+.km-frac .km-den {
+  padding: 0 4px;
+  font-size: 0.88em;
+}
+.km-frac .km-bar {
+  width: 100%;
+  min-width: 16px;
+  height: 1.8px;
+  background: currentColor;
+  margin: 1.5px 0;
+}
+.km-mixed {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  gap: 2px;
+}
+.km-mixed .km-whole {
+  font-weight: 800;
+  font-family: 'Outfit', 'Noto Sans TC', sans-serif;
+}
+.km-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.35em;
+  height: 1.35em;
+  border: 2px solid #5b4bdb;
+  border-radius: 5px;
+  background: #f5f3ff;
+  color: #4338ca;
+  font-weight: 800;
+  margin: 0 3px;
+  line-height: 1;
+}
+.km-step {
+  margin: 8px 0;
+  line-height: 1.75;
+  font-size: 16px;
+  color: #1e293b;
+}
+.km-step-eq {
+  background: #f8fafc;
+  border-left: 3.5px solid #6366f1;
+  padding: 8px 14px;
+  border-radius: 0 10px 10px 0;
+  font-family: 'Outfit', 'Noto Sans TC', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+}
+.km-step-answer {
+  background: #ecfdf5;
+  border: 1.5px solid #86efac;
+  color: #065f46;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-weight: 800;
+}
+.km-calc-wrap {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin: 6px 0;
+}
+.km-calc-note {
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+  margin-bottom: 10px;
+}
+.km-longdiv-grid,
+.km-vmath-grid {
+  display: inline-grid;
+  align-items: center;
+  font-family: 'Outfit', ui-monospace, monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  row-gap: 2px;
+}
+.km-cell {
+  position: relative;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.km-q-cell {
+  color: #4338ca;
+  border-bottom: 2.2px solid #0f172a;
+}
+.km-bracket {
+  height: 28px;
+  border-right: 2.2px solid #0f172a;
+  border-top-right-radius: 14px;
+  margin-right: 1px;
+  transform: skewX(-10deg);
+}
+.km-div-cell {
+  position: relative;
+}
+.km-crossed {
+  color: #94a3b8;
+  text-decoration: line-through;
+}
+.km-pad-zero {
+  color: #64748b;
+}
+.km-prod-cell {
+  color: #334155;
+}
+.km-rem-cell {
+  color: #0f172a;
+}
+.km-bring-cell {
+  color: #0369a1;
+}
+.km-res-cell {
+  color: #4338ca;
+  font-weight: 800;
+}
+.km-op-cell {
+  color: #475569;
+  font-weight: 800;
+}
+.km-sub-line {
+  height: 2px;
+  background: #0f172a;
+  margin: 1px 0;
+}
+.km-dot {
+  position: absolute;
+  right: -3px;
+  bottom: 2px;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 1;
+  color: #0f172a;
+  pointer-events: none;
+}
+.km-dot-old {
+  color: #cbd5e1;
+}
+.km-dot-old::after {
+  content: '';
+  position: absolute;
+  left: 1px;
+  bottom: 2px;
+  width: 2px;
+  height: 11px;
+  background: #ef4444;
+  transform: rotate(-28deg);
+}
+.km-dot-new {
+  color: #e11d48;
+}
+.km-dot-orig {
+  color: #0284c7;
+}
+.km-shift-tag {
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-family: 'Noto Sans TC', sans-serif;
+  white-space: nowrap;
+  color: #e11d48;
+  background: #fff1f2;
+  padding: 0 4px;
+  border-radius: 4px;
+}
+.km-calc-summary {
+  margin-top: 10px;
+  font-size: 13.5px;
+  color: #334155;
+  background: #f8fafc;
+  padding: 5px 10px;
+  border-radius: 8px;
+}
+.km-bar-svg {
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+  display: block;
+}
 
 
+
+
+/* =========================================================
+   Phase P9: #view-arena 新考場、級聯膠囊列、4D 診斷區樣式（零毛玻璃高對比實色）
+   ========================================================= */
+.card-surface {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 18px;
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.08);
+}
+
+.arena-cascade {
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.arena-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.arena-filter-label {
+  font-size: 13px;
+  font-weight: 800;
+  color: #475569;
+  min-width: 62px;
+  flex-shrink: 0;
+}
+
+.arena-pill-scroll {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  flex: 1;
+}
+
+.arena-pill {
+  border: 1.5px solid #cbd5e1;
+  background: #f8fafc;
+  color: #334155;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.arena-pill:hover:not(:disabled) {
+  border-color: #6366f1;
+  color: #4338ca;
+  background: #eef2ff;
+}
+
+.arena-pill.active {
+  background: #5b4bdb;
+  border-color: #5b4bdb;
+  color: #ffffff;
+}
+
+.arena-pill:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+
+.arena-school-select {
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 1.5px solid #fcd34d;
+  background: #fffbeb;
+  color: #78350f;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.arena-mode-switch {
+  margin-left: auto;
+  display: inline-flex;
+  background: #f1f5f9;
+  padding: 3px;
+  border-radius: 999px;
+  border: 1px solid #cbd5e1;
+  gap: 2px;
+}
+
+.mode-pill {
+  border: none;
+  background: transparent;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #475569;
+  cursor: pointer;
+}
+
+.mode-pill.active {
+  background: #ffffff;
+  color: #4f46e5;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.1);
+}
+
+.arena-explicit-bar,
+.arena-exam-banner {
+  padding: 12px 16px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.arena-exam-banner {
+  background: #fefce8;
+  border-color: #fde047;
+  color: #713f12;
+}
+
+.arena-card {
+  padding: 24px;
+}
+
+.arena-opt-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 8px;
+}
+
+.options-blinded {
+  filter: blur(8px);
+  opacity: 0.35;
+  pointer-events: none;
+  user-select: none;
+}
+
+.opt-picked-draft {
+  border-color: #6366f1 !important;
+  background: #eef2ff !important;
+  color: #312e81 !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.18);
+}
+
+.arena-alert {
+  margin-top: 14px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+
+.arena-alert.ok {
+  background: #ecfdf5;
+  border: 1.5px solid #6ee7b7;
+  color: #065f46;
+}
+
+.arena-alert.bad {
+  background: #fff1f2;
+  border: 1.5px solid #fda4af;
+  color: #9f1239;
+}
+
+.trap-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.trap-chip code {
+  font-size: 11px;
+  opacity: 0.85;
+}
+
+.arena-answer-4d {
+  margin-top: 18px;
+  display: grid;
+  gap: 14px;
+}
+
+.box.purpose {
+  background: #eff6ff;
+  border: 1.5px solid #bfdbfe;
+  color: #1e3a8a;
+}
+
+.box.figure-note {
+  background: #f0fdfa;
+  border: 1.5px solid #99f6e4;
+  color: #115e59;
+}
+
+.da-row {
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.72);
+  margin-top: 6px;
+}
+
+.da-row.da-picked {
+  border: 1.5px solid #e11d48;
+  background: #fff1f2;
+}
+
+.da-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.da-key {
+  font-weight: 900;
+  color: #991b1b;
+}
+
+.arena-ext-wrap {
+  border-top: 1px dashed #cbd5e1;
+  padding-top: 10px;
+}
+
+.arena-ext-panel {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.ext-card {
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.ext-card h5 {
+  margin: 0 0 6px;
+  color: #3730a3;
+  font-size: 14px;
+}
+
+.ext-card ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.km-inline-fig {
+  margin: 8px 0;
+  overflow-x: auto;
+}
+
+.km-step-legacy {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 6px 0;
+}
+
+.legacy-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: #e0e7ff;
+  color: #3730a3;
+  font-weight: 800;
+  font-size: 12px;
+}
+
+.badge-4d {
+  background: #eef2ff;
+  color: #4338ca;
+  font-weight: 800;
+}
+
+.empty-arena {
+  padding: 36px 20px;
+  text-align: center;
+}
+
+.arena-slow-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 12px 16px;
+}
+/* =========================================================
+   Phase P10: 5 段字級縮放 (--font-scale)、iPad 10.2" (1080×810) & iPhone 15 Pro (393×852) 適配
+   ========================================================= */
+.q-text,
+.arena-q-text {
+  font-size: calc(clamp(19px, 2.4vw, 25px) * var(--font-scale, 1));
+  line-height: 1.85;
+}
+
+.opt-text {
+  font-size: calc(18px * var(--font-scale, 1));
+}
+
+.box,
+.km-step-text,
+.km-step-eq,
+.km-step-answer,
+.ext-card {
+  font-size: calc(15.5px * var(--font-scale, 1));
+}
+
+.km-step-calc,
+.km-calc-wrap,
+.km-inline-fig {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.nav-btn.nav-compact {
+  padding: 9px 11px;
+  font-size: 13.5px;
+}
+
+/* iPad 10.2" Landscape & Portrait (641px ~ 1120px) */
+@media (max-width: 1120px) and (min-width: 641px) {
+  .app {
+    padding: 20px 20px 64px;
+  }
+  .topbar {
+    flex-wrap: wrap;
+    gap: 8px 12px;
+  }
+  .nav {
+    flex: 1 1 auto;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px;
+  }
+  .arena-card {
+    padding: 20px;
+  }
+  .options-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .opt-btn {
+    min-height: 54px;
+  }
+  .nav-btn {
+    min-height: 40px;
+    padding: 7px 11px;
+    font-size: 13.5px;
+  }
+}
+
+@media (max-width: 980px) and (min-width: 641px) {
+  .brand-text small {
+    display: none;
+  }
+}
+
+/* iPhone 15 Pro & Small Phones (<= 640px) */
+@media (max-width: 640px) {
+  .topbar {
+    padding: max(10px, env(safe-area-inset-top)) 10px 10px;
+    gap: 6px;
+  }
+  .brand {
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .brand-mark {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+    border-radius: 10px;
+  }
+  .brand-text h1 {
+    font-size: 15px;
+  }
+  .nav {
+    gap: 4px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    max-width: 100%;
+    padding-bottom: 2px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .nav-btn {
+    min-height: 40px;
+    padding: 7px 10px;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+  .app {
+    padding: 12px 12px calc(72px + env(safe-area-inset-bottom));
+  }
+  .arena-cascade {
+    padding: 12px;
+    gap: 8px;
+  }
+  .arena-filter-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .arena-pill-scroll {
+    width: 100%;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .arena-pill {
+    flex-shrink: 0;
+    min-height: 40px;
+  }
+  .arena-mode-switch {
+    margin-left: 0;
+    width: 100%;
+    justify-content: center;
+  }
+  .mode-pill {
+    flex: 1;
+    min-height: 38px;
+  }
+  .arena-card {
+    padding: 14px;
+  }
+  .opt-btn {
+    min-height: 48px;
+    padding: 12px 14px;
+  }
+  .quiz-bottom-nav .btn {
+    min-height: 48px;
+  }
+}
+/* Scrollbar clean polish on mobile horizontal nav & pill bars */
+@media (max-width: 640px) {
+  .nav,
+  .arena-pill-scroll {
+    scrollbar-width: none;
+  }
+  .nav::-webkit-scrollbar,
+  .arena-pill-scroll::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* =========================================================
+   Phase P11: A4 列印（2 欄選項、家長詳解卷、線段圖與直式高對比輸出）
+   ========================================================= */
+.pq-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px 16px;
+  margin: 8px 0 12px;
+  font-size: 10.5pt;
+  font-weight: 600;
+}
+
+.pq-teacher-item {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  border-bottom: 1px dashed #cbd5e1;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+}
+
+.pq-teacher-key {
+  margin-top: 8px;
+  padding: 10px 12px;
+  border: 1.5px solid #475569;
+  border-radius: 8px;
+  background: #f8fafc;
+  font-size: 9.8pt;
+  line-height: 1.55;
+  color: #0f172a;
+}
+
+.pq-key-ans {
+  font-weight: 900;
+  font-size: 11pt;
+  color: #065f46;
+  margin-bottom: 6px;
+}
+
+.pq-key-purpose,
+.pq-key-note,
+.pq-key-insight {
+  margin-top: 5px;
+}
+
+.pq-key-steps {
+  margin-top: 6px;
+}
+
+.pq-print-flow .km-step {
+  margin: 4px 0;
+  padding: 4px 8px;
+}
+
+.pq-key-traps {
+  margin: 6px 0 0;
+  padding-left: 16px;
+}
+
+.pq-key-traps li {
+  margin-top: 2px;
+}
+
+@media print {
+  .pq-teacher-key {
+    background: #ffffff !important;
+    border-color: #1e293b !important;
+  }
+  .pq-key-ans {
+    color: #000000 !important;
+  }
+  .km-step-bar svg {
+    max-width: 100%;
+    height: auto;
+  }
+}
