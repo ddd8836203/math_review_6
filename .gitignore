@@ -1,0 +1,9 @@
+# 本機開發與 4-Log 鏡像排除規則（不推上公開 GitHub）
+docs/
+temp/
+.baseline/
+verify_phase_*.js
+__pycache__/
+*.tmp
+.DS_Store
+Thumbs.db
