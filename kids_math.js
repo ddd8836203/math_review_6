@@ -739,6 +739,8 @@
         return `<div class="km-step km-step-calc">${renderAddSubHtml(step)}</div>`;
       case 'bar':
         return `<div class="km-step km-step-bar">${renderBarDiagramSvg(question && question.figure)}</div>`;
+      case 'svg':
+        return `<div class="km-step km-step-svg">${step.svg || ''}${step.caption ? `<div class="km-step-cap">${renderKidsText(step.caption)}</div>` : ''}</div>`;
       case 'answer':
         return `<div class="km-step km-step-answer">${renderKidsText(step.text)}</div>`;
       default:

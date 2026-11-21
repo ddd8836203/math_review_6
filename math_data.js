@@ -10320,2839 +10320,16690 @@ const QUESTION_BANK = [
     }
   },
   {
-    "id": "u06_001",
+    "id": "U06-S1-B-001",
+    "legacyId": "u06_001",
     "unitId": "U06",
+    "section": "6-1",
+    "sectionName": "圓周率",
     "category": "圓周率概念",
-    "level": 1,
-    "difficulty": 2,
     "batch": "課本原型題",
     "source": "課本 p.86 例題 1",
-    "verified": true,
-    "question": "測量一個圓形光碟，直徑是 12 公分，圓周長大約是 37.68 公分。圓周長除以直徑的值是多少？這個比值叫做什麼？",
-    "answer": "約為 3.14，叫做圓周率（$\\pi$）",
-    "steps": [
-      "$37.68 \\div 12 = 3.14$",
-      "任何圓的圓周長除以直徑的比值都是固定的常數，叫做圓周率，常用 3.14 作為近似值。"
-    ],
-    "work": "sm"
-  },
-  {
-    "id": "u06_002",
-    "unitId": "U06",
-    "category": "直徑求圓周長",
     "level": 1,
     "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "測量一個圓形光碟，直徑是 12 公分，圓周長大約是 37.68 公分。圓周長除以直徑的比值是多少？這個比值叫做什麼？",
+    "options": [
+      {
+        "key": "A",
+        "text": "6.28，叫做圓周長",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "B",
+        "text": "31.4，叫做圓周率",
+        "trapCode": "U06_DECIMAL_SHIFT_ERR"
+      },
+      {
+        "key": "C",
+        "text": "3.14，叫做圓周率",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "3.14，而且圓越大比值越大",
+        "trapCode": "U06_PI_CONSTANT_MYTH"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "37.68 / 12",
+      "expect": "3.14"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否理解圓周率的定義為「圓周長 ÷ 直徑」的固定比值，並知道國小常用 3.14 作為近似值。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "圓周長除以直徑的比值，就是圓周率。把光碟的圓周長 37.68 公分除以直徑 12 公分："
+        },
+        {
+          "type": "eq",
+          "expr": "37.68 ÷ 12 ＝ 3.14",
+          "unit": ""
+        },
+        {
+          "type": "longdiv",
+          "dividend": "37.68",
+          "divisor": "12",
+          "mode": "exact",
+          "note": "小數除以整數直式驗算"
+        },
+        {
+          "type": "text",
+          "text": "任何大小的圓，圓周長除以直徑的比值都是固定不變的常數，叫做「圓周率」，大約是 3.14。"
+        },
+        {
+          "type": "answer",
+          "text": "答：大約是 3.14，叫做圓周率"
+        }
+      ],
+      "insight": "圓周率是「圓周長 ÷ 直徑」的固定比值，大約等於 3.14，與圓的大小完全無關。",
+      "distractorAnalysis": {
+        "B": "小數除法計算時小數點位置點錯，將 37.68 ÷ 12 ＝ 3.14 誤寫成 31.4。",
+        "D": "對圓周率產生迷思，誤以為圓形越大的物體，圓周長除以直徑的比值也會跟著變大。",
+        "A": "把 37.68 ÷ 12 × 2 錯當成 6.28，且誤把這個比值叫做圓周長。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "圓周率 ＝ 圓周長 ÷ 直徑（大約 3.14）",
+        "圓周率是一個固定不變的常數，不會因為圓變大或變小而改變"
+      ],
+      "conceptCompare": "「圓周長」會隨著直徑變大而等比例變長，但「圓周率」是圓周長除以直徑的比值，所有圓的圓周率都一樣。",
+      "examVariations": "段考常考觀念題：拿 10 元硬幣與大摩天輪比較誰的圓周率比較大，正確答案是「一樣大」。"
+    }
+  },
+  {
+    "id": "U06-S2-B-002",
+    "legacyId": "u06_002",
+    "unitId": "U06",
+    "section": "6-2",
+    "sectionName": "圓周長",
+    "category": "直徑求圓周長",
     "batch": "課本原型題",
     "source": "課本 p.88 例題 2",
-    "verified": true,
-    "question": "遊樂園的摩天輪直徑是 80 公尺，摩天輪旋轉一圈，車廂移動了大約多少公尺？",
-    "answer": "251.2 公尺",
-    "steps": [
-      "圓周長 ＝ 直徑 $\\times 3.14$",
-      "$80 \\times 3.14 = 251.2$ 公尺"
-    ],
-    "work": "sm"
-  },
-  {
-    "id": "u06_003",
-    "unitId": "U06",
-    "category": "半徑求圓周長",
     "level": 1,
     "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "遊樂園的摩天輪直徑是 80 公尺，摩天輪旋轉一圈，車廂大約移動了多少公尺？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "502.4 公尺",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "B",
+        "text": "241.2 公尺",
+        "trapCode": "U06_CALC_SLIP"
+      },
+      {
+        "key": "C",
+        "text": "25.12 公尺",
+        "trapCode": "U06_DECIMAL_SHIFT_ERR"
+      },
+      {
+        "key": "D",
+        "text": "251.2 公尺",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "80 * (314 / 100)",
+      "expect": "251.2"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否分辨題目已提供「直徑」，並正確套用「圓周長 ＝ 直徑 × 圓周率（大約 3.14）」進行小數乘法計算。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "摩天輪旋轉一圈移動的距離就是圓周長。題目已經給了「直徑」80 公尺，直接乘以圓周率（大約 3.14）："
+        },
+        {
+          "type": "eq",
+          "expr": "80 × 3.14 ＝ 251.2",
+          "unit": "公尺"
+        },
+        {
+          "type": "mul",
+          "a": "80",
+          "b": "3.14",
+          "note": "整數乘以二位小數直式計算"
+        },
+        {
+          "type": "answer",
+          "text": "答：大約 251.2 公尺"
+        }
+      ],
+      "insight": "計算圓周長前先圈出關鍵字：給「直徑」就直接乘 3.14，不用再乘 2。",
+      "distractorAnalysis": {
+        "A": "混淆直徑與半徑，把題目的直徑 80 公尺當成半徑，多乘了一次 2 算成 80 × 2 × 3.14 ＝ 502.4 公尺。",
+        "C": "小數乘法結算時小數點向左移過頭，把 251.2 誤點成 25.12 公尺。",
+        "B": "直式乘法計算 80 × 3.14 時十位數進位失誤，算成 241.2 公尺。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "圓周長 ＝ 直徑 × 圓周率（大約 3.14）"
+      ],
+      "conceptCompare": "看到題目給「直徑」就直接 × 3.14；如果給的是「半徑」，才要先 × 2 變成直徑再 × 3.14。",
+      "examVariations": "段考常將「旋轉一圈」改成「旋轉 3 圈共移動幾公尺」，算出單圈周長後再乘以圈數即可。"
+    }
+  },
+  {
+    "id": "U06-S2-B-003",
+    "legacyId": "u06_003",
+    "unitId": "U06",
+    "section": "6-2",
+    "sectionName": "圓周長",
+    "category": "半徑求圓周長",
     "batch": "課本原型題",
     "source": "課本 p.89 例題 3",
-    "verified": true,
-    "question": "公園裡有一個圓形噴水池，半徑是 5 公尺。噴水池的圓周長是多少公尺？",
-    "answer": "31.4 公尺",
-    "steps": [
-      "直徑 ＝ 半徑 $\\times 2 = 10$ 公尺",
-      "圓周長 ＝ $10 \\times 3.14 = 31.4$ 公尺"
+    "level": 1,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "公園裡有一個圓形噴水池，半徑是 5 公尺。這個噴水池的圓周長大約是多少公尺？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "15.7 公尺",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "B",
+        "text": "78.5 公尺",
+        "trapCode": "U06_AREA_FORMULA_CONFUSION"
+      },
+      {
+        "key": "C",
+        "text": "31.4 公尺",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "314 公尺",
+        "trapCode": "U06_CALC_SLIP"
+      }
     ],
-    "work": "sm"
+    "answer": "C",
+    "check": {
+      "expr": "5 * 2 * (314 / 100)",
+      "expect": "31.4"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生遇到給定「半徑」時，是否記得先將半徑乘以 2 換算成直徑，再乘以 3.14 求圓周長。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "題目給的是「半徑」5 公尺，先乘以 2 算出直徑，再乘以圓周率（大約 3.14）："
+        },
+        {
+          "type": "eq",
+          "expr": "5 × 2 ＝ 10",
+          "unit": "公尺（直徑）"
+        },
+        {
+          "type": "eq",
+          "expr": "10 × 3.14 ＝ 31.4",
+          "unit": "公尺"
+        },
+        {
+          "type": "mul",
+          "a": "10",
+          "b": "3.14",
+          "note": "直徑乘以圓周率直式計算"
+        },
+        {
+          "type": "answer",
+          "text": "答：大約 31.4 公尺"
+        }
+      ],
+      "insight": "已知半徑求圓周長，一定要記住「半徑 × 2 × 3.14」，先變直徑才不會少乘 2。",
+      "distractorAnalysis": {
+        "A": "混淆半徑與直徑，直接把半徑 5 乘以 3.14，算成 5 × 3.14 ＝ 15.7 公尺（忘記乘 2）。",
+        "B": "把圓周長公式與圓面積公式混淆，誤算成半徑 × 半徑 × 3.14 ＝ 5 × 5 × 3.14 ＝ 78.5。",
+        "D": "計算 10 × 3.14 時忘記點上小數點，將 31.4 寫成 314 公尺。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "直徑 ＝ 半徑 × 2",
+        "圓周長 ＝ 半徑 × 2 × 圓周率（大約 3.14）"
+      ],
+      "conceptCompare": "圓周長是長度（半徑 × 2 × 3.14），圓面積才是面積（半徑 × 半徑 × 3.14），兩者切勿搞混。",
+      "examVariations": "常改為「用欄杆圍住半徑 5 公尺的圓形花圃，每公尺欄杆 100 元要花多少元？」，算出周長 31.4 公尺後再乘單價。"
+    }
   },
   {
-    "id": "u06_004",
+    "id": "U06-S2-B-004",
+    "legacyId": "u06_004",
     "unitId": "U06",
+    "section": "6-2",
+    "sectionName": "圓周長",
     "category": "圓周長反求半徑",
-    "level": 1,
-    "difficulty": 3,
     "batch": "課本原型題",
     "source": "課本 p.90 例題 4",
-    "verified": true,
-    "question": "有一棵大神木，用繩子圍繞樹幹一圈的長度剛好是 188.4 公分。這棵樹幹橫截面的直徑和大約半徑各是多少公分？",
-    "answer": "直徑 60 公分，半徑 30 公分",
-    "steps": [
-      "直徑 ＝ 圓周長 $\\div 3.14$ ＝ $188.4 \\div 3.14 = 60$ 公分",
-      "半徑 ＝ 直徑 $\\div 2 = 60 \\div 2 = 30$ 公分"
-    ],
-    "work": "sm"
-  },
-  {
-    "id": "u06_005",
-    "unitId": "U06",
-    "category": "扇形弧長",
     "level": 1,
     "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "有一棵大神木，用繩子圍繞樹幹一圈的長度剛好是 188.4 公分。這棵樹幹橫截面的直徑和半徑大約各是多少公分？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "直徑 30 公分，半徑 15 公分",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "B",
+        "text": "直徑 60 公分，半徑 30 公分",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "直徑 120 公分，半徑 60 公分",
+        "trapCode": "U06_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "直徑 6 公分，半徑 3 公分",
+        "trapCode": "U06_DECIMAL_SHIFT_ERR"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "188.4 / (314 / 100) / 2",
+      "expect": "30",
+      "extraChecks": [
+        {
+          "expr": "188.4 / (314 / 100)",
+          "expect": "60"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生由圓周長逆推直徑與半徑的能力，並熟練除數為二位小數（3.14）的直式除法移位運算。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "由「圓周長 ＝ 直徑 × 圓周率（大約 3.14）」反推，先將圓周長除以 3.14 算出直徑："
+        },
+        {
+          "type": "eq",
+          "expr": "188.4 ÷ 3.14 ＝ 60",
+          "unit": "公分（直徑）"
+        },
+        {
+          "type": "longdiv",
+          "dividend": "188.4",
+          "divisor": "3.14",
+          "mode": "exact",
+          "note": "除數有兩位小數，被除數與除數小數點同時右移兩位變成 18840 ÷ 314"
+        },
+        {
+          "type": "text",
+          "text": "接著將直徑除以 2，就是樹幹橫截面的半徑："
+        },
+        {
+          "type": "eq",
+          "expr": "60 ÷ 2 ＝ 30",
+          "unit": "公分（半徑）"
+        },
+        {
+          "type": "answer",
+          "text": "答：直徑大約 60 公分，半徑大約 30 公分"
+        }
+      ],
+      "insight": "已知圓周長除以 3.14 得到的是「直徑」，如果題目要求「半徑」，還要再除以 2！",
+      "distractorAnalysis": {
+        "A": "誤將 188.4 ÷ 3.14 ＝ 60 再除以 2 當成直徑 30 公分，連帶讓半徑算成 15 公分。",
+        "C": "誤以為求出 60 是半徑，反而再乘以 2 當成直徑 120 公分。",
+        "D": "計算 188.4 ÷ 3.14 時小數點移位沒補 0（誤算 1884 ÷ 314 ＝ 6），少算 10 倍變成直徑 6 公分、半徑 3 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "直徑 ＝ 圓周長 ÷ 3.14",
+        "半徑 ＝ 圓周長 ÷ 3.14 ÷ 2"
+      ],
+      "conceptCompare": "計算 188.4 ÷ 3.14 時，除數 3.14 往右移 2 位變 314，被除數 188.4 只有 1 位小數，所以右移 2 位要補一個 0 變成 18840。",
+      "examVariations": "若題目改成「用 188.4 公分的繩子在圓柱上繞了 3 圈，求圓柱直徑」，要先除以 3 算出 1 圈的圓周長，再除以 3.14。"
+    }
+  },
+  {
+    "id": "U06-S3-B-005",
+    "legacyId": "u06_005",
+    "unitId": "U06",
+    "section": "6-3",
+    "sectionName": "扇形弧長與周長",
+    "category": "扇形弧長",
     "batch": "課本原型題",
     "source": "課本 p.92 例題 5",
-    "verified": true,
-    "question": "一個扇形的半徑是 12 公分，圓心角是 90°。這個扇形的弧長是多少公分？",
-    "answer": "18.84 公分",
-    "steps": [
-      "整圓周長：$12 \\times 2 \\times 3.14 = 75.36$ 公分",
-      "90° 是整圓（360°）的 $\\frac{90}{360} = \\frac{1}{4}$",
-      "弧長：$75.36 \\times \\frac{1}{4} = 18.84$ 公分"
+    "level": 1,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "一個扇形的半徑是 12 公分，圓心角是 90°。這個扇形的弧長大約是多少公分？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "18.84 公分",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "9.42 公分",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "C",
+        "text": "25.12 公分",
+        "trapCode": "U06_ANGLE_FRACTION_WRONG"
+      },
+      {
+        "key": "D",
+        "text": "42.84 公分",
+        "trapCode": "U06_ARC_AS_PERIMETER"
+      }
     ],
-    "work": "sm"
+    "answer": "A",
+    "check": {
+      "expr": "12 * 2 * (314 / 100) * (90 / 360)",
+      "expect": "18.84"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否掌握「扇形弧長 ＝ 整圓周長 × (圓心角 ÷ 360°)」，並能區分題目只求「弧長」而不需加上兩條半徑。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 160\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M 90 130 L 190 130 A 100 100 0 0 0 90 30 Z\" fill=\"#fff1f2\"/><path d=\"M 90 112 L 108 112 L 108 130\" fill=\"none\" stroke=\"#64748b\" stroke-width=\"1.5\"/><line x1=\"90\" y1=\"130\" x2=\"190\" y2=\"130\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><line x1=\"90\" y1=\"130\" x2=\"90\" y2=\"30\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><path d=\"M 190 130 A 100 100 0 0 0 90 30\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"4.5\"/><circle cx=\"90\" cy=\"130\" r=\"3.5\" fill=\"#1e293b\"/><text x=\"140\" y=\"148\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">半徑 12 公分</text><text x=\"122\" y=\"114\" font-size=\"13\" font-weight=\"700\" fill=\"#475569\">90°</text><text x=\"188\" y=\"62\" font-size=\"13\" font-weight=\"700\" fill=\"#e11d48\">紅色弧長</text><text x=\"250\" y=\"56\" font-size=\"13\" font-weight=\"700\" fill=\"#1e293b\">弧長佔整圓的 1/4</text><text x=\"250\" y=\"84\" font-size=\"13\" fill=\"#334155\">整圓周長 ＝ 12 × 2 × 3.14</text><text x=\"250\" y=\"112\" font-size=\"13\" font-weight=\"700\" fill=\"#e11d48\">題目只求紅色弧長，不加半徑</text></svg>",
+          "caption": "半徑 12 公分、圓心角 90° 的扇形弧長示意圖（只算紅色圓弧部分）"
+        },
+        {
+          "type": "text",
+          "text": "先算出完整圓的圓周長，再乘以圓心角 90° 佔整個圓（360°）的幾分之幾："
+        },
+        {
+          "type": "eq",
+          "expr": "12 × 2 × 3.14 ＝ 75.36",
+          "unit": "公分（整圓周長）"
+        },
+        {
+          "type": "eq",
+          "expr": "90 ÷ 360 ＝ 90/360 ＝ 1/4",
+          "unit": "（佔整圓的幾分之幾）"
+        },
+        {
+          "type": "eq",
+          "expr": "75.36 × 1/4 ＝ 18.84",
+          "unit": "公分（弧長）"
+        },
+        {
+          "type": "answer",
+          "text": "答：大約 18.84 公分"
+        }
+      ],
+      "insight": "看到「弧長」只要算彎曲的那段圓弧即可，不需要再加上兩條直的半徑。",
+      "distractorAnalysis": {
+        "B": "誤把半徑 12 公分當成直徑來算整圓周長，算成 12 × 3.14 × 1/4 ＝ 9.42 公分。",
+        "C": "圓心角佔整圓的幾分之幾約分錯誤，把 90/360 誤當成 1/3，算成 75.36 × 1/3 ＝ 25.12 公分。",
+        "D": "把「弧長」和「扇形周長」搞混，算出弧長 18.84 公分後又多加上兩條半徑 24 公分，變成 42.84 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "扇形佔整圓的幾分之幾 ＝ 圓心角 ÷ 360°",
+        "扇形弧長 ＝ 半徑 × 2 × 3.14 × (圓心角 ÷ 360°)"
+      ],
+      "conceptCompare": "「扇形弧長」只包含彎曲的圓弧邊；「扇形周長」則要包含弧長加上兩條直線半徑。",
+      "examVariations": "常見的幾分之幾圓心角：180° ＝ 1/2 圓、120° ＝ 1/3 圓、90° ＝ 1/4 圓、60° ＝ 1/6 圓、45° ＝ 1/8 圓。"
+    }
   },
   {
-    "id": "u06_006",
+    "id": "U06-S3-B-006",
+    "legacyId": "u06_006",
     "unitId": "U06",
-    "category": "扇形周長大魔王",
-    "level": 2,
-    "difficulty": 4,
+    "section": "6-3",
+    "sectionName": "扇形弧長與周長",
+    "category": "扇形周長",
     "batch": "課本原型題",
     "source": "課本 p.93 例題 6",
-    "verified": true,
-    "question": "一個扇形的半徑是 10 公分，圓心角是 60°。這個扇形的周長大約是多少公分？",
-    "svg": "\n<svg viewBox=\"0 0 460 170\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', Outfit, sans-serif\">\n  <g transform=\"translate(60, 20)\">\n    <!-- 扇形 r=120, 60度 -->\n    <path d=\"M0,120 L120,120 A120,120 0 0,0 60,16.08 Z\" fill=\"#e0e7ff\" stroke=\"#4338ca\" stroke-width=\"2.5\"/>\n    <text x=\"60\" y=\"140\" font-size=\"14\" font-weight=\"700\" fill=\"#312e81\" text-anchor=\"middle\">半徑 r = 10 cm</text>\n    <text x=\"12\" y=\"65\" font-size=\"14\" font-weight=\"700\" fill=\"#312e81\" text-anchor=\"middle\">半徑 r</text>\n    <text x=\"110\" y=\"60\" font-size=\"14\" font-weight=\"700\" fill=\"#b91c1c\" text-anchor=\"middle\">圓弧長 (約 10.47 cm)</text>\n    <path d=\"M25,120 A25,25 0 0,0 12.5,98.35\" fill=\"none\" stroke=\"#4338ca\" stroke-width=\"1.5\"/>\n    <text x=\"32\" y=\"112\" font-size=\"12\" fill=\"#4338ca\" font-weight=\"700\">60°</text>\n  </g>\n  <g font-size=\"14\" fill=\"#1e1b4b\" transform=\"translate(250, 45)\">\n    <text x=\"0\" y=\"20\" font-weight=\"800\" fill=\"#4338ca\">扇形周長公式：</text>\n    <text x=\"0\" y=\"48\">＝ 弧長 ＋ 半徑 × 2</text>\n    <text x=\"0\" y=\"74\" fill=\"#b91c1c\" font-weight=\"700\">⚠️ 千萬不能只算弧長！</text>\n    <text x=\"0\" y=\"96\" fill=\"#64748b\">必須加上兩條圍成邊的半徑</text>\n  </g>\n</svg>",
-    "answer": "大約 30.47 公分（或 $10.47 + 20$）",
-    "steps": [
-      "整圓周長：$10 \\times 2 \\times 3.14 = 62.8$ 公分",
-      "弧長：$62.8 \\times \\frac{60}{360} = 62.8 \\div 6 \\approx 10.47$ 公分",
-      "大魔王關鍵！扇形周長 ＝ 弧長 ＋ 兩條半徑！",
-      "扇形周長：$10.47 + 10 \\times 2 = 10.47 + 20 = 30.47$ 公分"
+    "level": 2,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "md",
+    "question": "美勞課把一張半徑 12 公分的圓形卡紙，剪下一塊圓心角 60° 的扇形小摺扇，沿著這塊小摺扇外圍描一圈的周長大約是多少公分？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "12.56 公分",
+        "trapCode": "U06_ARC_AS_PERIMETER"
+      },
+      {
+        "key": "B",
+        "text": "24.56 公分",
+        "trapCode": "U06_FORGET_TWO_RADII"
+      },
+      {
+        "key": "C",
+        "text": "36.56 公分",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "30.28 公分",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      }
     ],
-    "insight": "幾何圍欄法則：周長是「外圍完整走一圈的總長度」，包含圓弧與切開的兩條半徑。",
-    "trap": {
-      "code": "ERR_SECTOR_PERIMETER_OMIT_RADIUS",
-      "text": "算完弧長 10.47 公分直接當答案，漏加兩條半徑 2r。"
+    "answer": "C",
+    "check": {
+      "expr": "12 * 2 * (314 / 100) * (60 / 360) + 12 * 2",
+      "expect": "36.56"
     },
-    "work": "md"
+    "explanation": {
+      "examPurpose": "測驗學生計算「扇形周長」時，能否確實把弧長加上兩條直線半徑，避免只算弧長的經典錯誤。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 160\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M 70 135 L 175 135 A 105 105 0 0 0 122.5 44.1 Z\" fill=\"#fef3c7\"/><path d=\"M 95 135 A 25 25 0 0 0 82.5 113.3\" fill=\"none\" stroke=\"#d97706\" stroke-width=\"1.8\"/><line x1=\"70\" y1=\"135\" x2=\"175\" y2=\"135\" stroke=\"#2563eb\" stroke-width=\"3\"/><line x1=\"70\" y1=\"135\" x2=\"122.5\" y2=\"44.1\" stroke=\"#2563eb\" stroke-width=\"3\"/><path d=\"M 175 135 A 105 105 0 0 0 122.5 44.1\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"4.5\"/><circle cx=\"70\" cy=\"135\" r=\"3.5\" fill=\"#1e293b\"/><text x=\"122\" y=\"153\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">半徑 12 公分</text><text x=\"48\" y=\"84\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">半徑 12 公分</text><text x=\"104\" y=\"126\" font-size=\"12\" font-weight=\"700\" fill=\"#b45309\">60°</text><text x=\"155\" y=\"42\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\">紅弧長 12.56</text><text x=\"255\" y=\"52\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\">扇形周長要圍一圈：</text><text x=\"255\" y=\"82\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\">紅色弧長 ＋ 2 條藍色半徑</text><text x=\"255\" y=\"112\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\">12.56 ＋ 12 × 2 ＝ 36.56 公分</text></svg>",
+          "caption": "扇形周長分解圖：紅色圓弧長加上兩條藍色半徑才是一整圈周長"
+        },
+        {
+          "type": "text",
+          "text": "扇形的周長包含「1 段紅色弧長」和「2 條藍色半徑」。先算出 60° 弧長："
+        },
+        {
+          "type": "eq",
+          "expr": "60 ÷ 360 ＝ 60/360 ＝ 1/6",
+          "unit": "（佔整圓的幾分之幾）"
+        },
+        {
+          "type": "eq",
+          "expr": "12 × 2 × 3.14 × 1/6 ＝ 12.56",
+          "unit": "公分（弧長）"
+        },
+        {
+          "type": "text",
+          "text": "最後一定要加上圍成扇形兩側的兩條半徑，才是完整封閉的周長："
+        },
+        {
+          "type": "eq",
+          "expr": "12.56 ＋ 12 × 2 ＝ 36.56",
+          "unit": "公分（扇形周長）"
+        },
+        {
+          "type": "answer",
+          "text": "答：大約 36.56 公分"
+        }
+      ],
+      "insight": "幾何圍欄法則：周長是「外圍完整走一圈的總長度」，一定要把弧長加上 2 條半徑。",
+      "distractorAnalysis": {
+        "A": "只算出弧長 12.56 公分就直接當作整個扇形周長，忘了還有兩條直線半徑。",
+        "D": "誤把半徑 12 公分直接當成直徑來算弧長，算出 12 × 3.14 × 1/6 ＋ 24 ＝ 30.28 公分。",
+        "B": "算完弧長後只加上了「一條」半徑 12 公分，變成 12.56 ＋ 12 ＝ 24.56 公分，漏算另一條半徑。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "扇形周長 ＝ 弧長 ＋ 半徑 × 2",
+        "扇形周長 ＝ 半徑 × 2 × 3.14 × (圓心角 ÷ 360°) ＋ 半徑 × 2"
+      ],
+      "conceptCompare": "算「弧長」只要算紅線部分；算「扇形周長」一定要「紅線弧長 ＋ 2 條藍線半徑」。",
+      "examVariations": "段考常考「披薩切片」或「摺扇」的周長，問法雖生活化，但算式一樣是弧長加 2 條半徑。"
+    }
   },
   {
-    "id": "u06_007",
+    "id": "U06-S3-B-007",
+    "legacyId": "u06_007",
     "unitId": "U06",
+    "section": "6-3",
+    "sectionName": "扇形弧長與周長",
     "category": "半圓周長",
-    "level": 1,
-    "difficulty": 3,
     "batch": "課本原型題",
     "source": "課本 p.94 例題 7",
-    "verified": true,
-    "question": "直徑 14 公分的半圓形量角器，周長是多少公分？",
-    "answer": "35.98 公分",
-    "steps": [
-      "半圓弧長：$14 \\times 3.14 \\div 2 = 21.98$ 公分",
-      "周長包含底下的直徑：$21.98 + 14 = 35.98$ 公分"
-    ],
-    "trap": {
-      "code": "ERR_SECTOR_PERIMETER_OMIT_RADIUS",
-      "text": "忘了加底邊直徑 14 公分。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u06_008",
-    "unitId": "U06",
-    "category": "跑道複合圖形",
     "level": 1,
     "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "有一個直徑 14 公分的半圓形量角器，它的周長大約是多少公分？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "35.98 公分",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "28.98 公分",
+        "trapCode": "U06_FORGET_TWO_RADII"
+      },
+      {
+        "key": "C",
+        "text": "21.98 公分",
+        "trapCode": "U06_ARC_AS_PERIMETER"
+      },
+      {
+        "key": "D",
+        "text": "57.96 公分",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "14 * (314 / 100) / 2 + 14",
+      "expect": "35.98"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否知道「半圓形的周長」除了半圓弧長之外，還必須加上底邊那一條直徑。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 160\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M 45 125 A 85 85 0 0 1 215 125 Z\" fill=\"#eff6ff\"/><line x1=\"45\" y1=\"125\" x2=\"215\" y2=\"125\" stroke=\"#2563eb\" stroke-width=\"3.5\"/><path d=\"M 45 125 A 85 85 0 0 1 215 125\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"4.5\"/><circle cx=\"130\" cy=\"125\" r=\"3.5\" fill=\"#1e293b\"/><text x=\"130\" y=\"28\" font-size=\"13\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">半圓弧長 21.98 公分</text><text x=\"130\" y=\"146\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">底邊直徑 14 公分</text><text x=\"250\" y=\"58\" font-size=\"13\" font-weight=\"700\" fill=\"#1e293b\">半圓周長要繞完整一圈：</text><text x=\"250\" y=\"88\" font-size=\"13\" font-weight=\"700\" fill=\"#e11d48\">紅色半圓弧 ＋ 藍色底邊直徑</text><text x=\"250\" y=\"118\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\">21.98 ＋ 14 ＝ 35.98 公分</text></svg>",
+          "caption": "半圓形周長示意圖：必須將紅色半圓弧與藍色底邊直徑相加"
+        },
+        {
+          "type": "text",
+          "text": "半圓形其實就是圓心角 180°（佔 1/2 圓）的扇形，先算出上方半圓弧的長度："
+        },
+        {
+          "type": "eq",
+          "expr": "14 × 3.14 ÷ 2 ＝ 21.98",
+          "unit": "公分（半圓弧長）"
+        },
+        {
+          "type": "text",
+          "text": "量角器底下還有一條直線（直徑 14 公分），加起來才是完整的周長："
+        },
+        {
+          "type": "eq",
+          "expr": "21.98 ＋ 14 ＝ 35.98",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：大約 35.98 公分"
+        }
+      ],
+      "insight": "「圓周長的一半」只有彎曲的弧；「半圓形的周長」是封閉圖形，等於「半圓弧 ＋ 1 條直徑」。",
+      "distractorAnalysis": {
+        "B": "只加了半徑 7 公分（21.98 ＋ 7 ＝ 28.98 公分），漏加另一半的半徑。",
+        "D": "誤把直徑 14 公分當成半徑計算弧長，算成 14 × 3.14 ＋ 14 ＝ 57.96 公分。",
+        "C": "只算出了上方半圓弧長 21.98 公分，忘記加上底邊那條直徑 14 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "半圓周長 ＝ 直徑 × 3.14 ÷ 2 ＋ 直徑"
+      ],
+      "conceptCompare": "半圓底邊是一條直徑（也就是兩條半徑連成一條直線），道理和扇形周長要加兩條半徑完全相同。",
+      "examVariations": "若題目改成「半徑 10 公分的半圓周長」，要先注意半徑 × 2 ＝ 直徑 20 公分，再算 20 × 3.14 ÷ 2 ＋ 20 ＝ 51.4 公分。"
+    }
+  },
+  {
+    "id": "U06-S4-B-008",
+    "legacyId": "u06_008",
+    "unitId": "U06",
+    "section": "6-4",
+    "sectionName": "圓周長與弧長的應用",
+    "category": "跑道複合圖形",
     "batch": "課本原型題",
     "source": "課本 p.96 例題 8",
-    "verified": true,
-    "question": "學校操場跑道，中間是兩條各長 100 公尺的直線，兩端是半徑 30 公尺的半圓。沿著最內側跑道跑一圈大約是多少公尺？",
-    "answer": "388.4 公尺",
-    "steps": [
-      "兩端的半圓剛好合為一個半徑 30 公尺（直徑 60 公尺）的完整圓：$60 \\times 3.14 = 188.4$ 公尺",
-      "加上兩條直線跑道：$100 \\times 2 = 200$ 公尺",
-      "跑道總長：$200 + 188.4 = 388.4$ 公尺"
+    "level": 1,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "學校操場跑道，中間是兩條各長 100 公尺的直線，兩端是半徑 30 公尺的半圓。沿著最內側跑道跑一圈大約是多少公尺？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "508.4 公尺",
+        "trapCode": "U06_COMPOSITE_BOUNDARY_ERR"
+      },
+      {
+        "key": "B",
+        "text": "294.2 公尺",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "C",
+        "text": "388.4 公尺",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "288.4 公尺",
+        "trapCode": "U06_TRACK_INNER_OUTER_ERR"
+      }
     ],
-    "work": "sm"
+    "answer": "C",
+    "check": {
+      "expr": "30 * 2 * (314 / 100) + 100 * 2",
+      "expect": "388.4"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否將操場跑道拆解成「兩條直線 ＋ 兩個相同半圓（合為一個圓）」，並正確排除內部輔助線。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 160\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M 85 35 L 235 35 A 45 45 0 0 1 235 125 L 85 125 A 45 45 0 0 1 85 35 Z\" fill=\"#ecfdf5\"/><line x1=\"85\" y1=\"35\" x2=\"85\" y2=\"125\" stroke=\"#94a3b8\" stroke-width=\"1.8\" stroke-dasharray=\"4 3\"/><line x1=\"235\" y1=\"35\" x2=\"235\" y2=\"125\" stroke=\"#94a3b8\" stroke-width=\"1.8\" stroke-dasharray=\"4 3\"/><line x1=\"85\" y1=\"80\" x2=\"40\" y2=\"80\" stroke=\"#64748b\" stroke-width=\"1.5\" stroke-dasharray=\"3 3\"/><line x1=\"85\" y1=\"35\" x2=\"235\" y2=\"35\" stroke=\"#2563eb\" stroke-width=\"3.5\"/><line x1=\"85\" y1=\"125\" x2=\"235\" y2=\"125\" stroke=\"#2563eb\" stroke-width=\"3.5\"/><path d=\"M 85 125 A 45 45 0 0 1 85 35\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"4\"/><path d=\"M 235 35 A 45 45 0 0 1 235 125\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"4\"/><text x=\"160\" y=\"25\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">直線 100 公尺</text><text x=\"160\" y=\"145\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">直線 100 公尺</text><text x=\"138\" y=\"84\" font-size=\"12\" font-weight=\"700\" fill=\"#475569\">半徑 30 公尺</text><text x=\"295\" y=\"56\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\">兩端紅弧合為 1 整圓</text><text x=\"295\" y=\"86\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\">加上 2 條藍色直線</text><text x=\"295\" y=\"116\" font-size=\"12\" fill=\"#64748b\">內部虛線不算周長</text></svg>",
+          "caption": "操場跑道分解圖：兩條藍色直線加上左右兩個紅色半圓（合為一個完整圓）"
+        },
+        {
+          "type": "text",
+          "text": "左右兩端各是一個半徑 30 公尺（直徑 60 公尺）的半圓，合起來剛好是一個完整的圓："
+        },
+        {
+          "type": "eq",
+          "expr": "30 × 2 × 3.14 ＝ 188.4",
+          "unit": "公尺（兩端圓弧總長）"
+        },
+        {
+          "type": "text",
+          "text": "再把上下兩條直線跑道加上去，注意內部的虛線沒有跑在上面，不能算進去："
+        },
+        {
+          "type": "eq",
+          "expr": "100 × 2 ＋ 188.4 ＝ 388.4",
+          "unit": "公尺"
+        },
+        {
+          "type": "answer",
+          "text": "答：大約 388.4 公尺"
+        }
+      ],
+      "insight": "複合圖形算周長只要沿著「最外圍」走一圈：操場就是「1 個整圓周長 ＋ 2 條直線長」，千萬別加內部虛線。",
+      "distractorAnalysis": {
+        "A": "誤把左右半圓內部的兩條直徑虛線（60 × 2 ＝ 120 公尺）也加進周長，算出 388.4 ＋ 120 ＝ 508.4 公尺。",
+        "B": "誤把題目的半徑 30 公尺當成直徑來算整圓，變成 30 × 3.14 ＋ 200 ＝ 294.2 公尺。",
+        "D": "只算了其中一條 100 公尺直線，漏加對面另一條直線，算出 100 ＋ 188.4 ＝ 288.4 公尺。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "跑道一圈全長 ＝ 1 個整圓周長 ＋ 2 條直線跑道長"
+      ],
+      "conceptCompare": "求整個操場「周長」時，中間分隔矩形與半圓的虛線要完全忽略；若問「面積」才會分別算出長方形面積與圓面積相加。",
+      "examVariations": "段考進階題常考「跑道寬 1 公尺，外圈跑道比內圈跑道一圈多幾公尺？」，直線部分相抵消，只差在外圓直徑多 2 公尺，所以多 2 × 3.14 ＝ 6.28 公尺。"
+    }
   },
   {
-    "id": "u06_101",
+    "id": "U06-S1-X-009",
+    "legacyId": null,
     "unitId": "U06",
-    "category": "滾輪距離換算",
+    "section": "6-1",
+    "sectionName": "圓周率",
+    "category": "圓周率無關大小",
+    "batch": "課本原型題",
+    "source": "課本 p.89 概念辨析延伸",
+    "level": 1,
+    "difficulty": 1,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "爸爸拿了一個直徑 2 公分的 1 元硬幣，小華拿了遊樂園裡直徑 80 公尺的真實摩天輪。分別算出硬幣和摩天輪「圓周長 ÷ 直徑」的比值，哪一個比較大？",
+    "options": [
+      {
+        "key": "A",
+        "text": "摩天輪的比值比較大，因為直徑長很多",
+        "trapCode": "U06_PI_CONSTANT_MYTH"
+      },
+      {
+        "key": "B",
+        "text": "一樣大，都大約是 3.14",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "硬幣的比值比較大，因為半徑比較小",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "D",
+        "text": "摩天輪的比值比較大，因為圓面積比較大",
+        "trapCode": "U06_AREA_FORMULA_CONFUSION"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "314/100",
+      "expect": "3.14"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否理解「圓周率是任何圓的圓周長與直徑的固定比值」，不會因為圓形的大小改變而變大或變小。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "先看圓周率的定義：任何圓的「圓周長 ÷ 直徑」都叫做圓周率。"
+        },
+        {
+          "type": "eq",
+          "expr": "圓周長 ÷ 直徑 ＝ 圓周率（約 3.14）"
+        },
+        {
+          "type": "text",
+          "text": "硬幣雖然很小、摩天輪雖然很大，當直徑放大時，圓周長也會等比例一起放大，所以兩者相除後的比值完全相同。"
+        },
+        {
+          "type": "answer",
+          "text": "答：一樣大，都大約是 3.14。"
+        }
+      ],
+      "insight": "圓越大，圓周長跟直徑一起變大，兩者相除的比值（圓周率）永遠不變！",
+      "distractorAnalysis": {
+        "A": "誤以為圓形越大、圓周率就會跟著越大，忽略了圓周長與直徑是等比例放大的。",
+        "D": "把圓面積的放大效果錯套用到「圓周長 ÷ 直徑」的比值上。",
+        "C": "把半徑與直徑的大小關係和圓周率混為一談，誤認圓小比值就大。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "圓周率 ＝ 圓周長 ÷ 直徑 ≈ 3.14",
+        "所有圓的圓周率都是相同的固定常數，與圓的大小無關"
+      ],
+      "conceptCompare": "「圓周長」會隨直徑變大而變長，「圓周率」卻永遠固定約 3.14；就像小正方形和大正方形的「周長 ÷ 邊長」永遠都是 4 一樣。",
+      "examVariations": "段考常把問題改成「直徑 10 公分的圓和半徑 50 公分的圓，哪個圓周率比較大？」答案仍然是一樣大！"
+    }
+  },
+  {
+    "id": "U06-S2-X-010",
+    "legacyId": null,
+    "unitId": "U06",
+    "section": "6-2",
+    "sectionName": "圓周長與反求",
+    "category": "圓周長反求直徑",
+    "batch": "課本原型題",
+    "source": "課本 p.99 題 7 延伸",
+    "level": 2,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "早餐店廚房裡有一個圓柱形麥片罐，用皮尺量出罐底的圓周長大約是 40.82 公分，這個麥片罐底面的直徑大約是多少公分？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "14 公分",
+        "trapCode": "U06_CALC_SLIP"
+      },
+      {
+        "key": "B",
+        "text": "1.3 公分",
+        "trapCode": "U06_DECIMAL_SHIFT_ERR"
+      },
+      {
+        "key": "C",
+        "text": "6.5 公分",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "D",
+        "text": "13 公分",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "40.82 / (314/100)",
+      "expect": "13"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否逆用圓周長公式「直徑 ＝ 圓周長 ÷ 3.14」，並正確完成除數為兩位小數的除法直式。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "已知圓周長反求直徑，用圓周長除以圓周率 3.14："
+        },
+        {
+          "type": "eq",
+          "expr": "40.82 ÷ 3.14 ＝ 13",
+          "unit": "公分"
+        },
+        {
+          "type": "longdiv",
+          "dividend": "40.82",
+          "divisor": "3.14",
+          "mode": "exact",
+          "note": "除數 3.14 與被除數 40.82 的小數點同時向右移 2 位，變成 4082 ÷ 314"
+        },
+        {
+          "type": "answer",
+          "text": "答：大約 13 公分。"
+        }
+      ],
+      "insight": "除數 3.14 有兩位小數，直式計算時兩個數的小數點要一起向右移 2 位再除！",
+      "distractorAnalysis": {
+        "B": "小數點位移不一致，誤將除數向右移 2 位、被除數只向右移 1 位，算成 408.2 ÷ 314 ＝ 1.3 公分。",
+        "C": "算出直徑 13 公分後又多除以 2，把題目要問的「直徑」錯答成「半徑 6.5 公分」。",
+        "A": "試商進位錯誤：算 4082 ÷ 314 時十位為 1，餘 942 除以 314 應得 3，卻錯試商成 4 而選了 14 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "直徑 ＝ 圓周長 ÷ 3.14",
+        "半徑 ＝ 圓周長 ÷ 3.14 ÷ 2"
+      ],
+      "conceptCompare": "求圓周長用乘法（直徑 × 3.14）；已知圓周長反求直徑用除法（圓周長 ÷ 3.14）。題目問直徑時算完不用再除以 2。",
+      "examVariations": "若題目最後改問「這個麥片罐底面的半徑大約是多少公分？」，就要把 13 再除以 2，得到 6.5 公分。"
+    }
+  },
+  {
+    "id": "U06-S2-X-011",
+    "legacyId": null,
+    "unitId": "U06",
+    "section": "6-2",
+    "sectionName": "圓周長與反求",
+    "category": "已知半徑求周長應用",
+    "batch": "課本原型題",
+    "source": "課本 p.90 與 p.99 題 6 延伸",
+    "level": 2,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "烘焙教室做了一個半徑 15 公分的圓形蛋糕盤，想要用蕾絲花邊沿著盤緣繞 2 圈做裝飾（接頭處不計），共需要大約多少公分的蕾絲花邊？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "188.4 公分",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "47.1 公分",
+        "trapCode": "U06_CALC_SLIP"
+      },
+      {
+        "key": "C",
+        "text": "18.84 公分",
+        "trapCode": "U06_DECIMAL_SHIFT_ERR"
+      },
+      {
+        "key": "D",
+        "text": "94.2 公分",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "15 * 2 * (314/100) * 2",
+      "expect": "188.4"
+    },
+    "explanation": {
+      "examPurpose": "測驗已知半徑時先乘 2 換成直徑再求圓周長，並注意題目要求繞 2 圈的多步驟審題。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：題目給的是「半徑 15 公分」，先乘 2 求出圓形蛋糕盤的直徑："
+        },
+        {
+          "type": "eq",
+          "expr": "15 × 2 ＝ 30",
+          "unit": "公分（蛋糕盤直徑）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：繞 2 圈相當於 2 個直徑 30 公分的圓周長，先算 30 × 2 ＝ 60 再乘 3.14 更好算："
+        },
+        {
+          "type": "eq",
+          "expr": "30 × 2 × 3.14 ＝ 60 × 3.14 ＝ 188.4",
+          "unit": "公分"
+        },
+        {
+          "type": "mul",
+          "a": "60",
+          "b": "3.14",
+          "note": "直式計算 60 × 3.14，小數共 2 位，去掉末尾的 0 得 188.4"
+        },
+        {
+          "type": "answer",
+          "text": "答：共需要大約 188.4 公分的蕾絲花邊。"
+        }
+      ],
+      "insight": "先算「半徑 × 2 ＝ 直徑」，再把所有整數先乘起來湊整十數（60 × 3.14），最不容易算錯！",
+      "distractorAnalysis": {
+        "B": "既把半徑 15 當成直徑，又忘記乘以 2 圈，算成 15 × 3.14 ＝ 47.1 公分。",
+        "C": "小數點位數點錯位置，少算一位變成 18.84 公分。",
+        "D": "把半徑 15 公分誤當成直徑來算（15 × 3.14 × 2 ＝ 94.2 公分），或是只算了繞 1 圈的長度就停筆。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "圓周長 ＝ 半徑 × 2 × 3.14",
+        "繞 2 圈的總長 ＝ 圓周長 × 2"
+      ],
+      "conceptCompare": "看到題目給「半徑」，立刻先在草稿紙寫出「直徑 ＝ 半徑 × 2」，避免直接拿半徑去乘 3.14。",
+      "examVariations": "段考常改成「有一條 200 公分的蕾絲花邊繞盤子 2 圈後，還剩下多少公分？」（200 − 188.4 ＝ 11.6 公分）。"
+    }
+  },
+  {
+    "id": "U06-S3-X-012",
+    "legacyId": null,
+    "unitId": "U06",
+    "section": "6-3",
+    "sectionName": "扇形弧長與周長",
+    "category": "45° 扇形弧長",
+    "batch": "課本原型題",
+    "source": "課本 p.93 做做看延伸",
+    "level": 2,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "摺紙課時，小宇剪出一個半徑 18 公分、圓心角 45° 的扇形紙卡，想在扇形的圓弧邊貼上紅色亮片線（不含兩條直邊），請問這段弧長大約是多少公分？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "14.13 公分",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "7.065 公分",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "C",
+        "text": "18.84 公分",
+        "trapCode": "U06_ANGLE_FRACTION_WRONG"
+      },
+      {
+        "key": "D",
+        "text": "50.13 公分",
+        "trapCode": "U06_CALC_SLIP"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "18 * 2 * (314/100) * (45/360)",
+      "expect": "14.13"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否把圓心角 45° 化為 1/8 圓，並區分「只求弧長」與「求扇形周長」的差別。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：先算圓心角 45° 是幾分之幾圓：45 ÷ 360 ＝ 1/8 圓。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 160\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"460\" height=\"160\" rx=\"10\" fill=\"#ffffff\"/><path d=\"M 85,130 L 180,130 A 95,95 0 0,0 152.2,62.8 Z\" fill=\"#fff1f2\"/><line x1=\"85\" y1=\"130\" x2=\"180\" y2=\"130\" stroke=\"#2563eb\" stroke-width=\"2\" stroke-dasharray=\"4 3\"/><line x1=\"85\" y1=\"130\" x2=\"152.2\" y2=\"62.8\" stroke=\"#2563eb\" stroke-width=\"2\" stroke-dasharray=\"4 3\"/><path d=\"M 180,130 A 95,95 0 0,0 152.2,62.8\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"4\" stroke-linecap=\"round\"/><circle cx=\"85\" cy=\"130\" r=\"3.5\" fill=\"#1e293b\"/><text x=\"122\" y=\"118\" font-size=\"12\" font-weight=\"700\" fill=\"#b45309\">45°</text><text x=\"132\" y=\"148\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\">半徑 18 公分（虛線不計）</text><rect x=\"220\" y=\"20\" width=\"222\" height=\"118\" rx=\"8\" fill=\"#f8fafc\" stroke=\"#cbd5e1\"/><text x=\"234\" y=\"48\" font-size=\"13\" font-weight=\"700\" fill=\"#1e293b\">圓心角比例：45 ÷ 360 ＝ 1/8 圓</text><text x=\"234\" y=\"78\" font-size=\"13\" font-weight=\"700\" fill=\"#e11d48\">只算紅色弧長（不含直邊）</text><text x=\"234\" y=\"108\" font-size=\"13\" font-weight=\"700\" fill=\"#0f172a\">36 × 3.14 × 1/8 ＝ 14.13 公分</text></svg>",
+          "caption": "圖解：45° 扇形佔整圓的 1/8，題目只求紅色弧長，不加藍色半徑。"
+        },
+        {
+          "type": "eq",
+          "expr": "18 × 2 × 3.14 × 1/8 ＝ 36 × 1/8 × 3.14 ＝ 4.5 × 3.14 ＝ 14.13",
+          "unit": "公分"
+        },
+        {
+          "type": "mul",
+          "a": "4.5",
+          "b": "3.14",
+          "note": "直式計算 4.5 × 3.14，小數共 3 位，去掉末尾的 0 得 14.13"
+        },
+        {
+          "type": "answer",
+          "text": "答：這段弧長大約是 14.13 公分。"
+        }
+      ],
+      "insight": "先算出「36 × 1/8 ＝ 4.5」再乘 3.14，比先乘 3.14 再除以 8 輕鬆非常多！",
+      "figureNote": "圖中藍色虛線代表兩條半徑（不算在弧長裡），紅色粗線才是亮片線要貼的弧長。",
+      "distractorAnalysis": {
+        "C": "把 45 ÷ 360 錯約分成 1/6 圓，算成 36 × 3.14 × 1/6 ＝ 18.84 公分。",
+        "D": "題目明確要求「弧長（不含兩條直邊）」，卻多加了兩條半徑 36 公分，算出整個扇形周長 50.13 公分。",
+        "B": "忘記把半徑 18 公分乘以 2 變成直徑，直接列成 18 × 3.14 × 1/8 ＝ 7.065 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "扇形弧長 ＝ 直徑 × 3.14 × (圓心角 ÷ 360)",
+        "常見角度比例：45° ＝ 1/8 圓、60° ＝ 1/6 圓、90° ＝ 1/4 圓"
+      ],
+      "conceptCompare": "題目問「弧長」只要算彎曲的紅線；題目問「周長」才要把彎曲弧長加上兩條直線半徑。",
+      "examVariations": "若這題改問「這張扇形紙卡的周長大約是多少公分？」，就要算 14.13 ＋ 18 × 2 ＝ 50.13 公分。"
+    }
+  },
+  {
+    "id": "U06-S3-X-013",
+    "legacyId": null,
+    "unitId": "U06",
+    "section": "6-3",
+    "sectionName": "扇形弧長與周長",
+    "category": "150° 扇形弧長",
+    "batch": "課本原型題",
+    "source": "課本 p.94 例題 4 延伸",
+    "level": 2,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "園藝社團用直徑 24 公分的圓形花圈底盤，裁出一個圓心角 150° 的扇形裝飾板，這個扇形外側的圓弧長大約是多少公分？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "55.4 公分",
+        "trapCode": "U06_FORGET_TWO_RADII"
+      },
+      {
+        "key": "B",
+        "text": "25.12 公分",
+        "trapCode": "U06_ANGLE_FRACTION_WRONG"
+      },
+      {
+        "key": "C",
+        "text": "62.8 公分",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "D",
+        "text": "31.4 公分",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "24 * (314/100) * (150/360)",
+      "expect": "31.4"
+    },
+    "explanation": {
+      "examPurpose": "測驗已知直徑與圓心角 150° 時，先約分角度為 5/12 圓再與直徑先約分，避免繁瑣小數運算。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：先把圓心角 150° 佔整個圓的比例約分到最簡：150 ÷ 360 ＝ 5/12 圓。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 160\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"460\" height=\"160\" rx=\"10\" fill=\"#ffffff\"/><path d=\"M 125,128 L 203,128 A 78,78 0 0,0 57.5,89 Z\" fill=\"#fff1f2\"/><line x1=\"125\" y1=\"128\" x2=\"203\" y2=\"128\" stroke=\"#2563eb\" stroke-width=\"2\" stroke-dasharray=\"4 3\"/><line x1=\"125\" y1=\"128\" x2=\"57.5\" y2=\"89\" stroke=\"#2563eb\" stroke-width=\"2\" stroke-dasharray=\"4 3\"/><path d=\"M 203,128 A 78,78 0 0,0 57.5,89\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"4\" stroke-linecap=\"round\"/><circle cx=\"125\" cy=\"128\" r=\"3.5\" fill=\"#1e293b\"/><text x=\"122\" y=\"108\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#b45309\">150°</text><text x=\"125\" y=\"148\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\">直徑 24 公分（半徑 12 公分）</text><rect x=\"222\" y=\"20\" width=\"220\" height=\"118\" rx=\"8\" fill=\"#f8fafc\" stroke=\"#cbd5e1\"/><text x=\"236\" y=\"48\" font-size=\"13\" font-weight=\"700\" fill=\"#1e293b\">角度比例：150 ÷ 360 ＝ 5/12 圓</text><text x=\"236\" y=\"78\" font-size=\"13\" font-weight=\"700\" fill=\"#e11d48\">只算紅色弧長（不含直邊）</text><text x=\"236\" y=\"108\" font-size=\"13\" font-weight=\"700\" fill=\"#0f172a\">24 × 5/12 × 3.14 ＝ 31.4 公分</text></svg>",
+          "caption": "圖解：直徑 24 公分、圓心角 150° 的扇形，先約分 24 × 5/12 ＝ 10。"
+        },
+        {
+          "type": "eq",
+          "expr": "24 × 3.14 × 5/12 ＝ 10 × 3.14 ＝ 31.4",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：外側圓弧長大約是 31.4 公分。"
+        }
+      ],
+      "insight": "把 24 和分母 12 先約分變成 2，再乘分子 5 得到 10，10 × 3.14 一秒心算就是 31.4！",
+      "figureNote": "題目直接給「直徑 24 公分」，直接代入「直徑 × 3.14 × 5/12」，不要再多乘以 2；也只要算紅色弧長。",
+      "distractorAnalysis": {
+        "B": "把 150 ÷ 360 錯約分成 1/3 圓，算成 24 × 3.14 × 1/3 ＝ 25.12 公分。",
+        "C": "題目已經給直徑 24 公分，卻當成半徑又多乘 2，算成 24 × 2 × 3.14 × 5/12 ＝ 62.8 公分。",
+        "A": "題目只問外側圓弧長，卻多加了兩條半徑（直徑 24 公分），算成 31.4 ＋ 24 ＝ 55.4 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "150° ÷ 360° ＝ 5/12 圓",
+        "弧長 ＝ 直徑 × (圓心角 ÷ 360) × 3.14（先跟 3.14 以外的數約分）"
+      ],
+      "conceptCompare": "看到題目要先圈出兩個關鍵詞：「給直徑還是給半徑？」以及「求弧長還是求周長？」",
+      "examVariations": "若改為求這個扇形裝飾板的「周長」，就要把弧長 31.4 再加上兩條半徑（直徑 24），答案會變成 55.4 公分。"
+    }
+  },
+  {
+    "id": "U06-S3-X-014",
+    "legacyId": null,
+    "unitId": "U06",
+    "section": "6-3",
+    "sectionName": "扇形弧長與周長",
+    "category": "幾分之幾圓扇形周長",
+    "batch": "課本原型題",
+    "source": "課本 p.95 例題 5 延伸",
     "level": 3,
     "difficulty": 3,
-    "batch": "奧數天梯",
-    "source": "Unit06 AI_SPEC level_2（滾輪圈數）",
-    "verified": true,
-    "question": "自行車輪子的直徑是 50 公分。小明騎車讓輪子在地上滾動了 20 圈，一共前進了大約多少公尺？",
-    "answer": "31.4 公尺",
-    "steps": [
-      "滾動 1 圈的距離 ＝ 輪子圓周長：$50 \\times 3.14 = 157$ 公分 ＝ 1.57 公尺",
-      "滾動 20 圈：$1.57 \\times 20 = 31.4$ 公尺"
+    "questionType": "choice",
+    "work": "md",
+    "question": "美勞課要把一張半徑 6 公分的圓形色紙剪成一個 2/3 圓的扇形造型卡，這張 2/3 圓扇形造型卡的周長大約是多少公分？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "25.12 公分",
+        "trapCode": "U06_FORGET_TWO_RADII"
+      },
+      {
+        "key": "B",
+        "text": "37.12 公分",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "24.56 公分",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "D",
+        "text": "31.12 公分",
+        "trapCode": "U06_ARC_AS_PERIMETER"
+      }
     ],
-    "work": "sm"
+    "answer": "B",
+    "check": {
+      "expr": "6 * 2 * (314/100) * (2/3) + 6 * 2",
+      "expect": "37.12"
+    },
+    "explanation": {
+      "examPurpose": "測驗已知扇形為幾分之幾圓（2/3 圓）與半徑時，算出弧長後務必加上 2 條半徑形成封閉周長。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：題目給半徑 6 公分，先算出 2/3 圓的紅色弧長，再補上 2 條藍色直線半徑："
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 160\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"460\" height=\"160\" rx=\"10\" fill=\"#ffffff\"/><path d=\"M 105,82 L 132,35.2 A 54,54 0 1,0 132,128.8 Z\" fill=\"#fef3c7\"/><path d=\"M 132,35.2 A 54,54 0 1,0 132,128.8\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"4\" stroke-linecap=\"round\"/><line x1=\"105\" y1=\"82\" x2=\"132\" y2=\"35.2\" stroke=\"#2563eb\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><line x1=\"105\" y1=\"82\" x2=\"132\" y2=\"128.8\" stroke=\"#2563eb\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><circle cx=\"105\" cy=\"82\" r=\"3.5\" fill=\"#1e293b\"/><text x=\"78\" y=\"86\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"700\" fill=\"#b45309\">2/3 圓</text><text x=\"148\" y=\"60\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\">半徑 6 公分</text><text x=\"148\" y=\"112\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\">半徑 6 公分</text><rect x=\"226\" y=\"16\" width=\"216\" height=\"126\" rx=\"8\" fill=\"#f8fafc\" stroke=\"#cbd5e1\"/><text x=\"240\" y=\"42\" font-size=\"13\" font-weight=\"700\" fill=\"#1e293b\">扇形周長 ＝ 紅弧 ＋ 2 藍半徑</text><text x=\"240\" y=\"70\" font-size=\"13\" font-weight=\"700\" fill=\"#e11d48\">紅色弧長：25.12 公分</text><text x=\"240\" y=\"98\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\">藍色 2 半徑：6 × 2 ＝ 12 公分</text><text x=\"240\" y=\"126\" font-size=\"13\" font-weight=\"800\" fill=\"#059669\">總周長：37.12 公分</text></svg>",
+          "caption": "圖解：2/3 圓扇形的封閉周長包含 1 條紅色 2/3 圓弧和 2 條藍色半徑。"
+        },
+        {
+          "type": "eq",
+          "expr": "6 × 2 × 3.14 × 2/3 ＝ 8 × 3.14 ＝ 25.12",
+          "unit": "公分（弧長）"
+        },
+        {
+          "type": "mul",
+          "a": "8",
+          "b": "3.14",
+          "note": "直式計算 8 × 3.14 ＝ 25.12"
+        },
+        {
+          "type": "eq",
+          "expr": "25.12 ＋ 6 × 2 ＝ 25.12 ＋ 12 ＝ 37.12",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：這張 2/3 圓扇形造型卡的周長大約是 37.12 公分。"
+        }
+      ],
+      "insight": "大於半圓的扇形（像 2/3 圓）一樣有 2 條直邊半徑，沿著外框描一圈才不會漏加 12 公分！",
+      "figureNote": "看圖檢查：手指從圓心沿藍線走到圓弧，繞過紅弧後再沿另一條藍線走回圓心，一共經過 1 條紅弧和 2 條藍線。",
+      "distractorAnalysis": {
+        "A": "只算出了 2/3 圓的弧長 25.12 公分，忘記加上兩條直線半徑（6 × 2 ＝ 12 公分）。",
+        "C": "算弧長時把半徑 6 當成直徑來乘（6 × 3.14 × 2/3 ＝ 12.56），加上 12 後誤得 24.56 公分。",
+        "D": "算出弧長 25.12 公分後只加了 1 條半徑 6 公分，漏加另一條半徑，算成 25.12 ＋ 6 ＝ 31.12 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "扇形周長 ＝ 弧長 ＋ 半徑 × 2",
+        "2/3 圓相當於圓心角 240°"
+      ],
+      "conceptCompare": "無論扇形是 1/4 圓還是 2/3 圓，只要從圓剪下來形成「扇形」，周長永遠等於「弧長 ＋ 2 條半徑」。",
+      "examVariations": "段考常把「2/3 圓」換成「圓心角 240° 的扇形」，240 ÷ 360 ＝ 2/3 圓，算式與答案完全相同。"
+    }
   },
   {
-    "id": "u06_102",
+    "id": "U06-S3-X-015",
+    "legacyId": null,
     "unitId": "U06",
-    "category": "複合幾何周長",
+    "section": "6-3",
+    "sectionName": "扇形弧長與周長",
+    "category": "72° 扇形周長",
+    "batch": "課本原型題",
+    "source": "課本 p.95 做做看延伸",
+    "level": 3,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "md",
+    "question": "科學營製作測風向的旗標，把一片半徑 15 公分、圓心角 72° 的扇形塑膠片邊緣繞一圈貼滿反光條，共需要大約幾公分的反光條？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "18.84 公分",
+        "trapCode": "U06_FORGET_TWO_RADII"
+      },
+      {
+        "key": "B",
+        "text": "33.84 公分",
+        "trapCode": "U06_ARC_AS_PERIMETER"
+      },
+      {
+        "key": "C",
+        "text": "45.7 公分",
+        "trapCode": "U06_ANGLE_FRACTION_WRONG"
+      },
+      {
+        "key": "D",
+        "text": "48.84 公分",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "15 * 2 * (314/100) * (72/360) + 15 * 2",
+      "expect": "48.84"
+    },
+    "explanation": {
+      "examPurpose": "測驗圓心角 72° 轉化為 1/5 圓的熟練度，並完整計算「弧長 ＋ 兩條半徑」的扇形周長。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：先算圓心角 72° 是幾分之幾圓：72 ÷ 360 ＝ 1/5 圓。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 160\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"460\" height=\"160\" rx=\"10\" fill=\"#ffffff\"/><path d=\"M 75,130 L 170,130 A 95,95 0 0,0 104.4,39.6 Z\" fill=\"#fef3c7\"/><path d=\"M 170,130 A 95,95 0 0,0 104.4,39.6\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"4\" stroke-linecap=\"round\"/><line x1=\"75\" y1=\"130\" x2=\"170\" y2=\"130\" stroke=\"#2563eb\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><line x1=\"75\" y1=\"130\" x2=\"104.4\" y2=\"39.6\" stroke=\"#2563eb\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><circle cx=\"75\" cy=\"130\" r=\"3.5\" fill=\"#1e293b\"/><text x=\"105\" y=\"114\" font-size=\"12\" font-weight=\"700\" fill=\"#b45309\">72°</text><text x=\"125\" y=\"148\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\">半徑 15 公分</text><rect x=\"218\" y=\"16\" width=\"224\" height=\"126\" rx=\"8\" fill=\"#f8fafc\" stroke=\"#cbd5e1\"/><text x=\"232\" y=\"42\" font-size=\"13\" font-weight=\"700\" fill=\"#1e293b\">72 ÷ 360 ＝ 1/5 圓</text><text x=\"232\" y=\"70\" font-size=\"13\" font-weight=\"700\" fill=\"#e11d48\">紅色弧長：18.84 公分</text><text x=\"232\" y=\"98\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\">藍色 2 半徑：15 × 2 ＝ 30 公分</text><text x=\"232\" y=\"126\" font-size=\"13\" font-weight=\"800\" fill=\"#059669\">總周長：48.84 公分</text></svg>",
+          "caption": "圖解：72° 是 1/5 圓，沿邊緣貼一圈反光條包含紅色弧長與兩條藍色半徑。"
+        },
+        {
+          "type": "eq",
+          "expr": "15 × 2 × 3.14 × 1/5 ＝ 6 × 3.14 ＝ 18.84",
+          "unit": "公分（弧長）"
+        },
+        {
+          "type": "mul",
+          "a": "6",
+          "b": "3.14",
+          "note": "直式計算 6 × 3.14 ＝ 18.84"
+        },
+        {
+          "type": "eq",
+          "expr": "18.84 ＋ 15 × 2 ＝ 18.84 ＋ 30 ＝ 48.84",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：共需要大約 48.84 公分的反光條。"
+        }
+      ],
+      "insight": "記住常見圓心角好朋友：72° 就是 1/5 圓（5 × 72 ＝ 360）！算完弧長立刻加上 2 條半徑。",
+      "figureNote": "「邊緣繞一圈貼滿」代表要算整個封閉扇形的周長，1 條紅弧 ＋ 2 條藍邊缺一不可。",
+      "distractorAnalysis": {
+        "A": "只算出紅色弧長 18.84 公分就停筆，忘記兩條直邊也要貼反光條（少加 30 公分）。",
+        "C": "把 72 ÷ 360 錯算成 1/6 圓，算出弧長 30 × 3.14 × 1/6 ＝ 15.7 公分，再加 30 得 45.7 公分。",
+        "B": "算出弧長 18.84 公分後，只加了 1 條半徑 15 公分（18.84 ＋ 15 ＝ 33.84 公分）。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "72° ＝ 1/5 圓（因為 360 ÷ 72 ＝ 5）",
+        "扇形周長 ＝ 弧長 ＋ 半徑 × 2"
+      ],
+      "conceptCompare": "求「周長」時，2 條半徑的和剛好就是「直徑」（15 × 2 ＝ 30 公分），所以也可以直接寫成「弧長 ＋ 直徑」。",
+      "examVariations": "常見變形是把「72°」換成「144°」（2/5 圓）或「216°」（3/5 圓），分母同樣都是 5！"
+    }
+  },
+  {
+    "id": "U06-S4-X-016",
+    "legacyId": null,
+    "unitId": "U06",
+    "section": "6-4",
+    "sectionName": "複合圖形周長",
+    "category": "方形角 1/4 弧著色",
+    "batch": "課本原型題",
+    "source": "課本 p.99 題 5-1 延伸",
+    "level": 3,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "md",
+    "question": "在一張邊長 20 公分的正方形色紙中，以左下角頂點為圓心、邊長為半徑，從左上角到右下角畫出一條 1/4 圓弧，並把弧線右上方的角落塗滿顏色。請問這塊塗色部分的周長大約是多少公分？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "71.4 公分",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "31.4 公分",
+        "trapCode": "U06_FORGET_TWO_RADII"
+      },
+      {
+        "key": "C",
+        "text": "111.4 公分",
+        "trapCode": "U06_COMPOSITE_BOUNDARY_ERR"
+      },
+      {
+        "key": "D",
+        "text": "51.4 公分",
+        "trapCode": "U06_ARC_AS_PERIMETER"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "20 * 2 * (314/100) * (1/4) + 20 * 2",
+      "expect": "71.4"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生判讀複合圖形「外圍封閉邊界」的能力，知道角落塗色塊的周長是由 1 條 1/4 圓弧與正方形的 2 條邊圍成。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：用螢光筆沿著塗色部分的外圍描一圈，可以看到它由「1 條半徑 20 公分的 1/4 圓弧」和「正方形的上方、右方 2 條直邊」組成。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 160\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"460\" height=\"160\" rx=\"10\" fill=\"#ffffff\"/><line x1=\"55\" y1=\"22\" x2=\"55\" y2=\"132\" stroke=\"#94a3b8\" stroke-width=\"1.8\" stroke-dasharray=\"4 3\"/><line x1=\"55\" y1=\"132\" x2=\"165\" y2=\"132\" stroke=\"#94a3b8\" stroke-width=\"1.8\" stroke-dasharray=\"4 3\"/><path d=\"M 55,22 L 165,22 L 165,132 A 110,110 0 0,0 55,22 Z\" fill=\"#fef3c7\"/><line x1=\"55\" y1=\"22\" x2=\"165\" y2=\"22\" stroke=\"#2563eb\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><line x1=\"165\" y1=\"22\" x2=\"165\" y2=\"132\" stroke=\"#2563eb\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><path d=\"M 55,22 A 110,110 0 0,1 165,132\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"4\" stroke-linecap=\"round\"/><circle cx=\"55\" cy=\"132\" r=\"3.5\" fill=\"#1e293b\"/><text x=\"110\" y=\"15\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\">20 公分</text><text x=\"195\" y=\"82\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\">20 公分</text><text x=\"42\" y=\"146\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#475569\">圓心</text><rect x=\"232\" y=\"16\" width=\"212\" height=\"126\" rx=\"8\" fill=\"#f8fafc\" stroke=\"#cbd5e1\"/><text x=\"246\" y=\"42\" font-size=\"13\" font-weight=\"700\" fill=\"#1e293b\">著色邊界 ＝ 紅弧 ＋ 2 藍邊</text><text x=\"246\" y=\"70\" font-size=\"13\" font-weight=\"700\" fill=\"#e11d48\">紅色 1/4 弧：31.4 公分</text><text x=\"242\" y=\"98\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\">藍色 2 直邊：20 ＋ 20 ＝ 40 公分</text><text x=\"246\" y=\"126\" font-size=\"13\" font-weight=\"800\" fill=\"#059669\">總周長：71.4 公分</text></svg>",
+          "caption": "圖解：塗色部分（黃色區域）的外圍由紅色 1/4 圓弧和兩條藍色正方形邊圍成，左下虛線邊不計入。"
+        },
+        {
+          "type": "eq",
+          "expr": "20 × 2 × 3.14 × 1/4 ＝ 10 × 3.14 ＝ 31.4",
+          "unit": "公分（紅色 1/4 弧長）"
+        },
+        {
+          "type": "eq",
+          "expr": "31.4 ＋ 20 ＋ 20 ＝ 71.4",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：這塊塗色部分的周長大約是 71.4 公分。"
+        }
+      ],
+      "insight": "求複合塗色圖形的周長，只算「塗色塊外圍那一圈」，沒有碰到塗色區的虛線邊絕對不能加進去！",
+      "figureNote": "正方形左邊和底下的兩條灰色虛線在塗色區域之外，所以塗色部分只有上、右兩條藍色直邊，加上中間的紅色 1/4 圓弧。",
+      "distractorAnalysis": {
+        "B": "只算出 1/4 圓弧的長度 31.4 公分，漏算塗色部分外圍的兩條正方形邊長（40 公分）。",
+        "C": "把整個正方形的四條邊周長 20 × 4 ＝ 80 公分全部加進來，再加弧長 31.4 得 111.4 公分。",
+        "D": "算出弧長 31.4 公分後只加了 1 條正方形邊長 20 公分，少加另一條直邊，得 51.4 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "正方形角 1/4 弧夾角塗色周長 ＝ 1/4 圓弧長 ＋ 邊長 × 2"
+      ],
+      "conceptCompare": "左下角的 1/4 圓扇形周長是 31.4 ＋ 20 × 2 ＝ 71.4 公分；而右上角剩餘的塗色部分周長也是 31.4 ＋ 20 × 2 ＝ 71.4 公分！雖然兩塊面積不同，外圍周長卻一模一樣！",
+      "examVariations": "段考常把兩個 1/4 弧疊在一起變成「正方形裡的一片葉子」，葉子周長則是兩條 1/4 弧（共半圓）31.4 × 2 ＝ 62.8 公分，就不含直邊了。"
+    }
+  },
+  {
+    "id": "U06-S4-X-017",
+    "legacyId": null,
+    "unitId": "U06",
+    "section": "6-4",
+    "sectionName": "複合圖形周長",
+    "category": "凸半圓凹半圓複合",
+    "batch": "課本原型題",
+    "source": "課本 p.99 題 5-2 延伸",
+    "level": 3,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "md",
+    "question": "美術班設計了一個對稱窗花圖案：中間是一個邊長 40 公分的正方形，上方向外凸出一個直徑 40 公分的半圓，下方卻向內凹進一個直徑 40 公分的半圓，左右兩側保留直線邊。這個窗花圖案外圍一圈的周長大約是多少公分？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "285.6 公分",
+        "trapCode": "U06_COMPOSITE_BOUNDARY_ERR"
+      },
+      {
+        "key": "B",
+        "text": "205.6 公分",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "80 公分",
+        "trapCode": "U06_TRACK_INNER_OUTER_ERR"
+      },
+      {
+        "key": "D",
+        "text": "142.8 公分",
+        "trapCode": "U06_CALC_SLIP"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "40 * (314/100) + 40 * 2",
+      "expect": "205.6"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生區分「面積割補抵消」與「周長邊界累加」的核心觀念：凹進去的半圓面積雖可補平，但凹進去的弧線邊界一樣要走過並計入周長！",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：沿著窗花最外圍走一圈，上下各有一條直徑 40 公分的紅色半圓弧，合起來剛好是一個整圓的圓周長；左右兩側則是兩條 40 公分的藍色直邊。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 160\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"460\" height=\"160\" rx=\"10\" fill=\"#ffffff\"/><path d=\"M 72,48 A 38,38 0 0,1 148,48 L 148,124 A 38,38 0 0,0 72,124 Z\" fill=\"#fef3c7\"/><line x1=\"72\" y1=\"48\" x2=\"148\" y2=\"48\" stroke=\"#94a3b8\" stroke-width=\"1.6\" stroke-dasharray=\"4 3\"/><line x1=\"72\" y1=\"124\" x2=\"148\" y2=\"124\" stroke=\"#94a3b8\" stroke-width=\"1.6\" stroke-dasharray=\"4 3\"/><path d=\"M 72,48 A 38,38 0 0,1 148,48\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><path d=\"M 148,124 A 38,38 0 0,0 72,124\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><line x1=\"72\" y1=\"48\" x2=\"72\" y2=\"124\" stroke=\"#2563eb\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><line x1=\"148\" y1=\"48\" x2=\"148\" y2=\"124\" stroke=\"#2563eb\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><text x=\"42\" y=\"90\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\">40 公分</text><text x=\"176\" y=\"90\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\">40 公分</text><text x=\"110\" y=\"34\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#e11d48\">上凸半圓弧</text><text x=\"110\" y=\"144\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#e11d48\">下凹半圓弧</text><rect x=\"218\" y=\"16\" width=\"226\" height=\"126\" rx=\"8\" fill=\"#f8fafc\" stroke=\"#cbd5e1\"/><text x=\"232\" y=\"42\" font-size=\"13\" font-weight=\"700\" fill=\"#1e293b\">兩半圓弧合為 1 整圓（虛線不計）</text><text x=\"228\" y=\"70\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\">2 條紅弧：40 × 3.14 ＝ 125.6 公分</text><text x=\"232\" y=\"98\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\">2 條藍邊：40 ＋ 40 ＝ 80 公分</text><text x=\"232\" y=\"126\" font-size=\"13\" font-weight=\"800\" fill=\"#059669\">總周長：205.6 公分</text></svg>",
+          "caption": "圖解：凸半圓與凹半圓的兩條紅色弧線都要算入周長，合為直徑 40 公分的一整圓周；灰色虛線不算。"
+        },
+        {
+          "type": "eq",
+          "expr": "40 × 3.14 ＝ 125.6",
+          "unit": "公分（上下兩半圓弧合計）"
+        },
+        {
+          "type": "eq",
+          "expr": "125.6 ＋ 40 ＋ 40 ＝ 205.6",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：窗花外圍一圈的周長大約是 205.6 公分。"
+        }
+      ],
+      "insight": "「上凸下凹」只是面積補起來一樣大，算周長時凹進去的弧線依然是外圍邊界，兩半圓弧合起來就是 1 整圓周！",
+      "figureNote": "圖中上下兩條灰色虛線在圖形內部，不能算進周長；外圍剛好是 2 條紅色半圓弧 ＋ 左右 2 條藍色直邊。",
+      "distractorAnalysis": {
+        "A": "誤把正方形內部上下兩條灰色虛線（40 ＋ 40 ＝ 80 公分）也加進周長中，算成 125.6 ＋ 160 ＝ 285.6 公分。",
+        "D": "漏掉其中一個半圓弧，只算了 1 個半圓弧 62.8 公分加上 80 公分，誤得 142.8 公分。",
+        "C": "把「面積割補」和「周長」搞混，誤以為上凸半圓和下凹半圓的弧長互相抵消為 0，只算出左右兩條直線 80 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "上凸半圓 ＋ 下凹半圓的複合周長 ＝ 1 個整圓周長 ＋ 兩側直線邊長"
+      ],
+      "conceptCompare": "如果這題改成問「面積」，把上面凸出的半圓剪下來補進下面凹進的半圓，面積剛好等於原正方形（40 × 40 ＝ 1600 平方公分）；但算「周長」時，兩條圓弧都要算！",
+      "examVariations": "段考常把「下凹半圓」改成左右兩側都向內凹，只要把描出來的外圍紅弧加總，看能拼成幾個整圓即可。"
+    }
+  },
+  {
+    "id": "U06-S4-X-018",
+    "legacyId": null,
+    "unitId": "U06",
+    "section": "6-4",
+    "sectionName": "複合圖形周長",
+    "category": "S 型雙弧機器人路徑",
+    "batch": "課本原型題",
+    "source": "課本 p.97 例題 3 延伸",
+    "level": 3,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "md",
+    "question": "公園裡有一條封閉的「S型波浪步道」：起點與終點在同一條直線上，機器人去程先從直徑上方沿著一個直徑 60 公尺的大半圓弧走到終點，回程時再從另一側沿著一條直徑 40 公尺與一條直徑 20 公尺相接的兩個小半圓弧走回起點。機器人繞這條封閉步道走一圈，大約走了多少公尺？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "248.4 公尺",
+        "trapCode": "U06_COMPOSITE_BOUNDARY_ERR"
+      },
+      {
+        "key": "B",
+        "text": "94.2 公尺",
+        "trapCode": "U06_ARC_AS_PERIMETER"
+      },
+      {
+        "key": "C",
+        "text": "376.8 公尺",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "D",
+        "text": "188.4 公尺",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "(60 + 40 + 20) * (314/100) / 2",
+      "expect": "188.4"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生運用「先分別算出半圓直徑的一半再與 3.14 相乘（分配律湊整）」來簡化多段圓弧加總。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：把去程的大半圓弧和回程的兩個小半圓弧畫出來，中間藍色虛線是直徑參考線，機器人沒有走上去，不計入距離。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 160\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"460\" height=\"160\" rx=\"10\" fill=\"#ffffff\"/><line x1=\"30\" y1=\"92\" x2=\"180\" y2=\"92\" stroke=\"#2563eb\" stroke-width=\"2\" stroke-dasharray=\"4 3\"/><path d=\"M 30,92 A 75,75 0 0,1 180,92\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><path d=\"M 30,92 A 50,50 0 0,0 130,92\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><path d=\"M 130,92 A 25,25 0 0,1 180,92\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><circle cx=\"30\" cy=\"92\" r=\"4\" fill=\"#1e293b\"/><circle cx=\"180\" cy=\"92\" r=\"4\" fill=\"#1e293b\"/><text x=\"26\" y=\"110\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#1e293b\">起點</text><text x=\"184\" y=\"110\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#1e293b\">終點</text><text x=\"105\" y=\"14\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#e11d48\">大半圓直徑 60 公尺</text><text x=\"80\" y=\"154\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#e11d48\">直徑 40 公尺</text><text x=\"155\" y=\"62\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#e11d48\">直徑 20 公尺</text><rect x=\"214\" y=\"16\" width=\"232\" height=\"126\" rx=\"8\" fill=\"#f8fafc\" stroke=\"#cbd5e1\"/><text x=\"228\" y=\"42\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\">藍虛線為直徑參考線（不計入）</text><text x=\"228\" y=\"70\" font-size=\"13\" font-weight=\"700\" fill=\"#e11d48\">大紅半圓弧：30 × 3.14 ＝ 94.2</text><text x=\"224\" y=\"98\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\">兩小弧：(20 ＋ 10) × 3.14 ＝ 94.2</text><text x=\"228\" y=\"126\" font-size=\"13\" font-weight=\"800\" fill=\"#059669\">總路程：60 × 3.14 ＝ 188.4 公尺</text></svg>",
+          "caption": "圖解：三個紅色半圓弧的直徑和 40 ＋ 20 ＝ 60，回程兩小弧剛好等於去程大弧長。"
+        },
+        {
+          "type": "eq",
+          "expr": "(60 ÷ 2 ＋ 40 ÷ 2 ＋ 20 ÷ 2) × 3.14 ＝ (30 ＋ 20 ＋ 10) × 3.14 ＝ 60 × 3.14 ＝ 188.4",
+          "unit": "公尺"
+        },
+        {
+          "type": "answer",
+          "text": "答：機器人繞一圈大約走了 188.4 公尺。"
+        }
+      ],
+      "insight": "只要兩個小半圓的直徑加起來等於大半圓直徑（40 ＋ 20 ＝ 60），回程兩個小半圓弧合起來就跟去程大半圓弧一樣長！",
+      "figureNote": "去程與回程的距離竟然完全相等（都是 94.2 公尺），所以整圈合起來剛好就是一個直徑 60 公尺的大圓周長！",
+      "distractorAnalysis": {
+        "A": "誤把中間藍色虛線標示的直徑長度 60 公尺也加進去，算成 188.4 ＋ 60 ＝ 248.4 公尺。",
+        "C": "把題目給的直徑 60、40、20 當成半徑再乘以 2，算成 188.4 × 2 ＝ 376.8 公尺。",
+        "B": "只算了去程直徑 60 公尺大半圓的弧長 94.2 公尺，忘記加上回程兩個小半圓弧的長度。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "多段相接半圓弧總長 ＝ (各直徑之和 ÷ 2) × 3.14",
+        "去程大半圓弧長 ＝ 回程小半圓弧長總和（只要小直徑和 ＝ 大直徑）"
+      ],
+      "conceptCompare": "用分配律把每段共有多少個 3.14 合併起來，不用分開算出 94.2、62.8、31.4 再加總，速度更快也更不會進位出錯！",
+      "examVariations": "段考常把回程改成「三個或四個直徑不相等的波浪半圓弧」，只要起點到終點的總直徑不變，回程路程永遠等於去程大半圓弧！"
+    }
+  },
+  {
+    "id": "U06-RV-X-019",
+    "legacyId": null,
+    "unitId": "U06",
+    "section": "REVIEW",
+    "sectionName": "單元總複習",
+    "category": "繩長圍不同圖形比較",
+    "batch": "課本原型題",
+    "source": "課本 p.98 題 1 延伸",
+    "level": 3,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "md",
+    "question": "美勞社用三條緞帶分別圍出「邊長 20 公分的正方形」、「直徑 20 公分的圓形」和「邊長 20 公分的正三角形」。請問周長最接近的兩個圖形，它們的周長相差多少公分？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "20 公分",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "B",
+        "text": "17.2 公分",
+        "trapCode": "U06_PI_CONSTANT_MYTH"
+      },
+      {
+        "key": "C",
+        "text": "86 公分",
+        "trapCode": "U06_AREA_FORMULA_CONFUSION"
+      },
+      {
+        "key": "D",
+        "text": "2.8 公分",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "20 * (314/100) - 20 * 3",
+      "expect": "2.8"
+    },
+    "explanation": {
+      "examPurpose": "透過比較相同邊長／直徑的正三角形、圓形與正方形周長，讓學生從具體數值感受「圓周長大約是直徑的 3.14 倍，最接近正三角形的 3 倍」。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：分別算出三種圖形的周長："
+        },
+        {
+          "type": "eq",
+          "expr": "正方形周長 ＝ 20 × 4 ＝ 80",
+          "unit": "公分"
+        },
+        {
+          "type": "eq",
+          "expr": "圓形周長 ＝ 20 × 3.14 ＝ 62.8",
+          "unit": "公分"
+        },
+        {
+          "type": "mul",
+          "a": "20",
+          "b": "3.14",
+          "note": "直式計算 20 × 3.14 ＝ 62.8"
+        },
+        {
+          "type": "eq",
+          "expr": "正三角形周長 ＝ 20 × 3 ＝ 60",
+          "unit": "公分"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：比較兩兩相差，80 − 62.8 ＝ 17.2 公分，而 62.8 − 60 ＝ 2.8 公分，所以圓形與正三角形最接近。"
+        },
+        {
+          "type": "eq",
+          "expr": "62.8 − 60 ＝ 2.8",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：圓形與正三角形周長最接近，相差 2.8 公分。"
+        }
+      ],
+      "insight": "圓周長 ＝ 3.14 個直徑，只比正三角形的 3 個邊長多出「0.14 個直徑」（20 × 0.14 ＝ 2.8 公分），遠小於正方形的 4 個邊長！",
+      "distractorAnalysis": {
+        "A": "誤把圓形直徑 20 公分當成半徑計算，得出圓周長 125.6 公分，導致誤選正方形 80 公分和正三角形 60 公分相減（80 − 60 ＝ 20 公分）。",
+        "B": "只把 80 − 62.8 ＝ 17.2 公分算出來就以為是最小差，忽略了圓形 62.8 公分跟正三角形 60 公分更接近。",
+        "C": "把周長錯算成面積來比較，拿正方形面積 400 減去圓面積 314，得到 86。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "正三角形周長（3 倍） ＜ 圓形周長（3.14 倍） ＜ 正方形周長（4 倍）",
+        "圓周長與正三角形周長之差 ＝ 直徑 × 0.14"
+      ],
+      "conceptCompare": "這正好呼應課本 6-1 的核心結論：圓周長比直徑的 3 倍多一點點（多 0.14 倍），比直徑的 4 倍短很多（少 0.86 倍）。",
+      "examVariations": "若把「邊長與直徑 20 公分」改成「100 公分」，圓形和正三角形的周長差就會變成 100 × 0.14 ＝ 14 公分！"
+    }
+  },
+  {
+    "id": "U06-RV-X-020",
+    "legacyId": null,
+    "unitId": "U06",
+    "section": "REVIEW",
+    "sectionName": "單元總複習",
+    "category": "扇形周長反推半徑",
+    "batch": "課本原型題",
+    "source": "課本 p.95 與 p.99 綜合延伸",
+    "level": 4,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "md",
+    "question": "公園入口有一個半圓形的彩繪花台，測量它最外圍一圈的周長大約是 51.4 公尺（包含弧邊與底下的直線邊），這個半圓形花台的半徑大約是多少公尺？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "20 公尺",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "B",
+        "text": "16.4 公尺",
+        "trapCode": "U06_FORGET_TWO_RADII"
+      },
+      {
+        "key": "C",
+        "text": "10 公尺",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "100 公尺",
+        "trapCode": "U06_DECIMAL_SHIFT_ERR"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "51.4 / (314/100 + 2)",
+      "expect": "10"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生逆向推算「半圓扇形周長 ＝ 半徑 × (3.14 ＋ 2) ＝ 半徑 × 5.14」的倍數合成關係，進而反推出半徑。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：把 1 條半徑當作 1 份，分析半圓扇形的周長共有幾個半徑："
+        },
+        {
+          "type": "text",
+          "text": "半圓弧長 ＝ 半徑 × 2 × 3.14 ÷ 2 ＝ 半徑 × 3.14；底下的直線邊是直徑，等於半徑 × 2。"
+        },
+        {
+          "type": "eq",
+          "expr": "半圓周長 ＝ 半徑 × (3.14 ＋ 2) ＝ 半徑 × 5.14"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：已知半圓周長是 51.4 公尺，除以 5.14 就能算出半徑："
+        },
+        {
+          "type": "eq",
+          "expr": "51.4 ÷ 5.14 ＝ 10",
+          "unit": "公尺"
+        },
+        {
+          "type": "longdiv",
+          "dividend": "51.4",
+          "divisor": "5.14",
+          "mode": "exact",
+          "note": "除數 5.14 與被除數 51.4 的小數點同時向右移 2 位，變成 5140 ÷ 514 ＝ 10"
+        },
+        {
+          "type": "text",
+          "text": "驗算一下：半圓弧長 10 × 3.14 ＝ 31.4 公尺，加上直徑 20 公尺，剛好是 31.4 ＋ 20 ＝ 51.4 公尺。"
+        },
+        {
+          "type": "answer",
+          "text": "答：這個半圓形花台的半徑大約是 10 公尺。"
+        }
+      ],
+      "insight": "必記黃金常數：任何半圓形的周長永遠等於「半徑 × 5.14」！看到 51.4、25.7、102.8 直接除以 5.14 就秒殺出半徑！",
+      "distractorAnalysis": {
+        "A": "求出的是「直徑 20 公尺」（51.4 ÷ 2.57 ＝ 20 公尺），忘記題目問的是半徑還要除以 2。",
+        "B": "忘記半圓周長裡包含了兩條半徑（直徑），直接把 51.4 當成半圓弧長去算 51.4 ÷ 3.14 ≈ 16.4 公尺。",
+        "D": "在計算 51.4 ÷ 5.14 時小數點位移錯誤，把被除數多補了 1 個 0，誤算成 100 公尺。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "半圓形周長 ＝ 半徑 × 5.14 ＝ 直徑 × 2.57",
+        "已知半圓周長反求半徑 ＝ 半圓周長 ÷ 5.14"
+      ],
+      "conceptCompare": "「整圓周長」反求直徑是除以 3.14；「半圓周長」因為多了 2 條半徑（即 1 條直徑），反求半徑要除以 (3.14 ＋ 2) ＝ 5.14，千萬不能直接除以 3.14！",
+      "examVariations": "段考也常考「1/4 圓扇形的周長是 35.7 公分，求半徑」，此時周長 ＝ 半徑 × (6.28 × 1/4 ＋ 2) ＝ 半徑 × 3.57，35.7 ÷ 3.57 ＝ 10 公分！"
+    }
+  },
+  {
+    "id": "U06-S2-O-021",
+    "legacyId": "u06_101",
+    "unitId": "U06",
+    "section": "6-2",
+    "sectionName": "圓周長",
+    "category": "滾輪距離換算",
+    "batch": "奧數天梯",
+    "source": "課本 p.91 滾輪延伸／奧數 L3",
+    "level": 3,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "自行車輪子的直徑是 50 公分。小明騎車讓輪子在地上滾動了 20 圈，一共前進了大約多少公尺？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "15.7 公尺",
+        "trapCode": "U06_ROLLER_TURN_ERR"
+      },
+      {
+        "key": "B",
+        "text": "3140 公尺",
+        "trapCode": "U06_DECIMAL_SHIFT_ERR"
+      },
+      {
+        "key": "C",
+        "text": "62.8 公尺",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "D",
+        "text": "31.4 公尺",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "50 * (314 / 100) * 20 / 100",
+      "expect": "31.4"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否理解「輪子滾動 1 圈 ＝ 1 個圓周長」，並能完成公分與公尺的單位換算。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 160\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"75\" cy=\"75\" r=\"42\" fill=\"#fff1f2\" stroke=\"#e11d48\" stroke-width=\"3.5\"/><line x1=\"75\" y1=\"33\" x2=\"75\" y2=\"117\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><line x1=\"75\" y1=\"117\" x2=\"420\" y2=\"117\" stroke=\"#2563eb\" stroke-width=\"3.5\"/><circle cx=\"75\" cy=\"117\" r=\"4\" fill=\"#e11d48\"/><circle cx=\"235\" cy=\"117\" r=\"4\" fill=\"#2563eb\"/><text x=\"124\" y=\"78\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\">直徑 50 公分</text><text x=\"235\" y=\"52\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\">輪子滾動 1 圈 ＝ 圓周長 157 公分</text><text x=\"245\" y=\"142\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">滾動 20 圈 ＝ 3140 公分 ＝ 31.4 公尺</text></svg>",
+          "caption": "滾輪前進示意圖：輪子每轉 1 圈，地面留下的距離就等於 1 個圓周長"
+        },
+        {
+          "type": "text",
+          "text": "輪子滾動 1 圈前進的距離，等於輪子外圍 1 圈的圓周長："
+        },
+        {
+          "type": "eq",
+          "expr": "50 × 3.14 ＝ 157",
+          "unit": "公分（滾動 1 圈）"
+        },
+        {
+          "type": "text",
+          "text": "輪子滾動 20 圈，再將公分換算成公尺（1 公尺 ＝ 100 公分）："
+        },
+        {
+          "type": "eq",
+          "expr": "157 × 20 ＝ 3140",
+          "unit": "公分"
+        },
+        {
+          "type": "eq",
+          "expr": "3140 ÷ 100 ＝ 31.4",
+          "unit": "公尺"
+        },
+        {
+          "type": "answer",
+          "text": "答：大約 31.4 公尺"
+        }
+      ],
+      "insight": "滾輪題兩大關鍵：滾 1 圈 ＝ 圓周長；看清楚題幹單位是「公分」而問題問「公尺」，最後別忘了除以 100。",
+      "distractorAnalysis": {
+        "B": "算出 3140 公分後忘記把公分換算成公尺，直接寫成 3140 公尺。",
+        "C": "混淆直徑與半徑，誤把直徑 50 公分當成半徑再乘以 2，算出 62.8 公尺。",
+        "A": "把 20 圈除以 2 誤以為只轉了 10 圈，列成 1.57 × 10 ＝ 15.7 公尺。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "前進總距離 ＝ 輪子圓周長 × 滾動圈數",
+        "1 公尺 ＝ 100 公分"
+      ],
+      "conceptCompare": "正推求距離用乘法（1 圈周長 × 圈數）；反推問「需要滾幾圈」時則用除法（總距離 ÷ 1 圈周長），同樣要先統一單位！",
+      "examVariations": "高階變化題會同時給「前輪」和「後輪」不同直徑，問走完同一段路時前輪比後輪多轉幾圈。"
+    }
+  },
+  {
+    "id": "U06-S4-O-022",
+    "legacyId": "u06_102",
+    "unitId": "U06",
+    "section": "6-4",
+    "sectionName": "圓周長與弧長的應用",
+    "category": "挖角正方形周長",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L3（正方形挖角）",
     "level": 3,
     "difficulty": 4,
-    "batch": "奧數天梯",
-    "source": "Unit06 AI_SPEC level_3（正方形挖角）",
-    "verified": true,
-    "question": "邊長 10 公分的正方形，在四個角各挖掉一個半徑 2 公分的 $\\frac{1}{4}$ 圓。剩下圖形的外圍周長是多少公分？",
-    "answer": "36.56 公分",
-    "steps": [
-      "每邊剩下的直線段：$10 - 2 \\times 2 = 6$ 公分，4 邊共有 $6 \\times 4 = 24$ 公分",
-      "四個角的 $\\frac{1}{4}$ 圓弧剛好合為一個半徑 2 公分（直徑 4 公分）的完整圓：$4 \\times 3.14 = 12.56$ 公分",
-      "外圍總周長：$24 + 12.56 = 36.56$ 公分"
+    "questionType": "choice",
+    "work": "md",
+    "question": "邊長 10 公分的正方形，在四個角各挖掉一個半徑 2 公分的 1/4 圓。剩下圖形的外圍周長大約是多少公分？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "24 公分",
+        "trapCode": "U06_COMPOSITE_BOUNDARY_ERR"
+      },
+      {
+        "key": "B",
+        "text": "49.12 公分",
+        "trapCode": "U06_CALC_SLIP"
+      },
+      {
+        "key": "C",
+        "text": "52.56 公分",
+        "trapCode": "U06_FORGET_TWO_RADII"
+      },
+      {
+        "key": "D",
+        "text": "36.56 公分",
+        "trapCode": null
+      }
     ],
-    "insight": "組合割補思維：分散的弧長先拼湊成整圓再計算。",
-    "work": "md"
+    "answer": "D",
+    "check": {
+      "expr": "(10 - 2 * 2) * 4 + 2 * 2 * (314 / 100)",
+      "expect": "36.56"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生在幾何圖形被挖角後，能否看清「少掉原角邊長，但新增 4 段凹進去圓弧」的邊界變化，並將 4 段 1/4 圓弧拼回 1 個整圓計算。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 160\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"45\" y=\"25\" width=\"110\" height=\"110\" fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"1.5\" stroke-dasharray=\"4 3\"/><path d=\"M 67 25 L 133 25 A 22 22 0 0 0 155 47 L 155 113 A 22 22 0 0 0 133 135 L 67 135 A 22 22 0 0 0 45 113 L 45 47 A 22 22 0 0 0 67 25 Z\" fill=\"#f8fafc\"/><line x1=\"67\" y1=\"25\" x2=\"133\" y2=\"25\" stroke=\"#2563eb\" stroke-width=\"3.5\"/><line x1=\"155\" y1=\"47\" x2=\"155\" y2=\"113\" stroke=\"#2563eb\" stroke-width=\"3.5\"/><line x1=\"67\" y1=\"135\" x2=\"133\" y2=\"135\" stroke=\"#2563eb\" stroke-width=\"3.5\"/><line x1=\"45\" y1=\"47\" x2=\"45\" y2=\"113\" stroke=\"#2563eb\" stroke-width=\"3.5\"/><path d=\"M 45 47 A 22 22 0 0 0 67 25\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"4\"/><path d=\"M 133 25 A 22 22 0 0 0 155 47\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"4\"/><path d=\"M 155 113 A 22 22 0 0 0 133 135\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"4\"/><path d=\"M 67 135 A 22 22 0 0 0 45 113\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"4\"/><text x=\"100\" y=\"16\" font-size=\"12\" font-weight=\"700\" fill=\"#475569\" text-anchor=\"middle\">原邊長 10 公分</text><text x=\"100\" y=\"152\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">每段直線 6 公分</text><text x=\"195\" y=\"52\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\">4 條藍線 ＝ 6 × 4 ＝ 24 公分</text><text x=\"195\" y=\"84\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\">4 個紅弧 ＝ 1 個整圓 12.56 公分</text><text x=\"195\" y=\"116\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\">總周長 ＝ 24 ＋ 12.56 ＝ 36.56 公分</text></svg>",
+          "caption": "正方形四角挖弧圖：4 段藍色直線加上 4 個紅色 1/4 圓弧（合成 1 個完整小圓）"
+        },
+        {
+          "type": "text",
+          "text": "正方形每條邊的左右兩端各被挖掉半徑 2 公分，先算出每邊剩下的藍色直線段："
+        },
+        {
+          "type": "eq",
+          "expr": "10 − 2 × 2 ＝ 6",
+          "unit": "公分（每邊剩餘直線）"
+        },
+        {
+          "type": "eq",
+          "expr": "6 × 4 ＝ 24",
+          "unit": "公分（4 條直線總長）"
+        },
+        {
+          "type": "text",
+          "text": "四個角各留下 1 段半徑 2 公分的 1/4 圓弧，合起來剛好是 1 個半徑 2 公分（直徑 4 公分）的整圓周長："
+        },
+        {
+          "type": "eq",
+          "expr": "2 × 2 × 3.14 ＝ 12.56",
+          "unit": "公分（4 段紅弧總長）"
+        },
+        {
+          "type": "eq",
+          "expr": "24 ＋ 12.56 ＝ 36.56",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：大約 36.56 公分"
+        }
+      ],
+      "insight": "組合割補思維：把四個角落分散的 1/4 圓弧先拼湊成 1 個完整圓，計算又快又不易出錯。",
+      "distractorAnalysis": {
+        "A": "只算了四邊剩下的直線長 6 × 4 ＝ 24 公分，完全漏加四個角落新露出的紅色圓弧邊界。",
+        "C": "忘記扣掉每個角被挖掉的線段長度，直接拿原正方形周長 40 公分加上圓周長 12.56 公分，算出 52.56 公分。",
+        "B": "將半徑 2 公分誤套為直徑 4 公分後又再乘以 2（誤算 4 × 2 × 3.14 ＝ 25.12），加上 24 變成 49.12 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "挖角後剩餘每邊直線 ＝ 原邊長 − 圓弧半徑 × 2",
+        "4 個 1/4 圓弧總長 ＝ 1 個整圓周長"
+      ],
+      "conceptCompare": "挖掉角落時，「面積」一定會變小，但「周長」不一定變小（本題原本 40 公分，挖後變 36.56 公分；若是往內挖出垂直長方形角，周長甚至可能不變）。",
+      "examVariations": "若題目改為「從正方形的邊中間往內挖半圓」，那麼只少掉 1 條直徑、多出 1 個半圓弧，周長反而會增加。"
+    }
   },
   {
-    "id": "u06_103",
+    "id": "U06-S4-O-023",
+    "legacyId": "u06_103",
     "unitId": "U06",
-    "category": "外公切線綑綁繩長",
+    "section": "6-4",
+    "sectionName": "圓周長與弧長的應用",
+    "category": "外公切線兩圓綑繩",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L4（圓柱綑繩）",
     "level": 4,
     "difficulty": 5,
-    "batch": "奧數天梯",
-    "source": "Unit06 AI_SPEC level_4（束帶長度）",
-    "verified": true,
-    "question": "用一條繩子將兩個半徑都是 5 公分的圓柱緊緊綑綁一圈（不計打結長度）。這條繩子的長度至少需要多少公分？",
-    "answer": "51.4 公分",
-    "steps": [
-      "畫出切線分析：上下兩條直線段外公切線長度 ＝ 兩圓心距離 ＝ $2r = 10$ 公分，兩條共 $10 \\times 2 = 20$ 公分",
-      "左右兩側貼附圓柱的弧各為半圓，合為一個半徑 5 公分（直徑 10 公分）的整圓周長：$10 \\times 3.14 = 31.4$ 公分",
-      "繩子總長度：$20 + 31.4 = 51.4$ 公分"
+    "questionType": "choice",
+    "work": "md",
+    "question": "用一條繩子將兩個半徑都是 5 公分的圓柱並排緊緊綑綁一圈（不計打結長度）。這條繩子的長度至少大約需要多少公分？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "31.4 公分",
+        "trapCode": "U06_ROPE_TANGENT_MISS"
+      },
+      {
+        "key": "B",
+        "text": "51.4 公分",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "41.4 公分",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "D",
+        "text": "62.8 公分",
+        "trapCode": "U06_CALC_SLIP"
+      }
     ],
-    "insight": "奧數綑綁模型：n 個等圓綑一圈，繩長 ＝ n 條直線段（直徑×n）＋ 1 個完整圓周長（2πr）。",
-    "work": "md"
+    "answer": "B",
+    "check": {
+      "expr": "5 * 2 * 2 + 5 * 2 * (314 / 100)",
+      "expect": "51.4"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生解決經典「圓柱綑綁繩長」問題的能力：把繩長分解成「圓心連線等長的直線段」與「兩端圓弧合成的 1 個整圓」。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 160\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"95\" cy=\"80\" r=\"40\" fill=\"#eff6ff\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><circle cx=\"175\" cy=\"80\" r=\"40\" fill=\"#eff6ff\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><line x1=\"95\" y1=\"80\" x2=\"175\" y2=\"80\" stroke=\"#64748b\" stroke-width=\"1.5\" stroke-dasharray=\"4 3\"/><line x1=\"95\" y1=\"40\" x2=\"175\" y2=\"40\" stroke=\"#2563eb\" stroke-width=\"3.5\"/><line x1=\"95\" y1=\"120\" x2=\"175\" y2=\"120\" stroke=\"#2563eb\" stroke-width=\"3.5\"/><path d=\"M 95 120 A 40 40 0 0 1 95 40\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"4\"/><path d=\"M 175 40 A 40 40 0 0 1 175 120\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"4\"/><circle cx=\"95\" cy=\"80\" r=\"3\" fill=\"#1e293b\"/><circle cx=\"175\" cy=\"80\" r=\"3\" fill=\"#1e293b\"/><text x=\"135\" y=\"28\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">直線段 10 公分</text><text x=\"135\" y=\"140\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">直線段 10 公分</text><text x=\"135\" y=\"96\" font-size=\"11\" font-weight=\"700\" fill=\"#475569\" text-anchor=\"middle\">圓心距 10 公分</text><text x=\"235\" y=\"52\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\">上下 2 條藍線 ＝ 10 × 2 ＝ 20 公分</text><text x=\"235\" y=\"84\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\">左右 2 個紅弧 ＝ 1 個整圓 31.4 公分</text><text x=\"235\" y=\"116\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\">繩子總長 ＝ 20 ＋ 31.4 ＝ 51.4 公分</text></svg>",
+          "caption": "雙圓柱綑繩圖：上下兩條藍色直線（各等於 1 個直徑）加上左右兩個紅色半圓（合為 1 個整圓）"
+        },
+        {
+          "type": "text",
+          "text": "把緊緊繞一圈的繩子拆成「直線」和「弧線」：兩個半徑 5 公分的圓柱緊靠時，上下兩條藍色直線各等於 1 個直徑（5 ＋ 5 ＝ 10 公分）："
+        },
+        {
+          "type": "eq",
+          "expr": "5 × 2 × 2 ＝ 20",
+          "unit": "公分（上下兩條直線總長）"
+        },
+        {
+          "type": "text",
+          "text": "左右兩側緊貼圓柱的紅色弧線各為 1/2 圓，合起來剛好是 1 個半徑 5 公分（直徑 10 公分）的整圓周長："
+        },
+        {
+          "type": "eq",
+          "expr": "5 × 2 × 3.14 ＝ 31.4",
+          "unit": "公分（兩端弧線總長）"
+        },
+        {
+          "type": "eq",
+          "expr": "20 ＋ 31.4 ＝ 51.4",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：至少大約需要 51.4 公分"
+        }
+      ],
+      "insight": "奧數綑綁模型：將外圍同樣大小圓柱緊緊綑一圈，彎曲的弧線不管幾個圓，合起來永遠剛好等於「1 個整圓周長」！",
+      "distractorAnalysis": {
+        "A": "只算出左右兩個半圓弧合成的 1 個整圓周長 31.4 公分，完全漏算上下兩條 10 公分的直線切線段。",
+        "D": "以為綑綁兩個圓柱就需要兩個完整圓的周長，直接用 31.4 × 2 ＝ 62.8 公分，沒有扣掉中間被夾住沒貼到繩子的半圓。",
+        "C": "混淆半徑與直徑，誤把每條直線段當成半徑 5 公分，算出兩條直線只有 10 公分（10 ＋ 31.4 ＝ 41.4 公分）。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "兩等圓緊綑一圈繩長 ＝ 直徑 × 2 ＋ 1 個整圓周長",
+        "三等圓呈三角形緊綑一圈繩長 ＝ 直徑 × 3 ＋ 1 個整圓周長"
+      ],
+      "conceptCompare": "不管是 2 個圓並排、3 個圓排成正三角形，還是 4 個圓排成正方形，繩子繞過所有轉角弧線的總和永遠剛好是「360°（1 個整圓）」，差別只在直線段數！",
+      "examVariations": "段考與資優考常考「3 根或 4 根等粗水管用膠帶捆一圈」或「計算 6 根水管疊兩層的最省繩捆法」。"
+    }
   },
   {
-    "id": "u06_m01",
+    "id": "U06-S2-O-024",
+    "legacyId": null,
     "unitId": "U06",
-    "category": "純腦力體操",
-    "topic": "圓周率意義",
-    "level": 1,
-    "stars": 1,
-    "difficulty": 1,
+    "section": "6-2",
+    "sectionName": "圓周長",
+    "category": "大小輪同路段圈數差",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L5（大小輪轉數差）",
+    "level": 5,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "md",
+    "question": "一輛工程車在長 314 公尺的筆直隧道中行駛，已知前輪直徑是 50 公分，後輪直徑是 100 公分。當車子完全通過這段 314 公尺的路段時，前輪比後輪多轉了幾圈？（圓周率以 3.14 計算）",
+    "options": [
+      {
+        "key": "A",
+        "text": "200 圈",
+        "trapCode": "U06_ROLLER_TURN_ERR"
+      },
+      {
+        "key": "B",
+        "text": "100 圈",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "10 圈",
+        "trapCode": "U06_DECIMAL_SHIFT_ERR"
+      },
+      {
+        "key": "D",
+        "text": "50 圈",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "314 / (50/100 * (314/100)) - 314 / (100/100 * (314/100))",
+      "expect": "100"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否先統一長度單位（公分換公尺），再分別算出大小輪滾動一圈的圓周長，最後用總路段長除以各自圓周長求出圈數差。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：先統一單位為公尺。前輪直徑 50 公分 ＝ 0.5 公尺，後輪直徑 100 公分 ＝ 1 公尺。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"30\" y1=\"120\" x2=\"430\" y2=\"120\" stroke=\"#2563eb\" stroke-width=\"3\"/><circle cx=\"110\" cy=\"98\" r=\"22\" fill=\"#fef2f2\" stroke=\"#e11d48\" stroke-width=\"3\"/><line x1=\"88\" y1=\"98\" x2=\"132\" y2=\"98\" stroke=\"#2563eb\" stroke-width=\"2\" stroke-dasharray=\"3 3\"/><circle cx=\"330\" cy=\"76\" r=\"44\" fill=\"#eff6ff\" stroke=\"#e11d48\" stroke-width=\"3\"/><line x1=\"286\" y1=\"76\" x2=\"374\" y2=\"76\" stroke=\"#2563eb\" stroke-width=\"2\" stroke-dasharray=\"3 3\"/><text x=\"110\" y=\"66\" font-size=\"13\" font-weight=\"bold\" fill=\"#be123c\" text-anchor=\"middle\">前輪直徑 0.5 公尺</text><text x=\"330\" y=\"22\" font-size=\"13\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"middle\">後輪直徑 1 公尺</text><text x=\"230\" y=\"142\" font-size=\"13\" fill=\"#1e293b\" text-anchor=\"middle\">共同行駛總距離 ＝ 314 公尺</text></svg>",
+          "caption": "紅圓周＝各自滾動 1 圈的距離；藍直線＝共同行駛的 314 公尺路段"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：算出前、後輪滾動 1 圈的距離（圓周長）。"
+        },
+        {
+          "type": "eq",
+          "expr": "前輪 1 圈 ＝ 0.5 × 3.14 ＝ 1.57",
+          "unit": "公尺"
+        },
+        {
+          "type": "eq",
+          "expr": "後輪 1 圈 ＝ 1 × 3.14 ＝ 3.14",
+          "unit": "公尺"
+        },
+        {
+          "type": "text",
+          "text": "第 3 步：用總長 314 公尺分別除以兩輪的圓周長，求出各自轉動的圈數。"
+        },
+        {
+          "type": "eq",
+          "expr": "前輪圈數 ＝ 314 ÷ 1.57 ＝ 200",
+          "unit": "圈"
+        },
+        {
+          "type": "longdiv",
+          "dividend": "314",
+          "divisor": "1.57",
+          "mode": "exact",
+          "note": "除數 1.57 與被除數 314 的小數點同時向右移 2 位，變成 31400 ÷ 157 ＝ 200"
+        },
+        {
+          "type": "eq",
+          "expr": "後輪圈數 ＝ 314 ÷ 3.14 ＝ 100",
+          "unit": "圈"
+        },
+        {
+          "type": "text",
+          "text": "第 4 步：相減求出前輪比後輪多轉的圈數。"
+        },
+        {
+          "type": "eq",
+          "expr": "200 − 100 ＝ 100",
+          "unit": "圈"
+        },
+        {
+          "type": "answer",
+          "text": "答：前輪比後輪多轉 100 圈"
+        }
+      ],
+      "insight": "行駛距離相同時，輪子直徑越小、轉的圈數越多；要先分別算出兩輪圈數再相減，絕不能直接用距離去除以圓周長差！",
+      "distractorAnalysis": {
+        "C": "單位換算少補一個 0，把 314 公尺誤換成 3140 公分，算成前輪 20 圈、後輪 10 圈，得出 20 − 10 ＝ 10 圈。",
+        "D": "誤把題目給的「直徑」當成「半徑」多乘 2，算出前輪 100 圈、後輪 50 圈，相差 50 圈。",
+        "A": "誤把「總距離 ÷ 兩輪圓周差」當成圈數差，列成 314 ÷ (3.14 − 1.57) ＝ 200 圈（概念倒置，前輪 200 圈只是前輪總圈數）。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "行駛總距離 ＝ 輪子圓周長 × 滾動圈數",
+        "滾動圈數 ＝ 行駛總距離 ÷ 輪子圓周長（計算前須先統一長度單位）"
+      ],
+      "conceptCompare": "同一段路程上，前輪直徑 50 公分與後輪直徑 100 公分是 1：2，所以圈數反而是 2：1。很多同學會誤用「總距離 ÷ 圓周差」，算出來會變成 200 圈，這點要特別小心。",
+      "examVariations": "若改為「前輪轉了 60 圈時，後輪轉了幾圈？」，可直接利用兩輪行走距離相同，先求總距離 60 × 1.57 ＝ 94.2 公尺，再除以 3.14 得 30 圈（或用直徑比 1：2 反推圈數比 2：1）。"
+    }
+  },
+  {
+    "id": "U06-S3-O-025",
+    "legacyId": null,
+    "unitId": "U06",
+    "section": "6-3",
+    "sectionName": "扇形弧長與周長",
+    "category": "兩同心扇形拱門外框",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L5（同心扇環拱門）",
+    "level": 5,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "md",
+    "question": "遊樂園設計了一座「四分之一圓」的拱形彩虹花廊（圓心角 90°），外圈大扇形半徑為 20 公尺，內圈小扇形半徑為 10 公尺，兩扇形共用同一個圓心。若要在這片拱形走道的「最外圍一圈邊界」架設燈條，至少需要準備幾公尺的燈條？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "47.1 公尺",
+        "trapCode": "U06_FORGET_TWO_RADII"
+      },
+      {
+        "key": "B",
+        "text": "87.1 公尺",
+        "trapCode": "U06_COMPOSITE_BOUNDARY_ERR"
+      },
+      {
+        "key": "C",
+        "text": "67.1 公尺",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "114.2 公尺",
+        "trapCode": "U06_ANGLE_FRACTION_WRONG"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "(20 * 2 * (314/100) * 1/4) + (10 * 2 * (314/100) * 1/4) + (20 - 10) * 2",
+      "expect": "67.1"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生面對「同心扇環（拱形走道）」複合圖形時，能否正確拆解出「外圓弧 ＋ 內圓弧 ＋ 兩端路寬直邊」，避免漏算直邊或重複計入內部半徑。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：先畫圖把拱形花廊最外圍的 4 段邊界描出來：1 條外圈大弧、1 條內圈小弧，以及左右兩端各 1 段寬度為 20 − 10 ＝ 10 公尺的直線邊。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 175\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M 130 30 A 120 120 0 0 1 250 150 L 190 150 A 60 60 0 0 0 130 90 Z\" fill=\"#fff1f2\" stroke=\"none\"/><line x1=\"130\" y1=\"150\" x2=\"130\" y2=\"90\" stroke=\"#94a3b8\" stroke-width=\"1.5\" stroke-dasharray=\"4 4\"/><line x1=\"130\" y1=\"150\" x2=\"190\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.5\" stroke-dasharray=\"4 4\"/><path d=\"M 130 30 A 120 120 0 0 1 250 150\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3.5\"/><path d=\"M 130 90 A 60 60 0 0 1 190 150\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3.5\"/><line x1=\"130\" y1=\"30\" x2=\"130\" y2=\"90\" stroke=\"#2563eb\" stroke-width=\"3\"/><line x1=\"190\" y1=\"150\" x2=\"250\" y2=\"150\" stroke=\"#2563eb\" stroke-width=\"3\"/><text x=\"218\" y=\"62\" font-size=\"13\" font-weight=\"bold\" fill=\"#be123c\">外弧（半徑 20）</text><text x=\"165\" y=\"108\" font-size=\"12\" font-weight=\"bold\" fill=\"#be123c\">內弧</text><text x=\"82\" y=\"65\" font-size=\"13\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"middle\">直邊 10</text><text x=\"220\" y=\"168\" font-size=\"13\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"middle\">直邊 10</text><text x=\"115\" y=\"154\" font-size=\"12\" fill=\"#64748b\" text-anchor=\"end\">圓心 (90°)</text></svg>",
+          "caption": "紅粗線＝外弧與內弧（各為 90° 四分之一圓）；藍實線＝兩端短直邊（各 10 公尺）；灰虛線不計"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：分別計算 90°（佔整圓的 1/4）的外弧長與內弧長。"
+        },
+        {
+          "type": "eq",
+          "expr": "外弧長 ＝ 20 × 2 × 3.14 × 1/4 ＝ 31.4",
+          "unit": "公尺"
+        },
+        {
+          "type": "eq",
+          "expr": "內弧長 ＝ 10 × 2 × 3.14 × 1/4 ＝ 15.7",
+          "unit": "公尺"
+        },
+        {
+          "type": "text",
+          "text": "第 3 步：計算兩端直邊長（大扇形半徑 − 小扇形半徑，共有 2 條）並全部相加。"
+        },
+        {
+          "type": "eq",
+          "expr": "兩端直邊 ＝ (20 − 10) × 2 ＝ 20",
+          "unit": "公尺"
+        },
+        {
+          "type": "eq",
+          "expr": "總燈條長 ＝ 31.4 ＋ 15.7 ＋ 20 ＝ 67.1",
+          "unit": "公尺"
+        },
+        {
+          "type": "answer",
+          "text": "答：至少需要 67.1 公尺的燈條"
+        }
+      ],
+      "insight": "拱形走道外框 ＝ 外圓弧 ＋ 內圓弧 ＋ 2 條走道寬（大減小），切記不是加整個大半徑 20！",
+      "distractorAnalysis": {
+        "A": "只加了外弧 31.4 與內弧 15.7 ＝ 47.1 公尺，忘記補上拱門兩端封口的 2 條直線段 20 公尺。",
+        "D": "誤把圓心角 90° 當成整圓的 1/2 計算弧長，算出 62.8 ＋ 31.4 ＋ 20 ＝ 114.2 公尺。",
+        "B": "誤把大扇形的整條半徑 20 × 2 ＝ 40 公尺全部算入，沒有扣除小扇形內部的虛線半徑，算成 47.1 ＋ 40 ＝ 87.1 公尺。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "扇環周長 ＝ 外扇形弧長 ＋ 內扇形弧長 ＋ 2 × (外半徑 − 內半徑)"
+      ],
+      "conceptCompare": "扇環的「面積」要用大扇形減小扇形，但扇環的「周長」則是外弧「加」內弧，因為內圈凹進去的弧線也是外圍邊界的一部分，千萬不能用大弧減小弧！",
+      "examVariations": "若將題目中的 90° 改成 180°（半圓形拱門），兩段弧長會各變為 2 倍，但兩端直線段寬度依舊是 2 × (20 − 10) ＝ 20 公尺。"
+    }
+  },
+  {
+    "id": "U06-S4-O-026",
+    "legacyId": null,
+    "unitId": "U06",
+    "section": "6-4",
+    "sectionName": "圓周長與弧長的應用",
+    "category": "正方形內嵌雙葉形",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L5（雙弧葉形周長）",
+    "level": 5,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "md",
+    "question": "一張邊長 10 公分的正方形手工卡片，分別以左上角與右下角兩個對角頂點為圓心、邊長 10 公分為半徑，在卡片內各畫出一條 90° 的圓弧，兩條圓弧在中央夾出一片橄欖葉形的塗色花瓣。請問這片塗色花瓣的周長大約是多少公分？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "15.7 公分",
+        "trapCode": "U06_ARC_AS_PERIMETER"
+      },
+      {
+        "key": "B",
+        "text": "51.4 公分",
+        "trapCode": "U06_COMPOSITE_BOUNDARY_ERR"
+      },
+      {
+        "key": "C",
+        "text": "31.4 公分",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "57 公分",
+        "trapCode": "U06_AREA_FORMULA_CONFUSION"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "10 * 2 * (314/100) * 1/4 * 2",
+      "expect": "31.4"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生辨識正方形內部雙圓弧交集「葉形」外圍邊界的能力，確認花瓣周長完全由兩條對稱的 90° 圓弧組成，不含正方形直邊。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：用色筆沿著塗色葉片的邊界繞一圈，發現它的外框只有左右兩條彎曲的 90°（1/4 圓）圓弧，正方形的四條外邊都不屬於葉片邊界。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 165\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"170\" y=\"20\" width=\"120\" height=\"120\" fill=\"#f8fafc\" stroke=\"#94a3b8\" stroke-width=\"2\" stroke-dasharray=\"5 4\"/><path d=\"M 290 20 A 120 120 0 0 1 170 140 A 120 120 0 0 1 290 20 Z\" fill=\"#ffe4e6\" stroke=\"#e11d48\" stroke-width=\"3.5\"/><circle cx=\"170\" cy=\"20\" r=\"4\" fill=\"#2563eb\"/><circle cx=\"290\" cy=\"140\" r=\"4\" fill=\"#2563eb\"/><text x=\"162\" y=\"24\" font-size=\"12\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"end\">圓心 1</text><text x=\"298\" y=\"144\" font-size=\"12\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"start\">圓心 2</text><text x=\"230\" y=\"156\" font-size=\"13\" font-weight=\"bold\" fill=\"#475569\" text-anchor=\"middle\">正方形邊長（半徑）＝ 10 公分</text><text x=\"230\" y=\"84\" font-size=\"13\" font-weight=\"bold\" fill=\"#be123c\" text-anchor=\"middle\">兩條 90° 紅弧</text></svg>",
+          "caption": "紅粗線＝兩條對稱的 1/4 圓弧（半徑皆為 10 公分）；灰虛線＝正方形邊長（不計入葉片周長）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：兩條 90° 圓弧合起來剛好是 180°（半個圓），所以直接算半徑 10 公分的半圓弧長即可。"
+        },
+        {
+          "type": "eq",
+          "expr": "一條弧長 ＝ 10 × 2 × 3.14 × 1/4 ＝ 15.7",
+          "unit": "公分"
+        },
+        {
+          "type": "eq",
+          "expr": "葉片周長 ＝ 15.7 × 2 ＝ 31.4",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：這片塗色花瓣的周長大約是 31.4 公分"
+        }
+      ],
+      "insight": "葉形周長看邊界：兩條 1/4 圓弧合起來剛好是 1 條半圓弧（90° ＋ 90° ＝ 180°），千萬別多加正方形的邊長！",
+      "distractorAnalysis": {
+        "A": "只算出了單側一條 90° 圓弧長 15.7 公分，忘記葉形是由兩條對稱圓弧圍成而漏乘 2。",
+        "B": "誤把正方形的兩條鄰邊（10 × 2 ＝ 20 公分）當成葉片邊界，算成單一扇形周長 31.4 ＋ 20 ＝ 51.4 公分。",
+        "D": "混淆周長與面積公式，誤算成塗色葉形的面積（10 × 10 × 3.14 ÷ 2 − 10 × 10 ＝ 57）。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "正方形內嵌單葉形周長 ＝ 2 × (半徑 × 2 × 3.14 × 1/4) ＝ 半徑 × 3.14"
+      ],
+      "conceptCompare": "注意分辨題目問「葉形（橄欖形）塗色部分周長」還是「葉形外面兩個空白角周長」：若是算單葉形周長，只有兩條 90° 圓弧（31.4 公分）；若是連外圍正方形邊框都問，才要加正方形邊長。",
+      "examVariations": "若在同一張邊長 10 公分的正方形四個角都畫 90° 圓弧形成兩片交叉葉（四瓣花），外圍會變成 4 條 90° 圓弧，周長就合為 1 個整圓 62.8 公分。"
+    }
+  },
+  {
+    "id": "U06-S3-O-027",
+    "legacyId": null,
+    "unitId": "U06",
+    "section": "6-3",
+    "sectionName": "扇形弧長與周長",
+    "category": "三角形三頂點扇形合",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L6（三角形三扇形合）",
+    "level": 6,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "md",
+    "question": "有一個三邊長分別為 12 公分、15 公分、18 公分的任意三角形，分別以三個頂點為圓心，各以該頂點的「內角」為圓心角，畫出半徑為 4 公分的扇形（三個扇形互不重疊）。請問這三個扇形「各自的周長加起來」總和是多少公分？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "12.56 公分",
+        "trapCode": "U06_FORGET_TWO_RADII"
+      },
+      {
+        "key": "B",
+        "text": "36.56 公分",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "20.56 公分",
+        "trapCode": "U06_COMPOSITE_BOUNDARY_ERR"
+      },
+      {
+        "key": "D",
+        "text": "49.12 公分",
+        "trapCode": "U06_ANGLE_FRACTION_WRONG"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "4 * 2 * (314/100) * (180/360) + 4 * 6",
+      "expect": "36.56"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生運用「三角形內角和 180°」將三個未知度數的圓弧合併為半圓弧計算，同時細心計入 3 個獨立扇形共有的 6 條半徑。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：雖然不知道三個內角個別是幾度，但三個扇形半徑都是 4 公分，圓心角合起來剛好是 180°（半個圓）！"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 155\" xmlns=\"http://www.w3.org/2000/svg\"><polygon points=\"55,125 185,125 135,35\" fill=\"#f8fafc\" stroke=\"#94a3b8\" stroke-width=\"1.5\" stroke-dasharray=\"4 4\"/><path d=\"M 55 125 L 87 125 A 32 32 0 0 0 70.5 97 Z\" fill=\"#ffe4e6\" stroke=\"#2563eb\" stroke-width=\"2\"/><path d=\"M 87 125 A 32 32 0 0 0 70.5 97\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3.5\"/><path d=\"M 185 125 L 169.5 97 A 32 32 0 0 0 153 125 Z\" fill=\"#ffe4e6\" stroke=\"#2563eb\" stroke-width=\"2\"/><path d=\"M 169.5 97 A 32 32 0 0 0 153 125\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3.5\"/><path d=\"M 135 35 L 119.5 63 A 32 32 0 0 0 150.5 63 Z\" fill=\"#ffe4e6\" stroke=\"#2563eb\" stroke-width=\"2\"/><path d=\"M 119.5 63 A 32 32 0 0 0 150.5 63\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3.5\"/><text x=\"225\" y=\"88\" font-size=\"20\" font-weight=\"bold\" fill=\"#475569\">➔</text><path d=\"M 275 110 A 45 45 0 0 1 365 110\" fill=\"#ffe4e6\" stroke=\"#e11d48\" stroke-width=\"3.5\"/><line x1=\"275\" y1=\"110\" x2=\"365\" y2=\"110\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><line x1=\"382\" y1=\"75\" x2=\"418\" y2=\"75\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><line x1=\"382\" y1=\"92\" x2=\"418\" y2=\"92\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><line x1=\"382\" y1=\"109\" x2=\"418\" y2=\"109\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><line x1=\"382\" y1=\"126\" x2=\"418\" y2=\"126\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><text x=\"310\" y=\"52\" font-size=\"12\" font-weight=\"bold\" fill=\"#be123c\" text-anchor=\"middle\">三段弧拼成半圓</text><text x=\"415\" y=\"58\" font-size=\"12\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"middle\">另加 4 條</text><text x=\"320\" y=\"132\" font-size=\"12\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"middle\">共 6 條半徑 (各 4 公分)</text></svg>",
+          "caption": "三段紅弧合為 180° 半圓弧；但 3 個獨立扇形各自有 2 條藍半徑，總共有 6 條半徑"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：先求三段圓弧合併的長度（半圓弧）。"
+        },
+        {
+          "type": "eq",
+          "expr": "三段弧長和 ＝ 4 × 2 × 3.14 × 1/2 ＝ 12.56",
+          "unit": "公分"
+        },
+        {
+          "type": "text",
+          "text": "第 3 步：每個獨立扇形都有 2 條半徑，3 個扇形共有 3 × 2 ＝ 6 條半徑。"
+        },
+        {
+          "type": "eq",
+          "expr": "6 條半徑總長 ＝ 4 × 6 ＝ 24",
+          "unit": "公分"
+        },
+        {
+          "type": "eq",
+          "expr": "三個扇形周長總和 ＝ 12.56 ＋ 24 ＝ 36.56",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：三個扇形周長總和是 36.56 公分"
+        }
+      ],
+      "insight": "缺角打包術：遇到同半徑扇形組，角度先打包成 180° 算弧長；但算「各自周長總和」時，3 個扇形有 6 條半徑一條都不能漏！",
+      "distractorAnalysis": {
+        "A": "只算出三段圓弧合併的 180° 弧長 12.56 公分，完全忘記加上三個扇形的 6 條半徑。",
+        "C": "雖然記得把三段弧拼成半圓，卻誤以為只要加上半圓的 2 條半徑（8 公分），漏掉其餘 4 條半徑而算成 12.56 ＋ 8 ＝ 20.56 公分。",
+        "D": "誤以為三角形三個內角和是 360°（一個整圓），把弧長多算一倍成 25.12 ＋ 24 ＝ 49.12 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "三角形內角和 ＝ 180°（半圓）",
+        "多邊形各頂點同半徑獨立扇形周長總和 ＝ 合併弧長 ＋ 扇形個數 × 2 × 半徑"
+      ],
+      "conceptCompare": "若題目改成「四邊形」四個頂點畫出四個半徑 4 公分的扇形，因為四邊形內角和是 360°，弧長會合成 1 個整圓，半徑則共有 4 × 2 ＝ 8 條！",
+      "examVariations": "若題目改問「從三角形三個角剪下這三個扇形後，剩下的塗色圖形周長是多少？」此時原本的半徑邊會被剪掉又露出新的弧線，周長就會變成（三邊扣掉 6 條半徑）＋ 3 段弧長 ＝ (12 ＋ 15 ＋ 18 − 24) ＋ 12.56 ＝ 33.56 公分。"
+    }
+  },
+  {
+    "id": "U06-S4-O-028",
+    "legacyId": null,
+    "unitId": "U06",
+    "section": "6-4",
+    "sectionName": "圓周長與弧長的應用",
+    "category": "操場內外道差與起跑前移",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L6（操場跑道起跑前移）",
+    "level": 6,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "md",
+    "question": "標準田徑操場的跑道兩側為等長直線，兩端為半圓形彎道。已知第 1 道最內側彎道半徑為 20 公尺，每條跑道寬度都是 1.25 公尺（相鄰外道半徑多 1.25 公尺）。若進行 1 圈賽跑，第 2 道的起跑線必須比第 1 道往前移動幾公尺才公平？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "78.5 公尺",
+        "trapCode": "U06_DECIMAL_SHIFT_ERR"
+      },
+      {
+        "key": "B",
+        "text": "3.925 公尺",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "C",
+        "text": "7.85 公尺",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "15.7 公尺",
+        "trapCode": "U06_TRACK_INNER_OUTER_ERR"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "(125/100) * 2 * (314/100)",
+      "expect": "7.85"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生運用「消去共同直線段」與「圓周差只看直徑差」的數感結構，迅速求出同心圓跑道每往外一道多出的距離。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：觀察操場跑道結構，第 1 道和第 2 道的左右兩段直線完全一樣長，因此起跑線前移的距離，只差在兩端半圓合起來的「1 個整圓周長差」。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 170\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M 150 20 L 310 20 A 65 65 0 0 1 310 150 L 150 150 A 65 65 0 0 1 150 20 Z\" fill=\"#fff1f2\" stroke=\"#e11d48\" stroke-width=\"3\"/><path d=\"M 150 40 L 310 40 A 45 45 0 0 1 310 130 L 150 130 A 45 45 0 0 1 150 40 Z\" fill=\"#ffffff\" stroke=\"#2563eb\" stroke-width=\"3\"/><line x1=\"150\" y1=\"20\" x2=\"150\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.5\" stroke-dasharray=\"4 4\"/><line x1=\"310\" y1=\"20\" x2=\"310\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.5\" stroke-dasharray=\"4 4\"/><line x1=\"150\" y1=\"85\" x2=\"150\" y2=\"40\" stroke=\"#2563eb\" stroke-width=\"2\"/><text x=\"230\" y=\"34\" font-size=\"12\" font-weight=\"bold\" fill=\"#be123c\" text-anchor=\"middle\">道寬 1.25 公尺（半徑差）</text><text x=\"230\" y=\"145\" font-size=\"12\" font-weight=\"bold\" fill=\"#be123c\" text-anchor=\"middle\">另一側也多 1.25 公尺 ➔ 直徑多 2.5 公尺</text><text x=\"230\" y=\"90\" font-size=\"13\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"middle\">內道半徑 20 公尺（直線段等長互相抵銷）</text></svg>",
+          "caption": "藍線＝第 1 道；紅線＝第 2 道；上下道寬各 1.25 公尺，合起來直徑多 2.5 公尺"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：利用「分配律」簡化計算。第 2 道半徑比第 1 道多 1.25 公尺，所以直徑多了 1.25 × 2 ＝ 2.5 公尺。"
+        },
+        {
+          "type": "eq",
+          "expr": "直徑差 ＝ 1.25 × 2 ＝ 2.5",
+          "unit": "公尺"
+        },
+        {
+          "type": "eq",
+          "expr": "一圈多出的距離 ＝ 2.5 × 3.14 ＝ 7.85",
+          "unit": "公尺"
+        },
+        {
+          "type": "mul",
+          "a": "3.14",
+          "b": "2.5",
+          "note": "直徑差 2.5 乘以 3.14，小數共 2 ＋ 1 ＝ 3 位（7.850 即 7.85）"
+        },
+        {
+          "type": "answer",
+          "text": "答：第 2 道起跑線必須往前移動 7.85 公尺"
+        }
+      ],
+      "insight": "相鄰跑道一圈差 ＝ 2 × 道寬 × 3.14，和原本內道半徑 20 公尺或直線多長完全無關！",
+      "distractorAnalysis": {
+        "B": "誤將「道寬 1.25 公尺」直接當成「直徑差」而非「半徑差」，漏乘 2 而算成 1.25 × 3.14 ＝ 3.925 公尺。",
+        "D": "誤以為操場兩端各有兩個完整圓，把道寬乘了 4 倍，算出 1.25 × 4 × 3.14 ＝ 15.7 公尺。",
+        "A": "計算 2.5 × 3.14 時小數點點錯位（少點一位），錯算成 78.5 公尺。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "相鄰跑道 1 圈長度差 ＝ 2 × 跑道寬度 × 3.14"
+      ],
+      "conceptCompare": "如果用傻方法先算第 2 道 (21.25 × 2 × 3.14) 再減第 1 道 (20 × 2 × 3.14)，很容易在繁瑣小數計算中算錯；改用「半徑差 × 2 × 3.14」只要兩步就算完！",
+      "examVariations": "若題目問「第 4 道比第 1 道起跑線前移幾公尺？」中間隔了 4 − 1 ＝ 3 個道寬，只要算出 3 × 7.85 ＝ 23.55 公尺即可；若只跑「半圈（200 公尺賽跑）」只經過一個彎道，前移距離就只有一半（3.925 公尺）。"
+    }
+  },
+  {
+    "id": "U06-RV-O-029",
+    "legacyId": null,
+    "unitId": "U06",
+    "section": "REVIEW",
+    "sectionName": "綜合複習與應用",
+    "category": "扇形弧長與直徑倍數",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L6（120° 扇形周長反推）",
+    "level": 6,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "md",
+    "question": "一張圓心角 120° 的扇形卡紙，量得它的整個「扇形周長」剛好是 36.84 公分。請問這個扇形原本所在的圓，半徑是多少公分？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "3 公分",
+        "trapCode": "U06_ANGLE_FRACTION_WRONG"
+      },
+      {
+        "key": "B",
+        "text": "90 公分",
+        "trapCode": "U06_DECIMAL_SHIFT_ERR"
+      },
+      {
+        "key": "C",
+        "text": "18 公分",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "D",
+        "text": "9 公分",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "(36.84 * 3) / (314/100 + 3) / 2",
+      "expect": "9"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生不設未知數，而是利用「將 3 個 120° 扇形拼成 1 個整圓」的幾何轉化與小數除法直式，從扇形周長逆推半徑。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：120° 剛好是 1/3 個圓，因此把「3 個」一模一樣的 120° 扇形周長加起來，弧長會拼成 1 個整圓周長（直徑 × 3.14），同時還有 3 組（共 6 條 ＝ 3 個直徑）半徑。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 160\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"125\" cy=\"80\" r=\"55\" fill=\"#fff1f2\" stroke=\"#e11d48\" stroke-width=\"3.5\"/><line x1=\"125\" y1=\"80\" x2=\"125\" y2=\"25\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><line x1=\"125\" y1=\"80\" x2=\"172.6\" y2=\"107.5\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><line x1=\"125\" y1=\"80\" x2=\"77.4\" y2=\"107.5\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><text x=\"125\" y=\"152\" font-size=\"13\" font-weight=\"bold\" fill=\"#be123c\" text-anchor=\"middle\">3 個 120° 弧 ＝ 1 個整圓周</text><text x=\"215\" y=\"85\" font-size=\"18\" font-weight=\"bold\" fill=\"#475569\">＋</text><line x1=\"245\" y1=\"45\" x2=\"365\" y2=\"45\" stroke=\"#2563eb\" stroke-width=\"3\"/><line x1=\"245\" y1=\"75\" x2=\"365\" y2=\"75\" stroke=\"#2563eb\" stroke-width=\"3\"/><line x1=\"245\" y1=\"105\" x2=\"365\" y2=\"105\" stroke=\"#2563eb\" stroke-width=\"3\"/><text x=\"305\" y=\"135\" font-size=\"13\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"middle\">6 條半徑 ＝ 3 個直徑</text><text x=\"390\" y=\"82\" font-size=\"13\" font-weight=\"bold\" fill=\"#1e293b\" text-anchor=\"start\">共 110.52</text></svg>",
+          "caption": "3 個扇形周長和 110.52 ＝ 直徑的 3.14 倍 ＋ 直徑的 3 倍 ＝ 直徑的 6.14 倍"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：算出 3 個扇形周長總和，這等於直徑的 (3.14 ＋ 3) ＝ 6.14 倍。"
+        },
+        {
+          "type": "eq",
+          "expr": "36.84 × 3 ＝ 110.52",
+          "unit": "公分"
+        },
+        {
+          "type": "eq",
+          "expr": "直徑 ＝ 110.52 ÷ (3.14 ＋ 3) ＝ 110.52 ÷ 6.14 ＝ 18",
+          "unit": "公分"
+        },
+        {
+          "type": "longdiv",
+          "dividend": "110.52",
+          "divisor": "6.14",
+          "mode": "exact",
+          "note": "除數與被除數小數點同時右移 2 位，計算 11052 ÷ 614 ＝ 18"
+        },
+        {
+          "type": "text",
+          "text": "第 3 步：題目問半徑，把直徑除以 2。"
+        },
+        {
+          "type": "eq",
+          "expr": "半徑 ＝ 18 ÷ 2 ＝ 9",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：半徑是 9 公分"
+        }
+      ],
+      "insight": "分數扇形反推半徑：先把 120° 乘 3 拼回整圓，立刻變身「直徑 × (3.14 ＋ 3)」整潔直式除法！",
+      "distractorAnalysis": {
+        "A": "忘記 120° 只是 1/3 個圓、未先乘以 3 拼整圓，直接拿 36.84 ÷ 6.14 ＝ 6 再除以 2，錯算成 3 公分。",
+        "C": "成功算出直徑 18 公分後就急著停筆選答案，忘記題目要求的是半徑還須再除以 2。",
+        "B": "在計算 110.52 ÷ 6.14 小數除法時被除數多補一個 0 移錯位，商算成 180，再除以 2 變成 90 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "120° 扇形周長 × 3 ＝ 直徑 × (3.14 ＋ 3) ＝ 直徑 × 6.14",
+        "半圓周長 ＝ 半徑 × (3.14 ＋ 2) ＝ 半徑 × 5.14"
+      ],
+      "conceptCompare": "求半圓半徑時常會先算「周長 ÷ 5.14」，但遇到 120°（1/3 圓）時若直接除就會碰到除不盡的小數；改用「先乘 3 拼整圓」就能避開除不盡的困擾，穩穩算出整數直徑！",
+      "examVariations": "若改為「90°（1/4 圓）扇形周長是 28.56 公分」，同樣先乘 4 拼成整圓：28.56 × 4 ＝ 114.24，這等於直徑 × (3.14 ＋ 4) ＝ 直徑 × 7.14，算出直徑 16 公分，半徑 8 公分。"
+    }
+  },
+  {
+    "id": "U06-S2-O-030",
+    "legacyId": null,
+    "unitId": "U06",
+    "section": "6-2",
+    "sectionName": "圓周長",
+    "category": "時針與分針針尖路程",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L7（時分針針尖路程差）",
+    "level": 7,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "lg",
+    "question": "牆上掛鐘的時針長 6 公分，分針長 10 公分。從下午 1 點整走到下午 4 點整，這段時間內「分針針尖」與「時針針尖」走過的路程相差幾公分？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "178.98 公分",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "175.84 公分",
+        "trapCode": "U06_ANGLE_FRACTION_WRONG"
+      },
+      {
+        "key": "C",
+        "text": "89.49 公分",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "D",
+        "text": "197.82 公分",
+        "trapCode": "U06_CALC_SLIP"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "10 * 2 * (314/100) * 3 - 6 * 2 * (314/100) * (3/12)",
+      "expect": "178.98"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生將時鐘指針長度辨識為「旋轉半徑」，並分別推算出經過 3 小時後分針（轉 3 整圈）與時針（轉 1/4 圈）的正確弧長。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：從下午 1 點走到 4 點共經過 4 − 1 ＝ 3 小時。指針固定在鐘面中心，所以指針長度就是圓的「半徑」。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 165\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"145\" cy=\"82\" r=\"65\" fill=\"#fff1f2\" stroke=\"#e11d48\" stroke-width=\"3\"/><circle cx=\"145\" cy=\"82\" r=\"39\" fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"1.5\" stroke-dasharray=\"4 4\"/><path d=\"M 164.5 48.2 A 39 39 0 0 1 178.8 101.5\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"4\"/><line x1=\"145\" y1=\"82\" x2=\"145\" y2=\"17\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><line x1=\"145\" y1=\"82\" x2=\"178.8\" y2=\"101.5\" stroke=\"#2563eb\" stroke-width=\"3\"/><circle cx=\"145\" cy=\"82\" r=\"4\" fill=\"#1e293b\"/><text x=\"102\" y=\"52\" font-size=\"12\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"end\">分針半徑 10</text><text x=\"198\" y=\"128\" font-size=\"11\" font-weight=\"bold\" fill=\"#be123c\" text-anchor=\"middle\">時針 90°(1/4圈)</text><text x=\"248\" y=\"54\" font-size=\"13\" font-weight=\"bold\" fill=\"#be123c\">經過 3 小時：</text><text x=\"248\" y=\"82\" font-size=\"12\" fill=\"#1e293b\">• 分針 3 圈：188.4 公分</text><text x=\"248\" y=\"108\" font-size=\"12\" fill=\"#1e293b\">• 時針 1/4 圈：9.42 公分</text></svg>",
+          "caption": "分針（半徑 10）轉 3 圈大紅圓；時針（半徑 6）從 1 點走到 4 點只走 90° 紅弧"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：分針每小時轉 1 圈，3 小時共轉 3 圈。"
+        },
+        {
+          "type": "eq",
+          "expr": "分針路程 ＝ 10 × 2 × 3.14 × 3 ＝ 188.4",
+          "unit": "公分"
+        },
+        {
+          "type": "text",
+          "text": "第 3 步：時針 12 小時才轉 1 圈，3 小時只走了 3/12 ＝ 1/4 圈（圓心角 90°）。"
+        },
+        {
+          "type": "eq",
+          "expr": "時針路程 ＝ 6 × 2 × 3.14 × 1/4 ＝ 9.42",
+          "unit": "公分"
+        },
+        {
+          "type": "text",
+          "text": "第 4 步：求兩針針尖走過路程的差。"
+        },
+        {
+          "type": "eq",
+          "expr": "188.4 − 9.42 ＝ 178.98",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：兩針針尖走過的路程相差 178.98 公分"
+        }
+      ],
+      "insight": "時鐘問題兩關鍵：指針長＝半徑（別忘乘 2）；分針 1 小時 1 圈、時針 1 小時只走 1/12 圈！",
+      "distractorAnalysis": {
+        "B": "誤以為時針走 3 小時就是走了 1/3 圈（120°）而非 3/12 ＝ 1/4 圈，將時針路程算成 12.56 公分，算出 188.4 − 12.56 ＝ 175.84 公分。",
+        "D": "各自算出 188.4 公分與 9.42 公分後，未看清楚題目問「相差」多少而誤用加法，算成 188.4 ＋ 9.42 ＝ 197.82 公分。",
+        "C": "誤把分針長 10 公分與時針長 6 公分當成「直徑」而非「半徑」，結果全部少乘 2，算出 94.2 − 4.71 ＝ 89.49 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "分針針尖 1 小時走 1 整圈：分針長 × 2 × 3.14",
+        "時針針尖 1 小時走 1/12 圈（30°）：時針長 × 2 × 3.14 × 1/12"
+      ],
+      "conceptCompare": "很多同學看見「下午 1 點走到 4 點（3 小時）」會錯把時針當成走 3/10 圈或 1/3 圈，記得鐘面一圈共 12 個大格，走 3 格永遠是 3/12 ＝ 1/4 圈。",
+      "examVariations": "若時間改為「下午 2 點 30 分走到 3 點 10 分（共 40 分鐘）」，分針轉了 40/60 ＝ 2/3 圈，時針則只轉了 40/720 ＝ 1/18 圈。"
+    }
+  },
+  {
+    "id": "U06-S4-O-031",
+    "legacyId": null,
+    "unitId": "U06",
+    "section": "6-4",
+    "sectionName": "圓周長與弧長的應用",
+    "category": "3 圓排三角形緊綑繩長",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L7（品字三管綑綁）",
+    "level": 7,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "lg",
+    "question": "工地師傅將 3 根直徑都是 10 公分的圓柱形排水管排成「品」字形緊密靠攏，再用鋼絲緊緊綑綁 1 圈固定（接頭打結處不計）。請問至少需要多長的鋼絲？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "31.4 公分",
+        "trapCode": "U06_ROPE_TANGENT_MISS"
+      },
+      {
+        "key": "B",
+        "text": "61.4 公分",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "92.8 公分",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "D",
+        "text": "94.2 公分",
+        "trapCode": "U06_COMPOSITE_BOUNDARY_ERR"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "10 * 3 + 10 * (314/100)",
+      "expect": "61.4"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生運用「切線分解法」處理多圓緊綑問題：拆成貼緊兩圓之間的直線段（等於圓心距＝直徑）與轉角弧線段（必拼成 1 個整圓）。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：把外圍鋼絲拆成兩類線段：連接相鄰圓管的「直線公切線」，以及貼著圓管轉彎的「圓弧」。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 165\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"230\" cy=\"54\" r=\"28\" fill=\"#f8fafc\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><circle cx=\"202\" cy=\"102.5\" r=\"28\" fill=\"#f8fafc\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><circle cx=\"258\" cy=\"102.5\" r=\"28\" fill=\"#f8fafc\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><line x1=\"205.8\" y1=\"40\" x2=\"177.8\" y2=\"88.5\" stroke=\"#2563eb\" stroke-width=\"3.5\"/><line x1=\"254.2\" y1=\"40\" x2=\"282.2\" y2=\"88.5\" stroke=\"#2563eb\" stroke-width=\"3.5\"/><line x1=\"202\" y1=\"130.5\" x2=\"258\" y2=\"130.5\" stroke=\"#2563eb\" stroke-width=\"3.5\"/><path d=\"M 205.8 40 A 28 28 0 0 1 254.2 40\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"4\"/><path d=\"M 282.2 88.5 A 28 28 0 0 1 258 130.5\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"4\"/><path d=\"M 202 130.5 A 28 28 0 0 1 177.8 88.5\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"4\"/><polygon points=\"230,54 202,102.5 258,102.5\" fill=\"none\" stroke=\"#64748b\" stroke-width=\"1.2\" stroke-dasharray=\"3 3\"/><text x=\"162\" y=\"62\" font-size=\"12\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"end\">直線 ＝ 直徑 10</text><text x=\"298\" y=\"62\" font-size=\"12\" font-weight=\"bold\" fill=\"#be123c\" text-anchor=\"start\">3 段紅弧 ＝ 1 個整圓</text><text x=\"230\" y=\"152\" font-size=\"13\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"middle\">共 3 條直線段 (10 × 3 ＝ 30)</text></svg>",
+          "caption": "藍實線＝3 條平行圓心距的直線段（各等於直徑 10）；紅粗線＝3 段 120° 弧（合為 1 整圓）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：每條直線段與圓心連線組成矩形，長度剛好等於 2 條半徑（即 1 個直徑 10 公分），共有 3 條。"
+        },
+        {
+          "type": "eq",
+          "expr": "直線段總長 ＝ 10 × 3 ＝ 30",
+          "unit": "公分"
+        },
+        {
+          "type": "text",
+          "text": "第 3 步：三個轉角貼附的圓弧各是 120°，120° × 3 ＝ 360°，剛好拼成 1 個直徑 10 公分的完整圓周長。"
+        },
+        {
+          "type": "eq",
+          "expr": "轉角圓弧總長 ＝ 10 × 3.14 ＝ 31.4",
+          "unit": "公分"
+        },
+        {
+          "type": "eq",
+          "expr": "鋼絲總長 ＝ 30 ＋ 31.4 ＝ 61.4",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：至少需要 61.4 公分的鋼絲"
+        }
+      ],
+      "insight": "圓柱綑綁神公式：不論綑成三角形還是正方形，轉角弧永遠拼成「1 個整圓」，只要數清楚外圍有幾段直線公切線！",
+      "distractorAnalysis": {
+        "A": "只算出轉角合起來的 1 個圓周長 31.4 公分，完全漏掉懸空跨過兩圓之間的 3 條直線段（30 公分）。",
+        "C": "誤把題目的「直徑 10 公分」當成「半徑 10 公分」計算轉角圓周長，算出 30 ＋ 10 × 2 × 3.14 ＝ 92.8 公分。",
+        "D": "誤以為 3 根水管就要算 3 個完整圓周長，直接列成 10 × 3.14 × 3 ＝ 94.2 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "等圓凸包綑綁 1 圈繩長 ＝ 外圍直線公切線總長 ＋ 1 個完整圓周長"
+      ],
+      "conceptCompare": "2 根並列要加 2 個直徑、3 根品字形要加 3 個直徑、4 根 2×2 正方形要加 4 個直徑；但無論幾根，外面轉彎的圓弧角度加起來永遠都是 360°（1 個整圓）！",
+      "examVariations": "若題目改成「綑綁 2 圈，且接頭打結需預留 8 公分」，就先把 1 圈長 61.4 乘以 2，最後再加上 8 公分即可（61.4 × 2 ＋ 8 ＝ 130.8 公分）。"
+    }
+  },
+  {
+    "id": "U06-RV-O-032",
+    "legacyId": null,
+    "unitId": "U06",
+    "section": "REVIEW",
+    "sectionName": "綜合複習與應用",
+    "category": "四葉草塗色周長",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L7（四葉草重疊周長）",
+    "level": 7,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "lg",
+    "question": "在一個邊長 20 公分的正方形內，分別以四條邊為直徑向正方形內部各畫一個半圓，四個半圓重疊交織出中間「四葉幸運草」形狀的塗色花瓣。請問這朵四葉草塗色部分的外圍周長（四片花瓣的邊界總長）是多少公分？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "251.2 公分",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "B",
+        "text": "205.6 公分",
+        "trapCode": "U06_COMPOSITE_BOUNDARY_ERR"
+      },
+      {
+        "key": "C",
+        "text": "125.6 公分",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "228 公分",
+        "trapCode": "U06_AREA_FORMULA_CONFUSION"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "20 * (314/100) / 2 * 4",
+      "expect": "125.6"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生穿透複雜重疊交織圖形的能力：把四葉草的 8 段小圓弧重新配對還原成原本的 4 個完整半圓弧。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：仔細觀察這 4 片花瓣的紅色外圍輪廓，每一片花瓣都由 2 段 1/4 圓弧組成；4 片花瓣共有 8 段 1/4 圓弧，剛好就是原本畫出的「4 個半圓的圓弧線」全部！"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 165\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"170\" y=\"20\" width=\"120\" height=\"120\" fill=\"#f8fafc\" stroke=\"#94a3b8\" stroke-width=\"2\" stroke-dasharray=\"5 4\"/><path d=\"M 170 20 A 60 60 0 0 1 230 80 A 60 60 0 0 1 170 20 Z\" fill=\"#fecdd3\"/><path d=\"M 290 20 A 60 60 0 0 1 230 80 A 60 60 0 0 1 290 20 Z\" fill=\"#fecdd3\"/><path d=\"M 170 140 A 60 60 0 0 1 230 80 A 60 60 0 0 1 170 140 Z\" fill=\"#fecdd3\"/><path d=\"M 290 140 A 60 60 0 0 1 230 80 A 60 60 0 0 1 290 140 Z\" fill=\"#fecdd3\"/><path d=\"M 170 20 A 60 60 0 0 0 290 20\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3\"/><path d=\"M 290 20 A 60 60 0 0 0 290 140\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3\"/><path d=\"M 290 140 A 60 60 0 0 0 170 140\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3\"/><path d=\"M 170 140 A 60 60 0 0 0 170 20\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3\"/><text x=\"315\" y=\"68\" font-size=\"13\" font-weight=\"bold\" fill=\"#be123c\">4 個直徑 20 的半圓弧</text><text x=\"315\" y=\"90\" font-size=\"13\" font-weight=\"bold\" fill=\"#be123c\">＝ 2 個整圓周長</text><text x=\"152\" y=\"85\" font-size=\"13\" font-weight=\"bold\" fill=\"#475569\" text-anchor=\"end\">邊長 20</text></svg>",
+          "caption": "4 片粉紅花瓣的外框剛好完整用盡 4 條紅色半圓弧（合為 2 個整圓）；灰虛線正方形邊長不屬於花瓣邊界"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：每個半圓的直徑都是正方形邊長 20 公分，4 個半圓剛好合為 4 ÷ 2 ＝ 2 個完整圓。"
+        },
+        {
+          "type": "eq",
+          "expr": "1 個半圓弧長 ＝ 20 × 3.14 ÷ 2 ＝ 31.4",
+          "unit": "公分"
+        },
+        {
+          "type": "eq",
+          "expr": "四葉草周長 ＝ 31.4 × 4 ＝ 125.6",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：四葉草塗色部分的周長是 125.6 公分"
+        }
+      ],
+      "insight": "拆開重組見真章：4 個半圓交錯形成的四葉草，每一絲半圓弧線都成了花瓣邊界，所以 4 個半圓弧 ＝ 2 個整圓周長！",
+      "distractorAnalysis": {
+        "B": "誤將外圍正方形的四條虛線邊長 20 × 4 ＝ 80 公分也算入四葉草周長，錯算成 125.6 ＋ 80 ＝ 205.6 公分。",
+        "D": "誤將四葉草的「面積」算式（2 個整圓面積 − 正方形面積 ＝ 10 × 10 × 3.14 × 2 − 20 × 20 ＝ 228）當成周長。",
+        "A": "誤把正方形邊長 20 公分當成半圓的「半徑」而非「直徑」，多乘了 2 倍算出 251.2 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "四葉草（四邊內向半圓交集）周長 ＝ 4 個半圓弧 ＝ 2 × 邊長 × 3.14"
+      ],
+      "conceptCompare": "求四葉草「面積」要用容斥原理（4 個半圓減正方形 ＝ 2 圓減 1 正方形），但求四葉草「周長」千萬不要減，直接把 4 條半圓弧線全部加起來就好！",
+      "examVariations": "若正方形內有「4 個空白角落」，問 4 個空白處加 4 片花瓣的所有交界線總長，則還要再加上正方形周長 80 公分（共 205.6 公分）。"
+    }
+  },
+  {
+    "id": "U06-S2-O-033",
+    "legacyId": null,
+    "unitId": "U06",
+    "section": "6-2",
+    "sectionName": "圓周長",
+    "category": "硬幣貼正方形外框滾動",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L8（圓心外滾軌跡長）",
+    "level": 8,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "lg",
+    "question": "將一枚半徑 2 公分的圓形代幣，緊貼著邊長 20 公分的正方形木板「外側」邊緣無滑動滾動 1 整圈回到出發位置。請問這枚代幣的「圓心」走過的路徑總長是多少公分？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "92.56 公分",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "80 公分",
+        "trapCode": "U06_ROPE_TANGENT_MISS"
+      },
+      {
+        "key": "C",
+        "text": "96 公分",
+        "trapCode": "U06_COMPOSITE_BOUNDARY_ERR"
+      },
+      {
+        "key": "D",
+        "text": "86.28 公分",
+        "trapCode": "U06_ROLLER_TURN_ERR"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "20 * 4 + 2 * 2 * (314/100)",
+      "expect": "92.56"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生在動態滾動幾何中，追蹤「圓心軌跡」在頂點處會由直線轉變為「以頂點為圓心、代幣半徑為半徑的 90° 圓弧」，避免誤畫成尖角大正方形。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：分段追蹤圓心位置！當代幣沿著 4 條直線邊滾動時，圓心各走 1 段與邊長等長的直線（20 公分）；但每繞過正方形的 1 個頂點時，圓心必須繞頂點轉彎 90°，畫出半徑為 2 公分的 1/4 圓弧。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 175\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"185\" y=\"42\" width=\"90\" height=\"90\" fill=\"#f1f5f9\" stroke=\"#475569\" stroke-width=\"2\"/><line x1=\"185\" y1=\"24\" x2=\"275\" y2=\"24\" stroke=\"#2563eb\" stroke-width=\"3\"/><line x1=\"293\" y1=\"42\" x2=\"293\" y2=\"132\" stroke=\"#2563eb\" stroke-width=\"3\"/><line x1=\"275\" y1=\"150\" x2=\"185\" y2=\"150\" stroke=\"#2563eb\" stroke-width=\"3\"/><line x1=\"167\" y1=\"132\" x2=\"167\" y2=\"42\" stroke=\"#2563eb\" stroke-width=\"3\"/><path d=\"M 167 42 A 18 18 0 0 1 185 24\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3.5\"/><path d=\"M 275 24 A 18 18 0 0 1 293 42\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3.5\"/><path d=\"M 293 132 A 18 18 0 0 1 275 150\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3.5\"/><path d=\"M 185 150 A 18 18 0 0 1 167 132\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3.5\"/><circle cx=\"230\" cy=\"24\" r=\"18\" fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"1.5\" stroke-dasharray=\"3 3\"/><circle cx=\"230\" cy=\"24\" r=\"3\" fill=\"#2563eb\"/><text x=\"230\" y=\"92\" font-size=\"13\" font-weight=\"bold\" fill=\"#334155\" text-anchor=\"middle\">邊長 20</text><text x=\"315\" y=\"34\" font-size=\"12\" font-weight=\"bold\" fill=\"#be123c\">4 個轉角 90° 紅弧</text><text x=\"315\" y=\"52\" font-size=\"12\" fill=\"#be123c\">＝ 半徑 2 的整圓</text><text x=\"145\" y=\"90\" font-size=\"12\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"end\">4 條藍直線各 20</text></svg>",
+          "caption": "圓心路徑＝4 條藍直線（與正方形邊長等長）＋ 4 段轉角紅弧（半徑 2 公分的 90° 圓弧合為 1 整圓）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：計算 4 條直線段總長。"
+        },
+        {
+          "type": "eq",
+          "expr": "直線路徑 ＝ 20 × 4 ＝ 80",
+          "unit": "公分"
+        },
+        {
+          "type": "text",
+          "text": "第 3 步：4 個轉角圓弧各為 90°，合計 360°（1 個半徑 2 公分的完整圓周長）。"
+        },
+        {
+          "type": "eq",
+          "expr": "轉角圓弧 ＝ 2 × 2 × 3.14 ＝ 12.56",
+          "unit": "公分"
+        },
+        {
+          "type": "eq",
+          "expr": "圓心總路徑長 ＝ 80 ＋ 12.56 ＝ 92.56",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：代幣圓心走過的路徑總長是 92.56 公分"
+        }
+      ],
+      "insight": "硬幣外滾繞凸多邊形一圈，圓心永遠走「原多邊形周長 ＋ 1 個硬幣自己的圓周長」（轉彎必為圓弧而非直角尖角）！",
+      "distractorAnalysis": {
+        "C": "誤以為圓心走過的是一圈放大後的尖角正方形，把邊長加上兩側半徑變成 24 × 4 ＝ 96 公分。",
+        "D": "知道轉角 4 個弧會拼成 1 個圓，卻誤把硬幣「半徑 2 公分」當成直徑直接乘 3.14，算出 80 ＋ 6.28 ＝ 86.28 公分。",
+        "B": "完全忘記代幣在四個角轉彎時圓心會畫出 90° 圓弧，只算出正方形原本的周長 20 × 4 ＝ 80 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "圓滾動繞任意凸多邊形「外側」1 圈，圓心路徑長 ＝ 多邊形周長 ＋ 滾動圓的圓周長"
+      ],
+      "conceptCompare": "注意區分「外側滾動」與「內側滾動」：若是半徑 2 公分的硬幣沿著邊長 20 公分正方形木框「內側」滾動，圓心在轉角撞牆後會直接轉折 90°、沒有外凸圓弧，圓心軌跡會變成邊長 16 公分的小正方形（周長 64 公分），路徑反而比外框更小！",
+      "examVariations": "若這題改成問「代幣掃過的面積」，則是 4 個長方形（20 × 4 × 4）加 1 個半徑 4 的圓（因為掃過外緣寬度是直徑 4 公分）；而圓心路徑只看「半徑 2 公分」的軌跡，別混用！"
+    }
+  },
+  {
+    "id": "U06-S4-O-034",
+    "legacyId": null,
+    "unitId": "U06",
+    "section": "6-4",
+    "sectionName": "圓周長與弧長的應用",
+    "category": "勒洛三角形三弧周長",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L8（勒洛三角形弧長）",
+    "level": 8,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "lg",
+    "question": "畫一個邊長為 12 公分的正三角形，再分別以它的三個頂點為圓心、邊長 12 公分為半徑，向對邊外側各畫出一條圓心角 60° 的圓弧，構成一個曲邊的「勒洛三角形」（像三角飯糰的外框）。請問這個勒洛三角形的周長大約是多少公分？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "73.68 公分",
+        "trapCode": "U06_TRACK_INNER_OUTER_ERR"
+      },
+      {
+        "key": "B",
+        "text": "37.68 公分",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "75.36 公分",
+        "trapCode": "U06_ANGLE_FRACTION_WRONG"
+      },
+      {
+        "key": "D",
+        "text": "18.84 公分",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "12 * 2 * (314/100) * (60 * 3 / 360)",
+      "expect": "37.68"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否辨識勒洛三角形的三條外弧皆為 60°（合計僅 180° 半圓而非 360° 整圓），且內部輔助線段絕不能算進周長。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：確認外圍邊界。內部灰色的正三角形只是輔助線，這個圖形的外框完全由 3 條一模一樣的 60° 紅色圓弧接成。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 165\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M 230 32 A 104 104 0 0 1 282 122 A 104 104 0 0 1 178 122 A 104 104 0 0 1 230 32 Z\" fill=\"#fff1f2\" stroke=\"#e11d48\" stroke-width=\"3.5\"/><polygon points=\"230,32 178,122 282,122\" fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"1.8\" stroke-dasharray=\"4 4\"/><circle cx=\"230\" cy=\"32\" r=\"4\" fill=\"#2563eb\"/><circle cx=\"178\" cy=\"122\" r=\"4\" fill=\"#2563eb\"/><circle cx=\"282\" cy=\"122\" r=\"4\" fill=\"#2563eb\"/><text x=\"230\" y=\"88\" font-size=\"12\" font-weight=\"bold\" fill=\"#64748b\" text-anchor=\"middle\">內部邊長 12 (不計)</text><text x=\"308\" y=\"68\" font-size=\"13\" font-weight=\"bold\" fill=\"#be123c\">60° 圓弧 × 3</text><text x=\"308\" y=\"90\" font-size=\"13\" font-weight=\"bold\" fill=\"#be123c\">＝ 180° 半圓弧</text><text x=\"152\" y=\"76\" font-size=\"12\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"end\">半徑 12 公分</text></svg>",
+          "caption": "外框只有 3 條 60° 紅弧（合計 180° 半圓）；內部灰虛線正三角形僅作圓心定位，不計入周長"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：3 條 60° 弧線合起來的圓心角 ＝ 60° × 3 ＝ 180°，也就是半徑 12 公分圓的「一半（半圓弧）」。"
+        },
+        {
+          "type": "eq",
+          "expr": "圓心角總和 ＝ 60° × 3 ＝ 180°（佔整圓 1/2）",
+          "unit": ""
+        },
+        {
+          "type": "eq",
+          "expr": "外圍周長 ＝ 12 × 2 × 3.14 × 1/2 ＝ 37.68",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：勒洛三角形的周長大約是 37.68 公分"
+        }
+      ],
+      "insight": "勒洛三角形 3 條弧加起來只有 180°（半圓），不是 360° 整圓！且內部正三角形三邊是輔助線，絕不相加！",
+      "distractorAnalysis": {
+        "A": "正確算出 3 條圓弧長 37.68 公分，卻誤將內部輔助的正三角形三邊長 12 × 3 ＝ 36 公分也計入，錯算成 37.68 ＋ 36 ＝ 73.68 公分。",
+        "D": "誤將正三角形邊長 12 公分當成圓的「直徑」而非「半徑」，算出 12 × 3.14 ÷ 2 ＝ 18.84 公分。",
+        "C": "誤以為 3 條圓弧合起來就是一個 360° 的完整圓，多算一倍成 12 × 2 × 3.14 ＝ 75.36 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "勒洛三角形周長 ＝ 3 條 60° 弧長 ＝ 180° 半圓弧 ＝ 邊長 × 3.14"
+      ],
+      "conceptCompare": "正三角形內角 60° 乘以 3 是 180°，所以勒洛三角形有個神奇特性：它的周長剛好就跟「直徑等於邊長 12 公分的普通圓形」（12 × 3.14 ＝ 37.68）完全一樣長！",
+      "examVariations": "生活上許多水溝蓋或特殊鑽頭會使用勒洛三角形，因為它不論從哪個方向夾住，寬度永遠都是 12 公分（等寬曲線）。"
+    }
+  },
+  {
+    "id": "U06-RV-O-035",
+    "legacyId": null,
+    "unitId": "U06",
+    "section": "REVIEW",
+    "sectionName": "綜合複習與應用",
+    "category": "兩輪同起點相遇公倍圈",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L8（雙輪公倍數重合）",
+    "level": 8,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "lg",
+    "question": "地面起點線上並排立著甲、乙兩個圓輪，底部都貼地且各有一個紅色標記點接觸起點。已知甲輪的「圓周長」為 47.1 公分，乙輪的「直徑」為 20 公分。兩輪同時向右沿直線無滑動滾動，直到兩個紅色標記點「第一次同時再次貼地」時停下，請問兩輪各前進了幾公分？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "942 公分",
+        "trapCode": "U06_ROLLER_TURN_ERR"
+      },
+      {
+        "key": "B",
+        "text": "188.4 公分",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "376.8 公分",
+        "trapCode": "U06_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "1884 公分",
+        "trapCode": "U06_DECIMAL_SHIFT_ERR"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "60 * (314/100)",
+      "expect": "188.4",
+      "extraChecks": [
+        {
+          "expr": "47.1 / (314/100)",
+          "expect": "15"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生先用小數除法逆推甲輪直徑，再結合第一單元「最小公倍數」求兩輪標記點首次同步貼地的最短距離。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：先把條件換成同一種標準！甲輪只給圓周長 47.1 公分，先用除法反求甲輪的直徑。"
+        },
+        {
+          "type": "eq",
+          "expr": "甲輪直徑 ＝ 47.1 ÷ 3.14 ＝ 15",
+          "unit": "公分"
+        },
+        {
+          "type": "longdiv",
+          "dividend": "47.1",
+          "divisor": "3.14",
+          "mode": "exact",
+          "note": "除數 3.14 與被除數 47.1 小數點同時向右移 2 位（補一個 0），變成 4710 ÷ 314 ＝ 15"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 155\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"35\" y1=\"115\" x2=\"425\" y2=\"115\" stroke=\"#2563eb\" stroke-width=\"3\"/><circle cx=\"60\" cy=\"91\" r=\"24\" fill=\"#fff1f2\" stroke=\"#e11d48\" stroke-width=\"2.5\"/><circle cx=\"60\" cy=\"115\" r=\"4\" fill=\"#e11d48\"/><circle cx=\"150\" cy=\"115\" r=\"4\" fill=\"#e11d48\"/><circle cx=\"240\" cy=\"115\" r=\"4\" fill=\"#e11d48\"/><circle cx=\"330\" cy=\"115\" r=\"4\" fill=\"#e11d48\"/><circle cx=\"420\" cy=\"115\" r=\"4\" fill=\"#e11d48\"/><circle cx=\"180\" cy=\"115\" r=\"4\" fill=\"#2563eb\"/><circle cx=\"300\" cy=\"115\" r=\"4\" fill=\"#2563eb\"/><circle cx=\"420\" cy=\"83\" r=\"32\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><circle cx=\"420\" cy=\"115\" r=\"5\" fill=\"#1d4ed8\"/><text x=\"60\" y=\"58\" font-size=\"12\" font-weight=\"bold\" fill=\"#be123c\" text-anchor=\"middle\">甲輪直徑 15</text><text x=\"420\" y=\"42\" font-size=\"12\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"middle\">乙輪直徑 20</text><text x=\"230\" y=\"138\" font-size=\"12\" font-weight=\"bold\" fill=\"#1e293b\" text-anchor=\"middle\">甲 4 圈（4×15）與 乙 3 圈（3×20）於 60×3.14 公分同時著地</text></svg>",
+          "caption": "紅點＝甲輪每轉 15 × 3.14 貼地一次；藍點＝乙輪每轉 20 × 3.14 貼地一次；兩者於 188.4 公分首次重合"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：甲輪每轉 1 圈前進 15 × 3.14 公分，乙輪每轉 1 圈前進 20 × 3.14 公分；因為兩邊都有「× 3.14」，只要先求直徑 15 和 20 的最小公倍數！"
+        },
+        {
+          "type": "eq",
+          "expr": "15 和 20 的最小公倍數 ＝ 60",
+          "unit": ""
+        },
+        {
+          "type": "text",
+          "text": "第 3 步：當甲輪轉 60 ÷ 15 ＝ 4 圈、乙輪轉 60 ÷ 20 ＝ 3 圈時，前進總距離剛好是 60 × 3.14 公分（即 47.1 × 4）。"
+        },
+        {
+          "type": "eq",
+          "expr": "前進距離 ＝ 60 × 3.14 ＝ 188.4",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：兩輪各前進了 188.4 公分"
+        }
+      ],
+      "insight": "小數圓周找公倍數，先同除以 3.14 找直徑（15 與 20）的最小公倍數 60，最後再乘回 3.14，整潔零誤差！",
+      "distractorAnalysis": {
+        "A": "求出甲輪直徑 15 公分後，沒求最小公倍數 60，直接把兩直徑相乘算成 15 × 20 × 3.14 ＝ 942 公分。",
+        "C": "把 15 和 20 的最小公倍數錯算成 120，多乘 2 倍而得出 120 × 3.14 ＝ 376.8 公分。",
+        "D": "計算 60 × 3.14 或 47.1 × 4 時小數點漏點（或錯移一位），算成 1884 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "同起點兩輪首次再次同時貼地距離 ＝ (甲輪直徑與乙輪直徑的最小公倍數) × 3.14"
+      ],
+      "conceptCompare": "面對 47.1 與 62.8 這種小數，千萬別傻傻去列短除法，先提出共同因子 3.14 化成整數 15 和 20 再找最小公倍數，是奧數最核心的「提出公因數簡化法」。",
+      "examVariations": "若改問「停下時甲輪比乙輪多轉了幾圈？」，只要用 60 ÷ 15 − 60 ÷ 20 ＝ 4 − 3 ＝ 1 圈即可。"
+    }
+  },
+  {
+    "id": "U06-S3-O-036",
+    "legacyId": null,
+    "unitId": "U06",
+    "section": "6-3",
+    "sectionName": "扇形弧長與周長",
+    "category": "等邊三角繞牆滾轉頂點弧",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L9（正三角形翻滾頂點弧）",
+    "level": 9,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "lg",
+    "question": "一個邊長 12 公分的正三角形積木平放在長尺上，一開始在左下角貼地的頂點貼上紅點貼紙。將這個正三角形沿著長尺向右連續無滑動翻滾 3 次後，恰好恢復原本正立的姿勢。請問在這 3 次翻滾過程中，那顆「紅點貼紙」走過的弧線總長是多少公分？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "25.12 公分",
+        "trapCode": "U06_ANGLE_FRACTION_WRONG"
+      },
+      {
+        "key": "B",
+        "text": "75.36 公分",
+        "trapCode": "U06_ROLLER_TURN_ERR"
+      },
+      {
+        "key": "C",
+        "text": "50.24 公分",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "36 公分",
+        "trapCode": "U06_COMPOSITE_BOUNDARY_ERR"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "12 * 2 * (314/100) * (120/360) * 2",
+      "expect": "50.24"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生在多邊形翻滾問題中，精準判定每次的旋轉支點、外角旋轉角度（180° − 60° ＝ 120°），並發現第 3 次翻滾時紅點剛好作為支點靜止不動。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：畫出正三角形向右翻滾 3 次的軌跡！正三角形內角 60°，每次向右翻滾會繞著右下角支點旋轉 180° − 60° ＝ 120°。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 165\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"20\" y1=\"130\" x2=\"440\" y2=\"130\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><polygon points=\"50,130 120,130 85,69.4\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"2\"/><polygon points=\"120,130 190,130 155,69.4\" fill=\"#f8fafc\" stroke=\"#94a3b8\" stroke-width=\"1.5\" stroke-dasharray=\"4 3\"/><polygon points=\"190,130 260,130 225,69.4\" fill=\"#f8fafc\" stroke=\"#94a3b8\" stroke-width=\"1.5\" stroke-dasharray=\"4 3\"/><polygon points=\"260,130 330,130 295,69.4\" fill=\"#fff1f2\" stroke=\"#475569\" stroke-width=\"2\"/><path d=\"M 50 130 A 70 70 0 0 1 155 69.4\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3.5\"/><path d=\"M 155 69.4 A 70 70 0 0 1 260 130\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3.5\"/><circle cx=\"50\" cy=\"130\" r=\"5\" fill=\"#e11d48\"/><circle cx=\"155\" cy=\"69.4\" r=\"5\" fill=\"#e11d48\"/><circle cx=\"260\" cy=\"130\" r=\"5\" fill=\"#e11d48\"/><text x=\"102\" y=\"48\" font-size=\"12\" font-weight=\"bold\" fill=\"#be123c\" text-anchor=\"middle\">第 1 次 120° 弧</text><text x=\"210\" y=\"48\" font-size=\"12\" font-weight=\"bold\" fill=\"#be123c\" text-anchor=\"middle\">第 2 次 120° 弧</text><text x=\"320\" y=\"110\" font-size=\"12\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"start\">第 3 次以紅點為支點</text><text x=\"320\" y=\"126\" font-size=\"12\" fill=\"#1d4ed8\" text-anchor=\"start\">(靜止不動 0 公分)</text></svg>",
+          "caption": "紅點貼紙共畫出 2 段半徑 12 公分的 120° 紅弧；第 3 次翻滾時紅點被壓在地面當支點，移動距離為 0"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：追蹤紅點貼紙 3 次翻滾的動態："
+        },
+        {
+          "type": "text",
+          "text": "• 第 1 次翻滾：紅點從左下角飛到頂端，畫出半徑 12 公分、120° 的圓弧。"
+        },
+        {
+          "type": "text",
+          "text": "• 第 2 次翻滾：紅點從頂端落回地面，再畫出半徑 12 公分、120° 的圓弧。"
+        },
+        {
+          "type": "text",
+          "text": "• 第 3 次翻滾：紅點剛好踩在地面上當作旋轉支點，移動 0 公分！"
+        },
+        {
+          "type": "eq",
+          "expr": "1 段 120° 弧長 ＝ 12 × 2 × 3.14 × 1/3 ＝ 25.12",
+          "unit": "公分"
+        },
+        {
+          "type": "eq",
+          "expr": "紅點總弧長 ＝ 25.12 × 2 ＝ 50.24",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：紅點貼紙走過的弧線總長是 50.24 公分"
+        }
+      ],
+      "insight": "多邊形翻滾找兩件事：一算外角看轉幾度（180° − 60° ＝ 120°），二看誰當支點（當支點那次移動 0）！",
+      "distractorAnalysis": {
+        "B": "誤以為翻滾 3 次，紅點就畫了 3 段 120° 圓弧，沒有察覺第 3 次紅點本身是支點沒移動，多算成 25.12 × 3 ＝ 75.36 公分。",
+        "D": "誤以為正三角形翻滾 3 次頂點走的直線距離等於 3 條邊長，直接錯算成 12 × 3 ＝ 36 公分。",
+        "A": "誤將正三角形的「內角 60°」當成翻滾旋轉的圓心角（正確應為外角 120°），弧長少算一半成 12.56 × 2 ＝ 25.12 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "正三角形外角 ＝ 180° − 60° ＝ 120°（1/3 圓）",
+        "滾回原姿勢（3 次）單一頂點路徑 ＝ 2 段 120° 圓弧 ＝ 240°（2/3 圓）"
+      ],
+      "conceptCompare": "正三角形 3 個頂點輪流當支點，每次有 2 個點飛起來畫弧、1 個點踩地不動。若是「正方形」翻滾 4 次回原姿勢，外角是 90°，那個紅點一樣有 1 次當支點不動，另外 3 次畫弧（其中有 1 次半徑是對角線，小學階段多只考正三角形或正方形只看貼邊點）。",
+      "examVariations": "若把「3 次」改成「連續翻滾 6 次（兩大輪）」，只要將 50.24 × 2 ＝ 100.48 公分即可。"
+    }
+  },
+  {
+    "id": "U06-S4-O-037",
+    "legacyId": null,
+    "unitId": "U06",
+    "section": "6-4",
+    "sectionName": "圓周長與弧長的應用",
+    "category": "6 根圓柱兩層綑綁最省繩",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L9（6 圓柱排法比較）",
+    "level": 9,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "lg",
+    "question": "倉儲人員要把 6 根半徑都是 5 公分的圓形鋼管緊密綑綁 1 圈（不計打結長度），目前考慮兩種堆疊法：方法一是排成「2 排 × 3 根」的長方形；方法二是從上到下排成「1 根、2 根、3 根」的正三角形。請問哪一種排法比較省繩子？最少需要幾公分繩子？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "正三角形排法比較省，只需要 61.4 公分",
+        "trapCode": "U06_ROPE_TANGENT_MISS"
+      },
+      {
+        "key": "B",
+        "text": "長方形排法比較省，只需要 81.4 公分",
+        "trapCode": "U06_TRACK_INNER_OUTER_ERR"
+      },
+      {
+        "key": "C",
+        "text": "兩種一樣省，都需要 91.4 公分",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "兩種一樣省，都需要 122.8 公分",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "6 * (5 * 2) + (5 * 2) * (314/100)",
+      "expect": "91.4"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生對一般多圓外包綑綁模型的深刻理解：透過各自拆解「外圍直線段數（圓心距段數）」與「轉角整圓」，驚喜發現兩種排列繩長竟然完全相等。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：先求鋼管直徑 ＝ 5 × 2 ＝ 10 公分（兩個相切圓心的距離也是 10 公分）。接著畫出兩種排法的外圍切線與轉角圓弧！"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 170\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"55\" cy=\"68\" r=\"20\" fill=\"#f8fafc\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><circle cx=\"95\" cy=\"68\" r=\"20\" fill=\"#f8fafc\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><circle cx=\"135\" cy=\"68\" r=\"20\" fill=\"#f8fafc\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><circle cx=\"55\" cy=\"108\" r=\"20\" fill=\"#f8fafc\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><circle cx=\"95\" cy=\"108\" r=\"20\" fill=\"#f8fafc\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><circle cx=\"135\" cy=\"108\" r=\"20\" fill=\"#f8fafc\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><line x1=\"55\" y1=\"48\" x2=\"135\" y2=\"48\" stroke=\"#2563eb\" stroke-width=\"3\"/><line x1=\"55\" y1=\"128\" x2=\"135\" y2=\"128\" stroke=\"#2563eb\" stroke-width=\"3\"/><line x1=\"35\" y1=\"68\" x2=\"35\" y2=\"108\" stroke=\"#2563eb\" stroke-width=\"3\"/><line x1=\"155\" y1=\"68\" x2=\"155\" y2=\"108\" stroke=\"#2563eb\" stroke-width=\"3\"/><path d=\"M 35 68 A 20 20 0 0 1 55 48\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3.5\"/><path d=\"M 135 48 A 20 20 0 0 1 155 68\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3.5\"/><path d=\"M 155 108 A 20 20 0 0 1 135 128\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3.5\"/><path d=\"M 55 128 A 20 20 0 0 1 35 108\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3.5\"/><text x=\"95\" y=\"28\" font-size=\"13\" font-weight=\"bold\" fill=\"#1e293b\" text-anchor=\"middle\">方法一：長方形 2×3</text><text x=\"95\" y=\"152\" font-size=\"12\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"middle\">直線：20＋10＋20＋10＝60</text><circle cx=\"340\" cy=\"54\" r=\"18\" fill=\"#f8fafc\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><circle cx=\"322\" cy=\"85.2\" r=\"18\" fill=\"#f8fafc\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><circle cx=\"358\" cy=\"85.2\" r=\"18\" fill=\"#f8fafc\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><circle cx=\"304\" cy=\"116.4\" r=\"18\" fill=\"#f8fafc\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><circle cx=\"340\" cy=\"116.4\" r=\"18\" fill=\"#f8fafc\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><circle cx=\"376\" cy=\"116.4\" r=\"18\" fill=\"#f8fafc\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><line x1=\"324.4\" y1=\"45\" x2=\"288.4\" y2=\"107.4\" stroke=\"#2563eb\" stroke-width=\"3\"/><line x1=\"355.6\" y1=\"45\" x2=\"391.6\" y2=\"107.4\" stroke=\"#2563eb\" stroke-width=\"3\"/><line x1=\"304\" y1=\"134.4\" x2=\"376\" y2=\"134.4\" stroke=\"#2563eb\" stroke-width=\"3\"/><path d=\"M 324.4 45 A 18 18 0 0 1 355.6 45\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3.5\"/><path d=\"M 391.6 107.4 A 18 18 0 0 1 376 134.4\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3.5\"/><path d=\"M 304 134.4 A 18 18 0 0 1 288.4 107.4\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3.5\"/><text x=\"340\" y=\"24\" font-size=\"13\" font-weight=\"bold\" fill=\"#1e293b\" text-anchor=\"middle\">方法二：正三角形 1+2+3</text><text x=\"340\" y=\"156\" font-size=\"12\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"middle\">直線：20＋20＋20＝60</text></svg>",
+          "caption": "兩種排法外圍藍色直線加總都是 6 個直徑（60 公分），紅色轉角圓弧都合為 1 個整圓（31.4 公分）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：分別計算兩種排法的繩長。"
+        },
+        {
+          "type": "text",
+          "text": "• 方法一（長方形）：上下兩長邊各跨 2 個圓心距（20 公分）、左右兩短邊各跨 1 個圓心距（10 公分），直線共有 (20 ＋ 10) × 2 ＝ 60 公分；四個角各 90° 合為 1 整圓（31.4 公分）。"
+        },
+        {
+          "type": "text",
+          "text": "• 方法二（正三角形）：三條邊各跨 2 個圓心距（20 公分），直線共有 20 × 3 ＝ 60 公分；三個角各 120° 同樣合為 1 整圓（31.4 公分）。"
+        },
+        {
+          "type": "eq",
+          "expr": "兩種排法繩長 ＝ 60 ＋ 10 × 3.14 ＝ 60 ＋ 31.4 ＝ 91.4",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：兩種排法一樣省，都需要 91.4 公分"
+        }
+      ],
+      "insight": "比省繩子只看外圍跨了幾個「圓心距」：長方形繞一圈跨了 2＋1＋2＋1 ＝ 6 個，正三角形繞一圈跨了 2＋2＋2 ＝ 6 個，所以竟然一模一樣長！",
+      "distractorAnalysis": {
+        "A": "數正三角形外圍直線段時，誤把每邊 2 個圓心距當成只有 1 個直徑，算出 30 ＋ 31.4 ＝ 61.4 公分。",
+        "D": "雖然正確看出兩種一樣長，卻誤將半徑 5 公分當成直徑 10、或圓弧多乘 2 算成 60 ＋ 62.8 ＝ 122.8 公分。",
+        "B": "計算長方形排列外圍直線段時漏算了一邊或減錯圓心距，只加了 50 公分而錯算成 50 ＋ 31.4 ＝ 81.4 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "方法一（2×3 長方形）繩長 ＝ (2＋1＋2＋1) × 直徑 ＋ 1 圓周 ＝ 6 × 直徑 ＋ 1 圓周",
+        "方法二（1＋2＋3 三角形）繩長 ＝ (2＋2＋2) × 直徑 ＋ 1 圓周 ＝ 6 × 直徑 ＋ 1 圓周"
+      ],
+      "conceptCompare": "那「排成 1 排 × 6 根」呢？單排繞一圈會跨過 5＋5 ＝ 10 個圓心距，總長需要 100 ＋ 31.4 ＝ 131.4 公分，足足多了 40 公分！所以堆成多層緊湊形狀才會最省繩子。",
+      "examVariations": "若換成「7 根鋼管圍成 1 根在中間、6 根包在周圍的正六邊形」，外圍每邊各跨 1 個直徑，6 邊共 6 個直徑 ＋ 1 整圓，繩長依然是 91.4 公分（用同樣的繩子多捆了 1 根）！"
+    }
+  },
+  {
+    "id": "U06-RV-O-038",
+    "legacyId": null,
+    "unitId": "U06",
+    "section": "REVIEW",
+    "sectionName": "綜合複習與應用",
+    "category": "扇形弧長倍數逆推周長",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L9（弧長比例反推扇形周長）",
+    "level": 9,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "lg",
+    "question": "一個半徑為 12 公分的扇形零件，工廠測得它的「弧長」恰好是它自己「半徑」的 3.14 倍。請問這個扇形零件的「整個周長」是多少公分？",
+    "options": [
+      {
+        "key": "A",
+        "text": "37.68 公分",
+        "trapCode": "U06_FORGET_TWO_RADII"
+      },
+      {
+        "key": "B",
+        "text": "99.36 公分",
+        "trapCode": "U06_ANGLE_FRACTION_WRONG"
+      },
+      {
+        "key": "C",
+        "text": "226.08 公分",
+        "trapCode": "U06_AREA_FORMULA_CONFUSION"
+      },
+      {
+        "key": "D",
+        "text": "61.68 公分",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "12 * (314/100) + 12 * 2",
+      "expect": "61.68"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生對圓周長結構的深層數感：當「弧長 ＝ 半徑 × 3.14」時，因為整圓周長是「直徑 × 3.14 ＝ 2 × 半徑 × 3.14」，所以這個扇形正是 180° 半圓，最後還要加上兩條半徑才成為周長。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：從條件「弧長 ＝ 半徑 × 3.14」反推這是幾分之幾圓。因為整圓周長 ＝ 2 × 半徑 × 3.14，所以這段弧長剛好是整圓的 1/2（180° 半圓）！"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 155\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M 110 115 A 100 100 0 0 1 310 115 Z\" fill=\"#fff1f2\" stroke=\"none\"/><path d=\"M 110 115 A 100 100 0 0 1 310 115\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"4\"/><line x1=\"110\" y1=\"115\" x2=\"310\" y2=\"115\" stroke=\"#2563eb\" stroke-width=\"3\"/><circle cx=\"210\" cy=\"115\" r=\"4\" fill=\"#1e293b\"/><text x=\"210\" y=\"52\" font-size=\"13\" font-weight=\"bold\" fill=\"#be123c\" text-anchor=\"middle\">紅弧長 ＝ 半徑 × 3.14 ＝ 12 × 3.14 ＝ 37.68</text><text x=\"160\" y=\"136\" font-size=\"13\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"middle\">半徑 12</text><text x=\"260\" y=\"136\" font-size=\"13\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"middle\">半徑 12</text><text x=\"210\" y=\"96\" font-size=\"12\" fill=\"#64748b\" text-anchor=\"middle\">圓心角 180°（半圓）</text></svg>",
+          "caption": "紅弧長＝12 × 3.14＝37.68 公分（剛好是半圓弧）；整個扇形周長必須加上下方兩條藍半徑 24 公分"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：先算出弧長（半徑 12 公分的 3.14 倍）。"
+        },
+        {
+          "type": "eq",
+          "expr": "弧長 ＝ 12 × 3.14 ＝ 37.68",
+          "unit": "公分"
+        },
+        {
+          "type": "mul",
+          "a": "3.14",
+          "b": "12",
+          "note": "計算弧長 3.14 × 12 ＝ 37.68 公分"
+        },
+        {
+          "type": "text",
+          "text": "第 3 步：扇形整個周長 ＝ 弧長 ＋ 2 條半徑。"
+        },
+        {
+          "type": "eq",
+          "expr": "整個周長 ＝ 37.68 ＋ 12 × 2 ＝ 37.68 ＋ 24 ＝ 61.68",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：整個扇形零件的周長是 61.68 公分"
+        }
+      ],
+      "insight": "數感密碼：「弧長是半徑的 3.14 倍」就是半圓（180°），「弧長是直徑的 3.14 倍」才是整圓（360°）；別忘記周長還要加兩條半徑！",
+      "distractorAnalysis": {
+        "A": "只算出了題目描述的「弧長」37.68 公分，忘記問的是「整個扇形周長」必須加上兩條半徑 24 公分。",
+        "B": "誤把題目說的「半徑的 3.14 倍」錯記成 2 倍弧長，算出整圓周長 75.36 再加 24 ＝ 99.36 公分。",
+        "C": "誤套用圓面積公式算出半圓面積（12 × 12 × 3.14 ÷ 2 ＝ 226.08），把面積當成周長。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "整圓周長 ＝ 直徑 × 3.14 ＝ 2 × 半徑 × 3.14",
+        "半圓弧長 ＝ 半徑 × 3.14；半圓周長 ＝ 半徑 × (3.14 ＋ 2)"
+      ],
+      "conceptCompare": "「弧長是半徑的 3.14 倍」在幾何上就代表圓心角剛好是 180°（半圓）！不用背特別名詞，只要比較「半徑 × 3.14」剛好是整圓「2 × 半徑 × 3.14」的一半，就能秒殺看穿它是半圓！",
+      "examVariations": "若改問「當弧長是半徑的 1.57 倍時，這是幾分之幾圓？」，因為 1.57 ＝ 3.14 ÷ 2，所以佔了半圓的一半，也就是 1/4 圓（圓心角 90°）。"
+    }
+  },
+  {
+    "id": "U06-S2-O-039",
+    "legacyId": null,
+    "unitId": "U06",
+    "section": "6-2",
+    "sectionName": "圓周長",
+    "category": "齒輪帶動兩圓滾動轉數",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L10（小圓外滾大圓自轉）",
+    "level": 10,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "lg",
+    "question": "桌面上固定著一個半徑 12 公分的大圓盤，另有一枚半徑 4 公分的小圓盤緊貼著大圓盤「外側」邊緣無滑動滾動，繞大圓盤外圍 1 整圈回到起點。請問在滾動過程中，小圓盤自己總共自轉了幾圈？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "3 圈",
+        "trapCode": "U06_ROLLER_TURN_ERR"
+      },
+      {
+        "key": "B",
+        "text": "2 圈",
+        "trapCode": "U06_PI_CONSTANT_MYTH"
+      },
+      {
+        "key": "C",
+        "text": "6 圈",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "D",
+        "text": "4 圈",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "((12 + 4) * 2 * (314/100)) / (4 * 2 * (314/100))",
+      "expect": "4"
+    },
+    "explanation": {
+      "examPurpose": "測驗 AMC 8 壓軸經典模型「硬幣外滾悖論」：學生極易只算兩圓周長比 (12 ÷ 4 ＝ 3)，透過追蹤「小圓圓心走過的實際大圓軌跡（半徑 12 ＋ 4 ＝ 16）」，直觀破解多出來的公轉 1 圈。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：破解「只除周長比」的陷阱！小圓盤不只是在大圓盤上滾動，它的「圓心」同時繞著大圓盤的中心公轉了一整圈。觀察下圖，小圓盤圓心走出的藍色虛線大圓，半徑是 12 ＋ 4 ＝ 16 公分！"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 175\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"170\" cy=\"88\" r=\"68\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"2.5\" stroke-dasharray=\"5 4\"/><circle cx=\"170\" cy=\"88\" r=\"51\" fill=\"#f1f5f9\" stroke=\"#475569\" stroke-width=\"2.5\"/><circle cx=\"238\" cy=\"88\" r=\"17\" fill=\"#ffe4e6\" stroke=\"#e11d48\" stroke-width=\"2.5\"/><line x1=\"170\" y1=\"88\" x2=\"221\" y2=\"88\" stroke=\"#475569\" stroke-width=\"2\"/><line x1=\"221\" y1=\"88\" x2=\"238\" y2=\"88\" stroke=\"#e11d48\" stroke-width=\"2\"/><circle cx=\"170\" cy=\"88\" r=\"3.5\" fill=\"#1e293b\"/><circle cx=\"238\" cy=\"88\" r=\"3.5\" fill=\"#2563eb\"/><text x=\"195\" y=\"80\" font-size=\"11\" font-weight=\"bold\" fill=\"#334155\" text-anchor=\"middle\">12</text><text x=\"230\" y=\"80\" font-size=\"11\" font-weight=\"bold\" fill=\"#be123c\" text-anchor=\"middle\">4</text><text x=\"262\" y=\"64\" font-size=\"12\" font-weight=\"bold\" fill=\"#1d4ed8\">藍虛線＝小圓圓心軌跡</text><text x=\"262\" y=\"84\" font-size=\"12\" fill=\"#1d4ed8\">軌跡半徑 ＝ 12 ＋ 4 ＝ 16</text><text x=\"262\" y=\"108\" font-size=\"12\" font-weight=\"bold\" fill=\"#be123c\">紅小圓自轉 ＝ 軌跡周 ÷ 小圓周</text><text x=\"262\" y=\"128\" font-size=\"11\" fill=\"#be123c\">(16×2×3.14)÷(4×2×3.14) ＝ 4</text></svg>",
+          "caption": "大圓半徑 12（灰）、小圓半徑 4（紅）；小圓圓心走過的藍虛線圓半徑為 12 ＋ 4 ＝ 16 公分"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：算出小圓盤「圓心」走過的路徑總長，以及小圓盤自己的圓周長。"
+        },
+        {
+          "type": "eq",
+          "expr": "圓心路徑長 ＝ (12 ＋ 4) × 2 × 3.14 ＝ 32 × 3.14 ＝ 100.48",
+          "unit": "公分"
+        },
+        {
+          "type": "eq",
+          "expr": "小圓盤周長 ＝ 4 × 2 × 3.14 ＝ 8 × 3.14 ＝ 25.12",
+          "unit": "公分"
+        },
+        {
+          "type": "text",
+          "text": "第 3 步：圓心走過的總距離除以小圓盤周長，就是小圓盤實際自轉的總圈數。"
+        },
+        {
+          "type": "eq",
+          "expr": "自轉圈數 ＝ 100.48 ÷ 25.12 ＝ 4",
+          "unit": "圈"
+        },
+        {
+          "type": "longdiv",
+          "dividend": "100.48",
+          "divisor": "25.12",
+          "mode": "exact",
+          "note": "除數與被除數小數點同時右移 2 位，10048 ÷ 2512 ＝ 4 圈"
+        },
+        {
+          "type": "answer",
+          "text": "答：小圓盤自己總共自轉了 4 圈"
+        }
+      ],
+      "insight": "硬幣外滾秒殺口訣：外滾看「圓心軌道半徑（大＋小）」除以「小圓半徑」，即 (12 ＋ 4) ÷ 4 ＝ 4 圈（也就是周長倍數再加公轉 1 圈）！",
+      "distractorAnalysis": {
+        "A": "經典誤區！只算大圓周長除以小圓周長（12 ÷ 4 ＝ 3 圈），忘記小圓繞大圓外圍公轉 1 圈還會額外多自轉 1 圈。",
+        "B": "把外滾加 1 圈跟內滾減 1 圈搞混，誤算成 12 ÷ 4 − 1 ＝ 2 圈。",
+        "C": "誤將大圓半徑 12 公分當成直徑 24 公分與小圓半徑 4 混用相除，錯算成 24 ÷ 4 ＝ 6 圈。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "小圓沿大圓「外側」滾 1 圈自轉數 ＝ (大圓半徑 ＋ 小圓半徑) ÷ 小圓半徑 ＝ (大 ÷ 小) ＋ 1",
+        "小圓沿大圓「內側」滾 1 圈自轉數 ＝ (大圓半徑 − 小圓半徑) ÷ 小圓半徑 ＝ (大 ÷ 小) − 1"
+      ],
+      "conceptCompare": "「沿大圓外側滾動」相當於沿著平坦路面滾 3 圈的同時、整個路面自己又順時針翻轉了一整圈（3 ＋ 1 ＝ 4）；相反地，若是在大圓「內側」滾動，圓心軌跡半徑只剩 12 − 4 ＝ 8 公分，所以自轉就會變成 8 ÷ 4 ＝ 2 圈！",
+      "examVariations": "AMC 8 曾考過完全相同的結構：小圓半徑是 1、大圓半徑是 3 時，小圓繞大圓外滾回原處也是自轉 3 ＋ 1 ＝ 4 圈。"
+    }
+  },
+  {
+    "id": "U06-RV-O-040",
+    "legacyId": null,
+    "unitId": "U06",
+    "section": "REVIEW",
+    "sectionName": "綜合複習與應用",
+    "category": "多層半圓接力波浪周長",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L10（五半圓封閉魚形）",
+    "level": 10,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "lg",
+    "question": "在一條水平虛線上方，由左到右依序緊密接連畫出 4 個半圓，直徑分別是 6 公分、12 公分、18 公分、24 公分；在水平虛線下方，則從最左端連到最右端畫出 1 個直徑 60 公分的大半圓，共同圍成一個封閉的波浪魚形徽章。請問這枚徽章最外圍的總周長是多少公分？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "188.4 公分",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "248.4 公分",
+        "trapCode": "U06_COMPOSITE_BOUNDARY_ERR"
+      },
+      {
+        "key": "C",
+        "text": "94.2 公分",
+        "trapCode": "U06_ROPE_TANGENT_MISS"
+      },
+      {
+        "key": "D",
+        "text": "376.8 公分",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "(6 + 12 + 18 + 24) * (314/100) / 2 + 60 * (314/100) / 2",
+      "expect": "188.4"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生運用「分配律打包直徑和」與「內部虛線消去原則」，看穿多個接力半圓弧長總和必定等於同跨距大半圓弧長。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：檢查外圍邊界！徽章最外圍是由「上方 4 個小半圓弧」加上「下方 1 個大半圓弧」接成，中間 60 公分的水平虛線被包在徽章裡面，絕對不能算進周長。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 175\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M 140 62 A 9 9 0 0 1 158 62 A 18 18 0 0 1 194 62 A 27 27 0 0 1 248 62 A 36 36 0 0 1 320 62 A 90 90 0 0 1 140 62 Z\" fill=\"#fff1f2\" stroke=\"none\"/><line x1=\"140\" y1=\"62\" x2=\"320\" y2=\"62\" stroke=\"#94a3b8\" stroke-width=\"1.8\" stroke-dasharray=\"5 4\"/><path d=\"M 140 62 A 9 9 0 0 1 158 62 A 18 18 0 0 1 194 62 A 27 27 0 0 1 248 62 A 36 36 0 0 1 320 62\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3.5\"/><path d=\"M 140 62 A 90 90 0 0 0 320 62\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"3.5\"/><text x=\"149\" y=\"46\" font-size=\"11\" font-weight=\"bold\" fill=\"#be123c\" text-anchor=\"middle\">6</text><text x=\"176\" y=\"38\" font-size=\"11\" font-weight=\"bold\" fill=\"#be123c\" text-anchor=\"middle\">12</text><text x=\"221\" y=\"29\" font-size=\"11\" font-weight=\"bold\" fill=\"#be123c\" text-anchor=\"middle\">18</text><text x=\"284\" y=\"20\" font-size=\"11\" font-weight=\"bold\" fill=\"#be123c\" text-anchor=\"middle\">24</text><text x=\"336\" y=\"52\" font-size=\"12\" font-weight=\"bold\" fill=\"#64748b\" text-anchor=\"start\">內部虛線總長 60</text><text x=\"336\" y=\"69\" font-size=\"11\" fill=\"#64748b\" text-anchor=\"start\">(不計入外圍周長)</text><text x=\"230\" y=\"168\" font-size=\"13\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"middle\">下方大半圓弧（直徑 60）</text></svg>",
+          "caption": "上方 4 個紅波浪半圓弧（直徑和 6＋12＋18＋24＝60）＋ 下方藍色大半圓弧（直徑 60），合為 1 整圓"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：用分配律把上方 4 個半圓的弧長合起來計算，不需要個別算出 4 個小數！"
+        },
+        {
+          "type": "eq",
+          "expr": "上方 4 弧總長 ＝ (6 ＋ 12 ＋ 18 ＋ 24) × 3.14 ÷ 2 ＝ 60 × 3.14 ÷ 2 ＝ 94.2",
+          "unit": "公分"
+        },
+        {
+          "type": "text",
+          "text": "第 3 步：算出下方直徑 60 公分的大半圓弧長，再兩者相加。"
+        },
+        {
+          "type": "eq",
+          "expr": "下方大弧長 ＝ 60 × 3.14 ÷ 2 ＝ 94.2",
+          "unit": "公分"
+        },
+        {
+          "type": "eq",
+          "expr": "徽章總周長 ＝ 94.2 ＋ 94.2 ＝ 188.4",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：這枚徽章最外圍的總周長是 188.4 公分"
+        }
+      ],
+      "insight": "共線相切半圓神技：一串半圓只要「直徑和」等於下方大半圓直徑，波浪總弧長就和大半圓弧長一模一樣，合起來正好是 1 個完整圓！",
+      "distractorAnalysis": {
+        "B": "誤把中間僅用於定位直徑的 60 公分水平虛線也計入外圍周長，算出 188.4 ＋ 60 ＝ 248.4 公分。",
+        "C": "只算出上方 4 個波浪半圓弧總長 94.2 公分，漏算了下方包圍封閉圖形的大半圓弧 94.2 公分。",
+        "D": "在計算半圓弧長時忘記除以 2，把每個半圓都當成整圓去乘，結果多算 2 倍成 188.4 × 2 ＝ 376.8 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "同直徑總長的多段半圓弧之和 ＝ (各小直徑總和) × 3.14 ÷ 2 ＝ 對應大半圓弧長"
+      ],
+      "conceptCompare": "就算上方這 4 個半圓改成「10 個或 100 個大小不等的半圓接在一起」，只要起點與終點總長度一樣是 60 公分，波浪線的總長度永遠還是 94.2 公分！這就是著名的等長半圓波浪不變性。",
+      "examVariations": "若題目改成「上方 4 個半圓改成『交錯上下凹凸』形成太極蛇形曲線（仍接回起終點）」，只要把原本直徑 60 的下方大半圓弧移過來配對，曲線總長依然不變！"
+    }
+  },
+  {
+    "id": "U06-S1-M-041",
+    "legacyId": "u06_m01",
+    "unitId": "U06",
+    "section": "6-1",
+    "sectionName": "認識圓周率",
+    "category": "圓周率意義",
     "batch": "純腦力體操",
     "source": "早餐免動筆思維天梯 1★",
-    "verified": true,
+    "level": 1,
+    "difficulty": 1,
+    "questionType": "choice",
+    "work": "sm",
     "question": "任何一個圓，「圓周長 ÷ 直徑」的結果是？",
     "options": [
-      "2",
-      "圓周率（約 3.14）",
-      "半徑",
-      "依圓的大小而不同"
-    ],
-    "answer": "B",
-    "answerKey": "B",
-    "steps": [
-      "所有圓都是彼此的放大縮小。",
-      "圓周長和直徑的比值永遠固定 ＝ 圓周率。"
-    ],
-    "insight": "圓周率是常數，跟圓的大小無關。",
-    "trap": {
-      "code": "ERR_U06_M01",
-      "text": "以為大圓的比值比較大。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u06_m02",
-    "unitId": "U06",
-    "category": "純腦力體操",
-    "topic": "直徑與半徑",
-    "level": 1,
-    "stars": 1,
-    "difficulty": 1,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 1★",
-    "verified": true,
-    "question": "直徑 10 公分的圓和半徑 5 公分的圓，周長相比？",
-    "options": [
-      "前者長",
-      "後者長",
-      "一樣長",
-      "無法比較"
-    ],
-    "answer": "C",
-    "answerKey": "C",
-    "steps": [
-      "半徑 5 → 直徑 10。",
-      "直徑相同的圓，周長一樣。"
-    ],
-    "insight": "先統一成直徑再比。",
-    "trap": {
-      "code": "ERR_U06_M02",
-      "text": "直接比 10 和 5。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u06_m03",
-    "unitId": "U06",
-    "category": "純腦力體操",
-    "topic": "周長正比",
-    "level": 2,
-    "stars": 2,
-    "difficulty": 2,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 2★",
-    "verified": true,
-    "question": "圓的直徑變成 3 倍，圓周長變成？",
-    "options": [
-      "3 倍",
-      "6 倍",
-      "9 倍",
-      "不變"
+      {
+        "key": "A",
+        "text": "圓周率（約 3.14）",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "2",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "C",
+        "text": "半徑",
+        "trapCode": "U06_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "依圓的大小而不同",
+        "trapCode": "U06_PI_CONSTANT_MYTH"
+      }
     ],
     "answer": "A",
-    "answerKey": "A",
-    "steps": [
-      "周長 ＝ 直徑 × 圓周率，圓周率固定。",
-      "直徑變 3 倍，周長也變 3 倍。"
-    ],
-    "insight": "長度跟著長度同倍數變化（面積才是平方倍）。",
-    "trap": {
-      "code": "ERR_U06_M03",
-      "text": "和面積 9 倍搞混。"
+    "skipOptionNumMatch": true,
+    "check": {
+      "expr": "1",
+      "expect": "1"
     },
-    "work": "sm"
+    "explanation": {
+      "examPurpose": "測驗學生是否理解圓周率是「圓周長除以直徑」的固定比值，且與圓的大小無關。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：任意大小的圓，形狀都完全相似，都是彼此的放大或縮小圖。"
+        },
+        {
+          "type": "eq",
+          "expr": "圓周長 ÷ 直徑 ＝ 圓周率（約 3.14）",
+          "unit": ""
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：不管圓變大或變小，圓周長跟直徑都會以相同倍數一起放大或縮小，所以兩者的比值永遠固定不變。"
+        },
+        {
+          "type": "answer",
+          "text": "答：圓周率（約 3.14）"
+        }
+      ],
+      "insight": "圓周率是一個固定不變的常數（大約 3.14），不管是 1 元硬幣還是地球赤道，圓周長除以直徑都一樣大。",
+      "distractorAnalysis": {
+        "C": "混淆了長度名詞，圓周長除以直徑得到的是沒有單位的倍數（圓周率），而不是半徑。",
+        "D": "誤以為越大的圓，圓周長除以直徑的比值也會跟著變大。",
+        "B": "誤把「直徑 ÷ 半徑 ＝ 2」的關係套用到圓周長與直徑上。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "圓周率 ＝ 圓周長 ÷ 直徑 ≈ 3.14（固定不變）"
+      ],
+      "conceptCompare": "直徑有單位（如公分、公尺），圓周長也有單位，但「圓周長 ÷ 直徑」代表圓周長是直徑的幾倍，所以圓周率沒有單位，而且大小圓都一樣。",
+      "examVariations": "段考常考「直徑 10 公分的圓和直徑 100 公分的圓，哪一個的圓周率比較大？」，答案是一樣大。"
+    }
   },
   {
-    "id": "u06_m04",
+    "id": "U06-S2-M-042",
+    "legacyId": "u06_m02",
     "unitId": "U06",
-    "category": "純腦力體操",
-    "topic": "半圓周長",
-    "level": 2,
-    "stars": 2,
-    "difficulty": 2,
+    "section": "6-2",
+    "sectionName": "圓周長計算與應用",
+    "category": "直徑與半徑",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 1★",
+    "level": 1,
+    "difficulty": 1,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "直徑 10 公分的圓和半徑 5 公分的圓，圓周長相比哪一個比較長？",
+    "options": [
+      {
+        "key": "A",
+        "text": "前者比較長",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "B",
+        "text": "一樣長",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "後者比較長",
+        "trapCode": "U06_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "無法比較",
+        "trapCode": "U06_PI_CONSTANT_MYTH"
+      }
+    ],
+    "answer": "B",
+    "skipOptionNumMatch": true,
+    "check": {
+      "expr": "1",
+      "expect": "1"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否會先將「半徑」與「直徑」統一換算成相同基準後再進行比較。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：先把兩個圓都換算成「直徑」來比較。"
+        },
+        {
+          "type": "eq",
+          "expr": "5 × 2 ＝ 10",
+          "unit": "公分（後者的直徑）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：兩者的直徑都是 10 公分，代表是完全一樣大的圓，因此圓周長一樣長。"
+        },
+        {
+          "type": "answer",
+          "text": "答：一樣長"
+        }
+      ],
+      "insight": "比較兩個圓的大小或周長時，先統一換算成「半徑」或統一換算成「直徑」，不要直接拿數字 10 和 5 硬比。",
+      "distractorAnalysis": {
+        "A": "沒有注意單位名詞不同，直接把直徑 10 和半徑 5 比大小而誤選前者。",
+        "D": "誤以為沒有給圓周率精確值就無法比較兩個圓的周長。",
+        "C": "反過來以為有提到半徑還要再加倍，誤判後者比較長。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "直徑 ＝ 半徑 × 2",
+        "直徑相等的兩個圓，半徑、圓周長與面積全都相等"
+      ],
+      "conceptCompare": "題目同時出現「直徑」和「半徑」是最常見的閱讀陷阱，動筆或心算前一定要先把兩者換成同一種稱呼。",
+      "examVariations": "段考常考「半徑 6 公分的圓和直徑 10 公分的圓，哪一個周長比較長？」，先算半徑 6 的直徑 ＝ 12 公分，便可知前者較長。"
+    }
+  },
+  {
+    "id": "U06-S2-M-043",
+    "legacyId": "u06_m03",
+    "unitId": "U06",
+    "section": "6-2",
+    "sectionName": "圓周長計算與應用",
+    "category": "周長正比",
     "batch": "純腦力體操",
     "source": "早餐免動筆思維天梯 2★",
-    "verified": true,
+    "level": 2,
+    "difficulty": 1,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "圓的直徑變成原來的 3 倍，圓周長會變成原來的幾倍？",
+    "options": [
+      {
+        "key": "A",
+        "text": "不變",
+        "trapCode": "U06_PI_CONSTANT_MYTH"
+      },
+      {
+        "key": "B",
+        "text": "6 倍",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "C",
+        "text": "9 倍",
+        "trapCode": "U06_AREA_FORMULA_CONFUSION"
+      },
+      {
+        "key": "D",
+        "text": "3 倍",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "3",
+      "expect": "3"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否掌握「圓周長與直徑成正比」的一維長度倍數關係，避免與二維面積平方倍混淆。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：寫出圓周長關係式，其中圓周率（約 3.14）是固定不變的常數。"
+        },
+        {
+          "type": "eq",
+          "expr": "新圓周長 ＝ (原直徑 × 3) × 3.14 ＝ 原圓周長 × 3",
+          "unit": ""
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：直徑變成 3 倍時，圓周長也跟著變成 3 倍。"
+        },
+        {
+          "type": "answer",
+          "text": "答：3 倍"
+        }
+      ],
+      "insight": "長度跟著長度同倍數變化：直徑（或半徑）變幾倍，圓周長就變幾倍；只有面積才會變成倍數的平方（3 × 3 ＝ 9 倍）。",
+      "distractorAnalysis": {
+        "B": "把「直徑 ＝ 半徑 × 2」的多餘 2 倍乘進去，誤算成 3 × 2 ＝ 6 倍。",
+        "C": "和圓面積混淆，誤把周長變化也算成 3 × 3 ＝ 9 倍。",
+        "A": "和「圓周率固定不變」的性質搞混，以為圓周長也不會變。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "半徑或直徑變為幾倍 ➔ 圓周長也變為幾倍（成正比）",
+        "圓周率永遠固定不變"
+      ],
+      "conceptCompare": "直徑變 3 倍時：圓周率「不變（1 倍）」、半徑變「3 倍」、圓周長變「3 倍」、圓面積才變「9 倍」。",
+      "examVariations": "若題目改成「半徑變成原來的 4 倍，圓周長變成幾倍？」，同樣直接回答 4 倍，不要再乘以 2。"
+    }
+  },
+  {
+    "id": "U06-S3-M-044",
+    "legacyId": "u06_m04",
+    "unitId": "U06",
+    "section": "6-3",
+    "sectionName": "扇形弧長與周長",
+    "category": "半圓周長",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 2★",
+    "level": 2,
+    "difficulty": 1,
+    "questionType": "choice",
+    "work": "sm",
     "question": "「半圓形的周長」和「圓周長的一半」，哪一個比較長？",
     "options": [
-      "一樣長",
-      "半圓形的周長",
-      "圓周長的一半",
-      "無法比較"
+      {
+        "key": "A",
+        "text": "半圓形的周長",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "一樣長",
+        "trapCode": "U06_ARC_AS_PERIMETER"
+      },
+      {
+        "key": "C",
+        "text": "圓周長的一半",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "D",
+        "text": "無法比較",
+        "trapCode": "U06_FORGET_TWO_RADII"
+      }
     ],
-    "answer": "B",
-    "answerKey": "B",
-    "steps": [
-      "圓周長的一半只有一段弧。",
-      "半圓形周長 ＝ 弧 ＋ 直徑，多了一條直徑。"
-    ],
-    "insight": "圖形周長要繞「一整圈」，別忘了直線邊。",
-    "trap": {
-      "code": "ERR_U06_M04",
-      "text": "以為兩個說法一樣。"
+    "answer": "A",
+    "skipOptionNumMatch": true,
+    "check": {
+      "expr": "1",
+      "expect": "1"
     },
-    "work": "sm"
+    "explanation": {
+      "examPurpose": "測驗學生是否能區分「半圓弧長（圓周長的一半）」與「半圓形周長（弧長 ＋ 直徑）」的關鍵差異。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><path d=\"M 40,100 A 55,55 0 0,1 150,100\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"4\"/><line x1=\"40\" y1=\"100\" x2=\"150\" y2=\"100\" stroke=\"#cbd5e1\" stroke-width=\"1.5\" stroke-dasharray=\"4,4\"/><text x=\"95\" y=\"28\" font-size=\"14\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"middle\">圓周長的一半</text><text x=\"95\" y=\"128\" font-size=\"13\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">只有紅色圓弧</text><path d=\"M 240,100 A 55,55 0 0,1 350,100 Z\" fill=\"#eff6ff\" stroke=\"none\"/><path d=\"M 240,100 A 55,55 0 0,1 350,100\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"4\"/><line x1=\"240\" y1=\"100\" x2=\"350\" y2=\"100\" stroke=\"#2563eb\" stroke-width=\"4\"/><text x=\"295\" y=\"28\" font-size=\"14\" font-weight=\"700\" fill=\"#1e3a8a\" text-anchor=\"middle\">半圓形的周長</text><text x=\"295\" y=\"128\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">弧長 ＋ 多了這條直徑</text><text x=\"410\" y=\"82\" font-size=\"14\" font-weight=\"800\" fill=\"#b91c1c\" text-anchor=\"middle\">半圓形</text><text x=\"410\" y=\"102\" font-size=\"14\" font-weight=\"800\" fill=\"#b91c1c\" text-anchor=\"middle\">比較長！</text></svg>",
+          "caption": "左圖「圓周長的一半」只有紅色弧線；右圖「半圓形的周長」必須繞一整圈，多了一條藍色直徑。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：「圓周長的一半」只包含上方那一段彎曲的半圓弧長。"
+        },
+        {
+          "type": "eq",
+          "expr": "半圓形的周長 ＝ 半圓弧長 ＋ 直徑",
+          "unit": ""
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：半圓形周長因為封閉成一個圖形，多了一條直徑的直線邊，所以一定比較長。"
+        },
+        {
+          "type": "answer",
+          "text": "答：半圓形的周長"
+        }
+      ],
+      "insight": "凡是問「圖形的周長」，就一定要從起點沿外圍繞「一整圈」回到起點，千萬別漏掉切開後的直線邊（直徑或兩條半徑）。",
+      "distractorAnalysis": {
+        "C": "把概念記反，誤以為圓周長的一半反而比較長。",
+        "D": "不知道半圓就是直徑加上半圓弧，誤以為沒給數字就不能比較。",
+        "B": "望文生義，誤以為「半圓形的周長」就是「圓周長的一半」，忘了加直徑。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "半圓形的周長 ＝ 直徑 × 3.14 ÷ 2 ＋ 直徑"
+      ],
+      "conceptCompare": "「弧長」是曲線的長度，「周長」是封閉圖形外圍一圈的總長度；半圓是圓心角 180° 的特殊扇形，周長同樣要加上 2 條半徑（即 1 條直徑）。",
+      "examVariations": "段考是非題與計算題最愛考「把圓形紙對摺成半圓後，周長是不是變成原來的一半？」，答案是否，會比一半多出一條直徑。"
+    }
   },
   {
-    "id": "u06_m05",
+    "id": "U06-S3-M-045",
+    "legacyId": "u06_m05",
     "unitId": "U06",
-    "category": "純腦力體操",
-    "topic": "扇形弧長占比",
-    "level": 3,
-    "stars": 3,
-    "difficulty": 3,
+    "section": "6-3",
+    "sectionName": "扇形弧長與周長",
+    "category": "扇形弧長占比",
     "batch": "純腦力體操",
     "source": "早餐免動筆思維天梯 3★",
-    "verified": true,
-    "question": "圓心角 90° 的扇形，弧長是整個圓周長的幾分之幾？",
-    "options": [
-      "$\\frac{1}{2}$",
-      "$\\frac{1}{3}$",
-      "$\\frac{1}{90}$",
-      "$\\frac{1}{4}$"
-    ],
-    "answer": "D",
-    "answerKey": "D",
-    "steps": [
-      "$90° \\div 360° = \\frac{1}{4}$。"
-    ],
-    "insight": "弧長占比 ＝ 圓心角 ÷ 360°。",
-    "trap": {
-      "code": "ERR_U06_M05",
-      "text": "用 90 當分母。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u06_m06",
-    "unitId": "U06",
-    "category": "純腦力體操",
-    "topic": "周長反推",
     "level": 3,
-    "stars": 3,
-    "difficulty": 3,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 3★",
-    "verified": true,
-    "question": "一個圓的周長是 31.4 公分（圓周率用 3.14），直徑是多少？",
-    "options": [
-      "5 公分",
-      "10 公分",
-      "15.7 公分",
-      "3.14 公分"
-    ],
-    "answer": "B",
-    "answerKey": "B",
-    "steps": [
-      "$31.4 = 3.14 \\times 10$，一眼看出直徑 10。"
-    ],
-    "insight": "熟記：直徑 10 → 周長 31.4；直徑 20 → 62.8。",
-    "trap": {
-      "code": "ERR_U06_M06",
-      "text": "算成半徑 5。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u06_m07",
-    "unitId": "U06",
-    "category": "純腦力體操",
-    "topic": "地球繩子",
-    "level": 4,
-    "stars": 4,
-    "difficulty": 4,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 4★",
-    "verified": true,
-    "question": "一條繩子剛好繞地球赤道一圈。把繩子加長 6.28 公尺，均勻撐起離地，繩子離地大約多高？",
-    "options": [
-      "不到 1 公分",
-      "約 1 公尺",
-      "約 100 公尺",
-      "地球太大，無法計算"
-    ],
-    "answer": "B",
-    "answerKey": "B",
-    "steps": [
-      "周長多 6.28 → 直徑多 $6.28 \\div 3.14 = 2$ 公尺。",
-      "半徑多 1 公尺 → 離地約 1 公尺。"
-    ],
-    "insight": "周長增加量只和半徑增加量有關，跟原本的圓多大無關！",
-    "trap": {
-      "code": "ERR_U06_M07",
-      "text": "直覺以為地球那麼大，加 6 公尺根本看不出來。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u06_m08",
-    "unitId": "U06",
-    "category": "純腦力體操",
-    "topic": "分針路程",
-    "level": 4,
-    "stars": 4,
-    "difficulty": 4,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 4★",
-    "verified": true,
-    "question": "分針長 10 公分，1 小時分針尖端走了多遠？（圓周率 3.14）",
-    "options": [
-      "31.4 公分",
-      "62.8 公分",
-      "10 公分",
-      "314 公分"
-    ],
-    "answer": "B",
-    "answerKey": "B",
-    "steps": [
-      "1 小時分針轉一整圈，半徑 10 → 直徑 20。",
-      "$20 \\times 3.14 = 62.8$。"
-    ],
-    "insight": "針長 ＝ 半徑，不是直徑。",
-    "trap": {
-      "code": "ERR_U06_M08",
-      "text": "把 10 當直徑算成 31.4。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u06_m09",
-    "unitId": "U06",
-    "category": "純腦力體操",
-    "topic": "半圓弧切割",
-    "level": 5,
-    "stars": 5,
-    "difficulty": 5,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 5★",
-    "verified": true,
-    "question": "直徑 AB 上的大半圓弧，和把 AB 任意分成兩段、各以兩段為直徑畫的兩個小半圓弧，總長相比？",
-    "options": [
-      "大半圓弧比較長",
-      "兩個小半圓弧比較長",
-      "一樣長",
-      "要看分割點在哪"
-    ],
-    "answer": "C",
-    "answerKey": "C",
-    "steps": [
-      "半圓弧長 ＝ 直徑 × 圓周率 ÷ 2，和直徑成正比。",
-      "兩段小直徑加起來 ＝ AB。",
-      "所以兩小弧總長 ＝ 大弧長，和分割點無關。"
-    ],
-    "insight": "正比關係可以「拆開再加回」→ 總和不變。",
-    "trap": {
-      "code": "ERR_U06_M09",
-      "text": "看圖覺得彎彎曲曲比較長。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u06_m10",
-    "unitId": "U06",
-    "category": "純腦力體操",
-    "topic": "扇形周長陷阱",
-    "level": 5,
-    "stars": 5,
-    "difficulty": 5,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 5★",
-    "verified": true,
-    "question": "半徑 10 公分的半圓形，周長是多少？（圓周率 3.14）",
-    "options": [
-      "31.4 公分",
-      "41.4 公分",
-      "62.8 公分",
-      "51.4 公分"
-    ],
-    "answer": "D",
-    "answerKey": "D",
-    "steps": [
-      "弧長 ＝ $20 \\times 3.14 \\div 2 = 31.4$。",
-      "再加直徑 20 → 51.4。"
-    ],
-    "insight": "扇形周長 ＝ 弧長 ＋ 2 條半徑。",
-    "trap": {
-      "code": "ERR_U06_M10",
-      "text": "只算弧長 31.4。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u06_m11",
-    "unitId": "U06",
-    "category": "純腦力體操",
-    "topic": "弧長等於半徑",
-    "level": 6,
-    "stars": 6,
-    "difficulty": 6,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 6★",
-    "verified": true,
-    "question": "扇形的弧長剛好等於半徑時，圓心角大約是幾度？",
-    "options": [
-      "約 30°",
-      "約 57°",
-      "約 90°",
-      "剛好 60°"
-    ],
-    "answer": "B",
-    "answerKey": "B",
-    "steps": [
-      "整圈弧長 ＝ 2 × 3.14 × 半徑 ≈ 6.28 個半徑。",
-      "1 個半徑長的弧 → $360° \\div 6.28 \\approx 57°$。"
-    ],
-    "insight": "比 60° 小一點：因為圓周率比 3 大一點。",
-    "trap": {
-      "code": "ERR_U06_M11",
-      "text": "以為正三角形 60° 的弧長等於半徑（那是弦長）。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u06_m12",
-    "unitId": "U06",
-    "category": "純腦力體操",
-    "topic": "方與圓",
-    "level": 6,
-    "stars": 6,
-    "difficulty": 6,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 6★",
-    "verified": true,
-    "question": "正方形的邊長等於圓的直徑，正方形周長和圓周長相比？",
-    "options": [
-      "正方形比較長",
-      "圓比較長",
-      "一樣長",
-      "無法比較"
-    ],
-    "answer": "A",
-    "answerKey": "A",
-    "steps": [
-      "正方形周長 ＝ 4 個直徑。",
-      "圓周長 ≈ 3.14 個直徑。"
-    ],
-    "insight": "圓被正方形包在裡面，周長一定比較短。",
-    "trap": {
-      "code": "ERR_U06_M12",
-      "text": "以為圓「看起來」比較大。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u06_m13",
-    "unitId": "U06",
-    "category": "純腦力體操",
-    "topic": "跑道內外道",
-    "level": 7,
-    "stars": 7,
-    "difficulty": 7,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 7★",
-    "verified": true,
-    "question": "操場跑道兩端是半圓。外圈跑道的半徑比內圈多 1 公尺，跑一圈外圈比內圈多跑多少？",
-    "options": [
-      "2 公尺",
-      "3.14 公尺",
-      "6.28 公尺",
-      "依跑道長短而定"
-    ],
-    "answer": "C",
-    "answerKey": "C",
-    "steps": [
-      "直線部分內外一樣長。",
-      "兩個半圓 ＝ 一個整圓，半徑多 1 → 直徑多 2。",
-      "多 $2 \\times 3.14 = 6.28$ 公尺。"
-    ],
-    "insight": "跟地球繩子同一原理：只看半徑差。",
-    "trap": {
-      "code": "ERR_U06_M13",
-      "text": "以為跑道越長差越多。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u06_m14",
-    "unitId": "U06",
-    "category": "純腦力體操",
-    "topic": "兩圓綑綁",
-    "level": 7,
-    "stars": 7,
-    "difficulty": 7,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 7★",
-    "verified": true,
-    "question": "兩個半徑 5 公分的圓並排相切，用繩子緊緊綑一圈，繩長是多少？（圓周率 3.14）",
-    "options": [
-      "51.4 公分",
-      "62.8 公分",
-      "31.4 公分",
-      "41.4 公分"
-    ],
-    "answer": "A",
-    "answerKey": "A",
-    "steps": [
-      "兩條直線段，各等於兩圓心距離 10 → 20。",
-      "兩端各半圓 → 合起來一整圓 31.4。",
-      "$20 + 31.4 = 51.4$。"
-    ],
-    "insight": "綑綁繩長 ＝ 直線段 ＋ 一整個圓周。",
-    "trap": {
-      "code": "ERR_U06_M14",
-      "text": "把兩個圓周全部加起來 62.8。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u06_m15",
-    "unitId": "U06",
-    "category": "純腦力體操",
-    "topic": "三圓綑綁",
-    "level": 8,
-    "stars": 8,
-    "difficulty": 8,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 8★",
-    "verified": true,
-    "question": "三個半徑 5 公分的圓兩兩相切（排成三角形），用繩子緊綑一圈，繩長是多少？",
-    "options": [
-      "31.4 公分",
-      "51.4 公分",
-      "61.4 公分",
-      "94.2 公分"
-    ],
-    "answer": "C",
-    "answerKey": "C",
-    "steps": [
-      "3 條直線段，各 10 → 30。",
-      "3 個轉角弧，轉角加起來剛好轉一圈 → 一整圓 31.4。",
-      "$30 + 31.4 = 61.4$。"
-    ],
-    "insight": "不管幾個圓，轉角弧加總永遠 ＝ 一個圓周。",
-    "trap": {
-      "code": "ERR_U06_M15",
-      "text": "以為三段弧各是半圓。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u06_m16",
-    "unitId": "U06",
-    "category": "純腦力體操",
-    "topic": "四圓綑綁",
-    "level": 8,
-    "stars": 8,
-    "difficulty": 8,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 8★",
-    "verified": true,
-    "question": "四個半徑 5 公分的圓排成 2 × 2 正方形，用繩子緊綑一圈，繩長是多少？",
-    "options": [
-      "62.8 公分",
-      "71.4 公分",
-      "81.4 公分",
-      "40 公分"
-    ],
-    "answer": "B",
-    "answerKey": "B",
-    "steps": [
-      "4 條直線段，各 10 → 40。",
-      "4 個轉角各 $\\frac{1}{4}$ 圓 → 一整圓 31.4。",
-      "$40 + 31.4 = 71.4$。"
-    ],
-    "insight": "繞一圈回到原方向 ＝ 總共轉 360° ＝ 一個圓周。",
-    "trap": {
-      "code": "ERR_U06_M16",
-      "text": "只算直線 40。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u06_m17",
-    "unitId": "U06",
-    "category": "純腦力體操",
-    "topic": "硬幣滾動",
-    "level": 9,
-    "stars": 9,
-    "difficulty": 9,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 9★",
-    "verified": true,
-    "question": "一枚硬幣沿著另一枚「同樣大小」的固定硬幣外緣滾一圈回到原處，滾動的硬幣自己轉了幾圈？",
-    "options": [
-      "1 圈",
-      "2 圈",
-      "3 圈",
-      "4 圈"
-    ],
-    "answer": "B",
-    "answerKey": "B",
-    "steps": [
-      "滾動硬幣的中心走的圓，半徑是 2 個硬幣半徑 → 路程是自身周長的 2 倍。",
-      "中心路程 ÷ 自身周長 ＝ 2 圈。"
-    ],
-    "insight": "AMC 經典：自轉圈數 ＝ 中心走的路 ÷ 自己的周長。",
-    "trap": {
-      "code": "ERR_U06_M17",
-      "text": "只看接觸邊長相等而選 1。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u06_m18",
-    "unitId": "U06",
-    "category": "純腦力體操",
-    "topic": "時針分針路程",
-    "level": 9,
-    "stars": 9,
-    "difficulty": 9,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 9★",
-    "verified": true,
-    "question": "時針長 6 公分、分針長 10 公分。12 小時內，時針尖和分針尖走的路程比是？",
-    "options": [
-      "$1 : 12$",
-      "$3 : 5$",
-      "$1 : 20$",
-      "$5 : 3$"
-    ],
-    "answer": "C",
-    "answerKey": "C",
-    "steps": [
-      "12 小時：時針轉 1 圈，分針轉 12 圈。",
-      "路程 ∝ 半徑 × 圈數：$6 \\times 1 : 10 \\times 12 = 6 : 120 = 1 : 20$。"
-    ],
-    "insight": "路程 ＝ 半徑比 × 圈數比，兩個比要相乘。",
-    "trap": {
-      "code": "ERR_U06_M18",
-      "text": "只考慮圈數或只考慮長度。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u06_m19",
-    "unitId": "U06",
-    "category": "純腦力體操",
-    "topic": "圓周率大於 3",
-    "level": 10,
-    "stars": 10,
-    "difficulty": 10,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 10★",
-    "verified": true,
-    "question": "為什麼可以確定圓周率一定比 3 大？",
-    "options": [
-      "圓內畫正六邊形，周長 ＝ 3 個直徑，而圓周比它長",
-      "因為 3.14 比 3 大",
-      "量了很多圓都是這樣",
-      "因為圓周長總是直徑的 3 倍多一點點，所以剛好是 3"
-    ],
-    "answer": "A",
-    "answerKey": "A",
-    "steps": [
-      "圓內接正六邊形由 6 個正三角形組成，每邊 ＝ 半徑。",
-      "六邊形周長 ＝ 6 個半徑 ＝ 3 個直徑。",
-      "兩點之間直線最短 → 圓周比六邊形周長長 → 圓周率 ＞ 3。"
-    ],
-    "insight": "阿基米德的想法：用多邊形把圓「夾」起來。",
-    "trap": {
-      "code": "ERR_U06_M19",
-      "text": "用結論（3.14）證明結論。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u06_m20",
-    "unitId": "U06",
-    "category": "純腦力體操",
-    "topic": "大小硬幣滾動",
-    "level": 10,
-    "stars": 10,
-    "difficulty": 10,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 10★",
-    "verified": true,
-    "question": "一枚硬幣沿著半徑是它「2 倍」的固定硬幣外緣滾一圈，滾動的硬幣自己轉了幾圈？",
-    "options": [
-      "1 圈",
-      "2 圈",
-      "4 圈",
-      "3 圈"
-    ],
-    "answer": "D",
-    "answerKey": "D",
-    "steps": [
-      "小硬幣半徑 $r$，大硬幣 $2r$ → 中心走的圓半徑 $3r$。",
-      "中心路程是自身周長的 3 倍 → 3 圈。"
-    ],
-    "insight": "外滾公式：自轉圈數 ＝ 大半徑 ÷ 小半徑 ＋ 1。",
-    "trap": {
-      "code": "ERR_U06_M20",
-      "text": "只算 2 倍周長選 2 圈。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u07_001",
-    "unitId": "U07",
-    "category": "放大圖性質",
-    "level": 1,
     "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "圓心角 90° 的扇形，它的弧長是整個圓周長的幾分之幾？",
+    "options": [
+      {
+        "key": "A",
+        "text": "1/2",
+        "trapCode": "U06_CALC_SLIP"
+      },
+      {
+        "key": "B",
+        "text": "1/3",
+        "trapCode": "U06_ARC_AS_PERIMETER"
+      },
+      {
+        "key": "C",
+        "text": "1/90",
+        "trapCode": "U06_ANGLE_FRACTION_WRONG"
+      },
+      {
+        "key": "D",
+        "text": "1/4",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "90 / 360",
+      "expect": "1/4"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否理解扇形圓心角佔周角 360° 的比例，即等於該扇形弧長佔整圓周長的比例。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><circle cx=\"115\" cy=\"75\" r=\"52\" fill=\"#f8fafc\" stroke=\"#94a3b8\" stroke-width=\"2\" stroke-dasharray=\"5,4\"/><path d=\"M 115,75 L 115,23 A 52,52 0 0,1 167,75 Z\" fill=\"#dbeafe\" stroke=\"none\"/><line x1=\"115\" y1=\"75\" x2=\"115\" y2=\"23\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><line x1=\"115\" y1=\"75\" x2=\"167\" y2=\"75\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><path d=\"M 115,23 A 52,52 0 0,1 167,75\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"4\"/><polyline points=\"115,63 127,63 127,75\" fill=\"none\" stroke=\"#1d4ed8\" stroke-width=\"2\"/><text x=\"136\" y=\"58\" font-size=\"13\" font-weight=\"700\" fill=\"#1d4ed8\">90°</text><text x=\"315\" y=\"52\" font-size=\"14\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">整圓一圈 ＝ 360°</text><text x=\"315\" y=\"82\" font-size=\"14\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">90° ÷ 360° ＝ 1/4 圓</text><text x=\"315\" y=\"112\" font-size=\"13\" fill=\"#475569\" text-anchor=\"middle\">弧長剛好佔整圓周長的 1/4</text></svg>",
+          "caption": "90° 直角剛好是周角 360° 的 4 等份之一，紅色弧長佔整圓周長的 1/4。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：整個圓繞一圈的圓心角（周角）是 360°。"
+        },
+        {
+          "type": "eq",
+          "expr": "90 ÷ 360 ＝ 90/360 ＝ 1/4",
+          "unit": ""
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：圓心角佔整圈的 1/4，所以弧長也是整個圓周長的 1/4。"
+        },
+        {
+          "type": "answer",
+          "text": "答：1/4"
+        }
+      ],
+      "insight": "扇形弧長佔圓周長的幾分之幾，只要算「圓心角 ÷ 360°」再約分就可以了。",
+      "distractorAnalysis": {
+        "A": "對角度沒有換算周角 360°，誤猜成 1/2。",
+        "B": "把 360° 除以 90° 的商誤記成 3，寫成 1/3。",
+        "C": "直接把圓心角 90 當成分母寫成 1/90，忘記扇形比例的分母是周角 360°。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "扇形佔整圓比例 ＝ 圓心角 ÷ 360°",
+        "常見比例：180° ＝ 1/2 圓、120° ＝ 1/3 圓、90° ＝ 1/4 圓、60° ＝ 1/6 圓、45° ＝ 1/8 圓"
+      ],
+      "conceptCompare": "圓心角 90° 的扇形，「弧長」是圓周長的 1/4，「面積」也是圓面積的 1/4；但整個「扇形周長」因為多了兩條半徑，並不是圓周長的 1/4。",
+      "examVariations": "段考常反過來問「1/6 圓扇形的圓心角是幾度？」，用 360° × 1/6 ＝ 60° 即可。"
+    }
+  },
+  {
+    "id": "U06-S2-M-046",
+    "legacyId": "u06_m06",
+    "unitId": "U06",
+    "section": "6-2",
+    "sectionName": "圓周長計算與應用",
+    "category": "周長反推",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 3★",
+    "level": 3,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "一個圓的周長是 31.4 公分（圓周率用 3.14），它的直徑是多少公分？",
+    "options": [
+      {
+        "key": "A",
+        "text": "5 公分",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "B",
+        "text": "10 公分",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "100 公分",
+        "trapCode": "U06_DECIMAL_SHIFT_ERR"
+      },
+      {
+        "key": "D",
+        "text": "3.14 公分",
+        "trapCode": "U06_CALC_SLIP"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "31.4 / 3.14",
+      "expect": "10"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生由圓周長反推直徑的能力，並培養對 3.14 乘以 10 的數感以達成快速心算。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：利用「直徑 ＝ 圓周長 ÷ 圓周率」列式。"
+        },
+        {
+          "type": "eq",
+          "expr": "31.4 ÷ 3.14 ＝ 10",
+          "unit": "公分"
+        },
+        {
+          "type": "longdiv",
+          "dividend": "31.4",
+          "divisor": "3.14",
+          "note": "被除數與除數同乘以 100（小數點各右移 2 位），變成 3140 ÷ 314 ＝ 10"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：3.14 的小數點向右移 1 位就是 31.4，所以直徑剛好是 10 公分。"
+        },
+        {
+          "type": "answer",
+          "text": "答：10 公分"
+        }
+      ],
+      "insight": "熟記 3.14 常見倍數能一秒心算：直徑 10 ➔ 周長 31.4；直徑 20 ➔ 周長 62.8；直徑 5 ➔ 周長 15.7。",
+      "distractorAnalysis": {
+        "A": "算出直徑 10 公分後，又除以 2 算成半徑 5 公分，答非所問。",
+        "C": "小數除法移動小數點時少補或錯位，把 10 倍誤算成 100 公分。",
+        "D": "直接把圓周率 3.14 當成直徑答案。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "直徑 ＝ 圓周長 ÷ 3.14",
+        "半徑 ＝ 圓周長 ÷ 3.14 ÷ 2"
+      ],
+      "conceptCompare": "題目若問「直徑」，除一次 3.14 就結束；若問「半徑」，除完 3.14 後一定要記得再除以 2。",
+      "examVariations": "段考常考周長為 62.8、94.2 或 15.7 公分，反推直徑分別是 20、30 與 5 公分。"
+    }
+  },
+  {
+    "id": "U06-S2-M-047",
+    "legacyId": "u06_m07",
+    "unitId": "U06",
+    "section": "6-2",
+    "sectionName": "圓周長計算與應用",
+    "category": "地球繩子",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 4★",
+    "level": 4,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "一條繩子剛好緊緊繞地球赤道一圈。把繩子加長 6.28 公尺後，均勻撐起離地，繩子離地大約多高？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "不到 1 公分",
+        "trapCode": "U06_DECIMAL_SHIFT_ERR"
+      },
+      {
+        "key": "B",
+        "text": "約 1 公尺",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "地球太大，無法計算",
+        "trapCode": "U06_PI_CONSTANT_MYTH"
+      },
+      {
+        "key": "D",
+        "text": "約 2 公尺",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "6.28 / (2 * 3.14)",
+      "expect": "1"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否理解「周長增加量與半徑增加量成正比」，且該差值與原本圓有多大完全無關。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><circle cx=\"105\" cy=\"75\" r=\"36\" fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><circle cx=\"105\" cy=\"75\" r=\"56\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"3\" stroke-dasharray=\"6,4\"/><line x1=\"105\" y1=\"75\" x2=\"141\" y2=\"75\" stroke=\"#2563eb\" stroke-width=\"2\"/><line x1=\"141\" y1=\"75\" x2=\"161\" y2=\"75\" stroke=\"#dc2626\" stroke-width=\"3\"/><text x=\"105\" y=\"79\" font-size=\"12\" font-weight=\"700\" fill=\"#1e3a8a\" text-anchor=\"middle\">地球</text><text x=\"151\" y=\"67\" font-size=\"11\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">離地</text><text x=\"315\" y=\"42\" font-size=\"14\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">周長多 6.28 公尺</text><text x=\"315\" y=\"70\" font-size=\"14\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">直徑多：6.28 ÷ 3.14 ＝ 2 公尺</text><text x=\"315\" y=\"98\" font-size=\"14\" font-weight=\"800\" fill=\"#1d4ed8\" text-anchor=\"middle\">半徑多：2 ÷ 2 ＝ 1 公尺</text><text x=\"315\" y=\"124\" font-size=\"12\" fill=\"#475569\" text-anchor=\"middle\">跟原本圓多大完全無關！</text></svg>",
+          "caption": "不管內圈是地球還是籃球，只要外圈周長多 6.28 公尺，半徑差（離地高度）固定多 1 公尺。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：因為圓周長 ＝ 直徑 × 3.14，周長多出 6.28 公尺，代表直徑多出幾公尺。"
+        },
+        {
+          "type": "longdiv",
+          "dividend": "6.28",
+          "divisor": "3.14",
+          "note": "同乘 100 變成 628 ÷ 314 ＝ 2（直徑多出 2 公尺）"
+        },
+        {
+          "type": "eq",
+          "expr": "6.28 ÷ 3.14 ÷ 2 ＝ 1",
+          "unit": "公尺"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：直徑多 2 公尺，半徑就多 2 ÷ 2 ＝ 1 公尺，這就是繩子均勻撐起後離地的高度。"
+        },
+        {
+          "type": "answer",
+          "text": "答：約 1 公尺"
+        }
+      ],
+      "insight": "圓周長增加量只決定半徑增加量，和原本的圓有多大完全無關！給籃球套繩加長 6.28 公尺，離地也一樣是 1 公尺。",
+      "distractorAnalysis": {
+        "A": "被「地球很大」的直覺誤導，以為 6.28 公尺攤到整個地球上會小到看不見。",
+        "C": "以為沒有給地球赤道原長或半徑就無法算出離地高度。",
+        "D": "算出直徑多 2 公尺後直接當答案，忘記四面均勻撐起的高度是「半徑」的增加量（要除以 2）。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "半徑增加量 ＝ 周長增加量 ÷ 3.14 ÷ 2"
+      ],
+      "conceptCompare": "這個經典模型和「操場跑道內外圈差」原理完全相同：外圈半徑比內圈多 1 公尺，外圈周長就比內圈多 6.28 公尺。",
+      "examVariations": "段考可能改問「把套住籃球的繩子加長 3.14 公尺，離球面多高？」，答案是 3.14 ÷ 3.14 ÷ 2 ＝ 0.5 公尺（50 公分）。"
+    }
+  },
+  {
+    "id": "U06-S3-M-048",
+    "legacyId": "u06_m08",
+    "unitId": "U06",
+    "section": "6-3",
+    "sectionName": "扇形弧長與周長",
+    "category": "分針路程",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 4★",
+    "level": 4,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "時鐘的分針長 10 公分，1 小時分針尖端走了多遠？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "62.8 公分",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "31.4 公分",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "C",
+        "text": "10 公分",
+        "trapCode": "U06_ANGLE_FRACTION_WRONG"
+      },
+      {
+        "key": "D",
+        "text": "6.28 公分",
+        "trapCode": "U06_DECIMAL_SHIFT_ERR"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "10 * 2 * 3.14",
+      "expect": "62.8"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否知道鐘面指針的長度相當於圓的「半徑」，且分針 1 小時剛好轉完 1 整圈。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><circle cx=\"105\" cy=\"75\" r=\"52\" fill=\"#fff7ed\" stroke=\"#dc2626\" stroke-width=\"3\"/><circle cx=\"105\" cy=\"75\" r=\"3.5\" fill=\"#1e293b\"/><line x1=\"105\" y1=\"75\" x2=\"105\" y2=\"23\" stroke=\"#2563eb\" stroke-width=\"4\" stroke-linecap=\"round\"/><text x=\"122\" y=\"52\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\">分針 10 公分</text><text x=\"122\" y=\"66\" font-size=\"11\" font-weight=\"700\" fill=\"#2563eb\">（就是半徑）</text><text x=\"315\" y=\"48\" font-size=\"14\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">1 小時分針轉一整圈（360°）</text><text x=\"315\" y=\"78\" font-size=\"14\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">直徑 ＝ 10 × 2 ＝ 20 公分</text><text x=\"315\" y=\"108\" font-size=\"14\" font-weight=\"800\" fill=\"#dc2626\" text-anchor=\"middle\">路程 ＝ 20 × 3.14 ＝ 62.8 公分</text></svg>",
+          "caption": "分針固定在鐘面中心旋轉，針長 10 公分就是圓的半徑，1 小時轉完一圈圓周。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：1 小時分針剛好繞鐘面一整圈，而針長 10 公分是半徑，所以要先乘以 2 算出直徑。"
+        },
+        {
+          "type": "eq",
+          "expr": "10 × 2 × 3.14 ＝ 62.8",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：62.8 公分"
+        }
+      ],
+      "insight": "指針長度 ＝ 圓的半徑（不是直徑！），而且分針 1 小時走 1 圈、30 分鐘走半圈、15 分鐘走 1/4 圈。",
+      "distractorAnalysis": {
+        "C": "以為針長 10 公分就是走過的距離，沒有算出圓周長。",
+        "D": "算式少乘了一個 10（或小數點左移一位），誤得 6.28 公分。",
+        "B": "誤把分針長 10 公分當作「直徑」，直接算成 10 × 3.14 ＝ 31.4 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "分針尖端路程 ＝ 指針長 × 2 × 3.14 × (經過分鐘數 ÷ 60)"
+      ],
+      "conceptCompare": "分針走 1 小時是 1 圈（360°）；時針走 1 小時只是從一個數字走到下一個數字，佔 1/12 圈（30°）。",
+      "examVariations": "段考常改成「分針長 10 公分，從 2 點走到 2 點 15 分，針尖走了幾公分？」，因為走了 1/4 圈，所以 62.8 × 1/4 ＝ 15.7 公分。"
+    }
+  },
+  {
+    "id": "U06-S4-M-049",
+    "legacyId": "u06_m09",
+    "unitId": "U06",
+    "section": "6-4",
+    "sectionName": "複合圖形周長",
+    "category": "半圓弧切割",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 5★",
+    "level": 5,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "以線段甲乙為直徑畫一個大半圓弧，再把線段甲乙任意分成兩段，各以這兩段為直徑畫出兩個小半圓弧。大半圓弧的長度和兩個小半圓弧的總長相比，哪一個比較長？",
+    "options": [
+      {
+        "key": "A",
+        "text": "大半圓弧比較長",
+        "trapCode": "U06_PI_CONSTANT_MYTH"
+      },
+      {
+        "key": "B",
+        "text": "兩個小半圓弧比較長",
+        "trapCode": "U06_COMPOSITE_BOUNDARY_ERR"
+      },
+      {
+        "key": "C",
+        "text": "一樣長",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "要看分割點在哪裡",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      }
+    ],
+    "answer": "C",
+    "skipOptionNumMatch": true,
+    "check": {
+      "expr": "1",
+      "expect": "1"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否理解半圓弧長與直徑成正比，利用乘法分配律看出「分段直徑和 ＝ 總直徑」時弧長總和不變。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><line x1=\"35\" y1=\"115\" x2=\"215\" y2=\"115\" stroke=\"#64748b\" stroke-width=\"2\"/><path d=\"M 35,115 A 90,90 0 0,1 215,115\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"3.5\"/><path d=\"M 35,115 A 60,60 0 0,1 155,115\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"3.5\"/><path d=\"M 155,115 A 30,30 0 0,1 215,115\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"3.5\"/><circle cx=\"35\" cy=\"115\" r=\"3.5\" fill=\"#0f172a\"/><circle cx=\"155\" cy=\"115\" r=\"3.5\" fill=\"#2563eb\"/><circle cx=\"215\" cy=\"115\" r=\"3.5\" fill=\"#0f172a\"/><text x=\"35\" y=\"135\" font-size=\"13\" font-weight=\"700\" fill=\"#0f172a\" text-anchor=\"middle\">甲</text><text x=\"155\" y=\"135\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">分割點</text><text x=\"215\" y=\"135\" font-size=\"13\" font-weight=\"700\" fill=\"#0f172a\" text-anchor=\"middle\">乙</text><text x=\"125\" y=\"18\" font-size=\"12\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">大半圓弧</text><text x=\"95\" y=\"75\" font-size=\"11\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">左小弧</text><text x=\"185\" y=\"96\" font-size=\"11\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">右小弧</text><text x=\"345\" y=\"52\" font-size=\"14\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">左小直徑 ＋ 右小直徑 ＝ 甲乙</text><text x=\"345\" y=\"82\" font-size=\"14\" font-weight=\"800\" fill=\"#dc2626\" text-anchor=\"middle\">紅弧長 ＝ 兩條藍弧總長</text><text x=\"345\" y=\"110\" font-size=\"12\" fill=\"#475569\" text-anchor=\"middle\">跟分割點在哪裡無關！</text></svg>",
+          "caption": "兩條藍色小半圓的直徑合起來剛好等於線段甲乙，所以兩段藍弧加起來和上方紅弧一樣長。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：半圓弧長 ＝ 直徑 × 3.14 ÷ 2，弧長與直徑成正比。"
+        },
+        {
+          "type": "eq",
+          "expr": "(左直徑 ＋ 右直徑) × 3.14 ÷ 2 ＝ 大直徑 × 3.14 ÷ 2",
+          "unit": ""
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：不管分割點在哪裡，兩段小直徑加起來永遠等於線段甲乙的總長，所以兩條小半圓弧合起來剛好等於大半圓弧。"
+        },
+        {
+          "type": "answer",
+          "text": "答：一樣長"
+        }
+      ],
+      "insight": "只要幾個半圓的直徑緊緊排成同一條直線，它們的半圓弧長總和就等於「以總長度為直徑」的大半圓弧長。",
+      "distractorAnalysis": {
+        "A": "看圖覺得大圓弧彎得比較高、跨度大，直覺誤選大半圓弧較長。",
+        "B": "覺得兩段小弧彎來彎去有兩次轉彎，直覺誤以為波浪形比較長。",
+        "D": "不知道乘法對加法的分配律會把分割點位置抵銷掉，誤以為不同切法總長會變。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "共線半圓弧總長 ＝ 總直徑 × 3.14 ÷ 2（不管切幾段都一樣）"
+      ],
+      "conceptCompare": "注意這題比的是「弧長」，兩者一樣長；若題目改問兩條小半圓與大半圓夾出的「彎月形面積」，因為大圓面積遠大於兩小圓面積和，面積就不相等。",
+      "examVariations": "常見進階題：螞蟻甲走上面一條大半圓弧，螞蟻乙走下面三個大小不一的小半圓弧，同時出發誰先到乙點？答案是同時到達（路程相等）。"
+    }
+  },
+  {
+    "id": "U06-S3-M-050",
+    "legacyId": "u06_m10",
+    "unitId": "U06",
+    "section": "6-3",
+    "sectionName": "扇形弧長與周長",
+    "category": "扇形周長陷阱",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 5★",
+    "level": 5,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "半徑 10 公分的半圓形，它的周長是多少公分？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "31.4 公分",
+        "trapCode": "U06_ARC_AS_PERIMETER"
+      },
+      {
+        "key": "B",
+        "text": "41.4 公分",
+        "trapCode": "U06_FORGET_TWO_RADII"
+      },
+      {
+        "key": "C",
+        "text": "51.4 公分",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "62.8 公分",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "(10 * 2 * 3.14) / 2 + 10 * 2",
+      "expect": "51.4"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生計算半圓周長時，能否同時避開「忘記加上底邊直徑」與「只加了一條半徑」兩大陷阱。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><path d=\"M 45,105 A 65,65 0 0,1 175,105 Z\" fill=\"#eff6ff\" stroke=\"none\"/><path d=\"M 45,105 A 65,65 0 0,1 175,105\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"4\"/><line x1=\"45\" y1=\"105\" x2=\"175\" y2=\"105\" stroke=\"#2563eb\" stroke-width=\"4\"/><circle cx=\"110\" cy=\"105\" r=\"4\" fill=\"#1e3a8a\"/><text x=\"110\" y=\"30\" font-size=\"13\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">半圓弧 31.4 公分</text><text x=\"78\" y=\"126\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">半徑 10</text><text x=\"142\" y=\"126\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">半徑 10</text><text x=\"325\" y=\"48\" font-size=\"14\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">弧長 ＝ 20 × 3.14 ÷ 2 ＝ 31.4</text><text x=\"325\" y=\"78\" font-size=\"14\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">底邊直徑 ＝ 10 × 2 ＝ 20</text><text x=\"325\" y=\"108\" font-size=\"14\" font-weight=\"800\" fill=\"#0f172a\" text-anchor=\"middle\">周長 ＝ 31.4 ＋ 20 ＝ 51.4 公分</text></svg>",
+          "caption": "半圓形周長包含紅色半圓弧（31.4 公分）與藍色直徑（兩條半徑共 20 公分）。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：半徑 10 公分 ➔ 直徑是 20 公分，先算出上半部的半圓弧長。"
+        },
+        {
+          "type": "eq",
+          "expr": "20 × 3.14 ÷ 2 ＝ 31.4",
+          "unit": "公分（弧長）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：加上底邊的 1 條直徑（即 2 條半徑，共 20 公分），才是完整半圓形的周長。"
+        },
+        {
+          "type": "eq",
+          "expr": "31.4 ＋ 20 ＝ 51.4",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：51.4 公分"
+        }
+      ],
+      "insight": "半圓形周長一定要記住「弧長 ＋ 2 條半徑（直徑）」，只加一條半徑算成 41.4 是經典半錯陷阱！",
+      "distractorAnalysis": {
+        "A": "只算出半圓弧長 31.4 公分，完全忘記加上底邊直徑。",
+        "B": "記得要加直線邊，卻只加了一條半徑 10 公分（31.4 ＋ 10 ＝ 41.4），漏掉另一條半徑。",
+        "D": "直接算出整個圓的周長 62.8 公分，沒有除以 2 也沒加直徑。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "扇形周長 ＝ 弧長 ＋ 半徑 × 2",
+        "半圓周長 ＝ 半圓弧長 ＋ 直徑"
+      ],
+      "conceptCompare": "半徑 10 的半圓周長是 51.4，而半徑 10 的整圓周長是 62.8；半圓周長是整圓周長的一半再多出 20 公分。",
+      "examVariations": "段考常把題目倒過來考：「一個半圓形的周長是 51.4 公分，請問它的半徑是多少公分？」，可利用「周長 ＝ 半徑 × (3.14 ＋ 2)」➔ 51.4 ÷ 5.14 ＝ 10 公分。"
+    }
+  },
+  {
+    "id": "U06-S3-M-051",
+    "legacyId": "u06_m11",
+    "unitId": "U06",
+    "section": "6-3",
+    "sectionName": "扇形弧長與周長",
+    "category": "弧長等於半徑",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 6★",
+    "level": 6,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "當一個扇形的弧長剛好等於它的半徑時，圓心角大約是幾度？",
+    "options": [
+      {
+        "key": "A",
+        "text": "約 57°",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "約 30°",
+        "trapCode": "U06_CALC_SLIP"
+      },
+      {
+        "key": "C",
+        "text": "約 90°",
+        "trapCode": "U06_ANGLE_FRACTION_WRONG"
+      },
+      {
+        "key": "D",
+        "text": "剛好 60°",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      }
+    ],
+    "answer": "A",
+    "skipOptionNumMatch": true,
+    "check": {
+      "expr": "1",
+      "expect": "1"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否能用「整圈周長約為半徑的 6.28 倍」推算 1 個半徑弧長所對應的圓心角，並破除正三角形 60° 的幾何錯覺。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><path d=\"M 85,120 L 165,120 A 80,80 0 0,0 128.5,52.9 Z\" fill=\"#fef2f2\" stroke=\"none\"/><line x1=\"85\" y1=\"120\" x2=\"165\" y2=\"120\" stroke=\"#2563eb\" stroke-width=\"3\"/><line x1=\"85\" y1=\"120\" x2=\"128.5\" y2=\"52.9\" stroke=\"#2563eb\" stroke-width=\"3\"/><line x1=\"165\" y1=\"120\" x2=\"128.5\" y2=\"52.9\" stroke=\"#94a3b8\" stroke-width=\"1.5\" stroke-dasharray=\"4,3\"/><path d=\"M 165,120 A 80,80 0 0,0 128.5,52.9\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"4\"/><text x=\"115\" y=\"107\" font-size=\"13\" font-weight=\"800\" fill=\"#1d4ed8\">約 57°</text><text x=\"166\" y=\"78\" font-size=\"12\" font-weight=\"700\" fill=\"#dc2626\">弧長 ＝ 半徑</text><text x=\"320\" y=\"48\" font-size=\"14\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">整圈周長 ≈ 6.28 個半徑</text><text x=\"320\" y=\"78\" font-size=\"14\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">360° ÷ 6.28 ≈ 57°</text><text x=\"320\" y=\"108\" font-size=\"12\" fill=\"#475569\" text-anchor=\"middle\">因為彎曲的弧比直線弦長一點，</text><text x=\"320\" y=\"126\" font-size=\"12\" fill=\"#475569\" text-anchor=\"middle\">所以角度會比正三角形 60° 略小！</text></svg>",
+          "caption": "整圈圓周大約有 6.28 個半徑長，把 360° 平分成 6.28 份，每份約 57°，比正三角形的 60° 小一點。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：整個圓的周長 ＝ 2 × 3.14 × 半徑 ＝ 6.28 × 半徑，也就是整圈共有 6.28 個半徑那麼長。"
+        },
+        {
+          "type": "longdiv",
+          "dividend": "360",
+          "divisor": "6.28",
+          "note": "將 360° 平分給約 6.28 個半徑長：36000 ÷ 628 ≈ 57.3，約為 57°"
+        },
+        {
+          "type": "eq",
+          "expr": "360 ÷ 6.28 ≈ 57",
+          "unit": "度"
+        },
+        {
+          "type": "answer",
+          "text": "答：約 57°"
+        }
+      ],
+      "insight": "因為圓周率 3.14 比 3 大一點，整圓有 6.28 個半徑（比 6 多），所以 1 個半徑長的圓弧圓心角比 60° 小一點，大約是 57°。",
+      "distractorAnalysis": {
+        "C": "隨意把弧長等於半徑的扇形誤猜成直角扇形 90°。",
+        "D": "誤把兩端點連成的「直線段」（正三角形 60°）當成彎曲弧長等於半徑，忽略彎曲的弧比直線更長。",
+        "B": "誤以為 360° 要除以約 12，估算錯誤選成約 30°。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "整圓周長 ≈ 6.28 × 半徑",
+        "弧長等於半徑的圓心角 ＝ 360° ÷ 6.28 ≈ 57.3°"
+      ],
+      "conceptCompare": "把扇形兩條半徑的頂端連成一條直線，當「直線長度 ＝ 半徑」時恰好圍成正三角形（60°）；因為圓弧是彎的、比直線更長，所以弧長要縮短到等於半徑，圓心角就必須比 60° 稍微小一點（約 57°）。",
+      "examVariations": "段考常見思考：整個圓周大約有 6.28 條半徑那麼長，只要把 360° 平分給 6.28 段，就知道 1 條半徑長的圓弧大約是 360° ÷ 6.28 ≈ 57°！"
+    }
+  },
+  {
+    "id": "U06-S4-M-052",
+    "legacyId": "u06_m12",
+    "unitId": "U06",
+    "section": "6-4",
+    "sectionName": "複合圖形周長",
+    "category": "方與圓",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 6★",
+    "level": 6,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "正方形的邊長等於一個圓的直徑，這個正方形周長和圓周長相比，哪一個比較長？",
+    "options": [
+      {
+        "key": "A",
+        "text": "圓比較長",
+        "trapCode": "U06_PI_CONSTANT_MYTH"
+      },
+      {
+        "key": "B",
+        "text": "正方形比較長",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "一樣長",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "D",
+        "text": "無法比較",
+        "trapCode": "U06_CALC_SLIP"
+      }
+    ],
+    "answer": "B",
+    "skipOptionNumMatch": true,
+    "check": {
+      "expr": "1",
+      "expect": "1"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否用「直徑倍數」直觀比較外切正方形周長（4 倍直徑）與圓周長（約 3.14 倍直徑）。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><rect x=\"55\" y=\"25\" width=\"100\" height=\"100\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"3\"/><circle cx=\"105\" cy=\"75\" r=\"50\" fill=\"#fef2f2\" fill-opacity=\"0.65\" stroke=\"#dc2626\" stroke-width=\"3\"/><line x1=\"55\" y1=\"75\" x2=\"155\" y2=\"75\" stroke=\"#64748b\" stroke-width=\"1.5\" stroke-dasharray=\"4,4\"/><text x=\"105\" y=\"71\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"middle\">直徑 ＝ 邊長</text><text x=\"315\" y=\"48\" font-size=\"14\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">正方形周長 ＝ 4 × 直徑</text><text x=\"315\" y=\"78\" font-size=\"14\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">圓周長 ≈ 3.14 × 直徑</text><text x=\"315\" y=\"108\" font-size=\"14\" font-weight=\"800\" fill=\"#0f172a\" text-anchor=\"middle\">4 ＞ 3.14 ➔ 正方形比較長</text></svg>",
+          "caption": "圓剛好被包在正方形裡面，正方形周長是 4 個直徑，圓周長大約只有 3.14 個直徑。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：把正方形的邊長（也就是圓的直徑）當作 1 份。"
+        },
+        {
+          "type": "eq",
+          "expr": "正方形周長 ＝ 4 × 直徑，圓周長 ≈ 3.14 × 直徑",
+          "unit": ""
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：因為 4 大於 3.14，而且圓剛好被包在正方形裡面，所以正方形的周長比較長。"
+        },
+        {
+          "type": "answer",
+          "text": "答：正方形比較長"
+        }
+      ],
+      "insight": "正方形周長是直徑的 4 倍，圓周長只有直徑的 3.14 倍；而且正方形把圓完全包在裡面，外框一定比裡面的圓長！",
+      "distractorAnalysis": {
+        "C": "以為正方形剛好緊貼著圓，兩者的周長就會一樣長。",
+        "D": "沒給具體邊長數字就以為不能比較，忽略兩者都能用「直徑的幾倍」直接比出大小。",
+        "A": "誤以為圓形的彎曲弧線比較長，或只看局部形狀誤判圓較長。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "外切正方形周長 ＝ 4 × 直徑",
+        "圓周長 ≈ 3.14 × 直徑（約為正方形周長的 3.14 ÷ 4 ＝ 78.5%）"
+      ],
+      "conceptCompare": "這個概念也能用來估計圓周率：圓被包在正方形裡面，所以圓周率一定小於 4；又把正六邊形包在圓裡面，所以圓周率一定大於 3，也就是 3 ＜ 圓周率 ＜ 4。",
+      "examVariations": "若題目給一條固定長度的繩子（周長相等），改問「圍成正方形和圍成圓形，哪一個面積比較大？」，答案反而是圓形的面積比較大！"
+    }
+  },
+  {
+    "id": "U06-S4-M-053",
+    "legacyId": "u06_m13",
+    "unitId": "U06",
+    "section": "6-4",
+    "sectionName": "複合圖形周長",
+    "category": "跑道內外道",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 7★",
+    "level": 7,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "操場跑道兩端是半圓，中間是兩條等長的直線。外圈跑道的半徑比內圈多 1 公尺，跑一圈外圈比內圈多跑多少公尺？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "6.28 公尺",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "3.14 公尺",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "C",
+        "text": "2 公尺",
+        "trapCode": "U06_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "依直線跑道長短而定",
+        "trapCode": "U06_TRACK_INNER_OUTER_ERR"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "1 * 2 * 3.14",
+      "expect": "6.28"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否看穿跑道直線段互相抵銷，只須將兩端半圓合成一個圓並利用半徑差算出起跑差距。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><path d=\"M 85,29 L 175,29 A 46,46 0 0,1 175,121 L 85,121 A 46,46 0 0,1 85,29 Z\" fill=\"#fef2f2\" stroke=\"none\"/><path d=\"M 85,45 L 175,45 A 30,30 0 0,1 175,105 L 85,105 A 30,30 0 0,1 85,45 Z\" fill=\"#ffffff\" stroke=\"none\"/><line x1=\"85\" y1=\"29\" x2=\"175\" y2=\"29\" stroke=\"#2563eb\" stroke-width=\"3\"/><line x1=\"85\" y1=\"45\" x2=\"175\" y2=\"45\" stroke=\"#2563eb\" stroke-width=\"3\"/><line x1=\"85\" y1=\"105\" x2=\"175\" y2=\"105\" stroke=\"#2563eb\" stroke-width=\"3\"/><line x1=\"85\" y1=\"121\" x2=\"175\" y2=\"121\" stroke=\"#2563eb\" stroke-width=\"3\"/><path d=\"M 85,29 A 46,46 0 0,0 85,121 M 175,29 A 46,46 0 0,1 175,121\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"3.5\"/><path d=\"M 85,45 A 30,30 0 0,0 85,105 M 175,45 A 30,30 0 0,1 175,105\" fill=\"none\" stroke=\"#f97316\" stroke-width=\"2.5\"/><text x=\"130\" y=\"79\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">藍色直線段一樣長</text><text x=\"335\" y=\"48\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">直線部分內外完全相同</text><text x=\"335\" y=\"78\" font-size=\"13\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">兩端彎道合成 1 個整圓</text><text x=\"335\" y=\"108\" font-size=\"14\" font-weight=\"800\" fill=\"#0f172a\" text-anchor=\"middle\">多出：1 × 2 × 3.14 ＝ 6.28 公尺</text></svg>",
+          "caption": "上下藍色直線長度相等不影響差距，兩端紅色彎道合起來是一個整圓，半徑多 1 公尺就多 6.28 公尺。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：跑道上下兩條直線段，內圈與外圈長度完全一樣，跑一圈的差距全部來自兩端的半圓。"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：左右兩個半圓合起來剛好是 1 個整圓。外圈半徑多 1 公尺，直徑就多 2 公尺。"
+        },
+        {
+          "type": "eq",
+          "expr": "1 × 2 × 3.14 ＝ 6.28",
+          "unit": "公尺"
+        },
+        {
+          "type": "answer",
+          "text": "答：6.28 公尺"
+        }
+      ],
+      "insight": "跑道內外圈差距跟地球套繩是完全一樣的原理：直線會抵銷，只看「道寬（半徑差）× 2 × 3.14」。",
+      "distractorAnalysis": {
+        "B": "忘記半徑差 1 公尺換算成直徑差要乘以 2，誤算成 1 × 3.14 ＝ 3.14 公尺。",
+        "D": "不知道直線段內外圈完全等長，誤以為操場越長差距就會越大。",
+        "C": "只算了直徑差 1 × 2 ＝ 2 公尺，忘記彎道要乘以圓周率 3.14。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "跑道相鄰兩圈長度差 ＝ 2 × 道寬 × 3.14"
+      ],
+      "conceptCompare": "正式田徑場跑 400 公尺一圈時，外側跑道的起跑線都要往前錯開 2 × 道寬 × 3.14 公尺，這樣大家跑回終點線的距離才會公平相等。",
+      "examVariations": "段考常考「標準跑道每道寬 1.25 公尺，第 3 道比第 1 道跑一圈多幾公尺？」，先算道寬差 2 道 ＝ 2.5 公尺，再算 2 × 2.5 × 3.14 ＝ 15.7 公尺。"
+    }
+  },
+  {
+    "id": "U06-S4-M-054",
+    "legacyId": "u06_m14",
+    "unitId": "U06",
+    "section": "6-4",
+    "sectionName": "複合圖形周長",
+    "category": "兩圓綑綁",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 7★",
+    "level": 7,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "兩個半徑 4 公分的圓並排相切，用繩子緊緊綑一圈，繩長是多少公分？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "50.24 公分",
+        "trapCode": "U06_ROPE_TANGENT_MISS"
+      },
+      {
+        "key": "B",
+        "text": "25.12 公分",
+        "trapCode": "U06_CALC_SLIP"
+      },
+      {
+        "key": "C",
+        "text": "41.12 公分",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "33.12 公分",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "4 * 2 * 2 + 4 * 2 * 3.14",
+      "expect": "41.12"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否能把綑綁繩長拆解為「2 條等於直徑的外公切線直線段」加上「左右兩側合為 1 個整圓的弧長」。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><circle cx=\"85\" cy=\"75\" r=\"32\" fill=\"#f1f5f9\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><circle cx=\"149\" cy=\"75\" r=\"32\" fill=\"#f1f5f9\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><line x1=\"85\" y1=\"43\" x2=\"149\" y2=\"43\" stroke=\"#2563eb\" stroke-width=\"4\"/><line x1=\"85\" y1=\"107\" x2=\"149\" y2=\"107\" stroke=\"#2563eb\" stroke-width=\"4\"/><path d=\"M 85,43 A 32,32 0 0,0 85,107\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"4\"/><path d=\"M 149,43 A 32,32 0 0,1 149,107\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"4\"/><line x1=\"85\" y1=\"75\" x2=\"149\" y2=\"75\" stroke=\"#64748b\" stroke-width=\"1.5\" stroke-dasharray=\"3,3\"/><circle cx=\"85\" cy=\"75\" r=\"3\" fill=\"#334155\"/><circle cx=\"149\" cy=\"75\" r=\"3\" fill=\"#334155\"/><text x=\"117\" y=\"33\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">直徑 8</text><text x=\"117\" y=\"126\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">直徑 8</text><text x=\"330\" y=\"48\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">藍線 2 段：8 × 2 ＝ 16 公分</text><text x=\"330\" y=\"78\" font-size=\"13\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">左右紅弧合成 1 整圓：25.12 公分</text><text x=\"330\" y=\"108\" font-size=\"14\" font-weight=\"800\" fill=\"#0f172a\" text-anchor=\"middle\">總繩長 ＝ 16 ＋ 25.12 ＝ 41.12 公分</text></svg>",
+          "caption": "上下兩條藍色直線段各長 8 公分（等於兩圓心距離），左右兩側紅色半圓弧合為 1 個整圓。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：半徑 4 公分 ➔ 每個圓的直徑是 8 公分。上下兩條緊繃的直線段，長度都等於兩圓心距離（1 個直徑）。"
+        },
+        {
+          "type": "eq",
+          "expr": "8 × 2 ＝ 16",
+          "unit": "公分（直線段）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：左右兩端各貼著半個圓周，合起來剛好是 1 個直徑 8 公分的完整圓周長。"
+        },
+        {
+          "type": "eq",
+          "expr": "8 × 3.14 ＝ 25.12",
+          "unit": "公分（圓弧總和）"
+        },
+        {
+          "type": "eq",
+          "expr": "16 ＋ 25.12 ＝ 41.12",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：41.12 公分"
+        }
+      ],
+      "insight": "圓柱綑綁核心模型：總繩長 ＝ 直線切線段總和 ＋ 1 個完整圓周長（不管綁幾個圓，所有轉角弧加起來永遠是 1 個圓）。",
+      "distractorAnalysis": {
+        "A": "沒有拆開曲線與直線段，直接把兩個完整圓的周長 25.12 × 2 加起來算成 50.24 公分。",
+        "D": "在計算直線段時誤把半徑 4 當直徑使用，只加了 4 × 2 ＝ 8 公分，算成 33.12 公分。",
+        "B": "只算出 1 個圓周長 25.12 公分，完全漏掉上下兩條直線段。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "2 個等圓綑綁繩長 ＝ 2 × 直徑 ＋ 1 × 圓周長"
+      ],
+      "conceptCompare": "兩圓並排綑綁時，繩子在兩個圓中間是拉直的，不會繞進內側相切處，所以絕對不是兩個圓周長相加。",
+      "examVariations": "若改成「3 個半徑 4 公分的圓橫排成一直線綑一圈」，左右仍是 2 個半圓合成 1 整圓（25.12），但上下直線各跨過 2 倍圓心距（16 × 2 ＝ 32），總長為 57.12 公分。"
+    }
+  },
+  {
+    "id": "U06-S4-M-055",
+    "legacyId": "u06_m15",
+    "unitId": "U06",
+    "section": "6-4",
+    "sectionName": "複合圖形周長",
+    "category": "三圓綑綁",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 8★",
+    "level": 8,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "三個半徑 4 公分的圓兩兩相切（排成三角形），用繩子緊緊綑一圈，繩長是多少公分？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "49.12 公分",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "37.12 公分",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "C",
+        "text": "25.12 公分",
+        "trapCode": "U06_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "75.36 公分",
+        "trapCode": "U06_ROPE_TANGENT_MISS"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "4 * 2 * 3 + 4 * 2 * 3.14",
+      "expect": "49.12"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否理解「凸多邊形外角和為 360°」的幾何直覺：三個圓的轉角弧各 120°，合起來剛好是一整個圓。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><circle cx=\"110\" cy=\"54\" r=\"24\" fill=\"#f1f5f9\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><circle cx=\"86\" cy=\"95.6\" r=\"24\" fill=\"#f1f5f9\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><circle cx=\"134\" cy=\"95.6\" r=\"24\" fill=\"#f1f5f9\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><line x1=\"86\" y1=\"119.6\" x2=\"134\" y2=\"119.6\" stroke=\"#2563eb\" stroke-width=\"4\"/><line x1=\"65.2\" y1=\"83.6\" x2=\"89.2\" y2=\"42\" stroke=\"#2563eb\" stroke-width=\"4\"/><line x1=\"130.8\" y1=\"42\" x2=\"154.8\" y2=\"83.6\" stroke=\"#2563eb\" stroke-width=\"4\"/><path d=\"M 89.2,42 A 24,24 0 0,1 130.8,42\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"4\"/><path d=\"M 154.8,83.6 A 24,24 0 0,1 134,119.6\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"4\"/><path d=\"M 86,119.6 A 24,24 0 0,1 65.2,83.6\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"4\"/><text x=\"330\" y=\"48\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">藍線 3 段：8 × 3 ＝ 24 公分</text><text x=\"330\" y=\"78\" font-size=\"13\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">3 個 120° 紅弧 ＝ 1 整圓 25.12</text><text x=\"330\" y=\"108\" font-size=\"14\" font-weight=\"800\" fill=\"#0f172a\" text-anchor=\"middle\">總繩長 ＝ 24 ＋ 25.12 ＝ 49.12 公分</text></svg>",
+          "caption": "三角形排列共有 3 條藍色直線段（各 8 公分），以及 3 段各 120° 的紅色轉角弧（剛好合成 1 個整圓）。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：半徑 4 公分 ➔ 直徑 8 公分。三邊共有 3 條直線段，每條都等於兩圓心距離 8 公分。"
+        },
+        {
+          "type": "eq",
+          "expr": "8 × 3 ＝ 24",
+          "unit": "公分（直線段）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：沿著繩子走一圈剛好轉向 360°，所以 3 個轉角弧合起來正好等於 1 個完整圓周長 25.12 公分。"
+        },
+        {
+          "type": "eq",
+          "expr": "24 ＋ 8 × 3.14 ＝ 49.12",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：49.12 公分"
+        }
+      ],
+      "insight": "不管綁成三角形還是幾邊形，只要繩子繞一整圈回到原方向，所有「轉彎圓弧」合起來永遠剛好等於 1 個完整圓周！",
+      "distractorAnalysis": {
+        "B": "算直線段時誤把半徑 4 當成圓心距，只加上 4 × 3 ＝ 12，得 37.12 公分。",
+        "D": "誤把三個圓各自當成完整圓周直接加總，算成 25.12 × 3 ＝ 75.36 公分。",
+        "C": "只算了轉角弧合成的 1 個圓周長 25.12 公分，漏掉 3 條直線切線段。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "3 個等圓三角形綑綁繩長 ＝ 3 × 直徑 ＋ 1 × 圓周長"
+      ],
+      "conceptCompare": "每個轉角處，繩子轉了 120°（1/3 圓），3 個 120° 剛好等於 360°（1 整圓），千萬不要誤以為每個角都貼了半圓（180°）。",
+      "examVariations": "段考常把水壺或飲料罐改成「直徑 8 公分」（要注意看清題目給的是半徑還是直徑！），若直徑 8 公分，答案一樣是 24 ＋ 25.12 ＝ 49.12 公分。"
+    }
+  },
+  {
+    "id": "U06-S4-M-056",
+    "legacyId": "u06_m16",
+    "unitId": "U06",
+    "section": "6-4",
+    "sectionName": "複合圖形周長",
+    "category": "四圓綑綁",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 8★",
+    "level": 8,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "四個半徑 5 公分的圓排成 2 × 2 正方形，用繩子緊緊綑一圈，繩長是多少公分？（圓周率用 3.14）",
+    "options": [
+      {
+        "key": "A",
+        "text": "62.8 公分",
+        "trapCode": "U06_ROPE_TANGENT_MISS"
+      },
+      {
+        "key": "B",
+        "text": "40 公分",
+        "trapCode": "U06_CALC_SLIP"
+      },
+      {
+        "key": "C",
+        "text": "51.4 公分",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "D",
+        "text": "71.4 公分",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "5 * 2 * 4 + 5 * 2 * 3.14",
+      "expect": "71.4"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否能類推四圓正方形排列的綑綁繩長公式：4 條直徑切線段加上 4 個 1/4 圓角弧（1 整圓）。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><circle cx=\"86\" cy=\"51\" r=\"24\" fill=\"#f1f5f9\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><circle cx=\"134\" cy=\"51\" r=\"24\" fill=\"#f1f5f9\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><circle cx=\"86\" cy=\"99\" r=\"24\" fill=\"#f1f5f9\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><circle cx=\"134\" cy=\"99\" r=\"24\" fill=\"#f1f5f9\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><line x1=\"86\" y1=\"27\" x2=\"134\" y2=\"27\" stroke=\"#2563eb\" stroke-width=\"4\"/><line x1=\"158\" y1=\"51\" x2=\"158\" y2=\"99\" stroke=\"#2563eb\" stroke-width=\"4\"/><line x1=\"134\" y1=\"123\" x2=\"86\" y2=\"123\" stroke=\"#2563eb\" stroke-width=\"4\"/><line x1=\"62\" y1=\"99\" x2=\"62\" y2=\"51\" stroke=\"#2563eb\" stroke-width=\"4\"/><path d=\"M 134,27 A 24,24 0 0,1 158,51\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"4\"/><path d=\"M 158,99 A 24,24 0 0,1 134,123\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"4\"/><path d=\"M 86,123 A 24,24 0 0,1 62,99\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"4\"/><path d=\"M 62,51 A 24,24 0 0,1 86,27\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"4\"/><text x=\"330\" y=\"48\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">藍線 4 段：10 × 4 ＝ 40 公分</text><text x=\"330\" y=\"78\" font-size=\"13\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">4 個 90° 紅弧 ＝ 1 整圓 31.4</text><text x=\"330\" y=\"108\" font-size=\"14\" font-weight=\"800\" fill=\"#0f172a\" text-anchor=\"middle\">總繩長 ＝ 40 ＋ 31.4 ＝ 71.4 公分</text></svg>",
+          "caption": "正方形外圍有 4 條各 10 公分的藍色直線段，以及四個角落各 90° 的紅色 1/4 圓弧（合計 1 整圓）。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：半徑 5 公分 ➔ 直徑 10 公分。四個邊各有 1 條連接相鄰圓切點的直線段。"
+        },
+        {
+          "type": "eq",
+          "expr": "10 × 4 ＝ 40",
+          "unit": "公分（直線段）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：四個角落各有 1 個 90°（1/4 圓）的圓弧，合起來剛好是 1 個完整圓周長 31.4 公分。"
+        },
+        {
+          "type": "eq",
+          "expr": "40 ＋ 31.4 ＝ 71.4",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：71.4 公分"
+        }
+      ],
+      "insight": "繞任何凸多邊形排列的圓柱一圈，圓弧加總永遠是 1 個圓周長（360°），差別只在「直線切線段一共有幾條直徑」。",
+      "distractorAnalysis": {
+        "A": "沒有分開算直線段，或誤以為四個轉角各有半圓（共 2 個整圓），算出 31.4 × 2 ＝ 62.8 公分。",
+        "C": "直線段誤用半徑 5 × 4 ＝ 20 計算（實際應為直徑 10 × 4 ＝ 40），算成 20 ＋ 31.4 ＝ 51.4 公分。",
+        "B": "只算了四條直線段 40 公分，完全漏掉四個角落的圓弧長度。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "4 個等圓正方形綑綁繩長 ＝ 4 × 直徑 ＋ 1 × 圓周長"
+      ],
+      "conceptCompare": "觀察連續三題：2 個圓綑綁 ＝ 2 直徑 ＋ 1 圓（51.4）；3 個圓 ＝ 3 直徑 ＋ 1 圓（61.4）；4 個圓 ＝ 4 直徑 ＋ 1 圓（71.4）。圓周部分始終只有「1 個圓」，不會變多！",
+      "examVariations": "段考進階題常考「6 個圓排成 2 × 3 矩形」和「6 個圓排成正三角形」比較哪個更省繩：雖然外框線段數量都對應 6 個直徑寬度，其實外圍圓心連線周長都是 6 個直徑，總繩長竟然一樣長！"
+    }
+  },
+  {
+    "id": "U06-RV-M-057",
+    "legacyId": "u06_m17",
+    "unitId": "U06",
+    "section": "REVIEW",
+    "sectionName": "單元綜合複習",
+    "category": "硬幣滾動",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 9★",
+    "level": 9,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "一枚硬幣沿著另一枚「同樣大小」的固定硬幣外緣無滑動滾一圈回到原處，滾動的硬幣自己轉了幾圈？",
+    "options": [
+      {
+        "key": "A",
+        "text": "1 圈",
+        "trapCode": "U06_ROLLER_TURN_ERR"
+      },
+      {
+        "key": "B",
+        "text": "2 圈",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "3.14 圈",
+        "trapCode": "U06_PI_CONSTANT_MYTH"
+      },
+      {
+        "key": "D",
+        "text": "4 圈",
+        "trapCode": "U06_CALC_SLIP"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "(1 + 1) / 1",
+      "expect": "2"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否克服「接觸邊長等於 1 倍周長」的直覺陷阱，改用「圓心走過的軌跡路徑長」正確算出硬幣自轉圈數。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><circle cx=\"105\" cy=\"75\" r=\"52\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"2.5\" stroke-dasharray=\"6,4\"/><circle cx=\"105\" cy=\"75\" r=\"26\" fill=\"#e2e8f0\" stroke=\"#475569\" stroke-width=\"2.5\"/><circle cx=\"157\" cy=\"75\" r=\"26\" fill=\"#fef08a\" stroke=\"#ca8a04\" stroke-width=\"2.5\"/><circle cx=\"105\" cy=\"75\" r=\"3\" fill=\"#0f172a\"/><circle cx=\"157\" cy=\"75\" r=\"3\" fill=\"#dc2626\"/><line x1=\"105\" y1=\"75\" x2=\"157\" y2=\"75\" stroke=\"#2563eb\" stroke-width=\"2\"/><text x=\"105\" y=\"79\" font-size=\"11\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"middle\">固定</text><text x=\"157\" y=\"79\" font-size=\"11\" font-weight=\"700\" fill=\"#854d0e\" text-anchor=\"middle\">滾動</text><text x=\"105\" y=\"142\" font-size=\"11\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">紅虛線：圓心走的圓（半徑 2 倍）</text><text x=\"335\" y=\"48\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">圓心路徑半徑 ＝ 1 ＋ 1 ＝ 2 份</text><text x=\"335\" y=\"78\" font-size=\"13\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">圓心走過的路程 ＝ 2 倍硬幣周長</text><text x=\"335\" y=\"108\" font-size=\"14\" font-weight=\"800\" fill=\"#0f172a\" text-anchor=\"middle\">自轉圈數 ＝ 2 ÷ 1 ＝ 2 圈</text></svg>",
+          "caption": "滾動硬幣的圓心繞著一個半徑為「2 個硬幣半徑」的紅色大圓圈移動，所以自轉了 2 圈。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：不要只看硬幣貼著滾過的邊緣長度，要看「滾動硬幣的圓心」一共走了多遠！"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：滾動硬幣圓心到固定硬幣圓心的距離 ＝ 1 個半徑 ＋ 1 個半徑 ＝ 2 倍硬幣半徑，所以圓心軌跡的周長是硬幣自身周長的 2 倍。"
+        },
+        {
+          "type": "eq",
+          "expr": "(1 ＋ 1) ÷ 1 ＝ 2",
+          "unit": "圈"
+        },
+        {
+          "type": "answer",
+          "text": "答：2 圈"
+        }
+      ],
+      "insight": "硬幣外滾秘訣（AMC 經典悖論）：「自轉圈數 ＝ 圓心走過的總距離 ÷ 滾動硬幣自己的周長」，多出來的那 1 圈是「繞著大圓公轉一圈」所帶來的！",
+      "distractorAnalysis": {
+        "A": "經典直覺陷阱：以為兩枚硬幣周長一樣，邊緣接觸長度相等就只轉了 1 圈，忽略硬幣本身也在繞著中心公轉。",
+        "C": "把圓周率 3.14 誤套進圈數中。",
+        "D": "在計算時重複乘了 2 倍，誤算成 4 圈。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "沿圓形外側滾一圈的自轉圈數 ＝ (固定圓半徑 ÷ 滾動圓半徑) ＋ 1"
+      ],
+      "conceptCompare": "如果硬幣是在「平坦直線」上滾動一個圓周長，硬幣只會自轉 1 圈；但在圓的「外側」繞一圈時，路徑是彎的且圓心多繞了 360°，因此必定多出 1 圈變成 2 圈。",
+      "examVariations": "若反過來問「小圓在 3 倍半徑的大圓內側貼著滾一圈」，圓心半徑變成 3 − 1 ＝ 2 份，自轉圈數就會變成 3 − 1 ＝ 2 圈。"
+    }
+  },
+  {
+    "id": "U06-S3-M-058",
+    "legacyId": "u06_m18",
+    "unitId": "U06",
+    "section": "6-3",
+    "sectionName": "扇形弧長與周長",
+    "category": "時針分針路程",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 9★",
+    "level": 9,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "鐘面上的時針長 6 公分、分針長 10 公分。在 12 小時內，時針尖端和分針尖端走過的路程比是多少？",
+    "options": [
+      {
+        "key": "A",
+        "text": "1：12",
+        "trapCode": "U06_ANGLE_FRACTION_WRONG"
+      },
+      {
+        "key": "B",
+        "text": "3：5",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "C",
+        "text": "5：3",
+        "trapCode": "U06_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "1：20",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "skipOptionNumMatch": true,
+    "check": {
+      "expr": "(6 * 1) / (10 * 12)",
+      "expect": "1/20"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否同時整合「針長比（半徑比）」與「12 小時內的旋轉圈數比」，用複合比例心算求出路程比。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：先確定 12 小時內兩根指針各轉幾圈：時針剛好轉 1 圈，分針每小時轉 1 圈、12 小時共轉 12 圈。"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：因為路程 ＝ 半徑 × 2 × 3.14 × 圈數，兩邊都有「2 × 3.14」，比的時候可以直接約掉，只比「針長 × 圈數」。"
+        },
+        {
+          "type": "eq",
+          "expr": "(6 × 1)：(10 × 12) ＝ 6：120 ＝ 1：20",
+          "unit": ""
+        },
+        {
+          "type": "answer",
+          "text": "答：1：20"
+        }
+      ],
+      "insight": "路程比 ＝ 半徑比 × 圈數比！比值的題目不需要真的乘出 3.14，先把共同的 2 × 3.14 約掉就能一秒心算。",
+      "distractorAnalysis": {
+        "A": "只考慮了 12 小時兩針轉的圈數比 1：12，忘記時針和分針的長度（半徑）並不相同。",
+        "B": "只比了兩根指針的長度比 6：10 ＝ 3：5，完全忘記分針轉了 12 圈而時針只轉 1 圈。",
+        "C": "只算長度比又把前後項寫反成 5：3。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "指針尖端路程比 ＝ (時針長 × 時針圈數)：(分針長 × 分針圈數)"
+      ],
+      "conceptCompare": "注意這題算的是兩針經過「12 小時」的路程；若改成「24 小時（一天）」，時針轉 2 圈、分針轉 24 圈，圈數比依然是 1：12，所以路程比還是 1：20。",
+      "examVariations": "若問題改成「6 小時內，時針尖與分針尖的路程比」，時針轉 1/2 圈、分針轉 6 圈，(6 × 1/2)：(10 × 6) ＝ 3：60 ＝ 1：20，結果仍然相同。"
+    }
+  },
+  {
+    "id": "U06-S1-M-059",
+    "legacyId": "u06_m19",
+    "unitId": "U06",
+    "section": "6-1",
+    "sectionName": "認識圓周率",
+    "category": "圓周率大於 3",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 10★",
+    "level": 10,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "為什麼我們在數學上可以確定圓周率一定比 3 大？",
+    "options": [
+      {
+        "key": "A",
+        "text": "用尺量了很多圓發現都是這樣",
+        "trapCode": "U06_AREA_FORMULA_CONFUSION"
+      },
+      {
+        "key": "B",
+        "text": "因為課本寫 3.14 比 3 大",
+        "trapCode": "U06_PI_CONSTANT_MYTH"
+      },
+      {
+        "key": "C",
+        "text": "圓內畫正六邊形，周長 ＝ 3 個直徑，而圓周比它長",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "圓外切正方形的周長是 4 個直徑，所以圓周率剛好等於 3",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      }
+    ],
+    "answer": "C",
+    "skipOptionNumMatch": true,
+    "check": {
+      "expr": "1",
+      "expect": "1"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否理解阿基米德「圓內接正六邊形」夾擠證明圓周率大於 3 的幾何推理，而非背誦結論。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><circle cx=\"105\" cy=\"75\" r=\"52\" fill=\"#fef2f2\" fill-opacity=\"0.5\" stroke=\"#dc2626\" stroke-width=\"3\"/><polygon points=\"157,75 131,120 79,120 53,75 79,30 131,30\" fill=\"#eff6ff\" fill-opacity=\"0.7\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><line x1=\"53\" y1=\"75\" x2=\"157\" y2=\"75\" stroke=\"#64748b\" stroke-width=\"1.5\" stroke-dasharray=\"3,3\"/><line x1=\"79\" y1=\"30\" x2=\"131\" y2=\"120\" stroke=\"#64748b\" stroke-width=\"1.5\" stroke-dasharray=\"3,3\"/><line x1=\"131\" y1=\"30\" x2=\"79\" y2=\"120\" stroke=\"#64748b\" stroke-width=\"1.5\" stroke-dasharray=\"3,3\"/><text x=\"105\" y=\"21\" font-size=\"11\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">每邊 ＝ 半徑</text><text x=\"330\" y=\"46\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">正六邊形由 6 個正三角形組成</text><text x=\"330\" y=\"76\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">六邊形周長 ＝ 6 半徑 ＝ 3 直徑</text><text x=\"330\" y=\"106\" font-size=\"14\" font-weight=\"800\" fill=\"#dc2626\" text-anchor=\"middle\">紅圓周比藍線長 ➔ 圓周率 ＞ 3</text></svg>",
+          "caption": "圓內接正六邊形可以切成 6 個正三角形，6 條邊長共 6 個半徑（等於 3 個直徑），而外側圓弧一定比直線邊更長。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：在圓裡面畫一個頂點剛好貼在圓周上的正六邊形，連接圓心與 6 個頂點，會分成 6 個一模一樣的正三角形。"
+        },
+        {
+          "type": "eq",
+          "expr": "正六邊形周長 ＝ 6 × 半徑 ＝ 3 × 直徑",
+          "unit": ""
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：兩點之間直線段最短，每一段圓弧都比正六邊形的直線邊更長，所以圓周長一定大於 3 個直徑，也就是圓周率 ＞ 3。"
+        },
+        {
+          "type": "answer",
+          "text": "答：圓內畫正六邊形，周長 ＝ 3 個直徑，而圓周比它長"
+        }
+      ],
+      "insight": "阿基米德的經典想法：用「圓內接正六邊形（3 倍直徑）」從裡面撐住圓，再用「外切正方形（4 倍直徑）」從外面包住圓，證明 3 ＜ 圓周率 ＜ 4。",
+      "distractorAnalysis": {
+        "B": "這是用已經知道的課本近似值「3.14」來解釋，屬於倒果為因，不是數學證明。",
+        "D": "正方形周長 4 個直徑只能說明圓周率小於 4，不能推論圓周率等於 3。",
+        "A": "實測只能觀察有限幾個圓的近似結果，無法在邏輯上嚴格確定所有圓都一定成立。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "圓內接正六邊形周長 ＝ 6 × 半徑 ＝ 3 × 直徑",
+        "內接正六邊形周長 ＜ 圓周長 ＜ 外切正方形周長（3 ＜ 圓周率 ＜ 4）"
+      ],
+      "conceptCompare": "當內接正多邊形的邊數從 6 邊一直增加到 12 邊、24 邊、96 邊時，它的周長會越來越貼近圓周長，這就是古人用來把圓周率算到越來越精準的方法。",
+      "examVariations": "段考素養題常考「比較圓內接正六邊形周長、圓周長、圓外切正方形周長的大小關係」，由小到大依序是 3 倍直徑 ＜ 約 3.14 倍直徑 ＜ 4 倍直徑。"
+    }
+  },
+  {
+    "id": "U06-RV-M-060",
+    "legacyId": "u06_m20",
+    "unitId": "U06",
+    "section": "REVIEW",
+    "sectionName": "單元綜合複習",
+    "category": "大小硬幣滾動",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 10★",
+    "level": 10,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "一枚小硬幣沿著半徑是它「2 倍」的固定大硬幣外緣無滑動滾一圈回到原處，滾動的小硬幣自己轉了幾圈？",
+    "options": [
+      {
+        "key": "A",
+        "text": "3 圈",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "2 圈",
+        "trapCode": "U06_ROLLER_TURN_ERR"
+      },
+      {
+        "key": "C",
+        "text": "4 圈",
+        "trapCode": "U06_DIAMETER_RADIUS_SWAP"
+      },
+      {
+        "key": "D",
+        "text": "1 圈",
+        "trapCode": "U06_CALC_SLIP"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "(2 + 1) / 1",
+      "expect": "3"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否將「圓心軌跡半徑法」推廣至大小不等的兩圓外切滾動問題，避開只算 2 倍周長的常見失誤。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><circle cx=\"100\" cy=\"75\" r=\"60\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"2.5\" stroke-dasharray=\"6,4\"/><circle cx=\"100\" cy=\"75\" r=\"40\" fill=\"#e2e8f0\" stroke=\"#475569\" stroke-width=\"2.5\"/><circle cx=\"160\" cy=\"75\" r=\"20\" fill=\"#fef08a\" stroke=\"#ca8a04\" stroke-width=\"2.5\"/><circle cx=\"100\" cy=\"75\" r=\"3\" fill=\"#0f172a\"/><circle cx=\"160\" cy=\"75\" r=\"3\" fill=\"#dc2626\"/><line x1=\"100\" y1=\"75\" x2=\"160\" y2=\"75\" stroke=\"#2563eb\" stroke-width=\"2\"/><text x=\"100\" y=\"71\" font-size=\"11\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"middle\">固定大圓</text><text x=\"100\" y=\"87\" font-size=\"11\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"middle\">半徑 2 份</text><text x=\"160\" y=\"63\" font-size=\"10\" font-weight=\"700\" fill=\"#854d0e\" text-anchor=\"middle\">小圓 1 份</text><text x=\"100\" y=\"145\" font-size=\"11\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">圓心路徑半徑 ＝ 2 ＋ 1 ＝ 3 份</text><text x=\"335\" y=\"48\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">大圓半徑 2 份 ＋ 小圓半徑 1 份</text><text x=\"335\" y=\"78\" font-size=\"13\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">圓心路程 ＝ 3 倍小圓周長</text><text x=\"335\" y=\"108\" font-size=\"14\" font-weight=\"800\" fill=\"#0f172a\" text-anchor=\"middle\">自轉圈數 ＝ (2 ＋ 1) ÷ 1 ＝ 3 圈</text></svg>",
+          "caption": "固定大圓半徑佔 2 份、滾動小圓半徑佔 1 份，小圓圓心走的紅色軌跡圓半徑一共是 3 份，因此小圓自轉 3 圈。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：把小硬幣的半徑當作 1 份，固定大硬幣的半徑就是 2 份。"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：小硬幣在大硬幣外側滾動時，小硬幣圓心距離大硬幣圓心永遠是「大圓半徑 ＋ 小圓半徑 ＝ 2 ＋ 1 ＝ 3 份」。"
+        },
+        {
+          "type": "eq",
+          "expr": "(2 ＋ 1) ÷ 1 ＝ 3",
+          "unit": "圈"
+        },
+        {
+          "type": "text",
+          "text": "第 3 步：圓心走的路徑周長是小硬幣自身周長的 3 倍，所以小硬幣一共自轉了 3 圈。"
+        },
+        {
+          "type": "answer",
+          "text": "答：3 圈"
+        }
+      ],
+      "insight": "外滾口訣：「自轉圈數 ＝ (大半徑 ÷ 小半徑) ＋ 1」，那多出來的「＋ 1」永遠來自小圓繞大圓公轉一整圈的角度。",
+      "distractorAnalysis": {
+        "B": "經典陷阱：只比較大圓周長是小圓周長的 2 倍，忘了小硬幣本身也公轉了 1 圈，漏加 1 而誤選 2 圈。",
+        "C": "誤把大圓半徑倍數 2 平方算成 4 圈（面積思考誤用）。",
+        "D": "沒有考慮半徑比例與路徑長，隨意誤選 1 圈。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "外滾自轉圈數 ＝ 圓心路徑半徑 ÷ 滾動圓半徑 ＝ (大圓半徑 ÷ 小圓半徑) ＋ 1"
+      ],
+      "conceptCompare": "無論大圓半徑是小圓的 1 倍、2 倍還是 3 倍，在外側繞一圈的自轉圈數分別是 2 圈、3 圈、4 圈，永遠比周長倍數多 1 圈。",
+      "examVariations": "段考或競賽題常改成「半徑 4 公分的小圓繞著半徑 12 公分的大圓外側滾一圈，小圓自轉幾圈？」，先算 12 ÷ 4 ＝ 3 倍，再加公轉 1 圈得 3 ＋ 1 ＝ 4 圈。"
+    }
+  },
+  {
+    "id": "U07-S1-B-001",
+    "legacyId": "u07_001",
+    "unitId": "U07",
+    "section": "7-1",
+    "sectionName": "認識放大圖與縮小圖",
+    "category": "放大圖長寬與角度不變",
     "batch": "課本原型題",
     "source": "課本 p.104 例題 1",
-    "verified": true,
-    "question": "一個長方形的長是 4 公分、寬是 3 公分。畫成 2 倍放大圖後，放大圖的長和寬各是多少公分？四個角的角度有變大嗎？",
-    "answer": "長 8 公分、寬 6 公分；四個角依然是 90°，角度不變",
-    "steps": [
-      "長度放大：長變為 $4 \\times 2 = 8$ 公分，寬變為 $3 \\times 2 = 6$ 公分",
-      "放大圖與縮小圖核心定理：對應邊成比例變大，但「對應角完全不變」！"
+    "level": 1,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "一個長方形的長是 4 公分、寬是 3 公分。畫成 2 倍放大圖後，放大圖的長、寬和四個角的角度各是多少？",
+    "options": [
+      {
+        "key": "A",
+        "text": "長 16 公分、寬 12 公分、每個角 90 度",
+        "trapCode": "U07_SCALE_MUL_DIV_SWAP"
+      },
+      {
+        "key": "B",
+        "text": "長 8 公分、寬 6 公分、每個角 180 度",
+        "trapCode": "U07_ANGLE_SCALED"
+      },
+      {
+        "key": "C",
+        "text": "長 8 公分、寬 6 公分、每個角 90 度",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "長 2 公分、寬 1.5 公分、每個角 90 度",
+        "trapCode": "U07_RELATIVE_SCALE_ERR"
+      }
     ],
-    "trap": {
-      "code": "ERR_ANGLE_SCALED",
-      "text": "誤以為角也會放大 2 倍變成 180°。形狀相同角度必定相等！"
+    "answer": "C",
+    "check": {
+      "expr": "4 * 2",
+      "expect": "8",
+      "extraChecks": [
+        {
+          "expr": "3 * 2",
+          "expect": "6"
+        }
+      ]
     },
-    "work": "sm"
+    "explanation": {
+      "examPurpose": "測驗學生是否掌握放大圖的兩大核心性質：對應邊長等比例放大，但對應角的角度完全不變。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：計算放大圖的長度。2 倍放大圖表示長和寬都要乘以 2："
+        },
+        {
+          "type": "eq",
+          "expr": "4 × 2 ＝ 8",
+          "unit": "公分（放大後的長）"
+        },
+        {
+          "type": "eq",
+          "expr": "3 × 2 ＝ 6",
+          "unit": "公分（放大後的寬）"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 170\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"30\" y=\"65\" width=\"64\" height=\"48\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><polyline points=\"30,77 42,77 42,65\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"1.5\"/><text x=\"62\" y=\"56\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">原圖甲：長 4</text><text x=\"18\" y=\"93\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">3</text><text x=\"62\" y=\"94\" font-size=\"12\" fill=\"#1e293b\" text-anchor=\"middle\">90°</text><path d=\"M 115 88 L 165 88\" stroke=\"#f59e0b\" stroke-width=\"3\"/><polygon points=\"165,83 175,88 165,93\" fill=\"#f59e0b\"/><text x=\"142\" y=\"76\" font-size=\"12\" font-weight=\"700\" fill=\"#d97706\" text-anchor=\"middle\">放大 2 倍</text><rect x=\"195\" y=\"35\" width=\"128\" height=\"96\" fill=\"#fff1f2\" stroke=\"#e11d48\" stroke-width=\"2.5\"/><polyline points=\"195,50 210,50 210,35\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"1.5\"/><text x=\"259\" y=\"25\" font-size=\"13\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">放大圖乙：長 8</text><text x=\"182\" y=\"88\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">6</text><text x=\"259\" y=\"88\" font-size=\"13\" font-weight=\"700\" fill=\"#059669\" text-anchor=\"middle\">角仍是 90°</text><text x=\"345\" y=\"65\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\">長寬變 2 倍</text><text x=\"345\" y=\"92\" font-size=\"12\" font-weight=\"700\" fill=\"#059669\">角度完全不變</text></svg>",
+          "caption": "長方形甲放大 2 倍後，對應邊長乘以 2，但四個直角依然維持 90°"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：判斷角度。放大只改變圖形大小，不改變形狀，所以長方形的四個角依然是 90 度。"
+        },
+        {
+          "type": "answer",
+          "text": "答：長 8 公分、寬 6 公分、每個角 90 度。"
+        }
+      ],
+      "insight": "圖形放大或縮小後，對應邊會依倍率變長或變短，但對應角永遠一樣大！",
+      "distractorAnalysis": {
+        "B": "誤以為角度也要跟著乘以 2，把 90 度錯算成 180 度；若變成 180 度就會拉成直線，不再是長方形。",
+        "D": "把「放大 2 倍」錯算成「縮小成 1/2 倍」，把長和寬都除以 2。",
+        "A": "把 2 倍誤乘兩次變成 4 倍，算出長 16 公分、寬 12 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "放大圖邊長 ＝ 原圖邊長 × 放大倍數",
+        "放大或縮小後，對應角的角度永遠保持不變"
+      ],
+      "conceptCompare": "長度（邊長、周長、對角線）會跟著放大倍數一起乘倍；角度則不論放大或縮小幾倍都維持不變。",
+      "examVariations": "段考常考「把一個 30 度、60 度、90 度的直角三角形放大 5 倍，三個內角各是幾度？」，答案仍然是 30 度、60 度、90 度。"
+    }
   },
   {
-    "id": "u07_002",
+    "id": "U07-S1-B-002",
+    "legacyId": "u07_002",
     "unitId": "U07",
-    "category": "面積放大平方倍大魔王",
-    "level": 2,
-    "difficulty": 4,
+    "section": "7-1",
+    "sectionName": "認識放大圖與縮小圖",
+    "category": "面積放大平方倍",
     "batch": "課本原型題",
     "source": "課本 p.106 例題 2",
-    "verified": true,
-    "question": "一個邊長 5 公分的正方形，畫成 3 倍放大圖後，邊長變成原來的幾倍？面積變成原來的幾倍？",
-    "svg": "\n<svg viewBox=\"0 0 520 130\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', Outfit, sans-serif\">\n  <g transform=\"translate(30, 25)\">\n    <!-- 比例尺條 -->\n    <rect x=\"0\" y=\"20\" width=\"80\" height=\"12\" fill=\"#1e1b4b\"/>\n    <rect x=\"80\" y=\"20\" width=\"80\" height=\"12\" fill=\"#fff\" stroke=\"#1e1b4b\" stroke-width=\"1\"/>\n    <rect x=\"160\" y=\"20\" width=\"80\" height=\"12\" fill=\"#1e1b4b\"/>\n    <line x1=\"0\" y1=\"14\" x2=\"0\" y2=\"38\" stroke=\"#1e1b4b\" stroke-width=\"2\"/>\n    <line x1=\"80\" y1=\"14\" x2=\"80\" y2=\"38\" stroke=\"#1e1b4b\" stroke-width=\"2\"/>\n    <line x1=\"160\" y1=\"14\" x2=\"160\" y2=\"38\" stroke=\"#1e1b4b\" stroke-width=\"2\"/>\n    <line x1=\"240\" y1=\"14\" x2=\"240\" y2=\"38\" stroke=\"#1e1b4b\" stroke-width=\"2\"/>\n    <text x=\"0\" y=\"10\" font-size=\"12\" text-anchor=\"middle\" fill=\"#1e1b4b\">0</text>\n    <text x=\"80\" y=\"10\" font-size=\"12\" text-anchor=\"middle\" fill=\"#1e1b4b\">50</text>\n    <text x=\"160\" y=\"10\" font-size=\"12\" text-anchor=\"middle\" fill=\"#1e1b4b\">100</text>\n    <text x=\"240\" y=\"10\" font-size=\"12\" text-anchor=\"middle\" fill=\"#1e1b4b\">150 公尺</text>\n    <text x=\"120\" y=\"55\" font-size=\"13\" font-weight=\"700\" fill=\"#4338ca\" text-anchor=\"middle\">1 公分代表實際 50 公尺 (1 : 5000)</text>\n  </g>\n  <g transform=\"translate(320, 20)\" font-size=\"13\" fill=\"#1e1b4b\">\n    <text x=\"0\" y=\"22\" font-weight=\"800\" fill=\"#4338ca\">放大/縮小核心規律：</text>\n    <text x=\"0\" y=\"46\">● 長度（邊長、周長）：變 k 倍</text>\n    <text x=\"0\" y=\"70\" font-weight=\"700\" fill=\"#b91c1c\">● 面積：變 k × k ＝ k² 倍</text>\n    <text x=\"0\" y=\"94\" fill=\"#047857\">● 對應角：角度完全不變！</text>\n  </g>\n</svg>",
-    "answer": "邊長變成 3 倍，面積變成原來的 9 倍",
-    "steps": [
-      "原正方形面積：$5 \\times 5 = 25$ 平方公分",
-      "放大後邊長：$5 \\times 3 = 15$ 公分",
-      "放大後面積：$15 \\times 15 = 225$ 平方公分",
-      "面積倍數：$225 \\div 25 = 9$ 倍（即 $3 \\times 3 = 3^2 = 9$ 倍）"
+    "level": 2,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "md",
+    "question": "一個邊長 5 公分的正方形，畫成 3 倍放大圖後，放大圖的周長和面積分別變成原來的幾倍？",
+    "options": [
+      {
+        "key": "A",
+        "text": "周長變成 3 倍，面積變成 3 倍",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      },
+      {
+        "key": "B",
+        "text": "周長變成 3 倍，面積變成 9 倍",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "周長變成 9 倍，面積變成 9 倍",
+        "trapCode": "U07_PERIMETER_SQUARE_ERR"
+      },
+      {
+        "key": "D",
+        "text": "周長變成 3 倍，面積變成 6 倍",
+        "trapCode": "U07_CALC_SLIP"
+      }
     ],
-    "insight": "長度與面積縮放定理：邊長擴大 $k$ 倍，周長擴大 $k$ 倍，但面積擴大 $k^2$（$k$ 的平方）倍！",
-    "trap": {
-      "code": "ERR_AREA_SCALE_LINEAR",
-      "text": "誤以為面積也是放大 3 倍。面積包含長與寬兩個維度，必須乘兩次！"
+    "answer": "B",
+    "check": {
+      "expr": "3 * 3",
+      "expect": "9",
+      "extraChecks": [
+        {
+          "expr": "(5 * 3 * 4) / (5 * 4)",
+          "expect": "3"
+        }
+      ]
     },
-    "work": "md"
+    "explanation": {
+      "examPurpose": "測驗學生能否區分「長度（周長）」與「面積」在放大後的倍數差異：周長變成 3 倍，面積則變成 3 × 3 ＝ 9 倍。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：先算原圖與 3 倍放大圖的邊長和周長："
+        },
+        {
+          "type": "eq",
+          "expr": "5 × 3 ＝ 15",
+          "unit": "公分（放大後的邊長）"
+        },
+        {
+          "type": "eq",
+          "expr": "（15 × 4）÷（5 × 4）＝ 60 ÷ 20 ＝ 3",
+          "unit": "倍（周長倍數）"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 165\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"35\" y=\"95\" width=\"36\" height=\"36\" fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><text x=\"53\" y=\"118\" font-size=\"12\" font-weight=\"700\" fill=\"#1e40af\" text-anchor=\"middle\">1 塊</text><text x=\"53\" y=\"148\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">邊長 5</text><path d=\"M 95 110 L 145 110\" stroke=\"#f59e0b\" stroke-width=\"3\"/><polygon points=\"145,105 155,110 145,115\" fill=\"#f59e0b\"/><text x=\"122\" y=\"98\" font-size=\"12\" font-weight=\"700\" fill=\"#d97706\" text-anchor=\"middle\">邊長 3 倍</text><g transform=\"translate(175, 23)\"><rect x=\"0\" y=\"0\" width=\"108\" height=\"108\" fill=\"#ffe4e6\" stroke=\"#e11d48\" stroke-width=\"2.5\"/><line x1=\"36\" y1=\"0\" x2=\"36\" y2=\"108\" stroke=\"#fb7185\" stroke-width=\"1.5\"/><line x1=\"72\" y1=\"0\" x2=\"72\" y2=\"108\" stroke=\"#fb7185\" stroke-width=\"1.5\"/><line x1=\"0\" y1=\"36\" x2=\"108\" y2=\"36\" stroke=\"#fb7185\" stroke-width=\"1.5\"/><line x1=\"0\" y1=\"72\" x2=\"108\" y2=\"72\" stroke=\"#fb7185\" stroke-width=\"1.5\"/><text x=\"54\" y=\"59\" font-size=\"14\" font-weight=\"800\" fill=\"#be123c\" text-anchor=\"middle\">共 9 塊</text><text x=\"54\" y=\"125\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">邊長 15（3 × 3 格）</text></g><text x=\"310\" y=\"58\" font-size=\"13\" font-weight=\"700\" fill=\"#1e293b\">周長變 3 倍</text><text x=\"310\" y=\"88\" font-size=\"13\" font-weight=\"700\" fill=\"#e11d48\">面積變 3 × 3 ＝ 9 倍</text><text x=\"310\" y=\"116\" font-size=\"12\" fill=\"#475569\">225 ÷ 25 ＝ 9 倍</text></svg>",
+          "caption": "邊長放大 3 倍時，橫向與直向都變 3 倍，裡面可以排進 3 × 3 ＝ 9 個原正方形"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：比較面積倍數。原面積是 5 × 5 ＝ 25 平方公分，放大後面積是 15 × 15 ＝ 225 平方公分："
+        },
+        {
+          "type": "eq",
+          "expr": "225 ÷ 25 ＝ 9",
+          "unit": "倍（即 3 × 3 ＝ 9 倍）"
+        },
+        {
+          "type": "answer",
+          "text": "答：周長變成 3 倍，面積變成 9 倍。"
+        }
+      ],
+      "insight": "長度（邊長、周長）是一維線段，只乘 1 次倍數；面積包含長和寬兩個方向，要乘 2 次倍數！",
+      "distractorAnalysis": {
+        "A": "誤以為面積也只放大 3 倍，忘記面積是由「邊長 × 邊長」算出來的，兩條邊都變 3 倍。",
+        "C": "把面積的平方規律誤套到周長上，以為周長也變成 9 倍。",
+        "D": "把 3 的平方誤算成 3 ＋ 3 ＝ 6 倍或 3 × 2 ＝ 6 倍。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "圖形放大或縮小為幾倍：周長就變幾倍",
+        "面積倍數 ＝ 邊長倍數 × 邊長倍數"
+      ],
+      "conceptCompare": "如果是長方形、三角形或圓形，只要所有邊長（或半徑）都放大 3 倍，周長一律變 3 倍，面積一律變 3 × 3 ＝ 9 倍。",
+      "examVariations": "段考常反過來問「正方形放大後面積變成原來的 25 倍，周長變成幾倍？」因為 5 × 5 ＝ 25，所以周長變成 5 倍。"
+    }
   },
   {
-    "id": "u07_003",
+    "id": "U07-S3-B-003",
+    "legacyId": "u07_003",
     "unitId": "U07",
-    "category": "比例尺概念",
-    "level": 1,
-    "difficulty": 2,
+    "section": "7-3",
+    "sectionName": "認識比例尺",
+    "category": "比例尺單位換算概念",
     "batch": "課本原型題",
     "source": "課本 p.108 例題 1",
-    "verified": true,
-    "question": "地圖上標示比例尺為 $1 : 50000$。這代表地圖上的 1 公分，相當於實際距離多少公尺？是多少公里？",
-    "answer": "500 公尺，也就是 0.5 公里",
-    "steps": [
-      "比例尺 $1 : 50000$ 表示實際長度是圖上的 50000 倍",
-      "$1 \\text{ 公分} \\times 50000 = 50000 \\text{ 公分}$",
-      "$50000 \\text{ 公分} = 500 \\text{ 公尺} = 0.5 \\text{ 公里}$"
+    "level": 1,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "地圖上標示比例尺為 1：50000。這代表地圖上的 1 公分，相當於實際距離多少公尺？也就是多少公里？",
+    "options": [
+      {
+        "key": "A",
+        "text": "5000 公尺，也就是 5 公里",
+        "trapCode": "U07_SCALE_UNIT_MISMATCH"
+      },
+      {
+        "key": "B",
+        "text": "50 公尺，也就是 0.05 公里",
+        "trapCode": "U07_CALC_SLIP"
+      },
+      {
+        "key": "C",
+        "text": "500 公尺，也就是 0.5 公里",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "50000 公尺，也就是 50 公里",
+        "trapCode": "U07_RATIO_FRACTION_INV"
+      }
     ],
-    "trap": {
-      "code": "ERR_UNIT_CONVERT_M_TO_KM",
-      "text": "單位換算搞混：1 公里 ＝ 1000 公尺 ＝ 100000 公分（去 5 個 0）。"
+    "answer": "C",
+    "check": {
+      "expr": "50000 / 100",
+      "expect": "500",
+      "extraChecks": [
+        {
+          "expr": "50000 / 100000",
+          "expect": "0.5"
+        }
+      ]
     },
-    "work": "sm"
+    "explanation": {
+      "examPurpose": "測驗學生是否理解數字比例尺「1：50000」兩邊單位相同（公分對公分），並正確進行公分、公尺與公里的換算。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：數字比例尺 1：50000 沒有寫單位時，前後都使用相同的長度單位。所以地圖上 1 公分，等於實際 50000 公分。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 135\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"20\" y=\"30\" width=\"110\" height=\"44\" rx=\"8\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2\"/><text x=\"75\" y=\"50\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">圖上 1 公分</text><text x=\"75\" y=\"67\" font-size=\"12\" fill=\"#1e293b\" text-anchor=\"middle\">50000 公分</text><path d=\"M 135 52 L 165 52\" stroke=\"#64748b\" stroke-width=\"2\"/><polygon points=\"165,48 173,52 165,56\" fill=\"#64748b\"/><text x=\"152\" y=\"42\" font-size=\"11\" font-weight=\"700\" fill=\"#d97706\" text-anchor=\"middle\">去2個0</text><rect x=\"176\" y=\"30\" width=\"120\" height=\"44\" rx=\"8\" fill=\"#ecfdf5\" stroke=\"#059669\" stroke-width=\"2\"/><text x=\"236\" y=\"50\" font-size=\"12\" font-weight=\"700\" fill=\"#059669\" text-anchor=\"middle\">換算成公尺</text><text x=\"236\" y=\"67\" font-size=\"13\" font-weight=\"800\" fill=\"#065f46\" text-anchor=\"middle\">500 公尺</text><path d=\"M 301 52 L 331 52\" stroke=\"#64748b\" stroke-width=\"2\"/><polygon points=\"331,48 339,52 331,56\" fill=\"#64748b\"/><text x=\"318\" y=\"42\" font-size=\"11\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">去3個0</text><rect x=\"342\" y=\"30\" width=\"100\" height=\"44\" rx=\"8\" fill=\"#fff1f2\" stroke=\"#e11d48\" stroke-width=\"2\"/><text x=\"392\" y=\"50\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">換算成公里</text><text x=\"392\" y=\"67\" font-size=\"13\" font-weight=\"800\" fill=\"#9f1239\" text-anchor=\"middle\">0.5 公里</text><text x=\"230\" y=\"108\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"middle\">1 公里 ＝ 1000 公尺 ＝ 100000 公分（共少 5 個 0）</text></svg>",
+          "caption": "把 50000 公分依序「去掉 2 個 0」變公尺，再「除以 1000」變公里"
+        },
+        {
+          "type": "eq",
+          "expr": "50000 ÷ 100 ＝ 500",
+          "unit": "公尺"
+        },
+        {
+          "type": "eq",
+          "expr": "500 ÷ 1000 ＝ 0.5",
+          "unit": "公里"
+        },
+        {
+          "type": "answer",
+          "text": "答：500 公尺，也就是 0.5 公里。"
+        }
+      ],
+      "insight": "比例尺口訣：公分變公尺去掉 2 個 0；公分變公里除以 100000（小數點向左移 5 位）！",
+      "distractorAnalysis": {
+        "A": "公分換公尺時少去掉一個 0（誤除以 10），把 50000 公分錯算成 5000 公尺。",
+        "B": "公分換公尺時多去掉一個 0（誤除以 1000），錯算成 50 公尺與 0.05 公里。",
+        "D": "直接把比例尺的數字 50000 當成公尺數，忘記比例尺前後兩邊一開始都是「公分」。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "1 公尺 ＝ 100 公分；1 公里 ＝ 1000 公尺 ＝ 100000 公分",
+        "比例尺 1：50000 ＝ 圖上 1 公分：實際 50000 公分"
+      ],
+      "conceptCompare": "沒有標明單位的「比」或「比值」比例尺，兩端單位必相同（通常是公分對公分）；若有標單位的線段比例尺，則依圖上標出的公尺或公里直接判讀。",
+      "examVariations": "常改考「比例尺 1：200000 的地圖上，圖上 1 公分代表實際幾公里？」只要把 200000 去掉 5 個 0，答案就是 2 公里。"
+    }
   },
   {
-    "id": "u07_004",
+    "id": "U07-S3-B-004",
+    "legacyId": "u07_004",
     "unitId": "U07",
-    "category": "圖上長求實際長",
-    "level": 1,
-    "difficulty": 3,
+    "section": "7-3",
+    "sectionName": "認識比例尺",
+    "category": "圖上長求實際距離",
     "batch": "課本原型題",
     "source": "課本 p.110 例題 2",
-    "verified": true,
-    "question": "在一張比例尺 $1 : 25000$ 的地圖上，量得甲、乙兩地的距離是 4 公分。兩地的實際距離是多少公里？",
-    "answer": "1 公里",
-    "steps": [
-      "實際距離 ＝ 圖上距離 $\\times$ 比例尺分母",
-      "$4 \\times 25000 = 100000$ 公分",
-      "$100000 \\text{ 公分} = 1000 \\text{ 公尺} = 1 \\text{ 公里}$"
-    ],
-    "work": "sm"
-  },
-  {
-    "id": "u07_005",
-    "unitId": "U07",
-    "category": "實際長求圖上長",
     "level": 1,
     "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "在一張比例尺 1：25000 的地圖上，量得甲、乙兩地的距離是 4 公分。兩地的實際距離是多少公里？",
+    "figure": {
+      "type": "bar",
+      "rows": [
+        {
+          "label": "圖上 1 公分（代表 250 公尺）",
+          "units": 1,
+          "role": "base"
+        },
+        {
+          "label": "圖上 4 公分（實際總距離）",
+          "units": 4,
+          "role": "compare"
+        }
+      ],
+      "brace": {
+        "kind": "sum",
+        "text": "4 個 250 公尺 ＝ 1000 公尺 ＝ 1 公里"
+      }
+    },
+    "options": [
+      {
+        "key": "A",
+        "text": "10 公里",
+        "trapCode": "U07_SCALE_UNIT_MISMATCH"
+      },
+      {
+        "key": "B",
+        "text": "0.16 公里",
+        "trapCode": "U07_SCALE_MUL_DIV_SWAP"
+      },
+      {
+        "key": "C",
+        "text": "1 公里",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "1.2 公里",
+        "trapCode": "U07_CALC_SLIP"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "4 * 25000 / 100000",
+      "expect": "1"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否由比例尺與圖上長度計算實際距離，並正確完成公分轉換為公里的單位換算。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：比例尺 1：25000 表示實際距離是圖上長度的 25000 倍。先算實際幾公分："
+        },
+        {
+          "type": "bar"
+        },
+        {
+          "type": "eq",
+          "expr": "4 × 25000 ＝ 100000",
+          "unit": "公分"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：把 100000 公分化為公里（1 公里 ＝ 100000 公分）："
+        },
+        {
+          "type": "eq",
+          "expr": "100000 ÷ 100000 ＝ 1",
+          "unit": "公里"
+        },
+        {
+          "type": "answer",
+          "text": "答：1 公里。"
+        }
+      ],
+      "insight": "也可以先把 25000 公分換成 250 公尺，再算 4 × 250 ＝ 1000 公尺 ＝ 1 公里，數字小更好算！",
+      "figureNote": "線段圖顯示圖上 1 公分對應 250 公尺，甲乙兩地共 4 公分就是 4 個 250 公尺，合起來剛好 1 公里。",
+      "distractorAnalysis": {
+        "A": "把 100000 公分化為公里時少去掉一個 0（誤除以 10000），錯答成 10 公里。",
+        "B": "沒有先算乘法，錯把 4 ÷ 25 算成 0.16 公里。",
+        "D": "誤將 250 × 4 進位失誤算成 1200 公尺，換算成 1.2 公里。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "實際距離 ＝ 圖上距離 × 比例尺分母",
+        "100000 公分 ＝ 1000 公尺 ＝ 1 公里"
+      ],
+      "conceptCompare": "求實際距離會「變大」，要用乘法；求圖上距離會「縮小」，要用除法。",
+      "examVariations": "若圖上距離改為 12 公分，則實際距離為 3 × 1 ＝ 3 公里。"
+    }
+  },
+  {
+    "id": "U07-S3-B-005",
+    "legacyId": "u07_005",
+    "unitId": "U07",
+    "section": "7-3",
+    "sectionName": "認識比例尺",
+    "category": "實際長求圖上距離",
     "batch": "課本原型題",
     "source": "課本 p.111 例題 3",
-    "verified": true,
-    "question": "兩鎮實際相距 6 公里。在比例尺 $1 : 300000$ 的地圖上，這兩鎮之間的距離是多少公分？",
-    "answer": "2 公分",
-    "steps": [
-      "先將公里化為公分：$6 \\text{ 公里} = 600000 \\text{ 公分}$",
-      "圖上長 ＝ 實際長 $\\div$ 比例尺分母",
-      "$600000 \\div 300000 = 2$ 公分"
+    "level": 1,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "兩鎮實際相距 6 公里。在比例尺 1：300000 的地圖上，這兩鎮之間的距離是多少公分？",
+    "options": [
+      {
+        "key": "A",
+        "text": "2 公分",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "20 公分",
+        "trapCode": "U07_SCALE_UNIT_MISMATCH"
+      },
+      {
+        "key": "C",
+        "text": "18 公分",
+        "trapCode": "U07_SCALE_MUL_DIV_SWAP"
+      },
+      {
+        "key": "D",
+        "text": "0.5 公分",
+        "trapCode": "U07_RATIO_FRACTION_INV"
+      }
     ],
-    "trap": {
-      "code": "ERR_INVERSE_SCALE",
-      "text": "乘除混淆：求地圖上的長度必須「變小（除以分母）」，不是乘以分母。"
+    "answer": "A",
+    "check": {
+      "expr": "6 * 100000 / 300000",
+      "expect": "2"
     },
-    "work": "sm"
+    "explanation": {
+      "examPurpose": "測驗學生能否先統一長度單位（公里換成公分），再用「實際距離 ÷ 比例尺分母」求得圖上距離。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：先統一單位！1 公里 ＝ 100000 公分，把 6 公里換成公分："
+        },
+        {
+          "type": "eq",
+          "expr": "6 × 100000 ＝ 600000",
+          "unit": "公分"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：在地圖上畫出來會變小，所以用實際距離除以 300000："
+        },
+        {
+          "type": "eq",
+          "expr": "600000 ÷ 300000 ＝ 2",
+          "unit": "公分"
+        },
+        {
+          "type": "longdiv",
+          "dividend": "600000",
+          "divisor": "300000",
+          "mode": "exact",
+          "note": "同消去 5 個 0 後，相當於 6 ÷ 3 ＝ 2"
+        },
+        {
+          "type": "answer",
+          "text": "答：2 公分。"
+        }
+      ],
+      "insight": "比例尺 1：300000 可以先翻譯成「圖上 1 公分代表 3 公里」，6 ÷ 3 ＝ 2 公分馬上秒殺！",
+      "distractorAnalysis": {
+        "C": "乘除用反，誤拿 6 × 3 ＝ 18 當成圖上公分數。",
+        "D": "把「除以 3」顛倒算成「3 ÷ 6 ＝ 0.5 公分」。",
+        "B": "單位換算多補了一個 0，錯把 6 公里換成 6000000 公分，導致除以 300000 變成 20 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "圖上距離 ＝ 實際距離（換成公分）÷ 比例尺分母",
+        "小撇步：先把分母去掉 5 個 0 變成「1 公分代表幾公里」，再直接除"
+      ],
+      "conceptCompare": "求圖上距離一定要先把公里或公尺化為公分，或把比例尺分母先化為公里再相除，兩邊單位一致才不會差 10 倍、100 倍。",
+      "examVariations": "若改為比例尺 1：150000（圖上 1 公分代表 1.5 公里），則 6 公里在地圖上會長 6 ÷ 1.5 ＝ 4 公分。"
+    }
   },
   {
-    "id": "u07_006",
+    "id": "U07-S3-B-006",
+    "legacyId": "u07_006",
     "unitId": "U07",
+    "section": "7-3",
+    "sectionName": "認識比例尺",
     "category": "線段比例尺判讀",
-    "level": 1,
-    "difficulty": 2,
     "batch": "課本原型題",
     "source": "課本 p.112 例題 4",
-    "verified": true,
-    "question": "地圖上線段比例尺標示「1 公分代表 200 公尺」。在地圖上量得一座水庫長度為 3.5 公分，水庫的實際長度是多少公尺？",
-    "answer": "700 公尺",
-    "steps": [
-      "1 公分代表 200 公尺",
-      "3.5 公分代表：$3.5 \\times 200 = 700$ 公尺"
+    "level": 1,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "地圖上的線段比例尺標示「圖上 1 公分代表實際 200 公尺」。在地圖上量得一座水庫長度為 3.5 公分，這座水庫的實際長度是多少公尺？",
+    "options": [
+      {
+        "key": "A",
+        "text": "650 公尺",
+        "trapCode": "U07_CALC_SLIP"
+      },
+      {
+        "key": "B",
+        "text": "70 公尺",
+        "trapCode": "U07_BAR_SCALE_READ_ERR"
+      },
+      {
+        "key": "C",
+        "text": "700 公尺",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "57 公尺",
+        "trapCode": "U07_SCALE_MUL_DIV_SWAP"
+      }
     ],
-    "work": "sm"
+    "answer": "C",
+    "check": {
+      "expr": "3.5 * 200",
+      "expect": "700"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否直接判讀線段比例尺的「每公分對應實際長度」，並乘以小數長度求實際距離。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：看懂線段比例尺，圖上每 1 公分就代表實際的 200 公尺。3.5 公分就是 3.5 個 200 公尺。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 135\" xmlns=\"http://www.w3.org/2000/svg\"><g transform=\"translate(35, 32)\"><rect x=\"0\" y=\"20\" width=\"80\" height=\"12\" fill=\"#1e293b\"/><rect x=\"80\" y=\"20\" width=\"80\" height=\"12\" fill=\"#ffffff\" stroke=\"#1e293b\" stroke-width=\"1.5\"/><rect x=\"160\" y=\"20\" width=\"80\" height=\"12\" fill=\"#1e293b\"/><rect x=\"240\" y=\"20\" width=\"40\" height=\"12\" fill=\"#e11d48\"/><line x1=\"0\" y1=\"12\" x2=\"0\" y2=\"38\" stroke=\"#1e293b\" stroke-width=\"2\"/><line x1=\"80\" y1=\"12\" x2=\"80\" y2=\"38\" stroke=\"#1e293b\" stroke-width=\"2\"/><line x1=\"160\" y1=\"12\" x2=\"160\" y2=\"38\" stroke=\"#1e293b\" stroke-width=\"2\"/><line x1=\"240\" y1=\"12\" x2=\"240\" y2=\"38\" stroke=\"#1e293b\" stroke-width=\"2\"/><line x1=\"280\" y1=\"12\" x2=\"280\" y2=\"38\" stroke=\"#e11d48\" stroke-width=\"2\"/><text x=\"0\" y=\"7\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">0</text><text x=\"80\" y=\"7\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">200</text><text x=\"160\" y=\"7\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">400</text><text x=\"240\" y=\"7\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">600</text><text x=\"288\" y=\"7\" font-size=\"12\" font-weight=\"800\" fill=\"#e11d48\" text-anchor=\"start\">700 公尺</text><text x=\"140\" y=\"56\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">共 3.5 公分 ＝ 3 × 200 ＋ 100 ＝ 700 公尺</text></g></svg>",
+          "caption": "線段比例尺：3 個 1 公分是 600 公尺，再加上半格 0.5 公分（100 公尺），共 700 公尺"
+        },
+        {
+          "type": "eq",
+          "expr": "200 × 3.5 ＝ 700",
+          "unit": "公尺"
+        },
+        {
+          "type": "mul",
+          "a": "200",
+          "b": "3.5",
+          "note": "整數乘一位小數直式驗算"
+        },
+        {
+          "type": "answer",
+          "text": "答：700 公尺。"
+        }
+      ],
+      "insight": "線段比例尺已經幫你把單位寫好了（1 公分 ＝ 200 公尺），直接把圖上公分數乘 200 就是公尺！",
+      "distractorAnalysis": {
+        "A": "錯把 3.5 的小數部分 0.5 當成 50 公尺，算成 600 ＋ 50 ＝ 650 公尺。",
+        "B": "乘法進位後小數點多消了一個 0，將 700 誤算成 70 公尺。",
+        "D": "乘除搞反，誤用 200 ÷ 3.5 大約算出 57 公尺。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "線段比例尺求實際長 ＝ 圖上公分數 × 每公分代表的實際長度"
+      ],
+      "conceptCompare": "線段比例尺因為直接寫出「1 公分對應幾公尺／幾公里」，計算時不需要先換成「1：20000」再換算回來，直接用對應單位相乘最快。",
+      "examVariations": "若題目最後問「是多少公里？」，則要把算出來的 700 公尺再除以 1000，得到 0.7 公里。"
+    }
   },
   {
-    "id": "u07_007",
+    "id": "U07-S3-B-007",
+    "legacyId": "u07_007",
     "unitId": "U07",
-    "category": "縮小圖面積換算",
-    "level": 2,
-    "difficulty": 3,
+    "section": "7-3",
+    "sectionName": "認識比例尺",
+    "category": "縮小圖平面面積換算",
     "batch": "課本原型題",
     "source": "課本 p.114 練習園地",
-    "verified": true,
-    "question": "一座長方形操場實際長 100 公尺、寬 60 公尺。在比例尺 $\\frac{1}{1000}$ 的縮小圖上，這個操場的面積是多少平方公分？",
-    "answer": "60 平方公分",
-    "steps": [
-      "實際長：$100 \\text{ 公尺} = 10000 \\text{ 公分} \\implies$ 圖上長 $10000 \\div 1000 = 10$ 公分",
-      "實際寬：$60 \\text{ 公尺} = 6000 \\text{ 公分} \\implies$ 圖上寬 $6000 \\div 1000 = 6$ 公分",
-      "圖上面積：$10 \\times 6 = 60$ 平方公分"
+    "level": 2,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "md",
+    "question": "一座長方形操場實際長 100 公尺、寬 60 公尺。在比例尺 1/1000 的縮小圖上，這個操場的面積是多少平方公分？",
+    "options": [
+      {
+        "key": "A",
+        "text": "6000 平方公分",
+        "trapCode": "U07_SCALE_UNIT_MISMATCH"
+      },
+      {
+        "key": "B",
+        "text": "6 平方公分",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      },
+      {
+        "key": "C",
+        "text": "60 平方公分",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "16 平方公分",
+        "trapCode": "U07_SCALE_MUL_DIV_SWAP"
+      }
     ],
-    "work": "md"
+    "answer": "C",
+    "check": {
+      "expr": "(100 * 100 / 1000) * (60 * 100 / 1000)",
+      "expect": "60"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否知道計算縮圖面積時，必須先將「實際長」與「實際寬」分別換算成圖上公分數，再把圖上的長和寬相乘。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：先把實際長寬化為公分，再除以 1000 算出地圖上的長與寬："
+        },
+        {
+          "type": "eq",
+          "expr": "100 × 100 ÷ 1000 ＝ 10000 ÷ 1000 ＝ 10",
+          "unit": "公分（圖上長）"
+        },
+        {
+          "type": "eq",
+          "expr": "60 × 100 ÷ 1000 ＝ 6000 ÷ 1000 ＝ 6",
+          "unit": "公分（圖上寬）"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 155\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"20\" y=\"25\" width=\"170\" height=\"102\" fill=\"#ecfdf5\" stroke=\"#059669\" stroke-width=\"2.5\"/><text x=\"105\" y=\"65\" font-size=\"13\" font-weight=\"700\" fill=\"#065f46\" text-anchor=\"middle\">實際操場</text><text x=\"105\" y=\"88\" font-size=\"12\" fill=\"#047857\" text-anchor=\"middle\">100 公尺 × 60 公尺</text><text x=\"105\" y=\"110\" font-size=\"11\" fill=\"#475569\" text-anchor=\"middle\">10000 公分 × 6000 公分</text><path d=\"M 205 76 L 265 76\" stroke=\"#f59e0b\" stroke-width=\"3\"/><polygon points=\"265,71 275,76 265,81\" fill=\"#f59e0b\"/><text x=\"238\" y=\"64\" font-size=\"12\" font-weight=\"700\" fill=\"#d97706\" text-anchor=\"middle\">邊長 ÷ 1000</text><rect x=\"295\" y=\"46\" width=\"100\" height=\"60\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><text x=\"345\" y=\"71\" font-size=\"12\" font-weight=\"700\" fill=\"#1d4ed8\" text-anchor=\"middle\">縮小圖：10 × 6</text><text x=\"345\" y=\"92\" font-size=\"13\" font-weight=\"800\" fill=\"#e11d48\" text-anchor=\"middle\">面積 60 平方公分</text></svg>",
+          "caption": "先分別算出縮小圖上的長 10 公分與寬 6 公分，再乘出圖上面積"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：用圖上長 × 圖上寬算出圖上面積："
+        },
+        {
+          "type": "eq",
+          "expr": "10 × 6 ＝ 60",
+          "unit": "平方公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：60 平方公分。"
+        }
+      ],
+      "insight": "遇到比例尺面積題，最穩的做法是「先分開求圖上長與圖上寬，最後才相乘」，絕對不會掉進平方陷阱！",
+      "distractorAnalysis": {
+        "A": "算出 100 × 60 ＝ 6000 平方公尺後直接當成 6000 平方公分，忘了先把公尺換算成公分再縮小。",
+        "B": "錯拿實際面積 6000 除以邊長比例 1000 得 6（面積應該除兩次 1000，且 1 平方公尺 ＝ 10000 平方公分）。",
+        "D": "算出圖上長 10 公分與寬 6 公分後，錯用加法 10 ＋ 6 ＝ 16 當作面積。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "圖上面積 ＝（實際長 ÷ 分母）×（實際寬 ÷ 分母）",
+        "面積比例尺 ＝ 長度比例尺的平方"
+      ],
+      "conceptCompare": "長度縮小 1/1000 倍時，面積其實是縮小 1/1000000（一百萬分之一）倍，因此不能拿實際面積直接除以 1000。",
+      "examVariations": "若反過來給圖上面積 60 平方公分與比例尺 1：1000，求實際面積為幾平方公尺，可用「圖上 1 公分 ＝ 10 公尺」，先推 1 平方公分 ＝ 10 × 10 ＝ 100 平方公尺，60 × 100 ＝ 6000 平方公尺。"
+    }
   },
   {
-    "id": "u07_101",
+    "id": "U07-S1-X-008",
+    "legacyId": null,
     "unitId": "U07",
-    "category": "面積倍數反求邊長",
+    "section": "7-1",
+    "sectionName": "認識放大圖與縮小圖",
+    "category": "對應頂點與對應邊",
+    "batch": "課本原型題",
+    "source": "課本 p.104 例題延伸",
+    "level": 1,
+    "difficulty": 1,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "長方形乙（頂點依序為 ㄉ、ㄊ、ㄋ、ㄌ）是長方形甲（頂點依序為 ㄅ、ㄆ、ㄇ、ㄈ）的 3 倍放大圖，其中頂點 ㄉ、ㄊ、ㄋ、ㄌ 分別對應 ㄅ、ㄆ、ㄇ、ㄈ。已知甲圖的長邊 ㄅㄆ 是 5 公分、寬邊 ㄆㄇ 是 2 公分，且角ㄅ是 90 度，請問乙圖的對應邊「ㄊㄋ」長度和對應角「角ㄉ」角度各是多少？",
+    "options": [
+      {
+        "key": "A",
+        "text": "ㄊㄋ長 6 公分，角ㄉ是 90 度",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "ㄊㄋ長 6 公分，角ㄉ是 270 度",
+        "trapCode": "U07_ANGLE_SCALED"
+      },
+      {
+        "key": "C",
+        "text": "ㄊㄋ長 15 公分，角ㄉ是 90 度",
+        "trapCode": "U07_CORRESPONDING_SIDE_SWAP"
+      },
+      {
+        "key": "D",
+        "text": "ㄊㄋ長 10 公分，角ㄉ是 90 度",
+        "trapCode": "U07_RELATIVE_SCALE_ERR"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "2 * 3",
+      "expect": "6",
+      "extraChecks": [
+        {
+          "expr": "5 * 3",
+          "expect": "15"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否從對應頂點位置找出正確的對應邊與對應角，並運用「邊長乘倍數、角度不變」求值。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：先對齊兩個長方形的對應點：ㄅ對ㄉ、ㄆ對ㄊ、ㄇ對ㄋ、ㄈ對ㄌ。所以「ㄊㄋ」的對應邊是寬邊「ㄆㄇ」，「角ㄉ」的對應角是「角ㄅ」。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 175\" xmlns=\"http://www.w3.org/2000/svg\"><g transform=\"translate(28, 52)\"><rect x=\"0\" y=\"0\" width=\"80\" height=\"36\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><text x=\"-10\" y=\"-5\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\">ㄅ</text><text x=\"82\" y=\"-5\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\">ㄆ</text><text x=\"82\" y=\"48\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\">ㄇ</text><text x=\"-10\" y=\"48\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\">ㄈ</text><text x=\"40\" y=\"-10\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">5 公分</text><text x=\"98\" y=\"22\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\">2 公分</text><text x=\"40\" y=\"23\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">甲圖</text></g><path d=\"M 155 72 L 195 72\" stroke=\"#f59e0b\" stroke-width=\"3\"/><polygon points=\"195,67 205,72 195,77\" fill=\"#f59e0b\"/><text x=\"177\" y=\"60\" font-size=\"12\" font-weight=\"700\" fill=\"#d97706\" text-anchor=\"middle\">3 倍</text><g transform=\"translate(225, 28)\"><rect x=\"0\" y=\"0\" width=\"160\" height=\"72\" fill=\"#fff1f2\" stroke=\"#e11d48\" stroke-width=\"2.5\"/><line x1=\"160\" y1=\"0\" x2=\"160\" y2=\"72\" stroke=\"#059669\" stroke-width=\"4\"/><text x=\"-12\" y=\"-5\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\">ㄉ</text><text x=\"162\" y=\"-5\" font-size=\"12\" font-weight=\"700\" fill=\"#059669\">ㄊ</text><text x=\"162\" y=\"85\" font-size=\"12\" font-weight=\"700\" fill=\"#059669\">ㄋ</text><text x=\"-12\" y=\"85\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\">ㄌ</text><text x=\"80\" y=\"-10\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">15 公分</text><text x=\"174\" y=\"40\" font-size=\"13\" font-weight=\"800\" fill=\"#059669\">？</text><text x=\"80\" y=\"42\" font-size=\"13\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">乙圖（3 倍放大圖）</text></g><text x=\"230\" y=\"148\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"middle\">寬邊 ㄆㄇ 對應 ㄊㄋ（2 × 3 ＝ 6）；角ㄅ 對應 角ㄉ（維持 90°）</text></svg>",
+          "caption": "頂點位置對應對齊後，就能清楚看出 ㄊㄋ 對應寬邊 ㄆㄇ，角ㄉ 對應 角ㄅ"
+        },
+        {
+          "type": "eq",
+          "expr": "2 × 3 ＝ 6",
+          "unit": "公分（ㄊㄋ的長度）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：對應角大小不變，所以角ㄉ ＝ 角ㄅ ＝ 90 度。"
+        },
+        {
+          "type": "answer",
+          "text": "答：ㄊㄋ長 6 公分，角ㄉ是 90 度。"
+        }
+      ],
+      "insight": "找對應邊先把頂點順序一一對齊（ㄅㄆㄇㄈ ➔ ㄉㄊㄋㄌ），才不會把長邊跟寬邊看錯！",
+      "distractorAnalysis": {
+        "B": "對應邊算對了，但誤以為「角ㄉ」也要乘以 3 變成 270 度。",
+        "D": "把倍數乘錯或誤算成 2 × 5 ＝ 10 公分。",
+        "C": "看錯對應邊，把寬邊「ㄊㄋ」誤當成對應長邊「ㄅㄆ」去乘 3（5 × 3 ＝ 15 公分）。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "對應點順序對齊 ➔ 對應邊 ＝ 原邊長 × 倍數",
+        "對應角 ＝ 原角度（保持不變）"
+      ],
+      "conceptCompare": "長方形對角線與周長也屬於長度，都會放大 3 倍；只有四個角的角度維持 90 度不變。",
+      "examVariations": "若圖形旋轉 90 度後擺放，一樣先找到標示度數或長短特徵的對應頂點，再算對應邊才不會出錯。"
+    }
+  },
+  {
+    "id": "U07-S1-X-009",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "7-1",
+    "sectionName": "認識放大圖與縮小圖",
+    "category": "鈍角三角形 1/2 縮小圖",
+    "batch": "課本原型題",
+    "source": "課本 p.107 例題延伸",
+    "level": 1,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "方格紙上有一個等腰鈍角三角形甲，底邊長 6 格、高 4 格，頂角是 120 度。如果畫出甲圖的 1/2 倍縮小圖乙，乙圖的底邊、高和頂角各是多少？",
+    "options": [
+      {
+        "key": "A",
+        "text": "底 12 格、高 8 格、頂角 120 度",
+        "trapCode": "U07_RELATIVE_SCALE_ERR"
+      },
+      {
+        "key": "B",
+        "text": "底 3 格、高 2 格、頂角 60 度",
+        "trapCode": "U07_ANGLE_SCALED"
+      },
+      {
+        "key": "C",
+        "text": "底 2 格、高 3 格、頂角 120 度",
+        "trapCode": "U07_CORRESPONDING_SIDE_SWAP"
+      },
+      {
+        "key": "D",
+        "text": "底 3 格、高 2 格、頂角 120 度",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "6 * (1/2)",
+      "expect": "3",
+      "extraChecks": [
+        {
+          "expr": "4 * (1/2)",
+          "expect": "2"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生在方格紙畫縮小圖時，能否將底和高都乘以 1/2，同時維持鈍角 120 度不變。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：畫 1/2 倍縮小圖，表示所有的長度（底邊長與高）都要乘以 1/2（也就是除以 2）："
+        },
+        {
+          "type": "eq",
+          "expr": "6 × 1/2 ＝ 3",
+          "unit": "格（乙圖的底）"
+        },
+        {
+          "type": "eq",
+          "expr": "4 × 1/2 ＝ 2",
+          "unit": "格（乙圖的高）"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 155\" xmlns=\"http://www.w3.org/2000/svg\"><g transform=\"translate(30, 20)\"><rect x=\"0\" y=\"0\" width=\"144\" height=\"96\" fill=\"#f8fafc\" stroke=\"#cbd5e1\" stroke-width=\"1\"/><line x1=\"24\" y1=\"0\" x2=\"24\" y2=\"96\" stroke=\"#e2e8f0\"/><line x1=\"48\" y1=\"0\" x2=\"48\" y2=\"96\" stroke=\"#e2e8f0\"/><line x1=\"72\" y1=\"0\" x2=\"72\" y2=\"96\" stroke=\"#e2e8f0\"/><line x1=\"96\" y1=\"0\" x2=\"96\" y2=\"96\" stroke=\"#e2e8f0\"/><line x1=\"120\" y1=\"0\" x2=\"120\" y2=\"96\" stroke=\"#e2e8f0\"/><line x1=\"0\" y1=\"24\" x2=\"144\" y2=\"24\" stroke=\"#e2e8f0\"/><line x1=\"0\" y1=\"48\" x2=\"144\" y2=\"48\" stroke=\"#e2e8f0\"/><line x1=\"0\" y1=\"72\" x2=\"144\" y2=\"72\" stroke=\"#e2e8f0\"/><polygon points=\"0,96 144,96 72,48\" fill=\"#dbeafe\" fill-opacity=\"0.75\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><line x1=\"72\" y1=\"48\" x2=\"72\" y2=\"96\" stroke=\"#1d4ed8\" stroke-width=\"1.5\" stroke-dasharray=\"4,3\"/><text x=\"72\" y=\"38\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">120°</text><text x=\"72\" y=\"114\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">甲圖：底 6 格、高 4 格</text></g><path d=\"M 205 68 L 245 68\" stroke=\"#f59e0b\" stroke-width=\"3\"/><polygon points=\"245,63 255,68 245,73\" fill=\"#f59e0b\"/><text x=\"228\" y=\"56\" font-size=\"12\" font-weight=\"700\" fill=\"#d97706\" text-anchor=\"middle\">× 1/2</text><g transform=\"translate(285, 44)\"><rect x=\"0\" y=\"0\" width=\"72\" height=\"48\" fill=\"#f8fafc\" stroke=\"#cbd5e1\" stroke-width=\"1\"/><line x1=\"24\" y1=\"0\" x2=\"24\" y2=\"48\" stroke=\"#e2e8f0\"/><line x1=\"48\" y1=\"0\" x2=\"48\" y2=\"48\" stroke=\"#e2e8f0\"/><line x1=\"0\" y1=\"24\" x2=\"72\" y2=\"24\" stroke=\"#e2e8f0\"/><polygon points=\"0,48 72,48 36,24\" fill=\"#ffe4e6\" fill-opacity=\"0.85\" stroke=\"#e11d48\" stroke-width=\"2.5\"/><line x1=\"36\" y1=\"24\" x2=\"36\" y2=\"48\" stroke=\"#be123c\" stroke-width=\"1.5\" stroke-dasharray=\"3,2\"/><text x=\"36\" y=\"16\" font-size=\"12\" font-weight=\"700\" fill=\"#059669\" text-anchor=\"middle\">仍是 120°</text><text x=\"36\" y=\"68\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">乙圖：底 3 格、高 2 格</text></g></svg>",
+          "caption": "鈍角三角形縮小 1/2 倍後，底變 3 格、高變 2 格，頂角依然是 120°"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：縮小圖只會等比例變小，形狀不會改變，所以頂角依然是 120 度。"
+        },
+        {
+          "type": "answer",
+          "text": "答：底 3 格、高 2 格、頂角 120 度。"
+        }
+      ],
+      "insight": "縮小圖看的是「乘以 1/2」，底和高一起除以 2，頂角和底角的大小通通不變！",
+      "distractorAnalysis": {
+        "A": "看反縮小與放大，把 6 和 4 誤乘以 2 變成底 12 格、高 8 格。",
+        "B": "錯把角度也跟著乘以 1/2，將頂角 120 度縮小成 60 度。",
+        "C": "底邊長和高寫反了，變成底 2 格、高 3 格。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "1/2 倍縮小圖：底和高都乘以 1/2（即除以 2）",
+        "縮小後所有內角的度數保持不變"
+      ],
+      "conceptCompare": "如果一個三角形的兩個底角都是 30 度、頂角是 120 度，不管縮小成 1/2 倍或 1/10 倍，三個角加起來永遠是 180 度，形狀完全一樣。",
+      "examVariations": "段考常考「甲圖是乙圖的 2 倍放大圖，那麼乙圖就是甲圖的幾倍縮小圖？」，答案為 1/2 倍（互為倒數）。"
+    }
+  },
+  {
+    "id": "U07-S1-X-010",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "7-1",
+    "sectionName": "認識放大圖與縮小圖",
+    "category": "判斷是否為真放大縮小圖",
+    "batch": "課本原型題",
+    "source": "課本 p.107 隨堂思考延伸",
+    "level": 2,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "小美有一張長 6 公分、寬 4 公分的長方形卡片，她把長和寬「都各加上 2 公分」，畫出一個長 8 公分、寬 6 公分的新長方形。請問新長方形是不是原卡片的放大圖？",
+    "options": [
+      {
+        "key": "A",
+        "text": "是，因為四個角都是 90 度",
+        "trapCode": "U07_CORRESPONDING_SIDE_SWAP"
+      },
+      {
+        "key": "B",
+        "text": "是，因為長和寬都一起加了 2 公分",
+        "trapCode": "U07_RELATIVE_SCALE_ERR"
+      },
+      {
+        "key": "C",
+        "text": "不是，因為長是原來的 4/3 倍、寬是 3/2 倍，倍數不同",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "是，因為新長方形的周長剛好變原來的 2 倍",
+        "trapCode": "U07_PERIMETER_SQUARE_ERR"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "8 / 6",
+      "expect": "4/3",
+      "extraChecks": [
+        {
+          "expr": "6 / 4",
+          "expect": "3/2"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否理解「放大圖必須對應邊長同乘以相同的倍數」，而非「各加上相同的長度」。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：放大圖的每條對應邊必須「乘以相同倍數」。檢查新長方形的長和寬各變為原來的幾倍："
+        },
+        {
+          "type": "eq",
+          "expr": "8 ÷ 6 ＝ 4/3",
+          "unit": "倍（長的放大倍數）"
+        },
+        {
+          "type": "eq",
+          "expr": "6 ÷ 4 ＝ 3/2",
+          "unit": "倍（寬的放大倍數）"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 145\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"35\" y=\"42\" width=\"90\" height=\"60\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><text x=\"80\" y=\"33\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">原圖：長 6、寬 4</text><text x=\"80\" y=\"76\" font-size=\"12\" fill=\"#1e40af\" text-anchor=\"middle\">6：4 ＝ 3：2</text><rect x=\"185\" y=\"28\" width=\"120\" height=\"90\" fill=\"#fff1f2\" stroke=\"#e11d48\" stroke-width=\"2.5\"/><text x=\"245\" y=\"19\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">各加 2 公分：長 8、寬 6</text><text x=\"245\" y=\"76\" font-size=\"12\" font-weight=\"700\" fill=\"#be123c\" text-anchor=\"middle\">8：6 ＝ 4：3（變胖了）</text><text x=\"330\" y=\"62\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\">4/3 倍 ≠ 3/2 倍</text><text x=\"330\" y=\"88\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\">形狀改變 ➔ 不是放大圖</text></svg>",
+          "caption": "長跟寬同時加 2 公分會讓長方形比例改變（變比較接近正方形），並不是真正的放大圖"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：因為 4/3 倍不等於 3/2 倍，對應邊沒有等比例放大，所以不是原卡片的放大圖。"
+        },
+        {
+          "type": "answer",
+          "text": "答：不是，因為長是原來的 4/3 倍、寬是 3/2 倍，倍數不同。"
+        }
+      ],
+      "insight": "放大圖的關鍵是「同乘幾倍」，不是「同加幾公分」！長寬同加相同公分數會讓形狀變胖或變扁。",
+      "distractorAnalysis": {
+        "A": "只檢查「對應角相等（都是 90 度）」，忘記放大圖還要檢查「對應邊長成相同倍數」。",
+        "B": "把等比例放大（乘法）誤以為是等量增加（加法）。",
+        "D": "原本周長 (6 ＋ 4) × 2 ＝ 20 公分，新周長 (8 ＋ 6) × 2 ＝ 28 公分，並沒有變 2 倍，且周長就算相同也不能保證相似。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "真放大／縮小圖兩大條件：① 對應角相等 ② 所有對應邊長倍數完全相同"
+      ],
+      "conceptCompare": "「對應角相等」和「對應邊成相同倍數」必須同時成立，缺一不可！長方形只滿足角都是 90 度，還要比長與寬的倍數是否相同。",
+      "examVariations": "若要把長 6 公分、寬 4 公分的長方形真正放大，長加 2 公分變成 8 公分（4/3 倍），寬也要乘 4/3 倍變成 16/3 公分才算放大圖。"
+    }
+  },
+  {
+    "id": "U07-S2-X-011",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "7-2",
+    "sectionName": "繪製放大圖與縮小圖",
+    "category": "方格紙長方形 3 倍放大",
+    "batch": "課本原型題",
+    "source": "課本 p.108 例題 1 延伸",
+    "level": 2,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "在每格邊長 1 公分的方格紙上，有一個長 3 格、寬 2 格的長方形甲。如果畫出甲圖的 3 倍放大圖乙，乙圖的周長是多少公分？",
+    "options": [
+      {
+        "key": "A",
+        "text": "15 公分",
+        "trapCode": "U07_GRID_COUNT_ERR"
+      },
+      {
+        "key": "B",
+        "text": "90 公分",
+        "trapCode": "U07_PERIMETER_SQUARE_ERR"
+      },
+      {
+        "key": "C",
+        "text": "54 公分",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      },
+      {
+        "key": "D",
+        "text": "30 公分",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "(3 * 3 + 2 * 3) * 2",
+      "expect": "30"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生在方格紙繪製 3 倍放大圖時，能否正確數出新長方形的長寬格數，再算出周長。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：把原圖甲的長和寬格數分別乘以 3，算出乙圖的長與寬："
+        },
+        {
+          "type": "eq",
+          "expr": "3 × 3 ＝ 9",
+          "unit": "格（乙圖的長 ＝ 9 公分）"
+        },
+        {
+          "type": "eq",
+          "expr": "2 × 3 ＝ 6",
+          "unit": "格（乙圖的寬 ＝ 6 公分）"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 155\" xmlns=\"http://www.w3.org/2000/svg\"><g transform=\"translate(25, 45)\"><rect x=\"0\" y=\"0\" width=\"54\" height=\"36\" fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><line x1=\"18\" y1=\"0\" x2=\"18\" y2=\"36\" stroke=\"#93c5fd\"/><line x1=\"36\" y1=\"0\" x2=\"36\" y2=\"36\" stroke=\"#93c5fd\"/><line x1=\"0\" y1=\"18\" x2=\"54\" y2=\"18\" stroke=\"#93c5fd\"/><text x=\"27\" y=\"-8\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">甲：3 × 2 格</text><text x=\"27\" y=\"54\" font-size=\"12\" fill=\"#475569\" text-anchor=\"middle\">周長 10 公分</text></g><path d=\"M 105 63 L 150 63\" stroke=\"#f59e0b\" stroke-width=\"3\"/><polygon points=\"150,58 160,63 150,68\" fill=\"#f59e0b\"/><text x=\"128\" y=\"51\" font-size=\"12\" font-weight=\"700\" fill=\"#d97706\" text-anchor=\"middle\">× 3 倍</text><g transform=\"translate(180, 18)\"><rect x=\"0\" y=\"0\" width=\"162\" height=\"108\" fill=\"#ffe4e6\" stroke=\"#e11d48\" stroke-width=\"2.5\"/><line x1=\"54\" y1=\"0\" x2=\"54\" y2=\"108\" stroke=\"#fda4af\"/><line x1=\"108\" y1=\"0\" x2=\"108\" y2=\"108\" stroke=\"#fda4af\"/><line x1=\"0\" y1=\"36\" x2=\"162\" y2=\"36\" stroke=\"#fda4af\"/><line x1=\"0\" y1=\"72\" x2=\"162\" y2=\"72\" stroke=\"#fda4af\"/><text x=\"81\" y=\"60\" font-size=\"13\" font-weight=\"800\" fill=\"#be123c\" text-anchor=\"middle\">乙：長 9 格、寬 6 格</text><text x=\"81\" y=\"128\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">周長（9 ＋ 6）× 2 ＝ 30 公分</text></g></svg>",
+          "caption": "原圖 3×2 格放大 3 倍變成 9×6 格，周長也剛好變成原本 10 公分的 3 倍"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：算出乙圖的周長："
+        },
+        {
+          "type": "eq",
+          "expr": "（9 ＋ 6）× 2 ＝ 30",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：30 公分。"
+        }
+      ],
+      "insight": "先算出甲圖周長 （3 ＋ 2）× 2 ＝ 10 公分，再乘以放大倍數 3，一樣秒出 30 公分！",
+      "distractorAnalysis": {
+        "A": "只加了一條長和一條寬（9 ＋ 6 ＝ 15 公分），忘記長方形周長要乘以 2。",
+        "C": "把 9 × 6 ＝ 54 算成「面積」，題目問的是周長。",
+        "B": "把原本周長 10 公分誤乘了 3 × 3 ＝ 9 倍，算成 90 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "放大後格數 ＝ 原格數 × 倍數",
+        "長方形周長 ＝（長 ＋ 寬）× 2"
+      ],
+      "conceptCompare": "方格紙作圖時只要先確定垂直與水平的格數乘上倍數，就能畫出正確尺寸，且周長必定也乘上相同倍數。",
+      "examVariations": "若改問「乙圖的面積是多少平方公分？」，則要算 9 × 6 ＝ 54 平方公分（即原面積 6 的 9 倍）。"
+    }
+  },
+  {
+    "id": "U07-S2-X-012",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "7-2",
+    "sectionName": "繪製放大圖與縮小圖",
+    "category": "直角三角形 1/4 縮小",
+    "batch": "課本原型題",
+    "source": "課本 p.108 例題 2 延伸",
+    "level": 2,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "在每格邊長 1 公分的方格紙上，有一個底 8 格、高 4 格的直角三角形丙。畫出丙圖的 1/4 倍縮小圖丁時，丁圖的底、高和面積各是多少？",
+    "options": [
+      {
+        "key": "A",
+        "text": "底 32 格、高 16 格、面積 256 平方公分",
+        "trapCode": "U07_SCALE_MUL_DIV_SWAP"
+      },
+      {
+        "key": "B",
+        "text": "底 4 格、高 2 格、面積 4 平方公分",
+        "trapCode": "U07_GRID_COUNT_ERR"
+      },
+      {
+        "key": "C",
+        "text": "底 2 格、高 4 格、面積 4 平方公分",
+        "trapCode": "U07_RELATIVE_SCALE_ERR"
+      },
+      {
+        "key": "D",
+        "text": "底 2 格、高 1 格、面積 1 平方公分",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "(8 / 4) * (4 / 4) / 2",
+      "expect": "1",
+      "extraChecks": [
+        {
+          "expr": "8 / 4",
+          "expect": "2"
+        },
+        {
+          "expr": "4 / 4",
+          "expect": "1"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生在方格紙畫直角三角形 1/4 倍縮小圖時，能否同步將底與高都除以 4，並算出縮小後的面積。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：畫 1/4 倍縮小圖，將底與高都乘以 1/4（除以 4）："
+        },
+        {
+          "type": "eq",
+          "expr": "8 × 1/4 ＝ 2",
+          "unit": "格（丁圖的底）"
+        },
+        {
+          "type": "eq",
+          "expr": "4 × 1/4 ＝ 1",
+          "unit": "格（丁圖的高）"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\"><g transform=\"translate(25, 22)\"><rect x=\"0\" y=\"0\" width=\"160\" height=\"80\" fill=\"#f8fafc\" stroke=\"#cbd5e1\"/><line x1=\"40\" y1=\"0\" x2=\"40\" y2=\"80\" stroke=\"#e2e8f0\"/><line x1=\"80\" y1=\"0\" x2=\"80\" y2=\"80\" stroke=\"#e2e8f0\"/><line x1=\"120\" y1=\"0\" x2=\"120\" y2=\"80\" stroke=\"#e2e8f0\"/><line x1=\"0\" y1=\"20\" x2=\"160\" y2=\"20\" stroke=\"#e2e8f0\"/><line x1=\"0\" y1=\"40\" x2=\"160\" y2=\"40\" stroke=\"#e2e8f0\"/><line x1=\"0\" y1=\"60\" x2=\"160\" y2=\"60\" stroke=\"#e2e8f0\"/><polygon points=\"0,80 160,80 0,0\" fill=\"#dbeafe\" fill-opacity=\"0.8\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><text x=\"80\" y=\"100\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">丙圖：底 8 格、高 4 格</text><text x=\"80\" y=\"118\" font-size=\"11\" fill=\"#475569\" text-anchor=\"middle\">原面積 8 × 4 ÷ 2 ＝ 16</text></g><path d=\"M 205 62 L 245 62\" stroke=\"#f59e0b\" stroke-width=\"3\"/><polygon points=\"245,57 255,62 245,67\" fill=\"#f59e0b\"/><text x=\"228\" y=\"50\" font-size=\"12\" font-weight=\"700\" fill=\"#d97706\" text-anchor=\"middle\">× 1/4</text><g transform=\"translate(272, 62)\"><rect x=\"0\" y=\"0\" width=\"40\" height=\"20\" fill=\"#f8fafc\" stroke=\"#cbd5e1\"/><line x1=\"20\" y1=\"0\" x2=\"20\" y2=\"20\" stroke=\"#e2e8f0\"/><polygon points=\"0,20 40,20 0,0\" fill=\"#ffe4e6\" stroke=\"#e11d48\" stroke-width=\"2.5\"/><text x=\"48\" y=\"14\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\">丁圖：底 2 格、高 1 格</text><text x=\"48\" y=\"38\" font-size=\"12\" font-weight=\"700\" fill=\"#059669\">面積 2 × 1 ÷ 2 ＝ 1</text></g></svg>",
+          "caption": "直角三角形縮小 1/4 倍，底變 2 格、高變 1 格，面積則變成原來的 1/16"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：算出丁圖面積："
+        },
+        {
+          "type": "eq",
+          "expr": "2 × 1 ÷ 2 ＝ 1",
+          "unit": "平方公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：底 2 格、高 1 格、面積 1 平方公分。"
+        }
+      ],
+      "insight": "縮小為 1/4 倍，底和高都要除以 4；而且原面積 16 ÷ (4 × 4) ＝ 1 平方公分，結果完全吻合！",
+      "distractorAnalysis": {
+        "B": "錯把 1/4 倍當成 1/2 倍，只把底和高除以 2，算成底 4 格、高 2 格。",
+        "C": "只把底縮小為 1/4，忘記把高也一起縮小為 1/4，變成扁矮形狀改變的三角形。",
+        "A": "把「1/4 倍縮小圖」看反成「4 倍放大圖」，誤乘以 4。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "1/4 倍縮小圖：每個邊長和高都乘以 1/4",
+        "直角三角形面積 ＝ 底 × 高 ÷ 2"
+      ],
+      "conceptCompare": "畫直角三角形縮小圖最容易，只要先畫出縮小的垂直兩條直角邊（底與高），最後把斜邊連起來就完成了。",
+      "examVariations": "段考常考「1/4 倍縮小圖的面積是原圖面積的幾分之幾？」，答案為 1/4 × 1/4 ＝ 1/16。"
+    }
+  },
+  {
+    "id": "U07-S2-X-013",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "7-2",
+    "sectionName": "繪製放大圖與縮小圖",
+    "category": "扇形放大半徑與圓心角",
+    "batch": "課本原型題",
+    "source": "課本 p.109 思考帽延伸",
+    "level": 2,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "有一個半徑 4 公分、圓心角 60 度的扇形。將它畫成 3 倍放大圖後，新扇形的半徑和圓心角各是多少？",
+    "options": [
+      {
+        "key": "A",
+        "text": "半徑 12 公分，圓心角 60 度",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "半徑 36 公分，圓心角 60 度",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      },
+      {
+        "key": "C",
+        "text": "半徑 12 公分，圓心角 180 度",
+        "trapCode": "U07_ANGLE_SCALED"
+      },
+      {
+        "key": "D",
+        "text": "半徑 12 公分，圓心角 20 度",
+        "trapCode": "U07_PERIMETER_SQUARE_ERR"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "4 * 3",
+      "expect": "12",
+      "extraChecks": [
+        {
+          "expr": "60",
+          "expect": "60"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生繪製扇形放大圖時，是否清楚「半徑與弧長變 3 倍，但圓心角維持不變」。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：扇形的半徑是長度，放大 3 倍就要乘以 3："
+        },
+        {
+          "type": "eq",
+          "expr": "4 × 3 ＝ 12",
+          "unit": "公分（新扇形半徑）"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 165\" xmlns=\"http://www.w3.org/2000/svg\"><g transform=\"translate(45, 115)\"><path d=\"M 0 0 L 45 0 A 45 45 0 0 0 22.5 -38.97 Z\" fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><text x=\"22\" y=\"18\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">半徑 4</text><text x=\"32\" y=\"-8\" font-size=\"11\" font-weight=\"700\" fill=\"#1e40af\">60°</text></g><path d=\"M 125 90 L 165 90\" stroke=\"#f59e0b\" stroke-width=\"3\"/><polygon points=\"165,85 175,90 165,95\" fill=\"#f59e0b\"/><text x=\"147\" y=\"78\" font-size=\"12\" font-weight=\"700\" fill=\"#d97706\" text-anchor=\"middle\">放大 3 倍</text><g transform=\"translate(190, 132)\"><path d=\"M 0 0 L 110 0 A 110 110 0 0 0 55 -95.26 Z\" fill=\"#ffe4e6\" stroke=\"#e11d48\" stroke-width=\"2.5\"/><path d=\"M 32 0 A 32 32 0 0 0 16 -27.71\" fill=\"none\" stroke=\"#059669\" stroke-width=\"2\"/><text x=\"55\" y=\"18\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">半徑 4 × 3 ＝ 12</text><text x=\"46\" y=\"-12\" font-size=\"12\" font-weight=\"800\" fill=\"#059669\">仍是 60°</text></g><text x=\"342\" y=\"62\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\">半徑弧長：變 3 倍</text><text x=\"342\" y=\"88\" font-size=\"12\" font-weight=\"700\" fill=\"#059669\">圓心角：維持 60°</text></svg>",
+          "caption": "扇形放大 3 倍時，半徑由 4 公分變成 12 公分，圓心角張開角度依然是 60°"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：圓心角是角度，圖形放大或縮小後，對應角大小完全不變，所以圓心角仍是 60 度。"
+        },
+        {
+          "type": "answer",
+          "text": "答：半徑 12 公分，圓心角 60 度。"
+        }
+      ],
+      "insight": "畫扇形放大圖的 2 步驟：先用量角器畫出「一樣大的圓心角」，再以圓規取「放大後的半徑」畫弧！",
+      "distractorAnalysis": {
+        "B": "錯把面積的平方倍（3 × 3 ＝ 9 倍）套用到半徑上，算出 4 × 9 ＝ 36 公分。",
+        "D": "誤以為放大圖的角度要反過來除以 3，算成 20 度。",
+        "C": "誤把圓心角 60 度也一起乘以 3，錯算成 180 度（會變成半圓，形狀就變了）。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "扇形放大 3 倍：半徑變 3 倍、弧長變 3 倍、周長變 3 倍",
+        "圓心角保持不變；扇形面積變 3 × 3 ＝ 9 倍"
+      ],
+      "conceptCompare": "就像比薩切出來的同一塊 1/6 圓（60 度），大比薩跟小比薩的角度都是 60 度，只有半徑與餅皮弧長變長。",
+      "examVariations": "段考常改問「這個新扇形的面積是原扇形的幾倍？」，因為半徑變 3 倍、圓心角不變，面積就是 3 × 3 ＝ 9 倍。"
+    }
+  },
+  {
+    "id": "U07-S3-X-014",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "7-3",
+    "sectionName": "認識比例尺",
+    "category": "塗鴉牆實物與縮小圖比值",
+    "batch": "課本原型題",
+    "source": "課本 p.110 例題 1 延伸",
+    "level": 2,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "學校有一面長 600 公分、寬 400 公分的大型彩繪牆，小平在電腦上做出長 6 公分、寬 4 公分的縮小圖。這張縮小圖的比例尺用「比」和「比值」表示各是多少？",
+    "options": [
+      {
+        "key": "A",
+        "text": "100：1，比值是 100",
+        "trapCode": "U07_RATIO_FRACTION_INV"
+      },
+      {
+        "key": "B",
+        "text": "1：10，比值是 1/10",
+        "trapCode": "U07_SCALE_UNIT_MISMATCH"
+      },
+      {
+        "key": "C",
+        "text": "1：100，比值是 1/100",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "1：1000，比值是 1/1000",
+        "trapCode": "U07_RELATIVE_SCALE_ERR"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "6 / 600",
+      "expect": "1/100"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否掌握比例尺定義「縮小圖上長度：實際長度」，並能正確約分成最簡整數比與比值。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：比例尺永遠是「圖上長度」在前，「實際長度」在後（兩邊單位已經都是公分）："
+        },
+        {
+          "type": "eq",
+          "expr": "6：600 ＝ 1：100",
+          "unit": "（用比表示）"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 140\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"25\" y=\"25\" width=\"135\" height=\"90\" fill=\"#ecfdf5\" stroke=\"#059669\" stroke-width=\"2.5\"/><text x=\"92\" y=\"64\" font-size=\"13\" font-weight=\"700\" fill=\"#065f46\" text-anchor=\"middle\">實物彩繪牆</text><text x=\"92\" y=\"84\" font-size=\"12\" fill=\"#047857\" text-anchor=\"middle\">600 公分 × 400 公分</text><path d=\"M 178 70 L 238 70\" stroke=\"#f59e0b\" stroke-width=\"3\"/><polygon points=\"238,65 248,70 238,75\" fill=\"#f59e0b\"/><text x=\"211\" y=\"58\" font-size=\"12\" font-weight=\"700\" fill=\"#d97706\" text-anchor=\"middle\">縮為 1/100</text><rect x=\"265\" y=\"52\" width=\"54\" height=\"36\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><text x=\"292\" y=\"42\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">縮小圖：6 × 4</text><text x=\"390\" y=\"62\" font-size=\"13\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">比：1：100</text><text x=\"390\" y=\"88\" font-size=\"13\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">比值：1/100</text></svg>",
+          "caption": "圖上 6 公分對應實際 600 公分，約分後比例尺為 1：100（比值 1/100）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：再寫出比值，用圖上長度除以實際長度："
+        },
+        {
+          "type": "eq",
+          "expr": "6 ÷ 600 ＝ 1/100",
+          "unit": "（用比值表示）"
+        },
+        {
+          "type": "answer",
+          "text": "答：1：100，比值是 1/100。"
+        }
+      ],
+      "insight": "比例尺順序口訣：「圖上在前、實際在後」；縮小圖的比例尺比值一定小於 1！",
+      "distractorAnalysis": {
+        "A": "把順序寫反成「實際長度：圖上長度」，變成放大 100 倍的比例尺 100：1。",
+        "B": "約分時少算了一個 0，誤把 6：600 約成 1：10。",
+        "D": "約分時多補了一個 0，錯算成 1：1000。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "比例尺 ＝ 圖上長度：實際長度（先統一單位再約分）",
+        "比例尺比值 ＝ 圖上長度 ÷ 實際長度"
+      ],
+      "conceptCompare": "縮小圖的比例尺前項為 1、後項大於 1（如 1：100）；放大圖（例如手錶小零件設計圖）則前項大於 1（如 10：1）。",
+      "examVariations": "若彩繪牆上的題目改用寬來算 4 ÷ 400 ＝ 1/100，同一張縮圖的長寬比例尺必然完全一樣。"
+    }
+  },
+  {
+    "id": "U07-S3-X-015",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "7-3",
+    "sectionName": "認識比例尺",
+    "category": "老街與小溪地圖雙題",
+    "batch": "課本原型題",
+    "source": "課本 p.111 例題 2 延伸",
+    "level": 2,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "md",
+    "question": "皮皮畫了一張老街地圖，實際長 1500 公尺的老街在地圖上畫了 25 公分。用同樣的比例尺，緊鄰老街旁一條實際長 1800 公尺的小溪，在地圖上應該畫幾公分？",
+    "options": [
+      {
+        "key": "A",
+        "text": "36 公分",
+        "trapCode": "U07_CALC_SLIP"
+      },
+      {
+        "key": "B",
+        "text": "3000 公分",
+        "trapCode": "U07_SCALE_UNIT_MISMATCH"
+      },
+      {
+        "key": "C",
+        "text": "60 公分",
+        "trapCode": "U07_SCALE_MUL_DIV_SWAP"
+      },
+      {
+        "key": "D",
+        "text": "30 公分",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "1800 * 25 / 1500",
+      "expect": "30"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生先由一組已知長度求比例尺（或圖上 1 公分代表幾公尺），再套用到另一段實際距離求圖上長度的兩步解題能力。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：先算出這張地圖上「1 公分」代表實際多少公尺："
+        },
+        {
+          "type": "eq",
+          "expr": "1500 ÷ 25 ＝ 60",
+          "unit": "公尺（即比例尺 1：6000）"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 140\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"25\" y=\"25\" width=\"165\" height=\"22\" rx=\"4\" fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"2\"/><text x=\"107\" y=\"40\" font-size=\"12\" font-weight=\"700\" fill=\"#1e40af\" text-anchor=\"middle\">老街：圖上 25 公分</text><text x=\"200\" y=\"40\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\">➔ 1500 公尺（每公分 60 公尺）</text><rect x=\"25\" y=\"75\" width=\"195\" height=\"22\" rx=\"4\" fill=\"#ffe4e6\" stroke=\"#e11d48\" stroke-width=\"2\"/><text x=\"122\" y=\"90\" font-size=\"12\" font-weight=\"700\" fill=\"#be123c\" text-anchor=\"middle\">小溪：圖上 ？ 公分</text><text x=\"232\" y=\"90\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\">➔ 實際 1800 公尺</text><text x=\"230\" y=\"124\" font-size=\"12\" font-weight=\"700\" fill=\"#059669\" text-anchor=\"middle\">1800 ÷ 60 ＝ 30 公分</text></svg>",
+          "caption": "先求出圖上 1 公分代表 60 公尺，再用 1800 ÷ 60 求出小溪的圖上長度"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：小溪實際長 1800 公尺，除以每公分代表的 60 公尺："
+        },
+        {
+          "type": "eq",
+          "expr": "1800 ÷ 60 ＝ 30",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：30 公分。"
+        }
+      ],
+      "insight": "先算出「圖上 1 公分 ＝ 實際 60 公尺」作為橋樑，不用特地換算成十幾萬公分，就能輕鬆又不易錯！",
+      "distractorAnalysis": {
+        "B": "把 1800 公尺乘以 100 換成 180000 公分後，誤除成 60 而不是 6000，算出 3000 公分。",
+        "C": "只算到第一步「1500 ÷ 25 ＝ 60」，就把 60 直接當成最後答案，忘了再去算小溪的 1800 公尺。",
+        "A": "除法計算 1500 ÷ 25 錯算成 50 公尺，接著 1800 ÷ 50 算出 36 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "圖上 1 公分代表的實際長 ＝ 已知實際長 ÷ 已知圖上公分",
+        "另一段圖上長度 ＝ 另一段實際長 ÷（1 公分代表長）"
+      ],
+      "conceptCompare": "同一張地圖的比例尺固定，圖上長度與實際長度成正比例：小溪長 1800 公尺是老街 1500 公尺的 1.2 倍，圖上長 25 × 1.2 ＝ 30 公分也會一樣大。",
+      "examVariations": "若題目多問「這張地圖的比例尺用比怎麼表示？」，則需化為同單位：25 公分：150000 公分 ＝ 1：6000。"
+    }
+  },
+  {
+    "id": "U07-S3-X-016",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "7-3",
+    "sectionName": "認識比例尺",
+    "category": "圖示比例尺轉比與比值",
+    "batch": "課本原型題",
+    "source": "課本 p.112~115 圖示比例尺延伸",
     "level": 3,
     "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "一張登山步道的導覽圖附有線段比例尺：共有 3 小格（每小格在圖上剛好長 1 公分，全長 3 公分），刻度依序標示 0、50、100、150 公尺。這張導覽圖的比例尺用「比」和「比值」表示分別是多少？",
+    "options": [
+      {
+        "key": "A",
+        "text": "1：5000，比值是 1/5000",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "1：15000，比值是 1/15000",
+        "trapCode": "U07_BAR_SCALE_READ_ERR"
+      },
+      {
+        "key": "C",
+        "text": "1：50，比值是 1/50",
+        "trapCode": "U07_SCALE_UNIT_MISMATCH"
+      },
+      {
+        "key": "D",
+        "text": "5000：1，比值是 5000",
+        "trapCode": "U07_RATIO_FRACTION_INV"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "1 / (50 * 100)",
+      "expect": "1/5000"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否分辨線段比例尺「一格 1 公分」與「全長 3 公分」的差別，並正確換算公尺為公分寫出比與比值。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：觀察刻度，全長 3 公分代表 150 公尺，所以每 1 小格（圖上 1 公分）代表實際 50 公尺。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 135\" xmlns=\"http://www.w3.org/2000/svg\"><g transform=\"translate(45, 32)\"><rect x=\"0\" y=\"20\" width=\"100\" height=\"14\" fill=\"#1e293b\"/><rect x=\"100\" y=\"20\" width=\"100\" height=\"14\" fill=\"#ffffff\" stroke=\"#1e293b\" stroke-width=\"1.5\"/><rect x=\"200\" y=\"20\" width=\"100\" height=\"14\" fill=\"#1e293b\"/><line x1=\"0\" y1=\"12\" x2=\"0\" y2=\"40\" stroke=\"#1e293b\" stroke-width=\"2\"/><line x1=\"100\" y1=\"12\" x2=\"100\" y2=\"40\" stroke=\"#1e293b\" stroke-width=\"2\"/><line x1=\"200\" y1=\"12\" x2=\"200\" y2=\"40\" stroke=\"#1e293b\" stroke-width=\"2\"/><line x1=\"300\" y1=\"12\" x2=\"300\" y2=\"40\" stroke=\"#1e293b\" stroke-width=\"2\"/><text x=\"0\" y=\"7\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">0</text><text x=\"100\" y=\"7\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">50</text><text x=\"200\" y=\"7\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">100</text><text x=\"305\" y=\"7\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"start\">150 公尺</text><path d=\"M 0 48 L 0 56 L 100 56 L 100 48\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"2\"/><text x=\"50\" y=\"74\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">1 公分 ＝ 50 公尺</text><text x=\"245\" y=\"74\" font-size=\"12\" font-weight=\"700\" fill=\"#059669\" text-anchor=\"middle\">50 公尺 ＝ 5000 公分 ➔ 1：5000</text></g></svg>",
+          "caption": "只看第一格 1 公分對應 50 公尺（5000 公分），或用全長 3 公分：15000 公分再約分"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：把 50 公尺換成 5000 公分，再寫出比例尺："
+        },
+        {
+          "type": "eq",
+          "expr": "1：5000",
+          "unit": "（比值 ＝ 1/5000）"
+        },
+        {
+          "type": "answer",
+          "text": "答：1：5000，比值是 1/5000。"
+        }
+      ],
+      "insight": "判讀多格線段比例尺的鐵則：不是看最右邊的總數字，而是先看「1 公分對應多少」或是「總公分：總公尺再約分」！",
+      "distractorAnalysis": {
+        "C": "沒把 50 公尺換算成公分就寫比例尺，兩邊單位不統一（1 公分寫成對 50 公尺）。",
+        "D": "把實際長度放前面、圖上長度放後面，把比和比值寫顛倒了。",
+        "B": "誤把比例尺最右端標示的 150 公尺當成「1 公分代表 150 公尺」，忘了全長其實有 3 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "圖示轉數字比例尺 ＝ 全長公分數：最末刻度實際長度（化為公分）再約分"
+      ],
+      "conceptCompare": "不管選「第 1 格 1 公分對 5000 公分」還是「全長 3 公分對 15000 公分」，約分後的比都是 1：5000！",
+      "examVariations": "部分段考題的線段比例尺「1 格其實是 2 公分」，考前一定要先看題目說明或確認每格幾公分。"
+    }
+  },
+  {
+    "id": "U07-S3-X-017",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "7-3",
+    "sectionName": "認識比例尺",
+    "category": "國道公里轉地圖公分",
+    "batch": "課本原型題",
+    "source": "課本 p.115 應用題 1 延伸",
+    "level": 3,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "md",
+    "question": "爸爸開車從基隆出發走南北高速公路到高雄，這條道路全長大約 374.5 公里。如果畫在一張比例尺是 1：3500000 的臺灣交通全圖上，這段路線在地圖上的長度大約是多少公分？",
+    "options": [
+      {
+        "key": "A",
+        "text": "107 公分",
+        "trapCode": "U07_SCALE_UNIT_MISMATCH"
+      },
+      {
+        "key": "B",
+        "text": "1.07 公分",
+        "trapCode": "U07_CALC_SLIP"
+      },
+      {
+        "key": "C",
+        "text": "0.09 公分",
+        "trapCode": "U07_SCALE_MUL_DIV_SWAP"
+      },
+      {
+        "key": "D",
+        "text": "10.7 公分",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "374.5 * 100000 / 3500000",
+      "expect": "10.7"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生在多位大數比例尺下，先進行「公里轉公分」或「分母轉公里」的單位簡化，再完成含小數的除法運算。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：把比例尺 1：3500000 換成好算的公里概念。因為 1 公里 ＝ 100000 公分，去掉 5 個 0 後，地圖上 1 公分就代表實際 35 公里！"
+        },
+        {
+          "type": "eq",
+          "expr": "3500000 ÷ 100000 ＝ 35",
+          "unit": "公里（圖上 1 公分代表 35 公里）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：用全長 374.5 公里除以 35 公里，算出地圖上的公分數："
+        },
+        {
+          "type": "eq",
+          "expr": "374.5 ÷ 35 ＝ 10.7",
+          "unit": "公分"
+        },
+        {
+          "type": "longdiv",
+          "dividend": "374.5",
+          "divisor": "35",
+          "mode": "exact",
+          "note": "先消去比例尺 5 個 0 變成 374.5 ÷ 35，直接做小數除以整數直式"
+        },
+        {
+          "type": "answer",
+          "text": "答：大約 10.7 公分。"
+        }
+      ],
+      "insight": "遇到 1：3500000 這種好多 0 的比例尺，先消去 5 個 0 變成「1 公分 ＝ 35 公里」，直式數字立刻變小超好算！",
+      "distractorAnalysis": {
+        "A": "小數點對齊或 0 的個數數錯，把 374.5 ÷ 35 算大 10 倍變成 107 公分。",
+        "B": "直式商數對齊時忘記十位補 0（把 10.7 誤寫成 1.7 或 1.07 公分）。",
+        "C": "把除數跟被除數顛倒了，誤算成 35 ÷ 374.5。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "先去 5 個 0：比例尺後項 公分 ÷ 100000 ＝ 圖上 1 公分代表的公里數",
+        "圖上公分 ＝ 實際公里 ÷（1 公分代表公里數）"
+      ],
+      "conceptCompare": "也可以先把 374.5 公里 × 100000 ＝ 37450000 公分，再算 37450000 ÷ 3500000 ＝ 10.7 公分，兩者答案完全一致。",
+      "examVariations": "若改放在比例尺 1：5000000（圖上 1 公分 ＝ 50 公里）的地圖上，則圖上長度變為 374.5 ÷ 50 ＝ 7.49 公分。"
+    }
+  },
+  {
+    "id": "U07-S3-X-018",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "7-3",
+    "sectionName": "認識比例尺",
+    "category": "地圖公分轉實際公里",
+    "batch": "課本原型題",
+    "source": "課本 p.115 應用題 2 延伸",
+    "level": 3,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "小安拿著一張比例尺為 1/400000 的桃園旅遊摺頁地圖，用直尺量出連絡道路的圖上長度是 5.1 公分。請問這條道路的實際長度是多少公里？",
+    "options": [
+      {
+        "key": "A",
+        "text": "204 公里",
+        "trapCode": "U07_SCALE_UNIT_MISMATCH"
+      },
+      {
+        "key": "B",
+        "text": "20.4 公里",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "24.4 公里",
+        "trapCode": "U07_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "1.275 公里",
+        "trapCode": "U07_SCALE_MUL_DIV_SWAP"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "5.1 * 400000 / 100000",
+      "expect": "20.4"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生由「分數形式比例尺」與「帶小數的圖上公分數」，求出實際公里數的能力。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：比例尺 1/400000 表示圖上 1 公分代表實際 400000 公分。先換成公里比較好乘："
+        },
+        {
+          "type": "eq",
+          "expr": "400000 ÷ 100000 ＝ 4",
+          "unit": "公里（圖上 1 公分代表 4 公里）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：地圖上量得 5.1 公分，就代表有 5.1 個 4 公里："
+        },
+        {
+          "type": "eq",
+          "expr": "5.1 × 4 ＝ 20.4",
+          "unit": "公里"
+        },
+        {
+          "type": "mul",
+          "a": "5.1",
+          "b": "4",
+          "note": "一位小數乘整數直式驗算"
+        },
+        {
+          "type": "answer",
+          "text": "答：20.4 公里。"
+        }
+      ],
+      "insight": "比例尺先消去 5 個 0 變成「1 公分 ＝ 4 公里」，再算 5.1 × 4 ＝ 20.4 公里，又快又不易算錯小數點！",
+      "distractorAnalysis": {
+        "A": "算出 5.1 × 400000 ＝ 2040000 公分後，換成公里時少去掉一個 0（誤除以 10000），錯答成 204 公里。",
+        "C": "小數乘法計算失誤，把 5.1 × 4 誤算成 24.4 公里。",
+        "D": "求實際距離應該放大（乘），卻錯用了除法 5.1 ÷ 4 ＝ 1.275 公里。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "實際公里數 ＝ 圖上公分數 ×（分母 ÷ 100000）"
+      ],
+      "conceptCompare": "無論比例尺寫成「1：400000」或「1/400000」，代表的倍率完全相同，都是實際長度為圖上的 400000 倍。",
+      "examVariations": "若題目單位改問「是多少公尺？」，只要把 20.4 公里乘以 1000，答案就是 20400 公尺。"
+    }
+  },
+  {
+    "id": "U07-RV-X-019",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "REVIEW",
+    "sectionName": "綜合複習與應用",
+    "category": "同面積圖紙不同比例尺比較",
+    "batch": "課本原型題",
+    "source": "課本 p.111 素養評量延伸",
+    "level": 3,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "md",
+    "question": "甲校和乙校的校園形狀相似，且兩校的校園平面圖都剛好畫滿在「一樣長、一樣寬」的圖紙上。甲校平面圖的比例尺是 1/12000，乙校平面圖的比例尺是 1：8000。請問哪一間學校的實際校園面積比較大？",
+    "figure": {
+      "type": "bar",
+      "rows": [
+        {
+          "label": "甲校圖上 1 公分（1/12000）",
+          "units": 1.2,
+          "role": "base"
+        },
+        {
+          "label": "乙校圖上 1 公分（1：8000）",
+          "units": 0.8,
+          "role": "compare"
+        }
+      ],
+      "brace": {
+        "kind": "diff",
+        "text": "甲校每公分代表 120 公尺，多乙校 40 公尺"
+      }
+    },
+    "options": [
+      {
+        "key": "A",
+        "text": "乙校比較大，因為 1/8000 大於 1/12000",
+        "trapCode": "U07_DUAL_MAP_RATIO_ERR"
+      },
+      {
+        "key": "B",
+        "text": "兩校一樣大，因為兩張圖紙一樣大",
+        "trapCode": "U07_RELATIVE_SCALE_ERR"
+      },
+      {
+        "key": "C",
+        "text": "乙校比較大，因為圖上 1 公分代表 800 公尺",
+        "trapCode": "U07_SCALE_UNIT_MISMATCH"
+      },
+      {
+        "key": "D",
+        "text": "甲校比較大，因為圖上 1 公分代表 120 公尺",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "12000 / 100",
+      "expect": "120",
+      "extraChecks": [
+        {
+          "expr": "8000 / 100",
+          "expect": "80"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否理解在「圖紙大小相同」的前提下，比例尺縮得越多（分母越大），實際代表的校園面積反而越大。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：分別算出兩張地圖上「1 公分」代表實際的多少公尺："
+        },
+        {
+          "type": "bar"
+        },
+        {
+          "type": "eq",
+          "expr": "12000 ÷ 100 ＝ 120",
+          "unit": "公尺（甲校圖上 1 公分代表）"
+        },
+        {
+          "type": "eq",
+          "expr": "8000 ÷ 100 ＝ 80",
+          "unit": "公尺（乙校圖上 1 公分代表）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：因為兩張平面圖紙長寬相同，甲校每 1 公分裝進了 120 公尺（比乙校 80 公尺更長），所以甲校實際邊長比較長、實際校園面積比較大。"
+        },
+        {
+          "type": "answer",
+          "text": "答：甲校比較大，因為圖上 1 公分代表 120 公尺。"
+        }
+      ],
+      "insight": "圖紙大小一樣時，比例尺比值越「小」（分母越大的 1/12000），代表縮得越厲害，所以塞進去的實際地盤越「大」！",
+      "figureNote": "線段圖比較兩張平面圖「同樣 1 公分」所能容納的實際長度：甲校可容納 120 公尺，明顯比乙校的 80 公尺長。",
+      "distractorAnalysis": {
+        "A": "看見分數 1/8000 比 1/12000 大，就直覺誤以為乙校實際比較大；其實 1/8000 縮得較少，同一張紙能畫下的實際範圍反而較小。",
+        "B": "忽略兩張平面圖的比例尺不同，只看圖紙一樣大就誤以為校園一樣大。",
+        "C": "不但單位換算錯誤把 8000 公分算成 800 公尺，也搞反了比較方向。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "圖紙大小相同時：比例尺分母越大（縮越小），實際範圍越大",
+        "實際物體相同時：比例尺比值越大（分母越小），畫出來的圖越大"
+      ],
+      "conceptCompare": "「相同圖紙比實際誰大」跟「相同實物比誰的圖大」剛好相反！考前要先分清楚是「圖紙一樣大」還是「實際距離一樣長」。",
+      "examVariations": "段考常改考「同一張臺灣地圖上，甲圖 1：500000 和乙圖 1：1000000，哪一張畫出的臺灣比較大張？」，答案是 1：500000（縮得比較少）畫得比較大。"
+    }
+  },
+  {
+    "id": "U07-RV-X-020",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "REVIEW",
+    "sectionName": "綜合複習與應用",
+    "category": "鳶形放大與縮小互推",
+    "batch": "課本原型題",
+    "source": "課本 p.114 練習園地 1 延伸",
+    "level": 4,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "md",
+    "question": "下圖中，乙圖（頂點ㄉ、ㄊ、ㄋ、ㄌ）是甲圖（頂點ㄅ、ㄆ、ㄇ、ㄈ）的 3 倍放大圖，兩個都是對稱鳶形。已知乙圖的對角線「ㄉㄋ」長 45 公分，請問甲圖是乙圖的幾倍縮小圖？甲圖對應的對角線「ㄅㄇ」長多少公分？",
+    "options": [
+      {
+        "key": "A",
+        "text": "1/3 倍縮小圖，ㄅㄇ長 135 公分",
+        "trapCode": "U07_RELATIVE_SCALE_ERR"
+      },
+      {
+        "key": "B",
+        "text": "3 倍縮小圖，ㄅㄇ長 15 公分",
+        "trapCode": "U07_RATIO_FRACTION_INV"
+      },
+      {
+        "key": "C",
+        "text": "1/3 倍縮小圖，ㄅㄇ長 15 公分",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "1/9 倍縮小圖，ㄅㄇ長 5 公分",
+        "trapCode": "U07_CORRESPONDING_SIDE_SWAP"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "45 / 3",
+      "expect": "15",
+      "extraChecks": [
+        {
+          "expr": "1 / 3",
+          "expect": "1/3"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否理解放大倍數與縮小倍數互為倒數，並知道圖形內的對角線也同樣依比例縮放。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：乙圖是甲圖的 3 倍放大圖，反過來從乙圖看甲圖，所有長度都要變成原來的 1/3，所以甲圖是乙圖的 1/3 倍縮小圖。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 175\" xmlns=\"http://www.w3.org/2000/svg\"><g transform=\"translate(55, 58)\"><polygon points=\"30,0 56,28 30,80 4,28\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><line x1=\"30\" y1=\"0\" x2=\"30\" y2=\"80\" stroke=\"#059669\" stroke-width=\"2\" stroke-dasharray=\"4,3\"/><text x=\"30\" y=\"-8\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">ㄅ</text><text x=\"66\" y=\"32\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\">ㄆ</text><text x=\"30\" y=\"96\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">ㄇ</text><text x=\"-8\" y=\"32\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\">ㄈ</text><text x=\"30\" y=\"114\" font-size=\"12\" font-weight=\"700\" fill=\"#059669\" text-anchor=\"middle\">甲圖（ㄅㄇ＝？）</text></g><path d=\"M 155 92 L 210 92\" stroke=\"#f59e0b\" stroke-width=\"3\"/><polygon points=\"155,87 145,92 155,97\" fill=\"#f59e0b\"/><text x=\"180\" y=\"80\" font-size=\"12\" font-weight=\"700\" fill=\"#d97706\" text-anchor=\"middle\">縮小 1/3 倍</text><g transform=\"translate(245, 22)\"><polygon points=\"60,0 112,56 60,126 8,56\" fill=\"#fff1f2\" stroke=\"#e11d48\" stroke-width=\"2.5\"/><line x1=\"60\" y1=\"0\" x2=\"60\" y2=\"126\" stroke=\"#e11d48\" stroke-width=\"2\" stroke-dasharray=\"5,3\"/><text x=\"60\" y=\"-6\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">ㄉ</text><text x=\"122\" y=\"60\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\">ㄊ</text><text x=\"60\" y=\"142\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">ㄋ</text><text x=\"-6\" y=\"60\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\">ㄌ</text><text x=\"86\" y=\"72\" font-size=\"12\" font-weight=\"700\" fill=\"#be123c\">ㄉㄋ＝45</text></g><text x=\"390\" y=\"75\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\">內部對角線</text><text x=\"390\" y=\"98\" font-size=\"12\" font-weight=\"700\" fill=\"#059669\">也是 1/3 倍</text></svg>",
+          "caption": "對稱鳶形的對角線同樣符合縮放倍數：45 公分縮小為 1/3 倍就是 15 公分"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：圖形內部的對角線也是長度，同樣縮小為 1/3 倍："
+        },
+        {
+          "type": "eq",
+          "expr": "45 × 1/3 ＝ 15",
+          "unit": "公分（對角線ㄅㄇ）"
+        },
+        {
+          "type": "answer",
+          "text": "答：1/3 倍縮小圖，ㄅㄇ長 15 公分。"
+        }
+      ],
+      "insight": "只要屬於圖形上的長度（邊長、周長、高、對角線），全部都用同一個縮放倍數去乘！",
+      "distractorAnalysis": {
+        "B": "說「縮小圖」時倍數必須用小於 1 的分數 1/3，不能寫成「3 倍縮小圖」。",
+        "D": "錯把面積縮小倍數 1/9 倍拿來當長度縮小倍數，算成 45 ÷ 9 ＝ 5 公分。",
+        "A": "把 45 公分錯乘以 3 變成 135 公分，沒分清楚甲圖比乙圖小。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "乙是甲的 3 倍放大圖 ⇔ 甲是乙的 1/3 倍縮小圖",
+        "對應對角線長 ＝ 對應原對角線 × 縮放倍數"
+      ],
+      "conceptCompare": "倍數用語必須和「放大／縮小」配合：大圖對小圖稱「3 倍放大圖」，小圖對大圖稱「1/3 倍縮小圖」。",
+      "examVariations": "若題目先給甲圖的邊長 24 公分，反問乙圖對應邊長，則算 24 × 3 ＝ 72 公分。"
+    }
+  },
+  {
+    "id": "U07-S1-O-021",
+    "legacyId": "u07_101",
+    "unitId": "U07",
+    "section": "7-1",
+    "sectionName": "認識放大圖與縮小圖",
+    "category": "面積倍數反求周長",
     "batch": "奧數天梯",
     "source": "Unit07 AI_SPEC level_2（面積平方倍）",
-    "verified": true,
+    "level": 3,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
     "question": "甲圖是乙圖的放大圖，已知甲圖的面積是乙圖面積的 16 倍。請問甲圖的周長是乙圖周長的幾倍？",
-    "answer": "4 倍",
-    "steps": [
-      "面積比 ＝ 邊長比的平方",
-      "因為 $4 \\times 4 = 16$，所以邊長放大為原來的 4 倍",
-      "周長是長度維度，放大倍數與邊長相同，也是 4 倍"
+    "options": [
+      {
+        "key": "A",
+        "text": "16 倍",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      },
+      {
+        "key": "B",
+        "text": "4 倍",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "8 倍",
+        "trapCode": "U07_PERIMETER_SQUARE_ERR"
+      },
+      {
+        "key": "D",
+        "text": "2 倍",
+        "trapCode": "U07_CALC_SLIP"
+      }
     ],
-    "insight": "維度直覺：長度是一次方，面積是二次方。面積變 16 倍 → 長度變 $\\sqrt{16} = 4$ 倍。",
-    "work": "sm"
+    "answer": "B",
+    "check": {
+      "expr": "16 / 4",
+      "expect": "4",
+      "extraChecks": [
+        {
+          "expr": "4 * 4",
+          "expect": "16"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否逆推平方關係：由面積倍數（16 倍）反推出邊長與周長的放大倍數（4 倍）。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：面積放大倍數 ＝ 邊長放大倍數 × 邊長放大倍數。想一想，哪一個數自己乘自己等於 16？"
+        },
+        {
+          "type": "eq",
+          "expr": "4 × 4 ＝ 16",
+          "unit": "（邊長放大為 4 倍）"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 160\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"35\" y=\"100\" width=\"28\" height=\"28\" fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><text x=\"49\" y=\"118\" font-size=\"11\" font-weight=\"700\" fill=\"#1e40af\" text-anchor=\"middle\">1</text><text x=\"49\" y=\"144\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">乙圖</text><path d=\"M 85 110 L 130 110\" stroke=\"#f59e0b\" stroke-width=\"3\"/><polygon points=\"130,105 140,110 130,115\" fill=\"#f59e0b\"/><text x=\"108\" y=\"98\" font-size=\"12\" font-weight=\"700\" fill=\"#d97706\" text-anchor=\"middle\">邊長 × 4</text><g transform=\"translate(160, 18)\"><rect x=\"0\" y=\"0\" width=\"112\" height=\"112\" fill=\"#ffe4e6\" stroke=\"#e11d48\" stroke-width=\"2.5\"/><line x1=\"28\" y1=\"0\" x2=\"28\" y2=\"112\" stroke=\"#fda4af\"/><line x1=\"56\" y1=\"0\" x2=\"56\" y2=\"112\" stroke=\"#fda4af\"/><line x1=\"84\" y1=\"0\" x2=\"84\" y2=\"112\" stroke=\"#fda4af\"/><line x1=\"0\" y1=\"28\" x2=\"112\" y2=\"28\" stroke=\"#fda4af\"/><line x1=\"0\" y1=\"56\" x2=\"112\" y2=\"56\" stroke=\"#fda4af\"/><line x1=\"0\" y1=\"84\" x2=\"112\" y2=\"84\" stroke=\"#fda4af\"/><text x=\"56\" y=\"62\" font-size=\"13\" font-weight=\"800\" fill=\"#be123c\" text-anchor=\"middle\">4 × 4 ＝ 16 格</text><text x=\"56\" y=\"130\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">甲圖（邊長與周長皆 4 倍）</text></g><text x=\"295\" y=\"60\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\">面積 16 倍 ＝ 4 × 4</text><text x=\"295\" y=\"88\" font-size=\"13\" font-weight=\"700\" fill=\"#059669\">周長是長度 ➔ 4 倍</text></svg>",
+          "caption": "4×4 方格共有 16 格，代表面積 16 倍時，邊長和周長都是原來的 4 倍"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：周長是所有邊長相加，所以周長的放大倍數跟邊長完全一樣，都是 4 倍。"
+        },
+        {
+          "type": "answer",
+          "text": "答：4 倍。"
+        }
+      ],
+      "insight": "維度反推術：看到面積放大 16 倍，先找 4 × 4 ＝ 16，就知道邊長和周長只放大 4 倍！",
+      "distractorAnalysis": {
+        "A": "誤以為面積放大幾倍，周長就跟著放大幾倍，沒分清楚一維長度與二維面積。",
+        "C": "看到面積 16 倍就錯用「除以 2」算成 8 倍，忘記面積是「自己乘自己」而不是「乘以 2」。",
+        "D": "把 4 × 4 ＝ 16 誤記成 2 × 2 或算錯數。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "面積放大倍數 ＝ □ × □ ➔ 邊長與周長放大倍數 ＝ □"
+      ],
+      "conceptCompare": "無論甲乙兩圖是三角形、正方形、圓形或不規則多邊形，只要甲是乙的放大圖且面積變 16 倍，周長一律變 4 倍。",
+      "examVariations": "若題目改給「乙圖面積是甲圖的 1/25 倍」，則 1/5 × 1/5 ＝ 1/25，乙圖周長是甲圖的 1/5 倍。"
+    }
   },
   {
-    "id": "u07_102",
+    "id": "U07-S3-O-022",
+    "legacyId": "u07_102",
     "unitId": "U07",
-    "category": "雙重比例尺換算",
-    "level": 3,
-    "difficulty": 4,
+    "section": "7-3",
+    "sectionName": "認識比例尺",
+    "category": "雙重比例尺面積換算",
     "batch": "奧數天梯",
     "source": "Unit07 AI_SPEC level_3（跨地圖換算）",
-    "verified": true,
-    "question": "地圖 A 的比例尺是 $1 : 20000$，一座森林在圖 A 上的面積是 16 平方公分。在另一張比例尺為 $1 : 40000$ 的地圖 B 上，這座森林的面積是多少平方公分？",
-    "answer": "4 平方公分",
-    "steps": [
-      "比較兩張地圖比例尺：地圖 B 的長度只有地圖 A 的 $\\frac{20000}{40000} = \\frac{1}{2}$ 倍",
-      "邊長變為 $\\frac{1}{2}$ 倍，則圖上面積縮小為 $(\\frac{1}{2})^2 = \\frac{1}{4}$ 倍",
-      "地圖 B 上面積：$16 \\times \\frac{1}{4} = 4$ 平方公分"
+    "level": 3,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "md",
+    "question": "甲地圖的比例尺是 1：20000，一座森林在甲地圖上的面積是 16 平方公分。在另一張比例尺為 1：40000 的乙地圖上，這座森林的面積是多少平方公分？",
+    "options": [
+      {
+        "key": "A",
+        "text": "64 平方公分",
+        "trapCode": "U07_DUAL_MAP_RATIO_ERR"
+      },
+      {
+        "key": "B",
+        "text": "4 平方公分",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "32 平方公分",
+        "trapCode": "U07_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "8 平方公分",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      }
     ],
-    "insight": "雙重比例尺捷徑：直接比較比例尺倍率比，免去反求真實萬平方公尺的冗長換算。",
-    "work": "md"
+    "answer": "B",
+    "check": {
+      "expr": "16 * (20000 / 40000) * (20000 / 40000)",
+      "expect": "4"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生在跨比例尺換算面積時，能比較兩張地圖的比例尺比值，並運用「長度 1/2 倍 ➔ 面積 1/4 倍」的平方規律解題。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：比較兩張地圖的比例尺。乙地圖比例尺 1：40000 的縮放比值，只有甲地圖 1：20000 的一半："
+        },
+        {
+          "type": "eq",
+          "expr": "1/40000 ÷ 1/20000 ＝ 20000 ÷ 40000 ＝ 1/2",
+          "unit": "倍（圖上邊長縮成一半）"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 155\" xmlns=\"http://www.w3.org/2000/svg\"><g transform=\"translate(30, 22)\"><rect x=\"0\" y=\"0\" width=\"96\" height=\"96\" fill=\"#dcfce7\" stroke=\"#059669\" stroke-width=\"2.5\"/><line x1=\"24\" y1=\"0\" x2=\"24\" y2=\"96\" stroke=\"#86efac\"/><line x1=\"48\" y1=\"0\" x2=\"48\" y2=\"96\" stroke=\"#86efac\"/><line x1=\"72\" y1=\"0\" x2=\"72\" y2=\"96\" stroke=\"#86efac\"/><line x1=\"0\" y1=\"24\" x2=\"96\" y2=\"24\" stroke=\"#86efac\"/><line x1=\"0\" y1=\"48\" x2=\"96\" y2=\"48\" stroke=\"#86efac\"/><line x1=\"0\" y1=\"72\" x2=\"96\" y2=\"72\" stroke=\"#86efac\"/><text x=\"48\" y=\"52\" font-size=\"13\" font-weight=\"800\" fill=\"#065f46\" text-anchor=\"middle\">16 平方公分</text><text x=\"48\" y=\"116\" font-size=\"12\" font-weight=\"700\" fill=\"#059669\" text-anchor=\"middle\">甲圖 1：20000</text></g><path d=\"M 150 70 L 205 70\" stroke=\"#f59e0b\" stroke-width=\"3\"/><polygon points=\"205,65 215,70 205,75\" fill=\"#f59e0b\"/><text x=\"180\" y=\"56\" font-size=\"12\" font-weight=\"700\" fill=\"#d97706\" text-anchor=\"middle\">長度 × 1/2</text><text x=\"180\" y=\"92\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">面積 × 1/4</text><g transform=\"translate(238, 46)\"><rect x=\"0\" y=\"0\" width=\"48\" height=\"48\" fill=\"#ffe4e6\" stroke=\"#e11d48\" stroke-width=\"2.5\"/><line x1=\"24\" y1=\"0\" x2=\"24\" y2=\"48\" stroke=\"#fda4af\"/><line x1=\"0\" y1=\"24\" x2=\"48\" y2=\"24\" stroke=\"#fda4af\"/><text x=\"24\" y=\"68\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">乙圖 1：40000</text><text x=\"24\" y=\"86\" font-size=\"12\" font-weight=\"800\" fill=\"#be123c\" text-anchor=\"middle\">4 平方公分</text></g><text x=\"370\" y=\"62\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">乙圖縮得更小</text><text x=\"370\" y=\"88\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">16 × 1/4 ＝ 4</text></svg>",
+          "caption": "同一座森林在 1：40000 地圖上邊長縮小成一半，因此圖上面積縮小為 1/2 × 1/2 ＝ 1/4"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：圖上邊長變為 1/2 倍，面積則縮為 1/2 × 1/2 ＝ 1/4 倍："
+        },
+        {
+          "type": "eq",
+          "expr": "16 × 1/4 ＝ 4",
+          "unit": "平方公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：4 平方公分。"
+        }
+      ],
+      "insight": "雙重比例尺捷徑：先算圖上長度變幾倍（1/2 倍），再平方一次（1/4 倍），不用把森林的實際面積硬算出來！",
+      "distractorAnalysis": {
+        "A": "看到 40000 比 20000 大 2 倍，就誤以為面積要放大 4 倍（16 × 4 ＝ 64），其實分母越大圖縮得越小。",
+        "C": "看到 40000 ÷ 20000 ＝ 2 就直接拿 16 × 2 ＝ 32。",
+        "D": "知道 1：40000 縮得較小，但忘了面積是平方縮放，只把 16 除以 2 算成 8 平方公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "乙圖長度是甲圖長度的（甲比例尺分母 ÷ 乙比例尺分母）倍",
+        "乙圖面積 ＝ 甲圖面積 ×（長度倍數 × 長度倍數）"
+      ],
+      "conceptCompare": "當然也可以繞遠路驗證：甲圖 1 公分 ＝ 200 公尺 ➔ 16 平方公分 ＝ 16 × 40000 ＝ 640000 平方公尺；乙圖 1 公分 ＝ 400 公尺（1 平方公分 ＝ 160000 平方公尺）➔ 640000 ÷ 160000 ＝ 4 平方公分。",
+      "examVariations": "若乙地圖比例尺改為 1：10000（圖上長度變 2 倍），則森林在乙地圖上會變成 16 × 4 ＝ 64 平方公分。"
+    }
   },
   {
-    "id": "u07_103",
+    "id": "U07-S2-O-023",
+    "legacyId": "u07_103",
     "unitId": "U07",
+    "section": "7-2",
+    "sectionName": "繪製放大圖與縮小圖",
     "category": "相似三角形影長",
-    "level": 4,
-    "difficulty": 4,
     "batch": "奧數天梯",
     "source": "Unit07 AI_SPEC level_4（AMC 8 陽光影長）",
-    "verified": true,
-    "question": "身高 1.5 公尺的小明在陽光下的影長是 2 公尺。在同一時間同一地點，旁邊一棵大樹的影長是 16 公尺。這棵大樹的實際高度是多少公尺？",
-    "answer": "12 公尺",
-    "steps": [
-      "同一時間陽光平行，物高與影長成正比例（相似三角形原理）：",
-      "高 : 影長 ＝ $1.5 : 2$",
-      "樹高 : $16 = 1.5 : 2$",
-      "樹高 ＝ $16 \\times \\frac{1.5}{2} = 16 \\times 0.75 = 12$ 公尺"
-    ],
-    "insight": "泰勒斯金字塔測高法：利用相似比，將影子長度換算成真實高度。",
-    "work": "sm"
-  },
-  {
-    "id": "u07_m01",
-    "unitId": "U07",
-    "category": "純腦力體操",
-    "topic": "角度不變",
-    "level": 1,
-    "stars": 1,
-    "difficulty": 1,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 1★",
-    "verified": true,
-    "question": "一個三角形放大成 2 倍的放大圖，對應角的角度會？",
-    "options": [
-      "變 2 倍",
-      "變一半",
-      "不變",
-      "變 4 倍"
-    ],
-    "answer": "C",
-    "answerKey": "C",
-    "steps": [
-      "放大縮小只改變大小，不改變形狀。",
-      "形狀不變 → 角度不變。"
-    ],
-    "insight": "放大圖：對應邊成比例、對應角相等。",
-    "trap": {
-      "code": "ERR_U07_M01",
-      "text": "以為整個圖放大，角也放大。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u07_m02",
-    "unitId": "U07",
-    "category": "純腦力體操",
-    "topic": "比例尺意義",
-    "level": 1,
-    "stars": 1,
-    "difficulty": 1,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 1★",
-    "verified": true,
-    "question": "比例尺 $1 : 1000$，圖上 1 公分代表實際多長？",
-    "options": [
-      "1000 公尺",
-      "10 公尺",
-      "100 公尺",
-      "1 公尺"
-    ],
-    "answer": "B",
-    "answerKey": "B",
-    "steps": [
-      "1 公分代表 1000 公分。",
-      "1000 公分 ＝ 10 公尺。"
-    ],
-    "insight": "公分 → 公尺：去掉兩個 0。",
-    "trap": {
-      "code": "ERR_U07_M02",
-      "text": "直接當成 1000 公尺。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u07_m03",
-    "unitId": "U07",
-    "category": "純腦力體操",
-    "topic": "周長倍數",
-    "level": 2,
-    "stars": 2,
-    "difficulty": 2,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 2★",
-    "verified": true,
-    "question": "一個圖形放大 3 倍，周長變成？",
-    "options": [
-      "3 倍",
-      "6 倍",
-      "9 倍",
-      "不變"
-    ],
-    "answer": "A",
-    "answerKey": "A",
-    "steps": [
-      "每條邊都變 3 倍，加起來也是 3 倍。"
-    ],
-    "insight": "所有「長度」都同倍數變化。",
-    "trap": {
-      "code": "ERR_U07_M03",
-      "text": "和面積 9 倍搞混。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u07_m04",
-    "unitId": "U07",
-    "category": "純腦力體操",
-    "topic": "面積平方倍",
-    "level": 2,
-    "stars": 2,
-    "difficulty": 2,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 2★",
-    "verified": true,
-    "question": "正方形邊長放大成 2 倍，面積變成？",
-    "options": [
-      "2 倍",
-      "4 倍",
-      "8 倍",
-      "不變"
-    ],
-    "answer": "B",
-    "answerKey": "B",
-    "steps": [
-      "長變 2 倍、寬也變 2 倍。",
-      "面積 ＝ $2 \\times 2 = 4$ 倍。"
-    ],
-    "insight": "面積放大 ＝ 邊長倍數 × 邊長倍數。",
-    "trap": {
-      "code": "ERR_U07_M04",
-      "text": "以為面積也只變 2 倍。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u07_m05",
-    "unitId": "U07",
-    "category": "純腦力體操",
-    "topic": "比例尺詳細度",
-    "level": 3,
-    "stars": 3,
-    "difficulty": 3,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 3★",
-    "verified": true,
-    "question": "同樣大小的紙，比例尺 $1 : 50000$ 和 $1 : 5000$，哪一張畫得比較詳細（圖上看起來比較大）？",
-    "options": [
-      "一樣",
-      "無法判斷",
-      "$1 : 50000$",
-      "$1 : 5000$"
-    ],
-    "answer": "D",
-    "answerKey": "D",
-    "steps": [
-      "$1 : 5000$：1 公分只代表 50 公尺。",
-      "$1 : 50000$：1 公分代表 500 公尺。",
-      "每公分代表的越少 → 畫得越大越詳細。"
-    ],
-    "insight": "比例尺後項越小 → 縮得越少 → 越詳細。",
-    "trap": {
-      "code": "ERR_U07_M05",
-      "text": "以為數字越大越詳細。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u07_m06",
-    "unitId": "U07",
-    "category": "純腦力體操",
-    "topic": "縮小面積",
-    "level": 3,
-    "stars": 3,
-    "difficulty": 3,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 3★",
-    "verified": true,
-    "question": "一個圖形縮小成 $\\frac{1}{3}$，面積變成原來的？",
-    "options": [
-      "$\\frac{1}{3}$",
-      "$\\frac{1}{6}$",
-      "$\\frac{1}{9}$",
-      "3 倍"
-    ],
-    "answer": "C",
-    "answerKey": "C",
-    "steps": [
-      "長寬都變 $\\frac{1}{3}$。",
-      "面積 ＝ $\\frac{1}{3} \\times \\frac{1}{3} = \\frac{1}{9}$。"
-    ],
-    "insight": "縮小也一樣，面積是平方。",
-    "trap": {
-      "code": "ERR_U07_M06",
-      "text": "以為面積也是 $\\frac{1}{3}$。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u07_m07",
-    "unitId": "U07",
-    "category": "純腦力體操",
-    "topic": "求比例尺",
     "level": 4,
-    "stars": 4,
     "difficulty": 4,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 4★",
-    "verified": true,
-    "question": "地圖上 2 公分代表實際 1 公里，比例尺是？",
+    "questionType": "choice",
+    "work": "sm",
+    "question": "身高 1.5 公尺的小明垂直站在水平地面上，陽光下的影長是 2 公尺。在同一時間同一地點，旁邊垂直站在地面的一棵大樹影長是 16 公尺。這棵大樹的實際高度是多少公尺？",
     "options": [
-      "$1 : 50000$",
-      "$1 : 500$",
-      "$1 : 5000$",
-      "$1 : 2$"
-    ],
-    "answer": "A",
-    "answerKey": "A",
-    "steps": [
-      "1 公里 ＝ 100000 公分。",
-      "2 公分 : 100000 公分 ＝ $1 : 50000$。"
-    ],
-    "insight": "1 公里 ＝ 1 後面 5 個 0 公分。",
-    "trap": {
-      "code": "ERR_U07_M07",
-      "text": "公里換公分時少了 0。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u07_m08",
-    "unitId": "U07",
-    "category": "純腦力體操",
-    "topic": "體積立方倍",
-    "level": 4,
-    "stars": 4,
-    "difficulty": 4,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 4★",
-    "verified": true,
-    "question": "正方體的邊長放大成 2 倍，體積變成？",
-    "options": [
-      "2 倍",
-      "4 倍",
-      "6 倍",
-      "8 倍"
-    ],
-    "answer": "D",
-    "answerKey": "D",
-    "steps": [
-      "長、寬、高都變 2 倍。",
-      "體積 ＝ $2 \\times 2 \\times 2 = 8$ 倍。"
-    ],
-    "insight": "長度 $k$ 倍 → 面積 $k^2$ 倍 → 體積 $k^3$ 倍。",
-    "trap": {
-      "code": "ERR_U07_M08",
-      "text": "以為體積和面積一樣是 4 倍。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u07_m09",
-    "unitId": "U07",
-    "category": "純腦力體操",
-    "topic": "影子相似",
-    "level": 5,
-    "stars": 5,
-    "difficulty": 5,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 5★",
-    "verified": true,
-    "question": "同一時間，1 公尺高的竹竿影長 2 公尺，一棵樹的影長 10 公尺，樹高多少？",
-    "options": [
-      "5 公尺",
-      "20 公尺",
-      "10 公尺",
-      "2 公尺"
-    ],
-    "answer": "A",
-    "answerKey": "A",
-    "steps": [
-      "同一時間，物高 : 影長 都是 $1 : 2$。",
-      "影長 10 → 樹高 5。"
-    ],
-    "insight": "陽光平行 → 形成縮放關係的三角形。",
-    "trap": {
-      "code": "ERR_U07_M09",
-      "text": "把比例倒過來算成 20。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u07_m10",
-    "unitId": "U07",
-    "category": "純腦力體操",
-    "topic": "地圖面積換算",
-    "level": 5,
-    "stars": 5,
-    "difficulty": 5,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 5★",
-    "verified": true,
-    "question": "比例尺 $1 : 10000$ 的地圖上，1 平方公分代表實際多少面積？",
-    "options": [
-      "100 平方公尺",
-      "10000 平方公尺",
-      "1000 平方公尺",
-      "1 平方公尺"
-    ],
-    "answer": "B",
-    "answerKey": "B",
-    "steps": [
-      "圖上 1 公分 ＝ 實際 10000 公分 ＝ 100 公尺。",
-      "1 平方公分 ＝ $100 \\times 100 = 10000$ 平方公尺。"
-    ],
-    "insight": "面積比例 ＝ 長度比例的平方。",
-    "trap": {
-      "code": "ERR_U07_M10",
-      "text": "直接用 10000 公分換算成 100 平方公尺。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u07_m11",
-    "unitId": "U07",
-    "category": "純腦力體操",
-    "topic": "相似面積比",
-    "level": 6,
-    "stars": 6,
-    "difficulty": 6,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 6★",
-    "verified": true,
-    "question": "兩個放大縮小關係的三角形，對應邊比是 $2 : 3$，面積比是？",
-    "options": [
-      "$8 : 27$",
-      "$2 : 3$",
-      "$3 : 2$",
-      "$4 : 9$"
-    ],
-    "answer": "D",
-    "answerKey": "D",
-    "steps": [
-      "面積比 ＝ 邊長比的平方。",
-      "$2 \\times 2 : 3 \\times 3 = 4 : 9$。"
-    ],
-    "insight": "邊比 $a : b$ → 面積比 $a^2 : b^2$ → 體積比 $a^3 : b^3$。",
-    "trap": {
-      "code": "ERR_U07_M11",
-      "text": "選 $8 : 27$（那是體積比）。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u07_m12",
-    "unitId": "U07",
-    "category": "純腦力體操",
-    "topic": "不等比放大",
-    "level": 6,
-    "stars": 6,
-    "difficulty": 6,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 6★",
-    "verified": true,
-    "question": "長方形的長放大 2 倍、寬放大 3 倍，新圖形是原來的放大圖嗎？",
-    "options": [
-      "是",
-      "不是",
-      "只要面積變大就是",
-      "不一定"
-    ],
-    "answer": "B",
-    "answerKey": "B",
-    "steps": [
-      "放大圖的每條邊必須放大「相同」倍數。",
-      "長寬倍數不同 → 形狀變了 → 不是放大圖。"
-    ],
-    "insight": "放大圖的判斷：所有對應邊比值相同。",
-    "trap": {
-      "code": "ERR_U07_M12",
-      "text": "以為「變大」就是放大圖。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u07_m13",
-    "unitId": "U07",
-    "category": "純腦力體操",
-    "topic": "面積逆推周長",
-    "level": 7,
-    "stars": 7,
-    "difficulty": 7,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 7★",
-    "verified": true,
-    "question": "正方形面積變成原來的 9 倍，周長變成原來的幾倍？",
-    "options": [
-      "3 倍",
-      "9 倍",
-      "81 倍",
-      "4.5 倍"
-    ],
-    "answer": "A",
-    "answerKey": "A",
-    "steps": [
-      "面積 9 倍 → 邊長 3 倍（$3 \\times 3 = 9$）。",
-      "周長跟著邊長 → 3 倍。"
-    ],
-    "insight": "面積倍數開平方 ＝ 長度倍數。",
-    "trap": {
-      "code": "ERR_U07_M13",
-      "text": "以為周長也 9 倍。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u07_m14",
-    "unitId": "U07",
-    "category": "純腦力體操",
-    "topic": "披薩直覺",
-    "level": 7,
-    "stars": 7,
-    "difficulty": 7,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 7★",
-    "verified": true,
-    "question": "同樣厚度的披薩，1 片直徑 20 公分，和 2 片直徑 10 公分，哪個吃得比較多？",
-    "options": [
-      "2 片小的",
-      "一樣多",
-      "1 片大的",
-      "無法判斷"
+      {
+        "key": "A",
+        "text": "15.5 公尺",
+        "trapCode": "U07_RELATIVE_SCALE_ERR"
+      },
+      {
+        "key": "B",
+        "text": "21.3 公尺",
+        "trapCode": "U07_SCALE_MUL_DIV_SWAP"
+      },
+      {
+        "key": "C",
+        "text": "12 公尺",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "24 公尺",
+        "trapCode": "U07_CALC_SLIP"
+      }
     ],
     "answer": "C",
-    "answerKey": "C",
-    "steps": [
-      "直徑 2 倍 → 面積 4 倍。",
-      "1 片大的 ＝ 4 片小的 ＞ 2 片小的。"
-    ],
-    "insight": "圓也是放大縮小關係，面積是直徑倍數的平方。",
-    "trap": {
-      "code": "ERR_U07_M14",
-      "text": "以為直徑 2 倍就 ＝ 2 片。"
+    "check": {
+      "expr": "16 * 1.5 / 2",
+      "expect": "12"
     },
-    "work": "sm"
-  },
-  {
-    "id": "u07_m15",
-    "unitId": "U07",
-    "category": "純腦力體操",
-    "topic": "比例尺換算",
-    "level": 8,
-    "stars": 8,
-    "difficulty": 8,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 8★",
-    "verified": true,
-    "question": "比例尺 $1 : 25000$ 的地圖上量得 4 公分，實際距離是？",
-    "options": [
-      "1 公里",
-      "10 公里",
-      "100 公尺",
-      "4 公里"
-    ],
-    "answer": "A",
-    "answerKey": "A",
-    "steps": [
-      "$4 \\times 25000 = 100000$ 公分。",
-      "100000 公分 ＝ 1 公里。"
-    ],
-    "insight": "先湊整：$4 \\times 25 = 100$。",
-    "trap": {
-      "code": "ERR_U07_M15",
-      "text": "單位換算少一個 0。"
+    "explanation": {
+      "examPurpose": "測驗學生是否理解「同一時間太陽照射角度相同」，物高與影長形成放大縮小關係（相似三角形），進而利用倍數求樹高。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：同一時間太陽光線平行，所以「大樹與影子」的直角三角形，就是「小明與影子」直角三角形的放大圖。先看影長放大了幾倍："
+        },
+        {
+          "type": "eq",
+          "expr": "16 ÷ 2 ＝ 8",
+          "unit": "倍（大樹影長是小明的 8 倍）"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 165\" xmlns=\"http://www.w3.org/2000/svg\"><g transform=\"translate(30, 15)\"><line x1=\"10\" y1=\"115\" x2=\"125\" y2=\"115\" stroke=\"#64748b\" stroke-width=\"2\"/><line x1=\"45\" y1=\"75\" x2=\"45\" y2=\"115\" stroke=\"#2563eb\" stroke-width=\"4\"/><line x1=\"45\" y1=\"75\" x2=\"105\" y2=\"115\" stroke=\"#f59e0b\" stroke-width=\"2\" stroke-dasharray=\"5,3\"/><line x1=\"45\" y1=\"115\" x2=\"105\" y2=\"115\" stroke=\"#059669\" stroke-width=\"4\"/><text x=\"25\" y=\"98\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">1.5</text><text x=\"75\" y=\"133\" font-size=\"12\" font-weight=\"700\" fill=\"#059669\" text-anchor=\"middle\">影 2 公尺</text><text x=\"55\" y=\"65\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">小明</text><line x1=\"210\" y1=\"115\" x2=\"415\" y2=\"115\" stroke=\"#64748b\" stroke-width=\"2\"/><line x1=\"245\" y1=\"25\" x2=\"245\" y2=\"115\" stroke=\"#e11d48\" stroke-width=\"5\"/><circle cx=\"245\" cy=\"22\" r=\"18\" fill=\"#bbf7d0\" stroke=\"#16a34a\" stroke-width=\"2\"/><line x1=\"245\" y1=\"25\" x2=\"395\" y2=\"115\" stroke=\"#f59e0b\" stroke-width=\"2\" stroke-dasharray=\"5,3\"/><line x1=\"245\" y1=\"115\" x2=\"395\" y2=\"115\" stroke=\"#059669\" stroke-width=\"4\"/><text x=\"216\" y=\"78\" font-size=\"12\" font-weight=\"800\" fill=\"#e11d48\" text-anchor=\"middle\">？公尺</text><text x=\"320\" y=\"133\" font-size=\"12\" font-weight=\"700\" fill=\"#059669\" text-anchor=\"middle\">樹影 16 公尺（8 倍）</text></g><text x=\"350\" y=\"42\" font-size=\"12\" font-weight=\"700\" fill=\"#d97706\">太陽光角度相等</text><text x=\"350\" y=\"64\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\">高 12 公尺</text></svg>",
+          "caption": "太陽角度相同，兩個直角三角形互為放大圖：影子變 8 倍，高度也變 8 倍"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：影長放大 8 倍，對應的高度也要放大 8 倍："
+        },
+        {
+          "type": "eq",
+          "expr": "1.5 × 8 ＝ 12",
+          "unit": "公尺"
+        },
+        {
+          "type": "answer",
+          "text": "答：12 公尺。"
+        }
+      ],
+      "insight": "古希臘泰勒斯測金字塔秘訣：影子變幾倍，高度就跟著變幾倍（或直接用高：影 ＝ 1.5：2 ＝ 3：4 推算）！",
+      "distractorAnalysis": {
+        "A": "用加減法思考，誤以為「影長比身高多 0.5 公尺」，就用 16 － 0.5 ＝ 15.5 公尺，忽略放大圖看的是倍數而非差值。",
+        "D": "忘記先除以小明影長 2 公尺，直接把 1.5 × 16 ＝ 24 當成樹高。",
+        "B": "把高和影長的比寫反，誤算成 16 × 2 ÷ 1.5 ≈ 21.3 公尺。"
+      }
     },
-    "work": "sm"
-  },
-  {
-    "id": "u07_m16",
-    "unitId": "U07",
-    "category": "純腦力體操",
-    "topic": "模型重量",
-    "level": 8,
-    "stars": 8,
-    "difficulty": 8,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 8★",
-    "verified": true,
-    "question": "同材質的實心汽車模型，比例 $1 : 100$，模型的重量大約是實物的？",
-    "options": [
-      "$\\frac{1}{100}$",
-      "$\\frac{1}{10000}$",
-      "$\\frac{1}{1000000}$",
-      "一樣重"
-    ],
-    "answer": "C",
-    "answerKey": "C",
-    "steps": [
-      "長寬高都縮成 $\\frac{1}{100}$。",
-      "體積（重量）縮成 $\\frac{1}{100 \\times 100 \\times 100}$。"
-    ],
-    "insight": "重量跟著「體積」走 → 立方。",
-    "trap": {
-      "code": "ERR_U07_M16",
-      "text": "以為重量跟長度一樣縮 100 倍。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u07_m17",
-    "unitId": "U07",
-    "category": "純腦力體操",
-    "topic": "兩張地圖",
-    "level": 9,
-    "stars": 9,
-    "difficulty": 9,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 9★",
-    "verified": true,
-    "question": "同一個操場，畫在比例尺 $1 : 2000$ 的地圖上，面積是畫在 $1 : 5000$ 地圖上的幾倍？",
-    "options": [
-      "2.5 倍",
-      "6.25 倍",
-      "5 倍",
-      "25 倍"
-    ],
-    "answer": "B",
-    "answerKey": "B",
-    "steps": [
-      "長度：$1 : 2000$ 那張是另一張的 $5000 \\div 2000 = 2.5$ 倍。",
-      "面積：$2.5 \\times 2.5 = 6.25$ 倍。"
-    ],
-    "insight": "兩張比例尺先比「長度倍數」，再平方。",
-    "trap": {
-      "code": "ERR_U07_M17",
-      "text": "只算長度倍數 2.5。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u07_m18",
-    "unitId": "U07",
-    "category": "純腦力體操",
-    "topic": "中點三角形",
-    "level": 9,
-    "stars": 9,
-    "difficulty": 9,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 9★",
-    "verified": true,
-    "question": "連接三角形三邊的中點，形成一個小三角形，它的面積是原三角形的？",
-    "options": [
-      "$\\frac{1}{2}$",
-      "$\\frac{1}{3}$",
-      "$\\frac{1}{4}$",
-      "$\\frac{1}{8}$"
-    ],
-    "answer": "C",
-    "answerKey": "C",
-    "steps": [
-      "三條中點連線把原三角形切成 4 個一模一樣的小三角形。",
-      "每個都是原三角形的縮小圖（邊長 $\\frac{1}{2}$ → 面積 $\\frac{1}{4}$）。"
-    ],
-    "insight": "邊長一半 → 面積四分之一，兩種想法互相印證。",
-    "trap": {
-      "code": "ERR_U07_M18",
-      "text": "以為邊長一半面積也一半。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u07_m19",
-    "unitId": "U07",
-    "category": "純腦力體操",
-    "topic": "巨人悖論",
-    "level": 10,
-    "stars": 10,
-    "difficulty": 10,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 10★",
-    "verified": true,
-    "question": "一個巨人身體每個方向都放大成一般人的 10 倍。他的腿骨每平方公分要承受的重量是一般人的幾倍？",
-    "options": [
-      "一樣",
-      "10 倍",
-      "100 倍",
-      "1000 倍"
-    ],
-    "answer": "B",
-    "answerKey": "B",
-    "steps": [
-      "體重跟著體積 → 1000 倍。",
-      "腿骨截面積 → 100 倍。",
-      "每單位面積承受 ＝ $1000 \\div 100 = 10$ 倍。"
-    ],
-    "insight": "平方—立方定律：這就是為什麼巨人和超大昆蟲不可能存在。",
-    "trap": {
-      "code": "ERR_U07_M19",
-      "text": "以為全部同步放大，所以一樣。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u07_m20",
-    "unitId": "U07",
-    "category": "純腦力體操",
-    "topic": "面積增加率",
-    "level": 10,
-    "stars": 10,
-    "difficulty": 10,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 10★",
-    "verified": true,
-    "question": "正方形邊長增加 10%，面積增加百分之幾？",
-    "options": [
-      "10%",
-      "21%",
-      "20%",
-      "100%"
-    ],
-    "answer": "B",
-    "answerKey": "B",
-    "steps": [
-      "邊長變 1.1 倍 → 面積變 $1.1 \\times 1.1 = 1.21$ 倍。",
-      "增加 21%。"
-    ],
-    "insight": "多出來的 1% 就是角落那個 $0.1 \\times 0.1$ 的小正方形。",
-    "trap": {
-      "code": "ERR_U07_M20",
-      "text": "以為長寬各加 10% 合起來是 20%。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u08_001",
-    "unitId": "U08",
-    "category": "間隔問題",
-    "level": 1,
-    "difficulty": 2,
-    "batch": "課本原型題",
-    "source": "課本 p.119",
-    "verified": false,
-    "question": "一座長 80 公尺的橋，在橋的一側每隔 20 公尺設一盞路燈。<br>① 兩端都設，要設幾盞？<br>② 只設一端，要設幾盞？<br>③ 兩端都不設，要設幾盞？",
-    "svg": "\n<svg viewBox=\"0 0 520 120\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"Outfit, 'Noto Sans TC', sans-serif\">\n  <rect x=\"30\" y=\"54\" width=\"460\" height=\"16\" rx=\"4\" fill=\"#e0e7ff\" stroke=\"#3730a3\" stroke-width=\"2\"/>\n  <g stroke=\"#3730a3\" stroke-width=\"2\">\n    <line x1=\"30\" y1=\"46\" x2=\"30\" y2=\"78\"/><line x1=\"145\" y1=\"48\" x2=\"145\" y2=\"76\"/>\n    <line x1=\"260\" y1=\"48\" x2=\"260\" y2=\"76\"/><line x1=\"375\" y1=\"48\" x2=\"375\" y2=\"76\"/>\n    <line x1=\"490\" y1=\"46\" x2=\"490\" y2=\"78\"/>\n  </g>\n  <g font-size=\"15\" fill=\"#1e1b4b\" text-anchor=\"middle\">\n    <text x=\"87\" y=\"42\">20 m</text><text x=\"202\" y=\"42\">20 m</text><text x=\"317\" y=\"42\">20 m</text><text x=\"432\" y=\"42\">20 m</text>\n  </g>\n  <line x1=\"30\" y1=\"98\" x2=\"490\" y2=\"98\" stroke=\"#64748b\" stroke-width=\"1.5\" marker-start=\"url(#a)\" marker-end=\"url(#a)\"/>\n  <defs><marker id=\"a\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"#64748b\"/></marker></defs>\n  <text x=\"260\" y=\"114\" font-size=\"15\" fill=\"#334155\" text-anchor=\"middle\">橋長 80 m</text>\n</svg>",
-    "answer": "① 5 盞　② 4 盞　③ 3 盞",
-    "steps": [
-      "間隔數：80 ÷ 20 = 4（個）",
-      "① 兩端都設：4 + 1 = 5",
-      "② 只設一端：4",
-      "③ 兩端都不設：4 − 1 = 3"
-    ],
-    "insight": "手指模型：5 根手指之間有 4 個指縫。直線上「兩端都有」→ 棵數 = 間隔 + 1。",
-    "trap": {
-      "code": "ERR_INTERVAL_OFF_BY_ONE",
-      "text": "直接 80 ÷ 20 = 4 就當答案，沒看清楚端點設不設。"
+    "extensionStudy": {
+      "coreFormulas": [
+        "同一時間同一地點：大樹高：大樹影長 ＝ 人高：人影長",
+        "大樹高 ＝ 人高 ×（大樹影長 ÷ 人影長）"
+      ],
+      "conceptCompare": "「同時同地」四個字很重要，因為太陽仰角相同，兩個直角三角形的對應角才會完全相等，構成放大縮小圖關係。",
+      "examVariations": "段考常改問「若大樹高 15 公尺，在同一時間的影子會長幾公尺？」，先算影長是身高的 2 ÷ 1.5 ＝ 4/3 倍，15 × 4/3 ＝ 20 公尺。"
     }
   },
   {
-    "id": "u08_002",
-    "unitId": "U08",
-    "category": "間隔問題",
+    "id": "U07-S1-O-024",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "7-1",
+    "sectionName": "放大圖與縮小圖",
+    "category": "三圖連環縮放倍率",
+    "batch": "奧數天梯",
+    "source": "Unit07 奧數進階（連環倍率複合）",
+    "level": 5,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "md",
+    "question": "已知乙圖是甲圖的 3/2 倍放大圖，丙圖又是乙圖的 4 倍放大圖。請問丙圖是甲圖的幾倍放大圖？反過來，甲圖是丙圖的幾分之幾倍縮小圖？",
+    "options": [
+      {
+        "key": "A",
+        "text": "丙是甲的 1/6 倍，甲是丙的 6 倍",
+        "trapCode": "U07_RATIO_FRACTION_INV"
+      },
+      {
+        "key": "B",
+        "text": "丙是甲的 5 1/2 倍，甲是丙的 2/11 倍",
+        "trapCode": "U07_RELATIVE_SCALE_ERR"
+      },
+      {
+        "key": "C",
+        "text": "丙是甲的 6 倍，甲是丙的 1/6 倍",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "丙是甲的 8/3 倍，甲是丙的 3/8 倍",
+        "trapCode": "U07_CALC_SLIP"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "(3/2) * 4",
+      "expect": "6",
+      "extraChecks": [
+        {
+          "expr": "1 / ((3/2) * 4)",
+          "expect": "1/6"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生在多層圖形連續放大時，能否用倍率連乘求出總放大倍數，並正確取倒數回答逆向的縮小倍率。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：把甲圖的邊長當作 1 倍。乙圖是甲圖的 3/2 倍，丙圖又是乙圖的 4 倍，連續縮放時倍率要相乘。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 155\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"460\" height=\"155\" rx=\"10\" fill=\"#ffffff\" stroke=\"#cbd5e1\"/><rect x=\"24\" y=\"68\" width=\"30\" height=\"22\" fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"2\"/><text x=\"39\" y=\"108\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\">甲圖（1 份）</text><path d=\"M 62 79 L 106 79\" stroke=\"#d97706\" stroke-width=\"2.5\" fill=\"none\"/><polygon points=\"106,75 114,79 106,83\" fill=\"#d97706\"/><text x=\"86\" y=\"70\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#b45309\">× 3/2</text><rect x=\"120\" y=\"57\" width=\"45\" height=\"33\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"2\"/><text x=\"142\" y=\"108\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\">乙圖（3/2 份）</text><path d=\"M 173 79 L 218 79\" stroke=\"#e11d48\" stroke-width=\"2.5\" fill=\"none\"/><polygon points=\"218,75 226,79 218,83\" fill=\"#e11d48\"/><text x=\"198\" y=\"70\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#be123c\">× 4</text><rect x=\"234\" y=\"20\" width=\"120\" height=\"88\" fill=\"#ffe4e6\" stroke=\"#e11d48\" stroke-width=\"2\"/><text x=\"294\" y=\"68\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"700\" fill=\"#9f1239\">丙圖（6 份）</text><text x=\"230\" y=\"136\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#0f172a\">丙是甲的 3/2 × 4 ＝ 6 倍；反過來，甲是丙的 1/6 倍</text></svg>",
+          "caption": "圖解：連環放大時倍率用乘法連乘，逆向求縮小倍數則取倒數。"
+        },
+        {
+          "type": "eq",
+          "expr": "3/2 × 4 ＝ 6",
+          "unit": "倍"
+        },
+        {
+          "type": "eq",
+          "expr": "1 ÷ 6 ＝ 1/6",
+          "unit": "倍"
+        },
+        {
+          "type": "text",
+          "text": "因為丙圖邊長是甲圖的 6 倍，反過來以丙圖為基準，甲圖的邊長就是丙圖的 1 ÷ 6 ＝ 1/6 倍。"
+        },
+        {
+          "type": "answer",
+          "text": "答：丙是甲的 6 倍，甲是丙的 1/6 倍"
+        }
+      ],
+      "insight": "連環縮放看倍率：正推連乘（3/2 × 4 ＝ 6），反推取倒數（1/6）。",
+      "distractorAnalysis": {
+        "B": "誤把兩次放大的倍數相加（3/2 ＋ 4 ＝ 5 1/2），忘記連續放大要使用乘法。",
+        "D": "誤將 4 除以 3/2（4 ÷ 3/2 ＝ 8/3），把連乘算成除法。",
+        "A": "把甲和丙的比較基準搞顛倒，將「丙是甲的幾倍」和「甲是丙的幾分之幾倍」寫反了。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "連環縮放總倍率 ＝ 第一段倍率 × 第二段倍率",
+        "互為基準轉換：乙是甲的幾倍，甲就是乙的「倒數」倍"
+      ],
+      "conceptCompare": "倍數的合成是「乘除」而不是「加減」；從大圖看小圖是縮小幾分之一，從小圖看大圖才是放大幾倍。",
+      "examVariations": "若題目多加問面積：丙圖面積會是甲圖面積的 6 × 6 ＝ 36 倍，甲圖面積是丙圖面積的 1/36 倍。"
+    }
+  },
+  {
+    "id": "U07-S2-O-025",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "7-2",
+    "sectionName": "繪製放大與縮小圖",
+    "category": "非直角鈍角三角形高與底縮放",
+    "batch": "奧數天梯",
+    "source": "Unit07 奧數進階（方格鈍角三角形縮放）",
+    "level": 5,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "md",
+    "question": "在方格紙上畫出一個底為 9 格、對應高為 4 格的鈍角三角形（每小格邊長 1 公分）。如果將這個鈍角三角形畫成原圖的 2/3 倍縮小圖，縮小後新三角形的面積是多少平方公分？",
+    "options": [
+      {
+        "key": "A",
+        "text": "8 平方公分",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "12 平方公分",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      },
+      {
+        "key": "C",
+        "text": "6 平方公分",
+        "trapCode": "U07_GRID_COUNT_ERR"
+      },
+      {
+        "key": "D",
+        "text": "16 平方公分",
+        "trapCode": "U07_CORRESPONDING_SIDE_SWAP"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "(9 * 4 / 2) * (2/3) * (2/3)",
+      "expect": "8",
+      "extraChecks": [
+        {
+          "expr": "9 * (2/3)",
+          "expect": "6"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生繪製非直角（鈍角）三角形縮小圖時，底與外高都要同步乘以縮放倍率 2/3，並驗證面積會縮為原來的 4/9 倍。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：鈍角三角形的底和高也要一起縮小為原來的 2/3 倍。新底邊 ＝ 9 × 2/3 ＝ 6 格（6 公分），新高 ＝ 4 × 2/3 ＝ 8/3 公分（2 2/3 格）。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 175\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"460\" height=\"175\" rx=\"10\" fill=\"#ffffff\" stroke=\"#cbd5e1\"/><line x1=\"30\" y1=\"116\" x2=\"220\" y2=\"116\" stroke=\"#e2e8f0\" stroke-width=\"1\"/><line x1=\"30\" y1=\"44\" x2=\"220\" y2=\"44\" stroke=\"#e2e8f0\" stroke-width=\"1\"/><polygon points=\"30,116 156,116 184,60\" fill=\"#fef3c7\" fill-opacity=\"0.7\" stroke=\"#d97706\" stroke-width=\"2\"/><line x1=\"156\" y1=\"116\" x2=\"184\" y2=\"116\" stroke=\"#64748b\" stroke-width=\"1.5\" stroke-dasharray=\"3 3\"/><line x1=\"184\" y1=\"60\" x2=\"184\" y2=\"116\" stroke=\"#dc2626\" stroke-width=\"2\" stroke-dasharray=\"4 3\"/><text x=\"93\" y=\"134\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#b45309\">原底 9 格</text><text x=\"198\" y=\"92\" font-size=\"12\" font-weight=\"700\" fill=\"#dc2626\">高 4 格</text><polygon points=\"275,116 359,116 378,79\" fill=\"#dbeafe\" fill-opacity=\"0.8\" stroke=\"#2563eb\" stroke-width=\"2\"/><line x1=\"359\" y1=\"116\" x2=\"378\" y2=\"116\" stroke=\"#64748b\" stroke-width=\"1.5\" stroke-dasharray=\"3 3\"/><line x1=\"378\" y1=\"79\" x2=\"378\" y2=\"116\" stroke=\"#2563eb\" stroke-width=\"2\" stroke-dasharray=\"4 3\"/><text x=\"317\" y=\"134\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#1d4ed8\">新底 6 格</text><text x=\"390\" y=\"100\" font-size=\"11\" font-weight=\"700\" fill=\"#1d4ed8\">高 2 2/3 格</text><text x=\"230\" y=\"158\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#0f172a\">原面積 18 平方公分 ➔ 縮小 2/3 倍後，面積變 18 × 4/9 ＝ 8 平方公分</text></svg>",
+          "caption": "圖解：鈍角三角形畫在三角形外部的高，也要和底邊一起縮小 2/3 倍。"
+        },
+        {
+          "type": "eq",
+          "expr": "9 × 4 ÷ 2 ＝ 18",
+          "unit": "平方公分"
+        },
+        {
+          "type": "eq",
+          "expr": "18 × 2/3 × 2/3 ＝ 8",
+          "unit": "平方公分"
+        },
+        {
+          "type": "text",
+          "text": "也可以直接用新底與新高計算：6 × 8/3 ÷ 2 ＝ 16 ÷ 2 ＝ 8 平方公分，結果完全一致。"
+        },
+        {
+          "type": "answer",
+          "text": "答：8 平方公分"
+        }
+      ],
+      "insight": "就算高不在整數格線上（2 2/3 格），只要把握「面積倍率 ＝ 邊長倍率的平方」，就能穩穩算出整數面積 8 平方公分。",
+      "distractorAnalysis": {
+        "C": "在方格紙估計新高度時直接把 2 2/3 格看成整數 2 格，錯算成 6 × 2 ÷ 2 ＝ 6 平方公分。",
+        "D": "計算新面積 6 × 8/3 時忘記三角形面積公式最後要除以 2，算成 16 平方公分。",
+        "B": "求出原面積 18 平方公分後，誤以為面積也只縮小 2/3 倍，算成 18 × 2/3 ＝ 12 平方公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "三角形縮小圖：底與高都同乘縮放倍數",
+        "縮放後面積 ＝ 原面積 × 縮放倍率 × 縮放倍率"
+      ],
+      "conceptCompare": "鈍角三角形的高常落在底邊延長線的外側，畫縮小圖時要找「頂點向右偏移幾格、向上幾格」，把兩個方向格數同乘 2/3 就能精準定出頂點位置。",
+      "examVariations": "若題目改為放大 3/2 倍，新底為 9 × 3/2 ＝ 13.5 格、新高為 6 格，面積變為 18 × 9/4 ＝ 40.5 平方公分。"
+    }
+  },
+  {
+    "id": "U07-S3-O-026",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "7-3",
+    "sectionName": "比例尺",
+    "category": "農地地圖面積轉實際公頃",
+    "batch": "奧數天梯",
+    "source": "Unit07 奧數進階（比例尺與公頃面積）",
+    "level": 5,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "md",
+    "question": "在比例尺 1：20000 的地圖上，有一塊長方形農地，量得圖上長 5 公分、寬 3 公分。請問這塊農地的實際面積是多少公頃？（提示：1 公頃 ＝ 10000 平方公尺）",
+    "options": [
+      {
+        "key": "A",
+        "text": "60 公頃",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "6000 公頃",
+        "trapCode": "U07_SCALE_UNIT_MISMATCH"
+      },
+      {
+        "key": "C",
+        "text": "0.3 公頃",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      },
+      {
+        "key": "D",
+        "text": "6 公頃",
+        "trapCode": "U07_CALC_SLIP"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "(5 * 20000 / 100) * (3 * 20000 / 100) / 10000",
+      "expect": "60"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生從地圖長寬、比例尺換算實際公尺後，計算大面積並正確進行平方公尺與公頃的單位轉換。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：比例尺 1：20000 表示圖上 1 公分等於實際 20000 公分 ＝ 200 公尺。先分別算出農地的實際長與實際寬。"
+        },
+        {
+          "type": "eq",
+          "expr": "5 × 200 ＝ 1000",
+          "unit": "公尺"
+        },
+        {
+          "type": "eq",
+          "expr": "3 × 200 ＝ 600",
+          "unit": "公尺"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：用實際長乘以實際寬求出實際面積（平方公尺），再除以 10000 換算為公頃。"
+        },
+        {
+          "type": "mul",
+          "a": "1000",
+          "b": "600",
+          "note": "實際長 1000 公尺乘以實際寬 600 公尺，得 600000 平方公尺"
+        },
+        {
+          "type": "eq",
+          "expr": "600000 ÷ 10000 ＝ 60",
+          "unit": "公頃"
+        },
+        {
+          "type": "answer",
+          "text": "答：實際面積是 60 公頃"
+        }
+      ],
+      "insight": "先換長寬再算面積最不易錯：圖上 1 公分 ＝ 200 公尺 ➔ 圖上 1 平方公分 ＝ 200 × 200 ＝ 40000 平方公尺 ＝ 4 公頃，15 × 4 ＝ 60 公頃！",
+      "distractorAnalysis": {
+        "B": "算出 600000 平方公尺後，把 1 公頃誤記為 100 平方公尺（與公畝混淆），除以 100 得 6000 公頃。",
+        "D": "在 600000 ÷ 10000 時多消了一個 0，錯算成 6 公頃。",
+        "C": "先算出圖上面積 15 平方公分後，忘記面積倍率要平方，誤直接用 15 × 200 ＝ 3000 平方公尺 ＝ 0.3 公頃。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "先線性換算再相乘：實際面積 ＝ 實際長 × 實際寬",
+        "面積單位關係：1 公頃 ＝ 100 公畝 ＝ 10000 平方公尺"
+      ],
+      "conceptCompare": "1 平方公分在 1：20000 地圖上代表「200 公尺 × 200 公尺 ＝ 40000 平方公尺 ＝ 4 公頃」，不是 200 平方公尺。",
+      "examVariations": "若改用平方公里表示，因為 1 平方公里 ＝ 100 公頃，60 公頃 ＝ 0.6 平方公里。"
+    }
+  },
+  {
+    "id": "U07-S1-O-027",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "7-1",
+    "sectionName": "放大圖與縮小圖",
+    "category": "擴大圖面積差反推原正方形邊長",
+    "batch": "奧數天梯",
+    "source": "Unit07 奧數進階（面積差倍反推周長）",
+    "level": 6,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "md",
+    "question": "把一個正方形畫成 3 倍放大圖後，放大圖的面積比原本正方形的面積多了 72 平方公分。請問原本正方形的周長是多少公分？",
+    "figure": {
+      "type": "bar",
+      "rows": [
+        {
+          "label": "原面積 (1 份)",
+          "units": 1,
+          "role": "base"
+        },
+        {
+          "label": "放大後 (9 份)",
+          "units": 9,
+          "role": "compare"
+        }
+      ],
+      "brace": {
+        "kind": "diff",
+        "text": "多出 8 份 ＝ 72 平方公分"
+      }
+    },
+    "options": [
+      {
+        "key": "A",
+        "text": "24 公分",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      },
+      {
+        "key": "B",
+        "text": "36 公分",
+        "trapCode": "U07_PERIMETER_SQUARE_ERR"
+      },
+      {
+        "key": "C",
+        "text": "12 公分",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "9 公分",
+        "trapCode": "U07_CALC_SLIP"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "3 * 4",
+      "expect": "12",
+      "extraChecks": [
+        {
+          "expr": "72 / (3 * 3 - 1)",
+          "expect": "9"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生結合「面積放大為邊長倍數的平方（3 × 3 ＝ 9 倍）」與「差倍問題線段圖」，從面積差反推出原邊長與原周長。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：邊長放大 3 倍時，正方形面積會變為原來的 3 × 3 ＝ 9 倍。把原面積當作 1 份，放大後的面積就是 9 份，兩者相差 9 − 1 ＝ 8 份。"
+        },
+        {
+          "type": "bar"
+        },
+        {
+          "type": "eq",
+          "expr": "72 ÷ (3 × 3 − 1) ＝ 72 ÷ 8 ＝ 9",
+          "unit": "平方公分"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：算出原本正方形面積是 9 平方公分。因為 3 × 3 ＝ 9，可知原正方形的邊長是 3 公分。"
+        },
+        {
+          "type": "eq",
+          "expr": "3 × 4 ＝ 12",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：原本正方形的周長是 12 公分"
+        }
+      ],
+      "insight": "先用差倍求原面積（72 ÷ 8 ＝ 9），再想哪個數自己乘自己等於 9（3 × 3 ＝ 9）找出原邊長！",
+      "figureNote": "線段圖把原面積設為 1 份，3 倍放大圖面積為 9 份，多出的 8 份對應 72 平方公分，因此每 1 份（原面積）是 9 平方公分。",
+      "distractorAnalysis": {
+        "A": "誤以為放大 3 倍面積也只變 3 倍，算成 72 ÷ (3 − 1) ＝ 36 平方公分，反推邊長 6 公分而誤選周長 24 公分。",
+        "B": "求出原面積 9 平方公分後，忘記從面積反推邊長 3 公分，直接把 9 當成邊長乘以 4 算成 36 公分（或算出放大後周長）。",
+        "D": "求出原面積 72 ÷ 8 ＝ 9 後直接停筆，把面積當成最後要求的周長。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "放大後面積比原面積多的份數 ＝ 邊長倍率 × 邊長倍率 − 1",
+        "原正方形面積 ＝ 面積差 ÷ (倍率平方 − 1)"
+      ],
+      "conceptCompare": "這題考驗兩次轉換：先用「平方倍」找原面積，再用正方形「邊長 × 邊長 ＝ 面積」找邊長，最後「邊長 × 4」求周長。",
+      "examVariations": "若改問「放大後正方形的周長是多少公分？」，可以直接用原周長 12 × 3 ＝ 36 公分。"
+    }
+  },
+  {
+    "id": "U07-S3-O-028",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "7-3",
+    "sectionName": "比例尺",
+    "category": "精密零件放大比例尺（40：1）",
+    "batch": "奧數天梯",
+    "source": "Unit07 奧數進階（放大比例尺與毫米換算）",
+    "level": 6,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "md",
+    "question": "手錶廠繪製精密齒輪的設計圖時，採用 40：1 的放大比例尺。如果在設計圖上量得齒輪的直徑是 12 公分，請問這顆齒輪的實際直徑是多少毫米？（提示：1 公分 ＝ 10 毫米）",
+    "options": [
+      {
+        "key": "A",
+        "text": "0.3 毫米",
+        "trapCode": "U07_SCALE_UNIT_MISMATCH"
+      },
+      {
+        "key": "B",
+        "text": "3 毫米",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "4800 毫米",
+        "trapCode": "U07_SCALE_MUL_DIV_SWAP"
+      },
+      {
+        "key": "D",
+        "text": "480 毫米",
+        "trapCode": "U07_RATIO_FRACTION_INV"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "(12 / 40) * 10",
+      "expect": "3"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否辨識「前項大於後項」的放大比例尺（40：1 代表圖上比實物大 40 倍），正確用除法反求實物尺寸並換算成毫米。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：比例尺永遠是「圖上長度：實際長度」。40：1 代表圖上 40 公分對應實際 1 公分，也就是圖紙把實物放大了 40 倍。"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：從圖上長度反推實際長度，要將 12 公分除以 40。"
+        },
+        {
+          "type": "eq",
+          "expr": "12 ÷ 40 ＝ 0.3",
+          "unit": "公分"
+        },
+        {
+          "type": "longdiv",
+          "dividend": "12",
+          "divisor": "40",
+          "mode": "exact",
+          "note": "直式計算 12 ÷ 40，補小數點與 0 得 0.3 公分"
+        },
+        {
+          "type": "eq",
+          "expr": "0.3 × 10 ＝ 3",
+          "unit": "毫米"
+        },
+        {
+          "type": "answer",
+          "text": "答：這顆齒輪的實際直徑是 3 毫米"
+        }
+      ],
+      "insight": "比例尺前項比後項大（例如 40：1）是「放大設計圖」，求實物反而要除以 40！也可以先把 12 公分換成 120 毫米，120 ÷ 40 ＝ 3 毫米。",
+      "distractorAnalysis": {
+        "A": "正確算出 12 ÷ 40 ＝ 0.3 公分，卻忘記題目問的是「毫米」，沒有乘以 10 做單位換算。",
+        "C": "習慣地圖縮小比例尺後看到 40 就直接用乘法，誤算成 12 × 40 ＝ 480 公分 ＝ 4800 毫米。",
+        "D": "把 40：1 看反成 1：40 之外，又直接把 12 × 40 ＝ 480 當成毫米寫入答案。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "比例尺 ＝ 圖上距離：實際距離",
+        "前項大於後項（如 40：1）➔ 放大圖（精密零件、昆蟲標本）"
+      ],
+      "conceptCompare": "地圖比例尺通常是 1：幾萬（縮小），零件圖則是 幾十：1（放大）；無論哪一種，口訣都是「圖上在前、實際在後」。",
+      "examVariations": "若實物齒輪有個孔洞直徑只有 1.5 毫米，畫在這張 40：1 設計圖上會是 1.5 × 40 ＝ 60 毫米 ＝ 6 公分。"
+    }
+  },
+  {
+    "id": "U07-RV-O-029",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "REVIEW",
+    "sectionName": "綜合複習與應用",
+    "category": "路燈影長相似梯形",
+    "batch": "奧數天梯",
+    "source": "Unit07 奧數進階（路燈倒影相似三角形）",
+    "level": 6,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "md",
+    "question": "夜晚時，身高 1.6 公尺的小華垂直站在水平地面高 4 公尺的路燈下（路燈也垂直地面），測得她在地上的影子長為 2 公尺。請問小華站在距離路燈燈桿幾公尺的位置？",
+    "options": [
+      {
+        "key": "A",
+        "text": "5 公尺",
+        "trapCode": "U07_CORRESPONDING_SIDE_SWAP"
+      },
+      {
+        "key": "B",
+        "text": "3 公尺",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "3.2 公尺",
+        "trapCode": "U07_RELATIVE_SCALE_ERR"
+      },
+      {
+        "key": "D",
+        "text": "6 公尺",
+        "trapCode": "U07_CALC_SLIP"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "2 * (4 / 1.6) - 2",
+      "expect": "3"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否從路燈光線照射形成的大小兩個重疊相似直角三角形，先求大三角形底邊全長，再扣除影長算出人與燈桿的距離。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：路燈光線斜射地面，形成「路燈大三角形」與「小華影長小三角形」。大三角形的高（4 公尺）是小三角形高（1.6 公尺）的放大圖。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 170\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"460\" height=\"170\" rx=\"10\" fill=\"#ffffff\" stroke=\"#cbd5e1\"/><line x1=\"35\" y1=\"135\" x2=\"260\" y2=\"135\" stroke=\"#334155\" stroke-width=\"2.5\"/><line x1=\"60\" y1=\"25\" x2=\"60\" y2=\"135\" stroke=\"#d97706\" stroke-width=\"4\"/><circle cx=\"60\" cy=\"25\" r=\"6\" fill=\"#f59e0b\"/><line x1=\"150\" y1=\"91\" x2=\"150\" y2=\"135\" stroke=\"#2563eb\" stroke-width=\"3.5\"/><circle cx=\"150\" cy=\"86\" r=\"4.5\" fill=\"#2563eb\"/><line x1=\"60\" y1=\"25\" x2=\"210\" y2=\"135\" stroke=\"#e11d48\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/><line x1=\"150\" y1=\"135\" x2=\"210\" y2=\"135\" stroke=\"#0f172a\" stroke-width=\"4\"/><text x=\"32\" y=\"85\" font-size=\"12\" font-weight=\"700\" fill=\"#b45309\">4 公尺</text><text x=\"122\" y=\"114\" font-size=\"11\" font-weight=\"700\" fill=\"#1d4ed8\">1.6 公尺</text><text x=\"105\" y=\"152\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#059669\">離燈 ？ 公尺</text><text x=\"180\" y=\"152\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\">影長 2 公尺</text><rect x=\"272\" y=\"25\" width=\"172\" height=\"118\" rx=\"8\" fill=\"#f8fafc\" stroke=\"#cbd5e1\"/><text x=\"284\" y=\"52\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\">放大倍數：4 ÷ 1.6 ＝ 2.5 倍</text><text x=\"284\" y=\"82\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\">大底全長：2 × 2.5 ＝ 5 公尺</text><text x=\"284\" y=\"112\" font-size=\"12\" font-weight=\"700\" fill=\"#059669\">離燈距離：5 − 2 ＝ 3 公尺</text></svg>",
+          "caption": "圖解：路燈三角形的底邊包含了「人離燈距離」與「影長 2 公尺」兩段。"
+        },
+        {
+          "type": "eq",
+          "expr": "4 ÷ 1.6 ＝ 2.5",
+          "unit": "倍"
+        },
+        {
+          "type": "longdiv",
+          "dividend": "4",
+          "divisor": "1.6",
+          "mode": "exact",
+          "note": "小數除法：除數與被除數同時乘以 10 變成 40 ÷ 16 ＝ 2.5"
+        },
+        {
+          "type": "eq",
+          "expr": "2 × 2.5 − 2 ＝ 5 − 2 ＝ 3",
+          "unit": "公尺"
+        },
+        {
+          "type": "answer",
+          "text": "答：小華距離路燈燈桿 3 公尺"
+        }
+      ],
+      "insight": "重疊相似三角形最關鍵一步：大三角形的底邊是「人離燈距離 ＋ 影長」，算出 5 公尺後別忘了減掉影長 2 公尺！",
+      "distractorAnalysis": {
+        "A": "求出大三角形底邊全長 2 × 2.5 ＝ 5 公尺後，誤把整條大底邊當成小華離路燈的距離，忘記減去影長 2 公尺。",
+        "D": "計算 4 ÷ 1.6 時誤算成 4 倍，進而錯算成 2 × 4 − 2 ＝ 6 公尺。",
+        "C": "把人高與影長直接用錯誤的比例乘除（1.6 × 2 ＝ 3.2 公尺），沒有找出兩三角形高的放大倍數。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "高度放大倍率 ＝ 路燈高 ÷ 人高",
+        "大三角形底邊（離燈距 ＋ 影長）＝ 影長 × 高度放大倍率"
+      ],
+      "conceptCompare": "陽光測樹高時，兩個三角形是分開並排的（影長比就是樹高比）；路燈問題則是兩個三角形「疊在一起共用影尖」，所以大底 ＝ 人離燈距 ＋ 影長。",
+      "examVariations": "若小華再往前遠離路燈 3 公尺（離燈 6 公尺），影子會變長嗎？因為離燈距佔大底的 1.5 ÷ 2.5 ＝ 3/5，此時 6 ÷ 3 × 2 ＝ 4 公尺，影子也會拉長為 4 公尺！"
+    }
+  },
+  {
+    "id": "U07-S2-O-030",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "7-2",
+    "sectionName": "繪製放大與縮小圖",
+    "category": "梯形縮小圖邊長與面積",
+    "batch": "奧數天梯",
+    "source": "Unit07 奧數進階（方格梯形縮放逆推）",
+    "level": 7,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "md",
+    "question": "在方格紙上畫一個上底 4 格、下底 8 格、高 6 格的梯形（每小格邊長 1 公分）。將這個梯形畫成它的「縮小圖」後，新梯形的面積變成 9 平方公分。請問縮小後梯形的「下底」長是多少公分？",
+    "options": [
+      {
+        "key": "A",
+        "text": "4 公分",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "3 公分",
+        "trapCode": "U07_GRID_COUNT_ERR"
+      },
+      {
+        "key": "C",
+        "text": "16 公分",
+        "trapCode": "U07_SCALE_MUL_DIV_SWAP"
+      },
+      {
+        "key": "D",
+        "text": "2 公分",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "8 * (1/2)",
+      "expect": "4",
+      "extraChecks": [
+        {
+          "expr": "(4 + 8) * 6 / 2 / 9",
+          "expect": "4"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否從梯形縮放前後的面積比，反推出邊長縮放倍率，再求對應下底的新長度。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：先計算原梯形的面積，再比較新梯形面積是原梯形面積的幾分之幾。"
+        },
+        {
+          "type": "eq",
+          "expr": "(4 ＋ 8) × 6 ÷ 2 ＝ 36",
+          "unit": "平方公分"
+        },
+        {
+          "type": "eq",
+          "expr": "9 ÷ 36 ＝ 1/4",
+          "unit": "倍"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 165\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"460\" height=\"165\" rx=\"10\" fill=\"#ffffff\" stroke=\"#cbd5e1\"/><polygon points=\"58,32 114,32 142,116 30,116\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"2\"/><line x1=\"58\" y1=\"32\" x2=\"58\" y2=\"116\" stroke=\"#b45309\" stroke-width=\"1.5\" stroke-dasharray=\"4 3\"/><text x=\"86\" y=\"25\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#b45309\">上底 4 格</text><text x=\"86\" y=\"133\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#b45309\">下底 8 格</text><text x=\"86\" y=\"78\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#92400e\">面積 36</text><path d=\"M 164 74 L 204 74\" stroke=\"#2563eb\" stroke-width=\"2.5\" fill=\"none\"/><polygon points=\"204,70 212,74 204,78\" fill=\"#2563eb\"/><text x=\"184\" y=\"64\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#1d4ed8\">面積 1/4</text><text x=\"184\" y=\"92\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#1d4ed8\">邊長 1/2</text><polygon points=\"238,53 266,53 280,95 224,95\" fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"2\"/><text x=\"252\" y=\"78\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#1e40af\">面積 9</text><text x=\"252\" y=\"114\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#1d4ed8\">下底 ？ 公分</text><rect x=\"304\" y=\"28\" width=\"140\" height=\"106\" rx=\"8\" fill=\"#f8fafc\" stroke=\"#cbd5e1\"/><text x=\"316\" y=\"54\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\">1/2 × 1/2 ＝ 1/4</text><text x=\"316\" y=\"82\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\">邊長縮為 1/2 倍</text><text x=\"316\" y=\"110\" font-size=\"12\" font-weight=\"700\" fill=\"#059669\">下底 ＝ 8 × 1/2 ＝ 4</text></svg>",
+          "caption": "圖解：面積變為 1/4 倍時，代表上底、下底與高各縮小為原來的 1/2 倍。"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：因為 1/2 × 1/2 ＝ 1/4，所以梯形各邊長都縮小為原來的 1/2 倍。縮小後的下底 ＝ 8 × 1/2 ＝ 4 公分。"
+        },
+        {
+          "type": "eq",
+          "expr": "8 × 1/2 ＝ 4",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：縮小後梯形的下底長是 4 公分"
+        }
+      ],
+      "insight": "面積縮為 1/4 倍，不等於邊長也縮為 1/4 倍！先找出 1/2 × 1/2 ＝ 1/4，才能把邊長倍率還原為 1/2。",
+      "distractorAnalysis": {
+        "B": "算對邊長縮小為 1/2 倍後，錯把高 6 格乘以 1/2 ＝ 3 公分當作下底，或數錯方格把下底當成 6 格。",
+        "C": "把縮小方向與倍率搞反，錯把 8 乘以 2 算成 16 公分。",
+        "D": "算出面積縮為 1/4 倍後，直接把原下底 8 公分也乘以 1/4（8 × 1/4 ＝ 2 公分），忽略面積比與邊長比的平方關係。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "梯形面積 ＝ (上底 ＋ 下底) × 高 ÷ 2",
+        "面積變為 1/4 倍 ➔ 所有線段（上底、下底、高、腰、周長）皆變為 1/2 倍"
+      ],
+      "conceptCompare": "無論是正方形、三角形還是梯形，只要做相似縮放，面積倍率永遠是邊長倍率的平方。",
+      "examVariations": "順便驗算縮小後梯形的尺寸：上底 2 公分、下底 4 公分、高 3 公分，面積 ＝ (2 ＋ 4) × 3 ÷ 2 ＝ 9 平方公分，完全符合！"
+    }
+  },
+  {
+    "id": "U07-S3-O-031",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "7-3",
+    "sectionName": "比例尺",
+    "category": "雙地圖同線段不同比例尺轉算",
+    "batch": "奧數天梯",
+    "source": "Unit07 奧數進階（雙地圖反推比例尺）",
+    "level": 7,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "md",
+    "question": "在比例尺 1：50000 的甲地圖上，一條公路的長度是 12 公分；同樣一條公路畫在乙地圖上，長度是 15 公分。請問乙地圖的比例尺是多少？",
+    "options": [
+      {
+        "key": "A",
+        "text": "1：62500",
+        "trapCode": "U07_DUAL_MAP_RATIO_ERR"
+      },
+      {
+        "key": "B",
+        "text": "1：400",
+        "trapCode": "U07_SCALE_UNIT_MISMATCH"
+      },
+      {
+        "key": "C",
+        "text": "1：750000",
+        "trapCode": "U07_SCALE_MUL_DIV_SWAP"
+      },
+      {
+        "key": "D",
+        "text": "1：40000",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "(12 * 50000) / 15",
+      "expect": "40000"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生運用「同一條公路實際長度不變」的橋樑法，由甲地圖算出實際公分數後，重新與乙地圖圖長化簡求比例尺。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：這條公路不管畫在哪張地圖上，它的實際長度都是固定不變的。先從甲地圖算出實際長度。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 155\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"460\" height=\"155\" rx=\"10\" fill=\"#ffffff\" stroke=\"#cbd5e1\"/><rect x=\"20\" y=\"20\" width=\"190\" height=\"62\" rx=\"8\" fill=\"#eff6ff\" stroke=\"#2563eb\"/><text x=\"115\" y=\"42\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#1d4ed8\">甲地圖（1：50000）</text><line x1=\"45\" y1=\"62\" x2=\"165\" y2=\"62\" stroke=\"#2563eb\" stroke-width=\"4\"/><text x=\"105\" y=\"75\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#1e293b\">圖長 12 公分</text><rect x=\"250\" y=\"20\" width=\"190\" height=\"62\" rx=\"8\" fill=\"#ecfdf5\" stroke=\"#059669\"/><text x=\"345\" y=\"42\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#047857\">乙地圖（1：？）</text><line x1=\"270\" y1=\"62\" x2=\"420\" y2=\"62\" stroke=\"#059669\" stroke-width=\"4\"/><text x=\"345\" y=\"75\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#1e293b\">圖長 15 公分</text><rect x=\"55\" y=\"96\" width=\"350\" height=\"42\" rx=\"8\" fill=\"#fef3c7\" stroke=\"#d97706\"/><text x=\"230\" y=\"115\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#92400e\">共同橋樑：實際公路長 ＝ 12 × 50000 ＝ 600000 公分</text><text x=\"230\" y=\"132\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#059669\">乙地圖比例尺 ＝ 15：600000 ＝ 1：40000</text></svg>",
+          "caption": "圖解：同一條公路在兩張地圖上圖長不同，但實際公分數完全相等。"
+        },
+        {
+          "type": "eq",
+          "expr": "12 × 50000 ＝ 600000",
+          "unit": "公分"
+        },
+        {
+          "type": "eq",
+          "expr": "600000 ÷ 15 ＝ 40000",
+          "unit": ""
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：在乙地圖上，15 公分代表實際 600000 公分，將前後項同除以 15 化為最簡整數比，得 1：40000。"
+        },
+        {
+          "type": "answer",
+          "text": "答：乙地圖的比例尺是 1：40000"
+        }
+      ],
+      "insight": "圖上畫得越長（15 公分 > 12 公分），代表地圖越詳細，比例尺的比值越大（後項數字反而要變小：40000 < 50000）！",
+      "distractorAnalysis": {
+        "A": "誤以為圖上越長後項數字就要跟著變大，直接用 50000 × 15 ÷ 12 算成 1：62500。",
+        "B": "把 600000 公分換算成 6000 公尺後，直接拿「15 公分：6000 公尺」化簡成 1：400，忘記比例尺前後項必須單位相同。",
+        "C": "求出 50000 後沒有先算 12 × 50000，卻誤把 50000 直接乘以 15 寫成 1：750000。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "實際長度 ＝ 甲圖長 × 甲比例尺分母 ＝ 乙圖長 × 乙比例尺分母",
+        "圖上距離與比例尺分母成反比：圖長越長，分母越小"
+      ],
+      "conceptCompare": "求比例尺「圖長：實長」之前，務必確認兩個數字都是「公分」（或同單位）才能約分。",
+      "examVariations": "如果有一塊公園在甲地圖上面積是 16 平方公分，在乙地圖上會是多少平方公分？邊長比 15：12 ＝ 5/4 倍，面積變為 16 × 25/16 ＝ 25 平方公分。"
+    }
+  },
+  {
+    "id": "U07-RV-O-032",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "REVIEW",
+    "sectionName": "綜合複習與應用",
+    "category": "直角扇形半徑縮放比",
+    "batch": "奧數天梯",
+    "source": "Unit07 奧數進階（扇形周長與面積倍數）",
+    "level": 7,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "md",
+    "question": "甲、乙兩個圓心角都是 90° 的扇形，甲扇形的半徑是乙扇形半徑的 2.5 倍。請問甲扇形的「周長」是乙扇形的幾倍？甲扇形的「面積」又是乙扇形的幾倍？",
+    "options": [
+      {
+        "key": "A",
+        "text": "周長是 2.5 倍、面積是 2.5 倍",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      },
+      {
+        "key": "B",
+        "text": "周長是 6.25 倍、面積是 6.25 倍",
+        "trapCode": "U07_PERIMETER_SQUARE_ERR"
+      },
+      {
+        "key": "C",
+        "text": "周長是 0.4 倍、面積是 0.16 倍",
+        "trapCode": "U07_RATIO_FRACTION_INV"
+      },
+      {
+        "key": "D",
+        "text": "周長是 2.5 倍、面積是 6.25 倍",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "2.5 * 2.5",
+      "expect": "6.25",
+      "extraChecks": [
+        {
+          "expr": "2.5",
+          "expect": "2.5"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生整合扇形與放大圖觀念：圓心角相同時，兩扇形互為相似圖，因此周長（弧長＋兩半徑）同為 2.5 倍，面積則為平方倍 6.25 倍。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：兩個扇形的圓心角都是 90°，形狀完全相似，甲就是乙的 2.5 倍放大圖。無論弧長或兩條半徑都是長度，所以甲扇形的周長是乙扇形的 2.5 倍。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 165\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"460\" height=\"165\" rx=\"10\" fill=\"#ffffff\" stroke=\"#cbd5e1\"/><path d=\"M 50,125 L 92,125 A 42,42 0 0,0 50,83 Z\" fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"2\"/><text x=\"71\" y=\"145\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#1d4ed8\">乙扇形（半徑 1 份）</text><text x=\"64\" y=\"117\" font-size=\"11\" font-weight=\"700\" fill=\"#1e40af\">90°</text><path d=\"M 175,125 L 280,125 A 105,105 0 0,0 175,20 Z\" fill=\"#ffe4e6\" stroke=\"#e11d48\" stroke-width=\"2\"/><text x=\"228\" y=\"145\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#be123c\">甲扇形（半徑 2.5 份）</text><text x=\"205\" y=\"110\" font-size=\"12\" font-weight=\"700\" fill=\"#9f1239\">90°</text><rect x=\"302\" y=\"24\" width=\"142\" height=\"114\" rx=\"8\" fill=\"#f8fafc\" stroke=\"#cbd5e1\"/><text x=\"314\" y=\"52\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\">長度（周長）：2.5 倍</text><text x=\"314\" y=\"82\" font-size=\"12\" font-weight=\"700\" fill=\"#be123c\">面積：2.5 × 2.5</text><text x=\"346\" y=\"108\" font-size=\"13\" font-weight=\"700\" fill=\"#be123c\">＝ 6.25 倍</text></svg>",
+          "caption": "圖解：圓心角相同的兩個扇形互為放大縮小圖，周長 2.5 倍、面積 6.25 倍。"
+        },
+        {
+          "type": "eq",
+          "expr": "2.5 × 2.5 ＝ 6.25",
+          "unit": "倍"
+        },
+        {
+          "type": "mul",
+          "a": "2.5",
+          "b": "2.5",
+          "note": "直式計算 2.5 × 2.5，小數共 2 位得 6.25"
+        },
+        {
+          "type": "text",
+          "text": "可以用具體數字驗算：設乙半徑 2，周長 ＝ 4×3.14×1/4＋4 ＝ 7.14、面積 ＝ 4×3.14×1/4 ＝ 3.14；甲半徑 5，周長 ＝ 10×3.14×1/4＋10 ＝ 17.85（為 7.14 的 2.5 倍）、面積 ＝ 25×3.14×1/4 ＝ 19.625（為 3.14 的 6.25 倍）。"
+        },
+        {
+          "type": "answer",
+          "text": "答：周長是 2.5 倍、面積是 6.25 倍"
+        }
+      ],
+      "insight": "圓心角一樣的兩個扇形一定是相似圖形！周長看長度一次方（2.5 倍），面積看半徑平方（2.5 × 2.5 ＝ 6.25 倍），完全不需要先乘圓周率 3.14。",
+      "distractorAnalysis": {
+        "A": "誤以為面積的放大倍數和半徑一樣，都只放大 2.5 倍。",
+        "B": "算對面積為 6.25 倍後，誤以為周長也會跟著平方放大成 6.25 倍。",
+        "C": "把甲和乙的比較對象搞反了，算成乙扇形是甲扇形的 0.4 倍與 0.16 倍。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "同圓心角扇形：周長倍數 ＝ 弧長倍數 ＝ 半徑倍數",
+        "同圓心角扇形：面積倍數 ＝ 半徑倍數 × 半徑倍數"
+      ],
+      "conceptCompare": "如果兩個扇形的圓心角不同（例如甲 90°、乙 45°），就不是放大縮小圖，這時不能直接平方求面積倍，必須把圓心角比例也乘進去！",
+      "examVariations": "若進階問「甲扇形面積比乙扇形面積多幾倍？」，答案為 6.25 − 1 ＝ 5.25 倍。"
+    }
+  },
+  {
+    "id": "U07-S1-O-033",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "7-1",
+    "sectionName": "放大圖與縮小圖",
+    "category": "影印機連續 80% 與 125% 還原",
+    "batch": "奧數天梯",
+    "source": "Unit07 奧數進階（影印連縮與還原倍率）",
+    "level": 8,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "lg",
+    "question": "一張海報在影印機上連續按了兩次「80%」縮小鍵（每次都把邊長縮為前一次的 80%）。請問兩次縮小後的新海報「面積」是原來海報的幾分之幾？如果想把這張兩次縮小後的成品直接一次放大「恢復原來的邊長大小」，影印機的縮放倍率應該設定為多少百分比？",
+    "options": [
+      {
+        "key": "A",
+        "text": "面積為原本的 9/25，需設定為 140%",
+        "trapCode": "U07_RELATIVE_SCALE_ERR"
+      },
+      {
+        "key": "B",
+        "text": "面積為原本的 256/625，需設定為 156.25%",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "面積為原本的 16/25，需設定為 156.25%",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      },
+      {
+        "key": "D",
+        "text": "面積為原本的 256/625，需設定為 125%",
+        "trapCode": "U07_CALC_SLIP"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "(80/100) * (80/100) * (80/100) * (80/100)",
+      "expect": "256/625",
+      "extraChecks": [
+        {
+          "expr": "1 / ((80/100) * (80/100))",
+          "expect": "1.5625"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生理解影印機百分比代表「邊長縮放倍率」，連續按兩次 80% 後邊長為 16/25、面積為 (16/25) 的平方，且還原邊長須除以 0.64（非加回 40%）。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：影印機按 80%（即 4/5）是指邊長縮為原本的 4/5。連續按兩次後，邊長變成原來的 4/5 × 4/5 ＝ 16/25（即 0.64 倍）。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 165\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"460\" height=\"165\" rx=\"10\" fill=\"#ffffff\" stroke=\"#cbd5e1\"/><rect x=\"22\" y=\"32\" width=\"75\" height=\"75\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2\"/><text x=\"59\" y=\"74\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#1d4ed8\">原海報 1</text><path d=\"M 104 68 L 142 68\" stroke=\"#d97706\" stroke-width=\"2\" fill=\"none\"/><polygon points=\"142,64 150,68 142,72\" fill=\"#d97706\"/><text x=\"125\" y=\"59\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#b45309\">× 80%</text><rect x=\"156\" y=\"40\" width=\"60\" height=\"60\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"2\"/><text x=\"186\" y=\"74\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#92400e\">邊長 4/5</text><path d=\"M 223 68 L 261 68\" stroke=\"#e11d48\" stroke-width=\"2\" fill=\"none\"/><polygon points=\"261,64 269,68 261,72\" fill=\"#e11d48\"/><text x=\"244\" y=\"59\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#be123c\">× 80%</text><rect x=\"276\" y=\"48\" width=\"48\" height=\"48\" fill=\"#ffe4e6\" stroke=\"#e11d48\" stroke-width=\"2\"/><text x=\"300\" y=\"69\" text-anchor=\"middle\" font-size=\"10\" font-weight=\"700\" fill=\"#9f1239\">邊長 16/25</text><text x=\"300\" y=\"84\" text-anchor=\"middle\" font-size=\"10\" font-weight=\"700\" fill=\"#9f1239\">面積 256/625</text><rect x=\"340\" y=\"28\" width=\"106\" height=\"84\" rx=\"8\" fill=\"#ecfdf5\" stroke=\"#059669\"/><text x=\"393\" y=\"54\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#047857\">還原倍率：</text><text x=\"393\" y=\"76\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#047857\">1 ÷ 0.64 ＝ 1.5625</text><text x=\"393\" y=\"98\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#059669\">設定 156.25%</text><text x=\"230\" y=\"142\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#0f172a\">面積 ＝ 16/25 × 16/25 ＝ 256/625；還原邊長 ＝ 1 ÷ 0.64 ＝ 156.25%</text></svg>",
+          "caption": "圖解：連縮兩次 80% 邊長變為 0.64 倍，面積為 256/625，還原需除以 0.64。"
+        },
+        {
+          "type": "eq",
+          "expr": "16/25 × 16/25 ＝ 256/625",
+          "unit": ""
+        },
+        {
+          "type": "eq",
+          "expr": "1 ÷ 0.64 ＝ 1.5625 ＝ 156.25%",
+          "unit": ""
+        },
+        {
+          "type": "longdiv",
+          "dividend": "1",
+          "divisor": "0.64",
+          "mode": "exact",
+          "note": "除數小數點右移兩位變成 100 ÷ 64 ＝ 1.5625，即 156.25%"
+        },
+        {
+          "type": "answer",
+          "text": "答：面積為原本的 256/625，需設定為 156.25%"
+        }
+      ],
+      "insight": "只縮小一次 80% 時要按 125%（1 ÷ 0.8 ＝ 1.25）還原；連續縮小兩次後邊長剩 0.64 倍，還原就要 1.25 × 1.25 ＝ 1.5625 ＝ 156.25%！",
+      "distractorAnalysis": {
+        "A": "誤把連縮兩次 80%（少 20%）當成減去 20% ＋ 20% ＝ 40%，認為邊長剩 60%（3/5）、面積剩 9/25，且誤以為加回 40% 成 140% 即可還原。",
+        "D": "忘記共縮小了「兩次」，還原倍率只算了一次 1 ÷ 0.8 ＝ 125%。",
+        "C": "沒有算面積平方，直接把兩次縮小後的「邊長倍率」16/25 誤當成面積倍率。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "連續縮放倍率相乘：0.8 × 0.8 ＝ 0.64（即 16/25）",
+        "還原放大倍率 ＝ 1 ÷ 累計邊長倍率（1 ÷ 0.64 ＝ 1.5625 ＝ 156.25%）"
+      ],
+      "conceptCompare": "為什麼按完 80% 再按 120% 不能回到原圖？因為 0.8 × 1.2 ＝ 0.96，會比原圖還小 4%！基準量變了，還原必須用「乘除倒數」而非加減。",
+      "examVariations": "實務上影印機沒有小數點輸入鍵時，可以先按一次 125% 放大，再對印出的紙按第二次 125% 放大，就能精準還原！"
+    }
+  },
+  {
+    "id": "U07-S3-O-034",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "7-3",
+    "sectionName": "比例尺",
+    "category": "水庫面積 1：50000 轉平方公里",
+    "batch": "奧數天梯",
+    "source": "Unit07 奧數進階（比例尺與平方公里）",
+    "level": 8,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "md",
+    "question": "在一張標有線段比例尺的地圖上，每 1 小格長 1 公分，連續 2 小格共 2 公分代表實際 1 公里（即數值比例尺 1：50000）。這張地圖上某座水庫的面積是 8 平方公分，請問這座水庫的實際面積是多少平方公里？",
+    "options": [
+      {
+        "key": "A",
+        "text": "2 平方公里",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "8 平方公里",
+        "trapCode": "U07_BAR_SCALE_READ_ERR"
+      },
+      {
+        "key": "C",
+        "text": "4 平方公里",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      },
+      {
+        "key": "D",
+        "text": "2000000 平方公里",
+        "trapCode": "U07_SCALE_UNIT_MISMATCH"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "8 * (50000 / 100000) * (50000 / 100000)",
+      "expect": "2"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生由「圖上 2 公分 ＝ 1 公里」讀出圖上 1 公分代表 0.5 公里，並進一步計算 1 平方公分對應的平方公里數（0.5 × 0.5 ＝ 0.25 平方公里）。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：線段比例尺上「2 公分代表 1 公里」，所以圖上 1 公分代表實際 1 ÷ 2 ＝ 0.5 公里。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 165\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"460\" height=\"165\" rx=\"10\" fill=\"#ffffff\" stroke=\"#cbd5e1\"/><text x=\"30\" y=\"32\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\">線段比例尺（每格圖上 1 公分）：</text><rect x=\"30\" y=\"46\" width=\"60\" height=\"12\" fill=\"#1e293b\" stroke=\"#1e293b\"/><rect x=\"90\" y=\"46\" width=\"60\" height=\"12\" fill=\"#ffffff\" stroke=\"#1e293b\" stroke-width=\"1.5\"/><text x=\"30\" y=\"76\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#334155\">0</text><text x=\"90\" y=\"76\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#2563eb\">0.5</text><text x=\"150\" y=\"76\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#e11d48\">1 公里</text><rect x=\"30\" y=\"96\" width=\"48\" height=\"48\" fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"2\"/><text x=\"54\" y=\"118\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#1d4ed8\">圖上</text><text x=\"54\" y=\"133\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#1d4ed8\">1 平方公分</text><text x=\"92\" y=\"124\" font-size=\"13\" font-weight=\"700\" fill=\"#0f172a\">＝ 0.5 公里 × 0.5 公里 ＝ 0.25 平方公里</text><rect x=\"210\" y=\"22\" width=\"232\" height=\"66\" rx=\"8\" fill=\"#ecfdf5\" stroke=\"#059669\"/><text x=\"326\" y=\"48\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#047857\">水庫圖上面積 8 平方公分</text><text x=\"326\" y=\"72\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"700\" fill=\"#059669\">8 × 0.25 ＝ 2 平方公里</text></svg>",
+          "caption": "圖解：先由 2 公分 ＝ 1 公里算出 1 公分 ＝ 0.5 公里，再乘平方求單位面積。"
+        },
+        {
+          "type": "eq",
+          "expr": "0.5 × 0.5 ＝ 0.25",
+          "unit": "平方公里"
+        },
+        {
+          "type": "eq",
+          "expr": "8 × 0.25 ＝ 2",
+          "unit": "平方公里"
+        },
+        {
+          "type": "answer",
+          "text": "答：這座水庫的實際面積是 2 平方公里"
+        }
+      ],
+      "insight": "圖上 1 公分 ＝ 0.5 公里，所以圖上 1 平方公分 ＝ 0.5 × 0.5 ＝ 0.25 平方公里（即 1/4 平方公里），8 平方公分就是 8 ÷ 4 ＝ 2 平方公里！",
+      "distractorAnalysis": {
+        "B": "看錯線段比例尺的標示，把 2 格共 2 公分標示的「1 公里」當成「每 1 公分代表 1 公里」，算出 8 × 1 × 1 ＝ 8 平方公里。",
+        "D": "算出實際面積為 2000000 平方公尺後，忘記把平方公尺除以 1000000 換算為平方公里。",
+        "C": "求出 1 公分代表 0.5 公里後，忘記面積需要平方（0.5 × 0.5），誤直接用 8 × 0.5 ＝ 4 平方公里。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "1 公里 ＝ 1000 公尺 ＝ 100000 公分",
+        "1 平方公里 ＝ 1000 公尺 × 1000 公尺 ＝ 1000000 平方公尺 ＝ 100 公頃"
+      ],
+      "conceptCompare": "換成公里再平方（0.5 × 0.5 ＝ 0.25）可以避開 50000 × 50000 ＝ 2500000000 平方公分那種超多 0 的計算陷阱。",
+      "examVariations": "若題目最後改問「是多少公頃？」，因為 1 平方公里 ＝ 100 公頃，2 × 100 ＝ 200 公頃。"
+    }
+  },
+  {
+    "id": "U07-RV-O-035",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "REVIEW",
+    "sectionName": "綜合複習與應用",
+    "category": "長方體與正方體表面積體積縮放",
+    "batch": "奧數天梯",
+    "source": "Unit07 奧數進階（立體形體表面積與容積縮放）",
+    "level": 8,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "md",
+    "question": "一個木製長方體無蓋水盒，工匠把它所有的長、寬、高與盒壁厚度都等比例縮小為原來的 1/2 倍，做成一個迷你模型。請問迷你模型的「表面積」與「裝水容積」分別是原來水盒的幾分之幾？",
+    "options": [
+      {
+        "key": "A",
+        "text": "表面積為 1/4，容積為 1/8",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "表面積為 1/8，容積為 1/8",
+        "trapCode": "U07_PERIMETER_SQUARE_ERR"
+      },
+      {
+        "key": "C",
+        "text": "表面積為 1/4，容積為 1/6",
+        "trapCode": "U07_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "表面積為 1/2，容積為 1/4",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "(1/2) * (1/2) * (1/2)",
+      "expect": "1/8",
+      "extraChecks": [
+        {
+          "expr": "(1/2) * (1/2)",
+          "expect": "1/4"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生將二維縮放推廣到三維立體圖形的能力：區分表面積屬於「面積（二次方）」與容積／體積屬於「立體空間（三次方）」。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：長方體的每個面都是長方形。當長、寬、高都縮成原來的 1/2 倍時，每個面的面積都變成 1/2 × 1/2 ＝ 1/4 倍，因此總表面積也是原來的 1/4。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 165\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"460\" height=\"165\" rx=\"10\" fill=\"#ffffff\" stroke=\"#cbd5e1\"/><polygon points=\"32,54 112,54 136,34 56,34\" fill=\"#fde68a\" stroke=\"#d97706\" stroke-width=\"2\"/><rect x=\"32\" y=\"54\" width=\"80\" height=\"64\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"2\"/><polygon points=\"112,54 136,34 136,98 112,118\" fill=\"#fcd34d\" stroke=\"#d97706\" stroke-width=\"2\"/><text x=\"72\" y=\"138\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#b45309\">原長方體盒（1 倍）</text><path d=\"M 150 76 L 184 76\" stroke=\"#2563eb\" stroke-width=\"2.5\" fill=\"none\"/><polygon points=\"184,72 192,76 184,80\" fill=\"#2563eb\"/><text x=\"170\" y=\"66\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#1d4ed8\">長寬高</text><text x=\"170\" y=\"94\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#1d4ed8\">× 1/2</text><polygon points=\"204,76 244,76 256,66 216,66\" fill=\"#bfdbfe\" stroke=\"#2563eb\" stroke-width=\"2\"/><rect x=\"204\" y=\"76\" width=\"40\" height=\"32\" fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"2\"/><polygon points=\"244,76 256,66 256,98 244,108\" fill=\"#93c5fd\" stroke=\"#2563eb\" stroke-width=\"2\"/><text x=\"228\" y=\"138\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#1d4ed8\">模型（1/2 倍）</text><rect x=\"278\" y=\"28\" width=\"164\" height=\"108\" rx=\"8\" fill=\"#f8fafc\" stroke=\"#cbd5e1\"/><text x=\"290\" y=\"56\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\">表面積（兩個維度）：</text><text x=\"290\" y=\"76\" font-size=\"12\" font-weight=\"700\" fill=\"#059669\">1/2 × 1/2 ＝ 1/4</text><text x=\"290\" y=\"102\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\">裝水容積（三個維度）：</text><text x=\"290\" y=\"122\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\">1/2 × 1/2 × 1/2 ＝ 1/8</text></svg>",
+          "caption": "圖解：立體盒邊長縮為 1/2 時，表面積是二次方縮小（1/4），容積是三次方縮小（1/8）。"
+        },
+        {
+          "type": "eq",
+          "expr": "1/2 × 1/2 ＝ 1/4",
+          "unit": ""
+        },
+        {
+          "type": "eq",
+          "expr": "1/2 × 1/2 × 1/2 ＝ 1/8",
+          "unit": ""
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：裝水容積＝內部長 × 寬 × 高，三個邊長各乘 1/2，所以容積變成原來的 1/2 × 1/2 × 1/2 ＝ 1/8。"
+        },
+        {
+          "type": "answer",
+          "text": "答：表面積為 1/4，容積為 1/8"
+        }
+      ],
+      "insight": "維度記憶口訣：長度一次方（1/2）、表面積二次方（1/4）、體積容積三次方（1/8）！",
+      "distractorAnalysis": {
+        "B": "看到題目講立體盒子，就誤以為表面積和容積一樣都要乘三次 1/2 變成 1/8。",
+        "C": "三個 1/2 相乘時誤把分母相加（2 ＋ 2 ＋ 2 ＝ 6），把 1/8 錯算成 1/6。",
+        "D": "把表面積當作一次方（1/2）、容積當作二次方（1/4），全部少乘了一個 1/2。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "立體相似縮放：邊長（稜長）× 縮放倍率",
+        "表面積 × (縮放倍率 × 縮放倍率)；體積／容積 × (縮放倍率 × 縮放倍率 × 縮放倍率)"
+      ],
+      "conceptCompare": "就算是「無蓋」水盒只有 5 個面，因為這 5 個面的面積各自都縮小為 1/4，加起來的總表面積依然是原來的 1/4。",
+      "examVariations": "如果是把正方體邊長放大為原來的 3 倍，表面積會變為 3 × 3 ＝ 9 倍，體積會變為 3 × 3 × 3 ＝ 27 倍！"
+    }
+  },
+  {
+    "id": "U07-S2-O-036",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "7-2",
+    "sectionName": "繪製放大與縮小圖",
+    "category": "等高線地形比例尺與行進時間",
+    "batch": "奧數天梯",
+    "source": "Unit07 奧數進階（等高線圖示比例尺與速率）",
+    "level": 9,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "lg",
+    "question": "一張等高線登山地圖的圖示比例尺畫成連續 3 小格（每小格圖上長 1 公分，全長 3 公分標示為 0 到 4.5 公里）。小凱在圖上量得甲步道長 2.4 公分、乙步道長 3.6 公分。如果他以每小時 3 公里的平均速度走完這兩條步道，共需要幾小時？",
+    "options": [
+      {
+        "key": "A",
+        "text": "3000 小時",
+        "trapCode": "U07_SCALE_UNIT_MISMATCH"
+      },
+      {
+        "key": "B",
+        "text": "9 小時",
+        "trapCode": "U07_BAR_SCALE_READ_ERR"
+      },
+      {
+        "key": "C",
+        "text": "3 小時",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "1 1/3 小時",
+        "trapCode": "U07_SCALE_MUL_DIV_SWAP"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "(2.4 + 3.6) * (4.5 / 3) / 3",
+      "expect": "3"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生判讀多格圖示比例尺（先算出每 1 公分對應多少公里），再合併計算兩段路線圖長並結合速率公式求登山時間。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：圖示比例尺 3 格共 3 公分標示為 4.5 公里，先除以 3 算出「圖上 1 公分」代表實際幾公里。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 175\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"460\" height=\"175\" rx=\"10\" fill=\"#ffffff\" stroke=\"#cbd5e1\"/><ellipse cx=\"105\" cy=\"85\" rx=\"72\" ry=\"42\" fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><ellipse cx=\"105\" cy=\"85\" rx=\"46\" ry=\"26\" fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><polyline points=\"42,95 95,78 158,64\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><text x=\"68\" y=\"76\" font-size=\"11\" font-weight=\"700\" fill=\"#1d4ed8\">甲 2.4 公分</text><text x=\"125\" y=\"56\" font-size=\"11\" font-weight=\"700\" fill=\"#e11d48\">乙 3.6 公分</text><line x1=\"95\" y1=\"78\" x2=\"158\" y2=\"64\" stroke=\"#e11d48\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><rect x=\"210\" y=\"24\" width=\"56\" height=\"12\" fill=\"#1e293b\" stroke=\"#1e293b\"/><rect x=\"266\" y=\"24\" width=\"56\" height=\"12\" fill=\"#ffffff\" stroke=\"#1e293b\"/><rect x=\"322\" y=\"24\" width=\"56\" height=\"12\" fill=\"#1e293b\" stroke=\"#1e293b\"/><text x=\"210\" y=\"54\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#334155\">0</text><text x=\"266\" y=\"54\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#334155\">1.5</text><text x=\"322\" y=\"54\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#334155\">3</text><text x=\"378\" y=\"54\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#e11d48\">4.5 公里</text><rect x=\"206\" y=\"70\" width=\"234\" height=\"82\" rx=\"8\" fill=\"#f8fafc\" stroke=\"#cbd5e1\"/><text x=\"218\" y=\"93\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\">1 公分 ＝ 4.5 ÷ 3 ＝ 1.5 公里</text><text x=\"218\" y=\"116\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\">圖長和 ＝ 2.4 ＋ 3.6 ＝ 6 公分</text><text x=\"218\" y=\"139\" font-size=\"12\" font-weight=\"700\" fill=\"#059669\">實距 6 × 1.5 ＝ 9 公里 ➔ 3 小時</text></svg>",
+          "caption": "圖解：3 格共 4.5 公里代表每 1 公分 ＝ 1.5 公里，兩步道合併算總長再除以時速。"
+        },
+        {
+          "type": "eq",
+          "expr": "4.5 ÷ 3 ＝ 1.5",
+          "unit": "公里"
+        },
+        {
+          "type": "eq",
+          "expr": "(2.4 ＋ 3.6) × 1.5 ＝ 6 × 1.5 ＝ 9",
+          "unit": "公里"
+        },
+        {
+          "type": "eq",
+          "expr": "9 ÷ 3 ＝ 3",
+          "unit": "小時"
+        },
+        {
+          "type": "answer",
+          "text": "答：共需要 3 小時"
+        }
+      ],
+      "insight": "先將 2.4 ＋ 3.6 加總成整數 6 公分，再乘以每公分 1.5 公里，計算會比分別乘完再相加更快更準確！",
+      "distractorAnalysis": {
+        "B": "誤讀圖示比例尺，把全長 3 公分標示的「4.5 公里」直接當成「每 1 公分代表 4.5 公里」，錯算成 6 × 4.5 ÷ 3 ＝ 9 小時。",
+        "D": "圖長換算實距時搞反乘除方向，誤把 6 除以 1.5 算成 4 公里，再除以 3 得 1 1/3 小時。",
+        "A": "把 9 公里換算成 9000 公尺後，卻忘記把時速 3 公里也換成公尺，直接拿 9000 ÷ 3 算成 3000 小時。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "每小格（1 公分）實際距離 ＝ 總標示距離 ÷ 格數",
+        "行進時間 ＝ 總實際距離 ÷ 平均時速"
+      ],
+      "conceptCompare": "看到圖示比例尺一定要確認「標示的數字是全段總長還是單格長度」，這裡 3 格終點標 4.5 公里，必須先除以 3。",
+      "examVariations": "如果題目問這張地圖的數值比例尺是多少？1 公分：1.5 公里 ＝ 1 公分：150000 公分 ＝ 1：150000。"
+    }
+  },
+  {
+    "id": "U07-S3-O-037",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "7-3",
+    "sectionName": "比例尺",
+    "category": "地圖誤縮放 20% 修正真實比例尺",
+    "batch": "奧數天梯",
+    "source": "Unit07 奧數進階（縮印地圖校正還原）",
+    "level": 9,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "lg",
+    "question": "一張原本比例尺為 1：10000 的都市計畫圖，因為印表機設定錯誤，整張地圖被縮小成 80%（邊長少 20%）列印出來。小明在這張印錯的縮印圖上，量得一條街道長 5 公分，請問這條街道的實際長度是多少公尺？",
+    "options": [
+      {
+        "key": "A",
+        "text": "400 公尺",
+        "trapCode": "U07_DUAL_MAP_RATIO_ERR"
+      },
+      {
+        "key": "B",
+        "text": "62500 公尺",
+        "trapCode": "U07_SCALE_UNIT_MISMATCH"
+      },
+      {
+        "key": "C",
+        "text": "600 公尺",
+        "trapCode": "U07_RELATIVE_SCALE_ERR"
+      },
+      {
+        "key": "D",
+        "text": "625 公尺",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "(5 / 0.8) * 10000 / 100",
+      "expect": "625"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生處理「原圖被不當縮印」時的雙重比例修正能力：能先將縮印圖的量測長度除以 0.8 還原回原圖長度，再乘以原比例尺換算實際距離。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：印錯的圖是原圖的 80%（0.8 倍），也就是「原圖長度 × 0.8 ＝ 縮印圖上的 5 公分」。反推原圖上的街道長度 ＝ 5 ÷ 0.8 ＝ 6.25 公分。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 165\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"460\" height=\"165\" rx=\"10\" fill=\"#ffffff\" stroke=\"#cbd5e1\"/><rect x=\"20\" y=\"24\" width=\"135\" height=\"76\" rx=\"8\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2\"/><text x=\"87\" y=\"46\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#1d4ed8\">原設計圖（1：10000）</text><line x1=\"40\" y1=\"72\" x2=\"135\" y2=\"72\" stroke=\"#2563eb\" stroke-width=\"4\"/><text x=\"87\" y=\"90\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#1e293b\">原圖 6.25 公分</text><path d=\"M 162 62 L 206 62\" stroke=\"#e11d48\" stroke-width=\"2.5\" fill=\"none\"/><polygon points=\"206,58 214,62 206,66\" fill=\"#e11d48\"/><text x=\"186\" y=\"52\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#be123c\">誤印 80%</text><rect x=\"220\" y=\"30\" width=\"116\" height=\"64\" rx=\"8\" fill=\"#ffe4e6\" stroke=\"#e11d48\" stroke-width=\"2\"/><text x=\"278\" y=\"50\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#9f1239\">縮印圖（1：12500）</text><line x1=\"240\" y1=\"72\" x2=\"316\" y2=\"72\" stroke=\"#e11d48\" stroke-width=\"4\"/><text x=\"278\" y=\"87\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#1e293b\">量得 5 公分</text><rect x=\"348\" y=\"24\" width=\"96\" height=\"76\" rx=\"8\" fill=\"#ecfdf5\" stroke=\"#059669\"/><text x=\"396\" y=\"48\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#047857\">1 公分 ＝</text><text x=\"396\" y=\"68\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#047857\">125 公尺</text><text x=\"396\" y=\"88\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#059669\">5×125 ＝ 625</text><text x=\"230\" y=\"135\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#0f172a\">還原原圖：5 ÷ 0.8 ＝ 6.25 公分 ➔ 6.25 × 100 公尺 ＝ 625 公尺</text></svg>",
+          "caption": "圖解：地圖縮印成 80% 後，比例尺會從 1：10000 變成 1：12500。"
+        },
+        {
+          "type": "eq",
+          "expr": "5 ÷ 0.8 ＝ 6.25",
+          "unit": "公分"
+        },
+        {
+          "type": "longdiv",
+          "dividend": "5",
+          "divisor": "0.8",
+          "mode": "exact",
+          "note": "小數除法：5 ÷ 0.8 化為 50 ÷ 8 ＝ 6.25 公分"
+        },
+        {
+          "type": "eq",
+          "expr": "6.25 × 10000 ÷ 100 ＝ 625",
+          "unit": "公尺"
+        },
+        {
+          "type": "answer",
+          "text": "答：這條街道的實際長度是 625 公尺"
+        }
+      ],
+      "insight": "也可以直接算「誤印圖的真實比例尺」：原圖 1 公分 ＝ 100 公尺，縮印後 0.8 公分就代表 100 公尺，所以縮印圖上 1 公分 ＝ 100 ÷ 0.8 ＝ 125 公尺，5 公分就是 5 × 125 ＝ 625 公尺！",
+      "distractorAnalysis": {
+        "A": "誤將縮印後的 5 公分再乘以 80% 變成 4 公分，算出 4 × 100 ＝ 400 公尺，把縮小方向算反了。",
+        "C": "看到地圖少印了 20%，就誤以為直接加回 20%（5 × 1.2 ＝ 6 公分）就能還原，錯算成 600 公尺。",
+        "B": "正確算出實際長度為 62500 公分後，忘記除以 100 換算成公尺。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "縮印圖真實比例尺分母 ＝ 原比例尺分母 ÷ 縮印倍率",
+        "還原原圖長 ＝ 縮印圖量得長度 ÷ 縮印倍率"
+      ],
+      "conceptCompare": "地圖印小了，代表同一段實際距離在地圖上變短，反過來同樣 1 公分在縮印圖上能涵蓋的實際距離就「變長了」（從 100 公尺變成 125 公尺）。",
+      "examVariations": "若印表機不小心設定成「放大成 125%」印出，在錯印圖上量到 5 公分，實際長度會是 5 ÷ 1.25 × 100 ＝ 400 公尺。"
+    }
+  },
+  {
+    "id": "U07-RV-O-038",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "REVIEW",
+    "sectionName": "綜合複習與應用",
+    "category": "三角形各邊中點連線層層面積",
+    "batch": "奧數天梯",
+    "source": "Unit07 奧數進階（三角形中點連線巢狀縮小）",
+    "level": 9,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "md",
+    "question": "有一個面積為 160 平方公分的大三角形（第 1 層）。連接這個三角形三條邊的中點，會在中央圍出第 2 層小三角形；接著再連接第 2 層三角形三邊的中點，圍出第 3 層小三角形；依此類推，連續連接 3 次中點後形成「第 4 層」小三角形。請問第 4 層小三角形的面積是多少平方公分？",
+    "options": [
+      {
+        "key": "A",
+        "text": "20 平方公分",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      },
+      {
+        "key": "B",
+        "text": "10 平方公分",
+        "trapCode": "U07_GRID_COUNT_ERR"
+      },
+      {
+        "key": "C",
+        "text": "2.5 平方公分",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "0.625 平方公分",
+        "trapCode": "U07_RELATIVE_SCALE_ERR"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "160 / (4 * 4 * 4)",
+      "expect": "2.5"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生發現「連接三角形三邊中點會將三角形平分成 4 個全等小三角形（邊長為 1/2、面積為 1/4）」，並準確推算第 4 層的縮放次數。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：連接大三角形三邊的中點，新圍出的小三角形每條邊都是原本的 1/2 倍，同時把原三角形剛好切成 4 個面積一樣的小三角形。因此每連一次中點，中央三角形面積就縮為 1/4 倍。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 175\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"460\" height=\"175\" rx=\"10\" fill=\"#ffffff\" stroke=\"#cbd5e1\"/><polygon points=\"115,18 35,148 195,148\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2\"/><polygon points=\"75,83 155,83 115,148\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"2\"/><polygon points=\"115,83 95,115.5 135,115.5\" fill=\"#ffe4e6\" stroke=\"#e11d48\" stroke-width=\"1.8\"/><polygon points=\"105,99.2 125,99.2 115,115.5\" fill=\"#a7f3d0\" stroke=\"#059669\" stroke-width=\"1.5\"/><rect x=\"224\" y=\"20\" width=\"216\" height=\"134\" rx=\"8\" fill=\"#f8fafc\" stroke=\"#cbd5e1\"/><text x=\"236\" y=\"46\" font-size=\"12\" font-weight=\"700\" fill=\"#1d4ed8\">第 1 層（原圖）：160 平方公分</text><text x=\"236\" y=\"72\" font-size=\"12\" font-weight=\"700\" fill=\"#b45309\">第 2 層（÷ 4）：40 平方公分</text><text x=\"236\" y=\"98\" font-size=\"12\" font-weight=\"700\" fill=\"#be123c\">第 3 層（÷ 4）：10 平方公分</text><text x=\"236\" y=\"124\" font-size=\"12\" font-weight=\"700\" fill=\"#059669\">第 4 層（÷ 4）：2.5 平方公分</text><text x=\"236\" y=\"144\" font-size=\"11\" font-weight=\"700\" fill=\"#475569\">第 1 ➔ 第 4 層，共縮小 3 次！</text></svg>",
+          "caption": "圖解：每連接一次三邊中點，邊長縮半、面積縮為 1/4；到第 4 層共除以三次 4。"
+        },
+        {
+          "type": "eq",
+          "expr": "160 × 1/4 × 1/4 × 1/4 ＝ 160 ÷ 64 ＝ 2.5",
+          "unit": "平方公分"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：逐層檢查確認沒有算錯層數：第 1 層 160 ➔ 第 2 層 40 ➔ 第 3 層 10 ➔ 第 4 層 2.5 平方公分。"
+        },
+        {
+          "type": "answer",
+          "text": "答：第 4 層小三角形的面積是 2.5 平方公分"
+        }
+      ],
+      "insight": "從第 1 層數到第 4 層只經過「3 次」間隔（4 − 1 ＝ 3），所以是除以 4 三次（即除以 64），不是除以 4 四次！",
+      "distractorAnalysis": {
+        "A": "知道邊長每次變 1/2，卻誤以為面積也只跟著除以 2，算成 160 ÷ 2 ÷ 2 ÷ 2 ＝ 20 平方公分。",
+        "B": "沒有算清楚層數，少除了一次 4，算成第 3 層的面積 160 ÷ 16 ＝ 10 平方公分。",
+        "D": "看到題目寫「第 4 層」就直接除以 4 四次，多除了一次變成第 5 層的面積 0.625 平方公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "中點連線性質：三邊中點連線所圍小三角形，邊長為原圖 1/2、面積為原圖 1/4",
+        "第 4 層面積 ＝ 原面積 ÷ (4 × 4 × 4)"
+      ],
+      "conceptCompare": "這種結構叫做「謝爾賓斯基」類型的等比縮放，層數與縮放次數之間永遠差 1（像植樹間隔一樣，第 1 層到第 4 層有 3 次縮放）。",
+      "examVariations": "若題目改問第 4 層的周長是第 1 層的幾分之幾？每次邊長變 1/2，連縮 3 次後周長為 1/2 × 1/2 × 1/2 ＝ 1/8。"
+    }
+  },
+  {
+    "id": "U07-S3-O-039",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "7-3",
+    "sectionName": "比例尺",
+    "category": "雙地圖面積差與公頃綜合換算",
+    "batch": "奧數天梯",
+    "source": "Unit07 奧數進階（雙比例尺面積差與公頃）",
+    "level": 10,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "lg",
+    "question": "同一塊森林保護區分別繪製在比例尺 1：10000 的甲地圖與比例尺 1：25000 的乙地圖上。已知這塊保護區在甲地圖上的面積比在乙地圖上的面積多 21 平方公分，請問這塊森林保護區的實際面積是多少公頃？（提示：1 公頃 ＝ 10000 平方公尺）",
+    "options": [
+      {
+        "key": "A",
+        "text": "14 公頃",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      },
+      {
+        "key": "B",
+        "text": "35 公頃",
+        "trapCode": "U07_DUAL_MAP_RATIO_ERR"
+      },
+      {
+        "key": "C",
+        "text": "25 公頃",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "2500 公頃",
+        "trapCode": "U07_SCALE_UNIT_MISMATCH"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "21 / (1 - (10000 / 25000) * (10000 / 25000))",
+      "expect": "25"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生在雙地圖面積差的高難度綜合題中，透過「比例尺比 ➔ 圖上長度比 ➔ 圖上面積平方比 ➔ 差倍求原圖面積 ➔ 公頃換算」五步解題。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：先比較兩張地圖的圖上長度比例。同一段實距，在甲圖（1：10000）與乙圖（1：25000）上的長度比為 1/10000 ： 1/25000 ＝ 25000 ： 10000 ＝ 5 ： 2。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 175\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"460\" height=\"175\" rx=\"10\" fill=\"#ffffff\" stroke=\"#cbd5e1\"/><rect x=\"24\" y=\"28\" width=\"90\" height=\"90\" fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"2\"/><line x1=\"42\" y1=\"28\" x2=\"42\" y2=\"118\" stroke=\"#93c5fd\"/><line x1=\"60\" y1=\"28\" x2=\"60\" y2=\"118\" stroke=\"#93c5fd\"/><line x1=\"78\" y1=\"28\" x2=\"78\" y2=\"118\" stroke=\"#93c5fd\"/><line x1=\"96\" y1=\"28\" x2=\"96\" y2=\"118\" stroke=\"#93c5fd\"/><line x1=\"24\" y1=\"46\" x2=\"114\" y2=\"46\" stroke=\"#93c5fd\"/><line x1=\"24\" y1=\"64\" x2=\"114\" y2=\"64\" stroke=\"#93c5fd\"/><line x1=\"24\" y1=\"82\" x2=\"114\" y2=\"82\" stroke=\"#93c5fd\"/><line x1=\"24\" y1=\"100\" x2=\"114\" y2=\"100\" stroke=\"#93c5fd\"/><text x=\"62\" y=\"136\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#1d4ed8\">甲 1：10000</text><text x=\"62\" y=\"153\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#1e40af\">面積 5×5 ＝ 25 份</text><rect x=\"148\" y=\"82\" width=\"36\" height=\"36\" fill=\"#ffe4e6\" stroke=\"#e11d48\" stroke-width=\"2\"/><line x1=\"166\" y1=\"82\" x2=\"166\" y2=\"118\" stroke=\"#fda4af\"/><line x1=\"148\" y1=\"100\" x2=\"184\" y2=\"100\" stroke=\"#fda4af\"/><text x=\"162\" y=\"136\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#be123c\">乙 1：25000</text><text x=\"162\" y=\"153\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#9f1239\">面積 2×2 ＝ 4 份</text><rect x=\"216\" y=\"24\" width=\"226\" height=\"128\" rx=\"8\" fill=\"#f8fafc\" stroke=\"#cbd5e1\"/><text x=\"228\" y=\"48\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\">長度比 ＝ 5：2 ➔ 面積比 ＝ 25：4</text><text x=\"228\" y=\"74\" font-size=\"12\" font-weight=\"700\" fill=\"#d97706\">相差 25 − 4 ＝ 21 份 ＝ 21 平方公分</text><text x=\"228\" y=\"100\" font-size=\"12\" font-weight=\"700\" fill=\"#1d4ed8\">1 份 ＝ 1 ➔ 甲圖面積 ＝ 25 平方公分</text><text x=\"228\" y=\"126\" font-size=\"12\" font-weight=\"700\" fill=\"#059669\">甲圖 1 平方公分 ＝ 1 公頃 ➔ 25 公頃</text></svg>",
+          "caption": "圖解：甲乙兩圖面積比為 25：4，相差的 21 份剛好等於題目給的 21 平方公分。"
+        },
+        {
+          "type": "eq",
+          "expr": "5 × 5 − 2 × 2 ＝ 25 − 4 ＝ 21",
+          "unit": "份"
+        },
+        {
+          "type": "eq",
+          "expr": "21 ÷ 21 × 25 ＝ 25",
+          "unit": "平方公分"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：在甲地圖（1：10000）上，1 公分 ＝ 10000 公分 ＝ 100 公尺，所以圖上 1 平方公分 ＝ 100 × 100 ＝ 10000 平方公尺 ＝ 1 公頃。因此 25 平方公分對應實際 25 公頃！"
+        },
+        {
+          "type": "answer",
+          "text": "答：森林保護區的實際面積是 25 公頃"
+        }
+      ],
+      "insight": "甲圖比例尺剛好是 1：10000（1 公分 ＝ 100 公尺），圖上「每 1 平方公分 ＝ 1 公頃」！用乙圖驗算：乙圖 4 平方公分，每 1 公分 ＝ 250 公尺，4 × 250 × 250 ÷ 10000 ＝ 25 公頃，完全吻合！",
+      "distractorAnalysis": {
+        "B": "求出兩張地圖的長度比為 5：2 後，忘記平方成面積比 25：4，直接用 5 − 2 ＝ 3 份 ＝ 21 平方公分，算出甲圖 5 × 7 ＝ 35 公頃。",
+        "D": "算出實際面積為 250000 平方公尺後，誤把 1 公頃當成 100 平方公尺，算成 250000 ÷ 100 ＝ 2500 公頃。",
+        "A": "知道甲圖長度是乙圖的 2.5 倍，卻誤把 2.5 − 1 ＝ 1.5 倍當成面積差倍數，算成 21 ÷ 1.5 ＝ 14 公頃。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "同一實物在兩張地圖上的圖上長度比 ＝ 兩比例尺的反比",
+        "圖上面積比 ＝ 圖上長度比的平方"
+      ],
+      "conceptCompare": "這題如果硬設真實面積去算會遇到巨大零頭；先用「長度比 5：2 ➔ 面積比 25：4」的份數法，心算就能解開！",
+      "examVariations": "若題目問兩圖面積「總和」是 58 平方公分，則 25 ＋ 4 ＝ 29 份，每份 2 平方公分，甲圖面積為 50 平方公分 ＝ 50 公頃。"
+    }
+  },
+  {
+    "id": "U07-RV-O-040",
+    "legacyId": null,
+    "unitId": "U07",
+    "section": "REVIEW",
+    "sectionName": "綜合複習與應用",
+    "category": "長方形外框加寬不相似",
+    "batch": "奧數天梯",
+    "source": "Unit07 奧數進階（等寬邊框相似性辨析）",
+    "level": 10,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "lg",
+    "question": "一個長 10 公分、寬 6 公分的長方形相框內框，在它的四條邊向外等寬各加上 2 公分的木框（上、下、左、右各外擴 2 公分），形成一個大長方形外框。請問：外框的「寬放大倍數」與「長放大倍數」相差幾倍？這個大長方形外框是否為內框的放大圖？",
+    "options": [
+      {
+        "key": "A",
+        "text": "相差 0 倍，是放大圖",
+        "trapCode": "U07_CORRESPONDING_SIDE_SWAP"
+      },
+      {
+        "key": "B",
+        "text": "相差 4/15 倍，不是放大圖",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "相差 1/15 倍，是放大圖",
+        "trapCode": "U07_ANGLE_SCALED"
+      },
+      {
+        "key": "D",
+        "text": "相差 2/15 倍，不是放大圖",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "(6 + 2 * 2) / 6 - (10 + 2 * 2) / 10",
+      "expect": "4/15"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生突破「四邊同加相同寬度就是放大圖」的常見迷思：放大圖必須「各邊同乘相同倍數」，而非「各邊同加相同長度」。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：四周等寬外擴 2 公分時，左右兩邊各多 2 公分，所以外框長 ＝ 10 ＋ 2 × 2 ＝ 14 公分；上下兩邊各多 2 公分，所以外框寬 ＝ 6 ＋ 2 × 2 ＝ 10 公分。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 175\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"460\" height=\"175\" rx=\"10\" fill=\"#ffffff\" stroke=\"#cbd5e1\"/><rect x=\"30\" y=\"25\" width=\"168\" height=\"120\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"2.5\"/><rect x=\"54\" y=\"49\" width=\"120\" height=\"72\" fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"2\"/><text x=\"114\" y=\"88\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#1d4ed8\">內框：長 10、寬 6</text><text x=\"114\" y=\"161\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"700\" fill=\"#b45309\">外框：長 14、寬 10</text><text x=\"114\" y=\"41\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#e11d48\">上加 2</text><text x=\"114\" y=\"136\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"700\" fill=\"#e11d48\">下加 2</text><text x=\"42\" y=\"88\" text-anchor=\"middle\" font-size=\"10\" font-weight=\"700\" fill=\"#e11d48\">＋2</text><text x=\"186\" y=\"88\" text-anchor=\"middle\" font-size=\"10\" font-weight=\"700\" fill=\"#e11d48\">＋2</text><rect x=\"216\" y=\"24\" width=\"226\" height=\"126\" rx=\"8\" fill=\"#f8fafc\" stroke=\"#cbd5e1\"/><text x=\"228\" y=\"48\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\">長放大：14 ÷ 10 ＝ 7/5 倍</text><text x=\"228\" y=\"74\" font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\">寬放大：10 ÷ 6 ＝ 5/3 倍</text><text x=\"228\" y=\"100\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\">相差：5/3 − 7/5 ＝ 4/15 倍</text><text x=\"228\" y=\"126\" font-size=\"12\" font-weight=\"700\" fill=\"#0f172a\">倍率不相等 ➔ 不是放大圖</text></svg>",
+          "caption": "圖解：等寬邊框上下左右各加 2 公分，長寬放大倍數不同，形狀變胖了。"
+        },
+        {
+          "type": "eq",
+          "expr": "(10 ＋ 2 × 2) ÷ 10 ＝ 14 ÷ 10 ＝ 7/5",
+          "unit": "倍"
+        },
+        {
+          "type": "eq",
+          "expr": "(6 ＋ 2 × 2) ÷ 6 ＝ 10 ÷ 6 ＝ 5/3",
+          "unit": "倍"
+        },
+        {
+          "type": "eq",
+          "expr": "5/3 − 7/5 ＝ 25/15 − 21/15 ＝ 4/15",
+          "unit": "倍"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：外框的寬放大了 5/3 倍（約 1.67 倍），長只放大 7/5 倍（1.4 倍），兩者相差 4/15 倍，倍率不一致，所以外框「不是」內框的放大圖！"
+        },
+        {
+          "type": "answer",
+          "text": "答：相差 4/15 倍，不是放大圖"
+        }
+      ],
+      "insight": "判斷長方形是不是放大圖，不能只看「四個角都是 90°」，必須檢查「長的倍數 ＝ 寬的倍數」！對原本不等長的邊同時「加」相同公分數，一定會破壞長寬比。",
+      "distractorAnalysis": {
+        "A": "陷入「各邊同加相同公分數就會相似」的迷思，直接以為倍率相差 0 倍且外框是放大圖。",
+        "C": "看到外框與內框依然都是 90° 直角，就誤判為是放大圖，並把分數通分差算錯成 1/15 倍。",
+        "D": "算外框長寬時忘記上下、左右各要加兩次 2 公分，只各加一次 2 算成 12 ÷ 10 ＝ 6/5 與 8 ÷ 6 ＝ 4/3，得出相差 2/15 倍。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "真正放大圖條件：對應角相等，且所有對應邊長「同乘」相同倍數",
+        "等寬木框陷阱：外長 ＝ 內長 ＋ 2 × 框寬，外寬 ＝ 內寬 ＋ 2 × 框寬"
+      ],
+      "conceptCompare": "什麼情況下等寬外擴後還是放大圖？只有原本內框是「正方形」（長＝寬）時，左右上下各加 2 公分才會維持長寬相等！只要內框長 ≠ 寬，等寬外框就一定不相似。",
+      "examVariations": "若想讓寬度 6 公分的邊外擴 2 公分變成 10 公分（5/3 倍），且外框「真正是內框的放大圖」，長 10 公分的邊左右共要擴張多少公分？10 × 5/3 ＝ 50/3 公分，左右各需多 (50/3 − 10) ÷ 2 ＝ 3 1/3 公分！"
+    }
+  },
+  {
+    "id": "U07-S1-M-041",
+    "legacyId": "u07_m01",
+    "unitId": "U07",
+    "section": "7-1",
+    "sectionName": "認識放大圖與縮小圖",
+    "category": "角度不變",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 1★",
     "level": 1,
+    "difficulty": 1,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "把一個三角形畫成 2 倍的放大圖後，它對應角的角度會怎麼變化？",
+    "options": [
+      {
+        "key": "A",
+        "text": "完全不變",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "變成原來的一半",
+        "trapCode": "U07_SCALE_MUL_DIV_SWAP"
+      },
+      {
+        "key": "C",
+        "text": "變成原來的 2 倍",
+        "trapCode": "U07_ANGLE_SCALED"
+      },
+      {
+        "key": "D",
+        "text": "變成原來的 4 倍",
+        "trapCode": "U07_CALC_SLIP"
+      }
+    ],
+    "answer": "A",
+    "skipOptionNumMatch": true,
+    "check": {
+      "expr": "1",
+      "expect": "1"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否掌握放大與縮小圖「只改大小、不改形狀」的性質，理解對應角永遠相等。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：放大圖與原圖的「形狀」完全一樣，只是邊長同比例拉長。"
+        },
+        {
+          "type": "eq",
+          "expr": "放大後對應角 ＝ 原圖對應角（維持 1 倍）",
+          "unit": ""
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：例如直角三角形放大 2 倍後，直角依然是 90°，不會變成 180°；三角形三個內角的和永遠是 180°。"
+        },
+        {
+          "type": "answer",
+          "text": "答：完全不變"
+        }
+      ],
+      "insight": "判斷是不是真正的放大圖或縮小圖，兩個條件缺一不可：對應邊成比例，而且「對應角完全相等」。",
+      "distractorAnalysis": {
+        "B": "把「放大 2 倍」與「縮小 1/2」搞混，且誤以為角度也會跟著除以 2。",
+        "D": "誤把面積的平方倍（2 × 2 ＝ 4）直接套用到角度上。",
+        "C": "誤以為整個圖形放大 2 倍，連角度也要乘以 2。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "放大與縮小圖性質：對應邊長成相同倍數，對應角角度完全不變"
+      ],
+      "conceptCompare": "長度（邊長、高、周長）會跟著倍數放大或縮小，但「角度」看的是兩條邊張開的程度，圖形沒歪斜就不會變。",
+      "examVariations": "段考是非題常問「將 60° 的角用 3 倍放大鏡看，角度會變成 180° 嗎？」，答案是不會，依然是 60°。"
+    }
+  },
+  {
+    "id": "U07-S3-M-042",
+    "legacyId": "u07_m02",
+    "unitId": "U07",
+    "section": "7-3",
+    "sectionName": "認識比例尺",
+    "category": "比例尺意義",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 1★",
+    "level": 1,
+    "difficulty": 1,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "比例尺 1：1000 的地圖上，圖上的 1 公分代表實際距離多長？",
+    "options": [
+      {
+        "key": "A",
+        "text": "1000 公尺",
+        "trapCode": "U07_SCALE_UNIT_MISMATCH"
+      },
+      {
+        "key": "B",
+        "text": "10 公尺",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "100 公尺",
+        "trapCode": "U07_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "1 公尺",
+        "trapCode": "U07_SCALE_MUL_DIV_SWAP"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "1000 / 100",
+      "expect": "10"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否知道比例尺前後項必須使用「相同單位（公分）」，並能正確把公分換算成公尺。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：比例尺 1：1000 表示「圖上 1 公分」相當於「實際 1000 公分」。"
+        },
+        {
+          "type": "eq",
+          "expr": "1000 ÷ 100 ＝ 10",
+          "unit": "公尺"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：因為 1 公尺 ＝ 100 公分，所以把 1000 公分去掉兩個 0，就是 10 公尺。"
+        },
+        {
+          "type": "answer",
+          "text": "答：10 公尺"
+        }
+      ],
+      "insight": "比例尺沒有寫單位時，預設前項與後項單位完全相同（圖上 1 公分對實際 1000 公分），千萬不要直接把後項當成公尺。",
+      "distractorAnalysis": {
+        "A": "最常見的單位陷阱，誤把「1000 公分」直接讀成「1000 公尺」。",
+        "C": "公分換算成公尺時少去掉一個 0，錯算成 100 公尺。",
+        "D": "除以 1000 算成 1 公尺，把換公尺和換公里搞混。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "1 公尺 ＝ 100 公分（公分換公尺，去掉 2 個 0）"
+      ],
+      "conceptCompare": "看到 1：1000，心裡要先補上單位「1 公分：1000 公分」，接著再換成公尺或公里，保證不會錯。",
+      "examVariations": "段考常考「比例尺 1：50000 的地圖上，1 公分代表實際幾公尺？」，先把 50000 公分去掉兩個 0 得 500 公尺。"
+    }
+  },
+  {
+    "id": "U07-S1-M-043",
+    "legacyId": "u07_m03",
+    "unitId": "U07",
+    "section": "7-1",
+    "sectionName": "認識放大圖與縮小圖",
+    "category": "周長倍數",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 2★",
+    "level": 2,
+    "difficulty": 1,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "一個多邊形畫成原來的 3 倍放大圖，它的周長會變成原來的幾倍？",
+    "options": [
+      {
+        "key": "A",
+        "text": "3 倍",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "6 倍",
+        "trapCode": "U07_CALC_SLIP"
+      },
+      {
+        "key": "C",
+        "text": "9 倍",
+        "trapCode": "U07_PERIMETER_SQUARE_ERR"
+      },
+      {
+        "key": "D",
+        "text": "不變",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "3",
+      "expect": "3"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否區分「周長（長度）」與「面積」在放大時的倍率差異，確認長度與邊長同倍數變化。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：放大 3 倍時，每一條邊的長度都變成原來的 3 倍。"
+        },
+        {
+          "type": "eq",
+          "expr": "新周長 ＝ 原周長 × 3",
+          "unit": ""
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：周長只是把所有邊長一條一條加起來，所以總和也只會變成原來的 3 倍。"
+        },
+        {
+          "type": "answer",
+          "text": "答：3 倍"
+        }
+      ],
+      "insight": "只要問的是「長度類」的量（邊長、周長、對角線、高），放大幾倍就跟著變幾倍，不需要平方。",
+      "distractorAnalysis": {
+        "B": "誤用 3 ＋ 3 ＝ 6 或 3 × 2 ＝ 6 計算倍數。",
+        "C": "把「面積變成 3 × 3 ＝ 9 倍」的規則誤用到周長上。",
+        "D": "把「角度不變」的性質誤記成周長也不變。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "線性長度規律：邊長放大幾倍，周長就放大幾倍"
+      ],
+      "conceptCompare": "周長是「一維的線段總長」，單位是公分；面積是「二維的平面大小」，單位是平方公分，所以面積才要乘兩次倍數。",
+      "examVariations": "常出複合選填題：長方形放大 3 倍，周長變幾倍（3 倍）？面積變幾倍（9 倍）？"
+    }
+  },
+  {
+    "id": "U07-S1-M-044",
+    "legacyId": "u07_m04",
+    "unitId": "U07",
+    "section": "7-1",
+    "sectionName": "認識放大圖與縮小圖",
+    "category": "面積平方倍",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 2★",
+    "level": 2,
+    "difficulty": 1,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "把正方形的邊長放大成原來的 2 倍，面積會變成原來的幾倍？",
+    "options": [
+      {
+        "key": "A",
+        "text": "2 倍",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      },
+      {
+        "key": "B",
+        "text": "不變",
+        "trapCode": "U07_CALC_SLIP"
+      },
+      {
+        "key": "C",
+        "text": "8 倍",
+        "trapCode": "U07_PERIMETER_SQUARE_ERR"
+      },
+      {
+        "key": "D",
+        "text": "4 倍",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "2 * 2",
+      "expect": "4"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否理解正方形邊長放大 2 倍時，橫向與縱向同時放大 2 倍，面積會變為 4 倍。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><rect x=\"45\" y=\"58\" width=\"48\" height=\"48\" fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><text x=\"69\" y=\"87\" font-size=\"14\" font-weight=\"700\" fill=\"#1e3a8a\" text-anchor=\"middle\">1 格</text><text x=\"69\" y=\"128\" font-size=\"13\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"middle\">原圖（邊長 1 份）</text><text x=\"152\" y=\"86\" font-size=\"14\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">放大 2 倍 ➔</text><rect x=\"210\" y=\"20\" width=\"48\" height=\"48\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"2\"/><rect x=\"258\" y=\"20\" width=\"48\" height=\"48\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"2\"/><rect x=\"210\" y=\"68\" width=\"48\" height=\"48\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"2\"/><rect x=\"258\" y=\"68\" width=\"48\" height=\"48\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"2\"/><text x=\"234\" y=\"49\" font-size=\"13\" font-weight=\"700\" fill=\"#92400e\" text-anchor=\"middle\">1</text><text x=\"282\" y=\"49\" font-size=\"13\" font-weight=\"700\" fill=\"#92400e\" text-anchor=\"middle\">2</text><text x=\"234\" y=\"97\" font-size=\"13\" font-weight=\"700\" fill=\"#92400e\" text-anchor=\"middle\">3</text><text x=\"282\" y=\"97\" font-size=\"13\" font-weight=\"700\" fill=\"#92400e\" text-anchor=\"middle\">4</text><text x=\"258\" y=\"138\" font-size=\"13\" font-weight=\"700\" fill=\"#92400e\" text-anchor=\"middle\">長 2 格 × 寬 2 格 ＝ 4 格</text><text x=\"385\" y=\"72\" font-size=\"15\" font-weight=\"800\" fill=\"#dc2626\" text-anchor=\"middle\">面積變成</text><text x=\"385\" y=\"94\" font-size=\"16\" font-weight=\"800\" fill=\"#dc2626\" text-anchor=\"middle\">4 倍！</text></svg>",
+          "caption": "左邊原正方形有 1 格；邊長放大 2 倍後，橫排 2 格、直排 2 格，總共拼出 4 格。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：正方形的長和寬這兩個方向都各自放大成 2 倍。"
+        },
+        {
+          "type": "eq",
+          "expr": "2 × 2 ＝ 4",
+          "unit": "倍"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：從方格切分圖可以一眼看出，大正方形裡面能擺進 4 個原正方形。"
+        },
+        {
+          "type": "answer",
+          "text": "答：4 倍"
+        }
+      ],
+      "insight": "面積 ＝ 長 × 寬，兩個方向都要乘以倍數，所以邊長變 2 倍，面積會變 2 × 2 ＝ 4 倍。",
+      "distractorAnalysis": {
+        "A": "直接把邊長倍數當成面積倍數，忘記面積有長與寬兩個方向。",
+        "C": "誤算成正方體的體積倍數（2 × 2 × 2 ＝ 8 倍）。",
+        "B": "錯把「對應角角度不變」的性質套用到「面積」上。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "平面圖形面積倍數 ＝ 邊長倍數 × 邊長倍數"
+      ],
+      "conceptCompare": "周長只看一邊一圈相加（變 2 倍），面積是長乘寬（變 2 × 2 ＝ 4 倍），體積是長乘寬乘高（變 2 × 2 × 2 ＝ 8 倍）。",
+      "examVariations": "段考應用題會給實際邊長（例如邊長 5 公分放大 2 倍），再問新面積是原面積的幾倍或相差幾平方公分。"
+    }
+  },
+  {
+    "id": "U07-S3-M-045",
+    "legacyId": "u07_m05",
+    "unitId": "U07",
+    "section": "7-3",
+    "sectionName": "認識比例尺",
+    "category": "比例尺詳細度",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 3★",
+    "level": 3,
     "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "同樣大小的兩張紙，一張比例尺是 1：50000，另一張是 1：5000，哪一張畫得比較詳細（實物在紙上看起來比較大）？",
+    "options": [
+      {
+        "key": "A",
+        "text": "一樣詳細",
+        "trapCode": "U07_CALC_SLIP"
+      },
+      {
+        "key": "B",
+        "text": "無法判斷",
+        "trapCode": "U07_SCALE_MUL_DIV_SWAP"
+      },
+      {
+        "key": "C",
+        "text": "1：50000 那一張",
+        "trapCode": "U07_DUAL_MAP_RATIO_ERR"
+      },
+      {
+        "key": "D",
+        "text": "1：5000 那一張",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "skipOptionNumMatch": true,
+    "check": {
+      "expr": "(1 / 5000) / (1 / 50000)",
+      "expect": "10"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否比較分數形式比例尺 1/5000 與 1/50000 的大小，理解大比例尺（縮得較少）畫面更精細。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><rect x=\"25\" y=\"25\" width=\"175\" height=\"95\" rx=\"8\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"2\"/><text x=\"112\" y=\"46\" font-size=\"13\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"middle\">比例尺 1：50000</text><rect x=\"102\" y=\"64\" width=\"20\" height=\"14\" fill=\"#94a3b8\"/><text x=\"112\" y=\"104\" font-size=\"12\" fill=\"#475569\" text-anchor=\"middle\">1 公分裝 500 公尺（縮很大）</text><rect x=\"250\" y=\"25\" width=\"185\" height=\"95\" rx=\"8\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><text x=\"342\" y=\"46\" font-size=\"13\" font-weight=\"700\" fill=\"#1e40af\" text-anchor=\"middle\">比例尺 1：5000</text><rect x=\"308\" y=\"56\" width=\"68\" height=\"32\" fill=\"#3b82f6\" rx=\"3\"/><text x=\"342\" y=\"76\" font-size=\"12\" font-weight=\"700\" fill=\"#ffffff\" text-anchor=\"middle\">教室建築</text><text x=\"342\" y=\"106\" font-size=\"12\" font-weight=\"700\" fill=\"#1d4ed8\" text-anchor=\"middle\">1 公分裝 50 公尺（較大較清楚）</text></svg>",
+          "caption": "左圖縮了 50000 倍，建築物縮成一小點；右圖只縮 5000 倍，建築物畫得比較大、看得比較清楚。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：把比例尺換成每 1 公分代表的實際距離，立刻比較。"
+        },
+        {
+          "type": "eq",
+          "expr": "1：5000 ➔ 1 公分代表 50 公尺；1：50000 ➔ 1 公分代表 500 公尺",
+          "unit": ""
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：比值 1/5000 ＞ 1/50000，代表實物只被縮小 5000 倍，所以在紙上畫得比較大、街道細節比較清楚。"
+        },
+        {
+          "type": "answer",
+          "text": "答：1：5000 那一張"
+        }
+      ],
+      "insight": "比例尺後項數字越大，代表縮小得越多，看到的範圍很廣但建築物很小；後項數字越小，反而是「大比例尺」，畫得越詳細。",
+      "distractorAnalysis": {
+        "A": "以為紙張一樣大，畫出來的詳細程度就一樣。",
+        "B": "沒有把比例尺轉成「1 公分代表幾公尺」來比較。",
+        "C": "被大數字 50000 騙到，誤以為數字大就畫得比較大。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "比例尺比值越大（後項越小）➔ 縮得越少 ➔ 建築物越大越詳細"
+      ],
+      "conceptCompare": "地圖比例尺其實是分數「1/5000」和「1/50000」比大小，分母越小分數才越大！",
+      "examVariations": "段考素養題常問「用相同大小的紙畫校園平面圖與台灣全島圖，哪一張比例尺比值比較大？」，答案是校園平面圖。"
+    }
+  },
+  {
+    "id": "U07-S1-M-046",
+    "legacyId": "u07_m06",
+    "unitId": "U07",
+    "section": "7-1",
+    "sectionName": "認識放大圖與縮小圖",
+    "category": "縮小面積",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 3★",
+    "level": 3,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "把一個正方形畫成原來的 1/3 倍縮小圖，縮小圖的面積是原來面積的幾分之幾？",
+    "options": [
+      {
+        "key": "A",
+        "text": "1/3",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      },
+      {
+        "key": "B",
+        "text": "1/9",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "1/6",
+        "trapCode": "U07_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "3 倍",
+        "trapCode": "U07_RELATIVE_SCALE_ERR"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "(1 / 3) * (1 / 3)",
+      "expect": "1/9"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否理解縮小圖的面積同樣遵守「倍數乘以倍數」規律，1/3 縮小圖面積變為 1/9。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><g transform=\"translate(55,18)\"><rect x=\"0\" y=\"0\" width=\"34\" height=\"34\" fill=\"#dc2626\" stroke=\"#7f1d1d\" stroke-width=\"2\"/><rect x=\"34\" y=\"0\" width=\"34\" height=\"34\" fill=\"#f1f5f9\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><rect x=\"68\" y=\"0\" width=\"34\" height=\"34\" fill=\"#f1f5f9\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><rect x=\"0\" y=\"34\" width=\"34\" height=\"34\" fill=\"#f1f5f9\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><rect x=\"34\" y=\"34\" width=\"34\" height=\"34\" fill=\"#f1f5f9\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><rect x=\"68\" y=\"34\" width=\"34\" height=\"34\" fill=\"#f1f5f9\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><rect x=\"0\" y=\"68\" width=\"34\" height=\"34\" fill=\"#f1f5f9\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><rect x=\"34\" y=\"68\" width=\"34\" height=\"34\" fill=\"#f1f5f9\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><rect x=\"68\" y=\"68\" width=\"34\" height=\"34\" fill=\"#f1f5f9\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><text x=\"51\" y=\"122\" font-size=\"13\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"middle\">原圖 3 × 3 ＝ 9 格</text></g><text x=\"285\" y=\"52\" font-size=\"14\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">邊長各縮成原本的 1/3</text><text x=\"285\" y=\"82\" font-size=\"15\" font-weight=\"800\" fill=\"#dc2626\" text-anchor=\"middle\">紅色只佔 9 格中的 1 格</text><text x=\"285\" y=\"110\" font-size=\"14\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">1/3 × 1/3 ＝ 1/9</text></svg>",
+          "caption": "把原圖邊長切成 3 等份（共 3 × 3 ＝ 9 小格），邊長 1/3 的紅色縮小圖剛好只佔其中 1 小格。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：邊長縮成原來的 1/3，代表長和寬同時變成原來的 1/3。"
+        },
+        {
+          "type": "eq",
+          "expr": "1/3 × 1/3 ＝ 1/9",
+          "unit": ""
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：分母 3 × 3 ＝ 9，因此面積變成原來的 1/9。"
+        },
+        {
+          "type": "answer",
+          "text": "答：1/9"
+        }
+      ],
+      "insight": "不管放大還是縮小，面積倍數永遠是「邊長倍數 × 邊長倍數」；分數相乘時，分母要相乘。",
+      "distractorAnalysis": {
+        "A": "誤以為面積倍數跟邊長倍數一樣都是 1/3。",
+        "D": "把縮小圖和放大圖的關係看反，寫成原圖是縮小圖的 3 倍。",
+        "C": "把 3 × 3 誤算成 3 ＋ 3 ＝ 6 或 3 × 2 ＝ 6。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "縮小 1/3 倍 ➔ 周長為 1/3 倍，面積為 1/3 × 1/3 ＝ 1/9 倍"
+      ],
+      "conceptCompare": "「縮小圖面積是原圖的 1/9」反過來講就是「原圖面積是縮小圖的 9 倍」，兩句話說的是同一件事。",
+      "examVariations": "段考常考「梯形畫成 1/2 倍縮小圖後，面積變成原來的幾倍？」，一樣是 1/2 × 1/2 ＝ 1/4。"
+    }
+  },
+  {
+    "id": "U07-S3-M-047",
+    "legacyId": "u07_m07",
+    "unitId": "U07",
+    "section": "7-3",
+    "sectionName": "認識比例尺",
+    "category": "求比例尺",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 4★",
+    "level": 4,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "地圖上 2 公分的線段代表實際距離 1 公里，這張地圖的比例尺是多少？",
+    "options": [
+      {
+        "key": "A",
+        "text": "1：2",
+        "trapCode": "U07_RATIO_FRACTION_INV"
+      },
+      {
+        "key": "B",
+        "text": "1：500",
+        "trapCode": "U07_SCALE_UNIT_MISMATCH"
+      },
+      {
+        "key": "C",
+        "text": "1：5000",
+        "trapCode": "U07_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "1：50000",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "skipOptionNumMatch": true,
+    "check": {
+      "expr": "2 / 100000",
+      "expect": "1/50000"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否能先把「公里」正確換算成「公分」，再約分成前項為 1 的最簡比例尺。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：先把前後兩邊換成相同的「公分」單位。"
+        },
+        {
+          "type": "eq",
+          "expr": "1 公里 ＝ 1000 公尺 ＝ 100000 公分",
+          "unit": ""
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：寫出「圖上距離：實際距離」，再同除以 2 化簡。"
+        },
+        {
+          "type": "eq",
+          "expr": "2：100000 ＝ 1：50000",
+          "unit": ""
+        },
+        {
+          "type": "answer",
+          "text": "答：1：50000"
+        }
+      ],
+      "insight": "必背黃金換算：1 公里 ＝ 1000 公尺 ＝ 100000 公分（1 後面有 5 個 0）。計算比例尺前，單位一定要先統一。",
+      "distractorAnalysis": {
+        "B": "只把 1 公里當成 1000 公尺就除以 2，忘了再換成公分（少了兩個 0）。",
+        "C": "公里換成公分時少寫了一個 0，拿 10000 除以 2 算成 5000。",
+        "A": "直接把 1 和 2 寫成比，完全忽略單位不同。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "1 公里 ＝ 100000 公分（5 個 0）",
+        "比例尺 ＝ 圖上距離：實際距離（單位統一後化簡）"
+      ],
+      "conceptCompare": "看到題目同時出現「公分」和「公里」，先在數字後面補 5 個 0 換成公分再寫比，永遠不會算錯位數。",
+      "examVariations": "段考也常把題目出成「用比值表示比例尺」，此時要寫成分數 1/50000。"
+    }
+  },
+  {
+    "id": "U07-S1-M-048",
+    "legacyId": "u07_m08",
+    "unitId": "U07",
+    "section": "7-1",
+    "sectionName": "認識放大圖與縮小圖",
+    "category": "體積立方倍",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 4★",
+    "level": 4,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "把一個正方體的每條邊長都放大成原來的 2 倍，體積會變成原來的幾倍？",
+    "options": [
+      {
+        "key": "A",
+        "text": "2 倍",
+        "trapCode": "U07_PERIMETER_SQUARE_ERR"
+      },
+      {
+        "key": "B",
+        "text": "8 倍",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "6 倍",
+        "trapCode": "U07_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "4 倍",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "2 * 2 * 2",
+      "expect": "8"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否理解立體圖形的體積包含長、寬、高三個方向，邊長放大 2 倍時體積會變 8 倍。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><g transform=\"translate(48,55)\"><polygon points=\"0,20 26,8 52,20 26,32\" fill=\"#93c5fd\" stroke=\"#1d4ed8\" stroke-width=\"2\"/><polygon points=\"0,20 26,32 26,60 0,48\" fill=\"#60a5fa\" stroke=\"#1d4ed8\" stroke-width=\"2\"/><polygon points=\"26,32 52,20 52,48 26,60\" fill=\"#3b82f6\" stroke=\"#1d4ed8\" stroke-width=\"2\"/><text x=\"26\" y=\"80\" font-size=\"13\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"middle\">原正方體 1 個</text></g><text x=\"152\" y=\"88\" font-size=\"14\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">邊長 2 倍 ➔</text><g transform=\"translate(212,20)\"><polygon points=\"48,0 96,22 48,44 0,22\" fill=\"#fde68a\" stroke=\"#b45309\" stroke-width=\"2\"/><polygon points=\"0,22 48,44 48,96 0,74\" fill=\"#fbbf24\" stroke=\"#b45309\" stroke-width=\"2\"/><polygon points=\"48,44 96,22 96,74 48,96\" fill=\"#f59e0b\" stroke=\"#b45309\" stroke-width=\"2\"/><line x1=\"24\" y1=\"11\" x2=\"72\" y2=\"33\" stroke=\"#92400e\" stroke-width=\"1.5\"/><line x1=\"24\" y1=\"33\" x2=\"72\" y2=\"11\" stroke=\"#92400e\" stroke-width=\"1.5\"/><line x1=\"24\" y1=\"33\" x2=\"24\" y2=\"85\" stroke=\"#92400e\" stroke-width=\"1.5\"/><line x1=\"72\" y1=\"33\" x2=\"72\" y2=\"85\" stroke=\"#92400e\" stroke-width=\"1.5\"/><line x1=\"0\" y1=\"48\" x2=\"48\" y2=\"70\" stroke=\"#92400e\" stroke-width=\"1.5\"/><line x1=\"48\" y1=\"70\" x2=\"96\" y2=\"48\" stroke=\"#92400e\" stroke-width=\"1.5\"/><text x=\"48\" y=\"116\" font-size=\"13\" font-weight=\"700\" fill=\"#92400e\" text-anchor=\"middle\">下層 4 個 ＋ 上層 4 個 ＝ 8 個</text></g><text x=\"392\" y=\"68\" font-size=\"14\" font-weight=\"800\" fill=\"#dc2626\" text-anchor=\"middle\">長×2 寬×2 高×2</text><text x=\"392\" y=\"92\" font-size=\"16\" font-weight=\"800\" fill=\"#dc2626\" text-anchor=\"middle\">共 8 倍！</text></svg>",
+          "caption": "邊長變 2 倍的積木大正方體，下層要排 2 × 2 ＝ 4 塊，再疊 2 層，一共需要 8 塊小正方體。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：正方體體積 ＝ 長 × 寬 × 高，三個方向的邊長都放大成 2 倍。"
+        },
+        {
+          "type": "eq",
+          "expr": "2 × 2 × 2 ＝ 8",
+          "unit": "倍"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：想像用 1 公分小積木疊成邊長 2 公分的大正方體，底層 4 顆、共疊 2 層，剛好 8 顆。"
+        },
+        {
+          "type": "answer",
+          "text": "答：8 倍"
+        }
+      ],
+      "insight": "一維長度（周長）乘 1 次倍數，二維平面（面積）乘 2 次倍數，三維立體（體積）要乘 3 次倍數。",
+      "distractorAnalysis": {
+        "A": "誤以為體積與邊長同倍數變化。",
+        "C": "誤把三個 2 相加（2 ＋ 2 ＋ 2 ＝ 6）或誤算成 2 × 3 ＝ 6。",
+        "D": "只乘了長與寬兩個方向（2 × 2 ＝ 4），漏掉「高度」也要變 2 倍。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "邊長變 2 倍 ➔ 表面積變 2 × 2 ＝ 4 倍，體積變 2 × 2 × 2 ＝ 8 倍"
+      ],
+      "conceptCompare": "正方體「表面積」是平面圖形拼起來的，所以只變 4 倍；裝水容量或體積要算長寬高三條邊相乘，所以變 8 倍。",
+      "examVariations": "生活素養題會換成問「同材質的大積木邊長是小積木的 2 倍，重量會是幾倍？」，重量看體積，一樣是 8 倍。"
+    }
+  },
+  {
+    "id": "U07-S2-M-049",
+    "legacyId": "u07_m09",
+    "unitId": "U07",
+    "section": "7-2",
+    "sectionName": "繪製放大圖和縮小圖",
+    "category": "影子相似",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 5★",
+    "level": 5,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "同一時間下，1 公尺高的竹竿在地面上的影長是 2 公尺，旁邊一棵大樹的影長是 10 公尺，這棵大樹有多高？",
+    "options": [
+      {
+        "key": "A",
+        "text": "10 公尺",
+        "trapCode": "U07_RELATIVE_SCALE_ERR"
+      },
+      {
+        "key": "B",
+        "text": "20 公尺",
+        "trapCode": "U07_SCALE_MUL_DIV_SWAP"
+      },
+      {
+        "key": "C",
+        "text": "5 公尺",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "2 公尺",
+        "trapCode": "U07_CALC_SLIP"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "10 / 2 * 1",
+      "expect": "5"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否能利用「同時同地太陽光平行」產生的放大縮小關係，透過影長倍數反推實物高度。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><line x1=\"20\" y1=\"115\" x2=\"440\" y2=\"115\" stroke=\"#64748b\" stroke-width=\"2.5\"/><line x1=\"55\" y1=\"82\" x2=\"55\" y2=\"115\" stroke=\"#d97706\" stroke-width=\"4\"/><line x1=\"55\" y1=\"115\" x2=\"125\" y2=\"115\" stroke=\"#dc2626\" stroke-width=\"4\"/><line x1=\"55\" y1=\"82\" x2=\"125\" y2=\"115\" stroke=\"#f59e0b\" stroke-width=\"2\" stroke-dasharray=\"4,4\"/><text x=\"42\" y=\"99\" font-size=\"12\" font-weight=\"700\" fill=\"#b45309\" text-anchor=\"end\">1 公尺</text><text x=\"90\" y=\"135\" font-size=\"12\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">影 2 公尺</text><line x1=\"230\" y1=\"30\" x2=\"230\" y2=\"115\" stroke=\"#15803d\" stroke-width=\"6\"/><circle cx=\"230\" cy=\"32\" r=\"18\" fill=\"#22c55e\" opacity=\"0.85\"/><line x1=\"230\" y1=\"115\" x2=\"415\" y2=\"115\" stroke=\"#dc2626\" stroke-width=\"4\"/><line x1=\"230\" y1=\"30\" x2=\"415\" y2=\"115\" stroke=\"#f59e0b\" stroke-width=\"2\" stroke-dasharray=\"4,4\"/><text x=\"216\" y=\"80\" font-size=\"13\" font-weight=\"800\" fill=\"#15803d\" text-anchor=\"end\">樹高 ？ 公尺</text><text x=\"322\" y=\"135\" font-size=\"13\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">影長 10 公尺（變 5 倍）</text></svg>",
+          "caption": "太陽光平行照射下，大樹和影子的直角三角形是竹竿的 5 倍放大圖。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：同一時間物高與影長形成的三角形互為放大縮小圖，樹影長是竹竿影長的 5 倍。"
+        },
+        {
+          "type": "eq",
+          "expr": "10 ÷ 2 ＝ 5",
+          "unit": "倍"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：既然影子放大 5 倍，代表樹高也是竹竿高的 5 倍。"
+        },
+        {
+          "type": "eq",
+          "expr": "1 × 5 ＝ 5",
+          "unit": "公尺"
+        },
+        {
+          "type": "answer",
+          "text": "答：5 公尺"
+        }
+      ],
+      "insight": "也可以看「物高：影長 ＝ 1：2」，影長永遠是高度的 2 倍，所以高度就是影長的一半（10 ÷ 2 ＝ 5 公尺）。",
+      "distractorAnalysis": {
+        "B": "把高度與影長的倍數看反，拿影長 10 去乘以 2 錯算成 20 公尺。",
+        "D": "直接抄寫竹竿影長 2 公尺而未進行比例換算。",
+        "A": "誤以為樹高就等於樹影長 10 公尺。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "同時同地：大樹高：大樹影長 ＝ 竹竿高：竹竿影長"
+      ],
+      "conceptCompare": "求樹高有兩種心算路：一是看「樹影是竿影的幾倍（10 ÷ 2 ＝ 5）」，二是看「影長是物高的幾倍（2 ÷ 1 ＝ 2，再反除）」。",
+      "examVariations": "段考也常換成「身高 1.5 公尺的小明影長 2 公尺，旗桿影長 12 公尺」，旗桿高 12 ÷ 2 × 1.5 ＝ 9 公尺。"
+    }
+  },
+  {
+    "id": "U07-S3-M-050",
+    "legacyId": "u07_m10",
+    "unitId": "U07",
+    "section": "7-3",
+    "sectionName": "認識比例尺",
+    "category": "地圖面積換算",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 5★",
+    "level": 5,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "在比例尺 1：10000 的地圖上，一塊面積為 1 平方公分的區域，實際面積是多少平方公尺？",
+    "options": [
+      {
+        "key": "A",
+        "text": "100 平方公尺",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      },
+      {
+        "key": "B",
+        "text": "1 平方公尺",
+        "trapCode": "U07_CALC_SLIP"
+      },
+      {
+        "key": "C",
+        "text": "1000 平方公尺",
+        "trapCode": "U07_SCALE_UNIT_MISMATCH"
+      },
+      {
+        "key": "D",
+        "text": "10000 平方公尺",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "(10000 / 100) * (10000 / 100)",
+      "expect": "10000"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否能先將地圖比例尺的「邊長」換成實際公尺，再相乘求得實際「面積」。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><rect x=\"54\" y=\"52\" width=\"34\" height=\"34\" fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><text x=\"71\" y=\"42\" font-size=\"12\" font-weight=\"700\" fill=\"#1e40af\" text-anchor=\"middle\">1 公分</text><text x=\"45\" y=\"73\" font-size=\"12\" font-weight=\"700\" fill=\"#1e40af\" text-anchor=\"end\">1 公分</text><text x=\"71\" y=\"108\" font-size=\"12\" fill=\"#334155\" text-anchor=\"middle\">地圖 1 平方公分</text><text x=\"165\" y=\"73\" font-size=\"13\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">1：10000 ➔</text><rect x=\"235\" y=\"24\" width=\"82\" height=\"82\" fill=\"#dcfce7\" stroke=\"#16a34a\" stroke-width=\"2.5\"/><text x=\"276\" y=\"17\" font-size=\"12\" font-weight=\"700\" fill=\"#15803d\" text-anchor=\"middle\">實際 100 公尺</text><text x=\"325\" y=\"69\" font-size=\"12\" font-weight=\"700\" fill=\"#15803d\">實際 100 公尺</text><text x=\"276\" y=\"128\" font-size=\"13\" font-weight=\"800\" fill=\"#15803d\" text-anchor=\"middle\">100 × 100 ＝ 10000 平方公尺</text></svg>",
+          "caption": "圖上 1 公分 × 1 公分對應實際 100 公尺 × 100 公尺，必須把邊長先換成公尺再相乘。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：先算地圖上 1 公分邊長代表實際多長，並換算成公尺。"
+        },
+        {
+          "type": "eq",
+          "expr": "10000 公分 ＝ 100 公尺",
+          "unit": ""
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：正方形面積 ＝ 邊長 × 邊長，兩個邊都是 100 公尺。"
+        },
+        {
+          "type": "eq",
+          "expr": "100 × 100 ＝ 10000",
+          "unit": "平方公尺"
+        },
+        {
+          "type": "answer",
+          "text": "答：10000 平方公尺"
+        }
+      ],
+      "insight": "算地圖面積最穩的秘訣：「先換邊長、再乘面積」，永遠不要拿比例尺 10000 直接當面積倍率。",
+      "distractorAnalysis": {
+        "A": "算出圖上 1 公分 ＝ 100 公尺後，忘記面積要「邊長 × 邊長」，直接寫 100 平方公尺。",
+        "C": "單位換算或平方乘積少寫了一個 0，錯算成 1000 平方公尺。",
+        "B": "直接照抄題目裡的數字 1，沒有乘上比例尺。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "先算圖上 1 公分的實際邊長 ➔ 再算 實際邊長 × 實際邊長 ＝ 實際面積"
+      ],
+      "conceptCompare": "10000 平方公尺剛好等於「1 公頃」，這也是地圖 1：10000 上每 1 平方公分剛好對應 1 公頃的原因。",
+      "examVariations": "如果題目給的是圖上「3 公分 × 2 公分」的長方形公園，先各乘比例尺換成 300 公尺與 200 公尺，再相乘得 60000 平方公尺。"
+    }
+  },
+  {
+    "id": "U07-S1-M-051",
+    "legacyId": "u07_m11",
+    "unitId": "U07",
+    "section": "7-1",
+    "sectionName": "認識放大圖與縮小圖",
+    "category": "相似面積比",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 6★",
+    "level": 6,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "兩個互為放大縮小關係的三角形，對應邊長的比是 2：3，這兩個三角形的面積比是多少？",
+    "options": [
+      {
+        "key": "A",
+        "text": "4：9",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "2：3",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      },
+      {
+        "key": "C",
+        "text": "3：2",
+        "trapCode": "U07_RATIO_FRACTION_INV"
+      },
+      {
+        "key": "D",
+        "text": "8：27",
+        "trapCode": "U07_CALC_SLIP"
+      }
+    ],
+    "answer": "A",
+    "skipOptionNumMatch": true,
+    "check": {
+      "expr": "(2 * 2) / (3 * 3)",
+      "expect": "4/9"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否理解兩個相似圖形的面積比等於對應邊長比各自的平方。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><g transform=\"translate(55,34)\"><rect x=\"0\" y=\"0\" width=\"30\" height=\"30\" fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.5\"/><rect x=\"30\" y=\"0\" width=\"30\" height=\"30\" fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.5\"/><rect x=\"0\" y=\"30\" width=\"30\" height=\"30\" fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.5\"/><rect x=\"30\" y=\"30\" width=\"30\" height=\"30\" fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"1.5\"/><text x=\"30\" y=\"85\" font-size=\"13\" font-weight=\"700\" fill=\"#1e40af\" text-anchor=\"middle\">邊 2 份 ➔ 2 × 2 ＝ 4 格</text></g><text x=\"182\" y=\"72\" font-size=\"18\" font-weight=\"800\" fill=\"#334155\" text-anchor=\"middle\">：</text><g transform=\"translate(230,18)\"><rect x=\"0\" y=\"0\" width=\"28\" height=\"28\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"1.5\"/><rect x=\"28\" y=\"0\" width=\"28\" height=\"28\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"1.5\"/><rect x=\"56\" y=\"0\" width=\"28\" height=\"28\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"1.5\"/><rect x=\"0\" y=\"28\" width=\"28\" height=\"28\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"1.5\"/><rect x=\"28\" y=\"28\" width=\"28\" height=\"28\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"1.5\"/><rect x=\"56\" y=\"28\" width=\"28\" height=\"28\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"1.5\"/><rect x=\"0\" y=\"56\" width=\"28\" height=\"28\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"1.5\"/><rect x=\"28\" y=\"56\" width=\"28\" height=\"28\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"1.5\"/><rect x=\"56\" y=\"56\" width=\"28\" height=\"28\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"1.5\"/><text x=\"42\" y=\"105\" font-size=\"13\" font-weight=\"700\" fill=\"#92400e\" text-anchor=\"middle\">邊 3 份 ➔ 3 × 3 ＝ 9 格</text></g><text x=\"392\" y=\"65\" font-size=\"14\" font-weight=\"800\" fill=\"#dc2626\" text-anchor=\"middle\">面積比</text><text x=\"392\" y=\"90\" font-size=\"18\" font-weight=\"800\" fill=\"#dc2626\" text-anchor=\"middle\">4：9</text></svg>",
+          "caption": "不論是三角形或正方形，只要底和高都以 2：3 同時縮放，面積就以 2 × 2：3 × 3 ＝ 4：9 比例變化。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：三角形面積 ＝ 底 × 高 ÷ 2。因為形狀相似，底邊比是 2：3，高的比也會是 2：3。"
+        },
+        {
+          "type": "eq",
+          "expr": "(2 × 2)：(3 × 3) ＝ 4：9",
+          "unit": ""
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：底和高的倍數都要乘起來，所以面積比為 4：9。"
+        },
+        {
+          "type": "answer",
+          "text": "答：4：9"
+        }
+      ],
+      "insight": "相似圖形之間：邊長比如果是 2：3，周長比也是 2：3，面積比是（2 × 2）：（3 × 3），體積比則是（2 × 2 × 2）：（3 × 3 × 3）。",
+      "distractorAnalysis": {
+        "B": "直接把對應邊比 2：3 當成面積比，忘了平方。",
+        "C": "把比例前後項順序寫反，且同樣忘記計算平方。",
+        "D": "寫成體積的立方比 8：27，把平面面積和立體體積搞混。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "對應邊比為 2：3 ➔ 周長比為 2：3，面積比為 4：9"
+      ],
+      "conceptCompare": "不管三角形的形狀怎麼斜、是不是直角三角形，只要兩三角形互為放大縮小圖，高和底都會同比例縮放，所以面積比永遠等於邊長平方比。",
+      "examVariations": "進階題會反問「兩個相似圖形面積比是 16：25，對應邊比是多少？」，逆推 4 × 4 ＝ 16 與 5 × 5 ＝ 25，得邊比 4：5。"
+    }
+  },
+  {
+    "id": "U07-S1-M-052",
+    "legacyId": "u07_m12",
+    "unitId": "U07",
+    "section": "7-1",
+    "sectionName": "認識放大圖與縮小圖",
+    "category": "不等比放大",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 6★",
+    "level": 6,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "把一個長方形的長放大成 2 倍、寬放大成 3 倍，新畫出來的圖形是原圖的放大圖嗎？",
+    "options": [
+      {
+        "key": "A",
+        "text": "不是",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "是",
+        "trapCode": "U07_RELATIVE_SCALE_ERR"
+      },
+      {
+        "key": "C",
+        "text": "只要面積變大就是",
+        "trapCode": "U07_CORRESPONDING_SIDE_SWAP"
+      },
+      {
+        "key": "D",
+        "text": "不一定，要看原本長寬",
+        "trapCode": "U07_ANGLE_SCALED"
+      }
+    ],
+    "answer": "A",
+    "skipOptionNumMatch": true,
+    "check": {
+      "expr": "1",
+      "expect": "1"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否掌握放大圖的嚴格定義：每一條對應邊都必須以「完全相同」的倍數放大，否則會變形。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><rect x=\"52\" y=\"52\" width=\"72\" height=\"32\" fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><text x=\"88\" y=\"42\" font-size=\"12\" font-weight=\"700\" fill=\"#1e40af\" text-anchor=\"middle\">長 2 格</text><text x=\"46\" y=\"72\" font-size=\"12\" font-weight=\"700\" fill=\"#1e40af\" text-anchor=\"end\">寬 1 格</text><text x=\"88\" y=\"108\" font-size=\"12\" fill=\"#334155\" text-anchor=\"middle\">原圖（扁長形）</text><text x=\"175\" y=\"73\" font-size=\"13\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">長×2，寬×3 ➔</text><rect x=\"236\" y=\"20\" width=\"120\" height=\"80\" fill=\"#fee2e2\" stroke=\"#dc2626\" stroke-width=\"2.5\"/><text x=\"296\" y=\"14\" font-size=\"12\" font-weight=\"700\" fill=\"#b91c1c\" text-anchor=\"middle\">新長 4 格（×2）</text><text x=\"364\" y=\"64\" font-size=\"12\" font-weight=\"700\" fill=\"#b91c1c\">新寬 3 格（×3）</text><text x=\"296\" y=\"124\" font-size=\"13\" font-weight=\"800\" fill=\"#dc2626\" text-anchor=\"middle\">形狀變胖了，不是放大圖！</text></svg>",
+          "caption": "原本長與寬是 2：1，長變 2 倍寬變 3 倍後變成 4：3，比例走樣變形，不再是原圖的放大圖。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：放大圖的每條對應邊，放大倍率必須「全部相同」（例如長 × 2、寬也要 × 2）。"
+        },
+        {
+          "type": "eq",
+          "expr": "長放大倍數 2 ≠ 寬放大倍數 3",
+          "unit": ""
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：長和寬放大倍率不同，圖片就像被單方向拉寬或壓扁一樣變形，雖然面積變大但不是數學上的放大圖。"
+        },
+        {
+          "type": "answer",
+          "text": "答：不是"
+        }
+      ],
+      "insight": "生活中用手機縮放照片如果只拉高不拉寬，人臉會變形；數學上的放大圖必須「長寬同倍率」才算數。",
+      "distractorAnalysis": {
+        "C": "把面積變大誤當成放大圖的條件，忽略形狀比例必須維持不變。",
+        "D": "不管原本長寬是多少，只要兩邊乘上不同倍數（2 和 3），原本的長寬比必定改變，所以絕對不是放大圖。",
+        "B": "只因為新圖的四個角都是直角、圖形變大了，就誤判為放大圖。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "合格放大圖：所有對應角相等，且所有對應邊的放大倍數完全相同"
+      ],
+      "conceptCompare": "另外一種常見陷阱是「長和寬各加 2 公分」：只有長寬本來就一樣的正方形會同比例，一般長方形各加同公分數也不會是放大圖！",
+      "examVariations": "段考常考「長 6 寬 4 的長方形，畫成長 8 寬 6 的新長方形，是放大圖嗎？」，8 ÷ 6 ＝ 4/3 倍而 6 ÷ 4 ＝ 3/2 倍，倍率不同故不是。"
+    }
+  },
+  {
+    "id": "U07-S1-M-053",
+    "legacyId": "u07_m13",
+    "unitId": "U07",
+    "section": "7-1",
+    "sectionName": "認識放大圖與縮小圖",
+    "category": "面積逆推周長",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 7★",
+    "level": 7,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "一個正方形的面積變成原來的 9 倍，它的周長變成原來的幾倍？",
+    "options": [
+      {
+        "key": "A",
+        "text": "9 倍",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      },
+      {
+        "key": "B",
+        "text": "3 倍",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "81 倍",
+        "trapCode": "U07_PERIMETER_SQUARE_ERR"
+      },
+      {
+        "key": "D",
+        "text": "4.5 倍",
+        "trapCode": "U07_CALC_SLIP"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "9 / 3",
+      "expect": "3",
+      "extraChecks": [
+        {
+          "expr": "3 * 3",
+          "expect": "9"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否能從面積倍數逆向推算出邊長倍數，進而得知周長倍數。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：面積倍數 ＝ 邊長倍數 × 邊長倍數 ＝ 9 倍，想哪一個數自己乘自己等於 9。"
+        },
+        {
+          "type": "eq",
+          "expr": "3 × 3 ＝ 9 ➔ 邊長變成原來的 3 倍",
+          "unit": ""
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：周長和邊長同為線性長度，邊長變 3 倍，周長也就變成原來的 3 倍。"
+        },
+        {
+          "type": "answer",
+          "text": "答：3 倍"
+        }
+      ],
+      "insight": "從面積逆推周長分兩步走：先問「幾 × 幾 ＝ 面積倍數」找出邊長倍數，周長倍數就等於邊長倍數。",
+      "distractorAnalysis": {
+        "C": "看到 9 倍又把 9 平方成 9 × 9 ＝ 81 倍，方向完全做反。",
+        "D": "誤把 9 除以 2 算成 4.5 倍。",
+        "A": "誤以為面積是 9 倍，周長就跟著也是 9 倍。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "面積 9 倍（3 × 3）➔ 邊長 3 倍 ➔ 周長 3 倍"
+      ],
+      "conceptCompare": "正向是由「邊長倍數」乘兩次變「面積倍數」；逆向則是把「面積倍數」拆成兩個相同數字相乘，找回邊長倍數。",
+      "examVariations": "段考常換數字出成「面積變 16 倍（4 × 4），周長變幾倍（4 倍）」或「面積變 25 倍（5 × 5），邊長變幾倍（5 倍）」。"
+    }
+  },
+  {
+    "id": "U07-RV-M-054",
+    "legacyId": "u07_m14",
+    "unitId": "U07",
+    "section": "REVIEW",
+    "sectionName": "單元綜合複習",
+    "category": "披薩直覺",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 7★",
+    "level": 7,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "同樣厚度的圓形披薩，1 片直徑 20 公分的大披薩，和 2 片直徑 10 公分的小披薩，哪一種吃到的披薩比較多？",
+    "options": [
+      {
+        "key": "A",
+        "text": "2 片小的比較多",
+        "trapCode": "U07_CALC_SLIP"
+      },
+      {
+        "key": "B",
+        "text": "1 片大的比較多",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "一樣多",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      },
+      {
+        "key": "D",
+        "text": "沒有圓周率無法比較",
+        "trapCode": "U07_PERIMETER_SQUARE_ERR"
+      }
+    ],
+    "answer": "B",
+    "skipOptionNumMatch": true,
+    "check": {
+      "expr": "(20 / 2) * (20 / 2)",
+      "expect": "100",
+      "extraChecks": [
+        {
+          "expr": "2 * (10 / 2) * (10 / 2)",
+          "expect": "50"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否能把圓形也看成放大縮小圖，利用直徑 2 倍則面積 4 倍的生活直覺秒殺比大小。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><circle cx=\"95\" cy=\"72\" r=\"50\" fill=\"#fed7aa\" stroke=\"#ea580c\" stroke-width=\"3\"/><line x1=\"45\" y1=\"72\" x2=\"145\" y2=\"72\" stroke=\"#9a3412\" stroke-width=\"1.5\" stroke-dasharray=\"4,3\"/><line x1=\"95\" y1=\"22\" x2=\"95\" y2=\"122\" stroke=\"#9a3412\" stroke-width=\"1.5\" stroke-dasharray=\"4,3\"/><text x=\"95\" y=\"140\" font-size=\"12\" font-weight=\"700\" fill=\"#9a3412\" text-anchor=\"middle\">直徑 20 公分 ＝ 4 倍面積</text><text x=\"182\" y=\"78\" font-size=\"16\" font-weight=\"800\" fill=\"#dc2626\" text-anchor=\"middle\">＞</text><circle cx=\"250\" cy=\"72\" r=\"25\" fill=\"#fde68a\" stroke=\"#d97706\" stroke-width=\"2.5\"/><circle cx=\"312\" cy=\"72\" r=\"25\" fill=\"#fde68a\" stroke=\"#d97706\" stroke-width=\"2.5\"/><text x=\"281\" y=\"140\" font-size=\"12\" font-weight=\"700\" fill=\"#92400e\" text-anchor=\"middle\">2 片直徑 10 公分 ＝ 2 倍面積</text><text x=\"402\" y=\"64\" font-size=\"13\" font-weight=\"800\" fill=\"#dc2626\" text-anchor=\"middle\">1 片大的</text><text x=\"402\" y=\"88\" font-size=\"13\" font-weight=\"800\" fill=\"#dc2626\" text-anchor=\"middle\">足足多 1 倍！</text></svg>",
+          "caption": "大披薩直徑是小披薩的 2 倍，面積足足是小披薩的 4 倍，比 2 片小披薩還多出整整一倍。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：所有的圓形都是彼此的放大或縮小圖。大披薩直徑 20 公分，是小披薩直徑 10 公分的 2 倍。"
+        },
+        {
+          "type": "eq",
+          "expr": "直徑 2 倍 ➔ 面積變 2 × 2 ＝ 4 倍",
+          "unit": ""
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：1 片大披薩的份量等於 4 片小披薩，4 片當然比 2 片多很多。"
+        },
+        {
+          "type": "answer",
+          "text": "答：1 片大的比較多"
+        }
+      ],
+      "insight": "點披薩超實用數學：直徑 2 倍面積就變 4 倍；所以 1 個大披薩往往比買 2 個一半直徑的小披薩還划算。",
+      "distractorAnalysis": {
+        "A": "誤以為 2 片小披薩看起來比較多，沒有算出圓面積的平方倍數。",
+        "D": "不知道直徑 20 是 10 的 2 倍 ➔ 1 片大披薩面積 ＝ 10 × 10 × 4 ＝ 4 倍小披薩（贏過 2 片小的），不用算出 3.14 就能比較！",
+        "C": "最常見的生活直覺錯覺：以為 1 × 20 ＝ 2 × 10 所以一樣多，忘了面積是平方不是一次方。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "圓直徑變 2 倍 ➔ 圓周長變 2 倍，圓面積變 2 × 2 ＝ 4 倍"
+      ],
+      "conceptCompare": "如果問的是「披薩外圈烤餅皮的總長度（周長）」，1 個直徑 20 的周長才會剛好等於 2 個直徑 10 的周長和；但比吃的「面積」則是大披薩贏 2 倍！",
+      "examVariations": "生活素養題常把披薩換成「直徑 12 公分的蛋糕和 2 個直徑 6 公分的蛋糕」，結論一樣是大的比較多。"
+    }
+  },
+  {
+    "id": "U07-S3-M-055",
+    "legacyId": "u07_m15",
+    "unitId": "U07",
+    "section": "7-3",
+    "sectionName": "認識比例尺",
+    "category": "比例尺換算",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 8★",
+    "level": 8,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "在比例尺 1：25000 的地圖上量得一條道路長 4 公分，這條道路的實際長度是多少？",
+    "options": [
+      {
+        "key": "A",
+        "text": "4 公里",
+        "trapCode": "U07_SCALE_MUL_DIV_SWAP"
+      },
+      {
+        "key": "B",
+        "text": "10 公里",
+        "trapCode": "U07_SCALE_UNIT_MISMATCH"
+      },
+      {
+        "key": "C",
+        "text": "100 公尺",
+        "trapCode": "U07_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "1 公里",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "4 * 25000 / 100000",
+      "expect": "1"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否能利用 4 × 25 ＝ 100 快速心算比例尺實距，並正確把 100000 公分換算為 1 公里。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：地圖上每 1 公分代表實際 25000 公分，量得 4 公分就乘以 4。"
+        },
+        {
+          "type": "eq",
+          "expr": "25000 × 4 ＝ 100000",
+          "unit": "公分"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：100000 公分去掉 5 個 0（先除以 100 變 1000 公尺，再除以 1000），剛好就是 1 公里。"
+        },
+        {
+          "type": "eq",
+          "expr": "100000 ÷ 100000 ＝ 1",
+          "unit": "公里"
+        },
+        {
+          "type": "answer",
+          "text": "答：1 公里"
+        }
+      ],
+      "insight": "心算亮點：看到 25000 配上 4 公分，馬上用 25 × 4 ＝ 100 湊整，再加上 3 個 0 就是 100000 公分 ＝ 1 公里。",
+      "distractorAnalysis": {
+        "B": "單位換算少去掉一個 0，把 100000 公分錯算成 10 公里。",
+        "C": "把 100000 公分錯換成 100 公尺（多去掉一個 0）。",
+        "A": "誤把圖上的 4 公分當成實際距離 4 公里，或錯誤除以 25000。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "實際距離 ＝ 圖上距離 × 比例尺分母",
+        "100000 公分 ＝ 1000 公尺 ＝ 1 公里"
+      ],
+      "conceptCompare": "也可以先換單位再乘：比例尺 1：25000 代表 1 公分 ＝ 250 公尺，圖上 4 公分就是 250 × 4 ＝ 1000 公尺 ＝ 1 公里，數字更小更好算！",
+      "examVariations": "段考常考「1：25000 地圖上長 12 公分，實際是幾公里？」，利用 4 公分 ＝ 1 公里，12 公分立刻得出 3 公里。"
+    }
+  },
+  {
+    "id": "U07-RV-M-056",
+    "legacyId": "u07_m16",
+    "unitId": "U07",
+    "section": "REVIEW",
+    "sectionName": "單元綜合複習",
+    "category": "模型重量",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 8★",
+    "level": 8,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "用完全相同的實心材質，依長度比例尺 1：100 做出一台汽車模型，這個模型的重量大約是真實汽車的幾分之幾？",
+    "options": [
+      {
+        "key": "A",
+        "text": "1/1000000",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "1/10000",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      },
+      {
+        "key": "C",
+        "text": "1/100",
+        "trapCode": "U07_SCALE_UNIT_MISMATCH"
+      },
+      {
+        "key": "D",
+        "text": "一樣重",
+        "trapCode": "U07_CALC_SLIP"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "(1 / 100) * (1 / 100) * (1 / 100)",
+      "expect": "1/1000000"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否理解同材質實心物體的重量取決於「體積」，當長度縮小 1/100 時，體積與重量會縮成百萬分之一。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：相同材質的實心模型，重量和「體積」成正比，必須考慮長、寬、高三個方向。"
+        },
+        {
+          "type": "eq",
+          "expr": "1/100 × 1/100 × 1/100 ＝ 1/1000000",
+          "unit": ""
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：每次乘 100 會多出 2 個 0，連乘三次共有 6 個 0，所以是實車重量的 1000000 分之一。"
+        },
+        {
+          "type": "answer",
+          "text": "答：1/1000000"
+        }
+      ],
+      "insight": "真實世界驗證：1 台汽車重約 1000 公斤（1000000 公克），如果縮小 1：100 做成同材質實心模型，重量剛好約 1 公克，完全符合生活經驗。",
+      "distractorAnalysis": {
+        "B": "只乘了兩個 100（面積比例），忘了實心模型還有第三個維度（高度）。",
+        "D": "忽略材質相同下縮小體積會大幅變輕的事實。",
+        "C": "誤以為重量跟長度比例尺一樣，直接除以 100。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "同材質實心重量比 ＝ 體積比 ＝ 長度比連乘三次"
+      ],
+      "conceptCompare": "面積算 2 個方向（平方），體積與實心重量算 3 個方向（立方）；看清題目問的是「烤漆面積」還是「實心重量」，就能選對次數。",
+      "examVariations": "若改問「在模型車表面噴漆所需的油漆量大約是實車的幾分之幾？」，油漆塗在表面看面積，答案就會是 1/10000。"
+    }
+  },
+  {
+    "id": "U07-S3-M-057",
+    "legacyId": "u07_m17",
+    "unitId": "U07",
+    "section": "7-3",
+    "sectionName": "認識比例尺",
+    "category": "兩張地圖",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 9★",
+    "level": 9,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "同一個長方形操場，畫在比例尺 1：2000 的地圖上，圖上面積是畫在 1：5000 地圖上面積的幾倍？",
+    "options": [
+      {
+        "key": "A",
+        "text": "2.5 倍",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      },
+      {
+        "key": "B",
+        "text": "25 倍",
+        "trapCode": "U07_DUAL_MAP_RATIO_ERR"
+      },
+      {
+        "key": "C",
+        "text": "5 倍",
+        "trapCode": "U07_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "6.25 倍",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "(5000 / 2000) * (5000 / 2000)",
+      "expect": "6.25"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生在兩張不同比例尺地圖之間，是否能先求出「圖上長度的倍率」，再平方求得「圖上面積倍率」。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><rect x=\"45\" y=\"58\" width=\"48\" height=\"30\" fill=\"#f1f5f9\" stroke=\"#64748b\" stroke-width=\"2\"/><text x=\"69\" y=\"48\" font-size=\"12\" font-weight=\"700\" fill=\"#475569\" text-anchor=\"middle\">1：5000 地圖</text><text x=\"69\" y=\"110\" font-size=\"12\" fill=\"#475569\" text-anchor=\"middle\">邊長 1 份</text><text x=\"152\" y=\"76\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">長度 2.5 倍 ➔</text><rect x=\"210\" y=\"32\" width=\"120\" height=\"75\" fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><text x=\"270\" y=\"22\" font-size=\"13\" font-weight=\"700\" fill=\"#1e40af\" text-anchor=\"middle\">1：2000 地圖（畫得較大）</text><text x=\"270\" y=\"128\" font-size=\"12\" font-weight=\"700\" fill=\"#1e40af\" text-anchor=\"middle\">長變 2.5 倍，寬也變 2.5 倍</text><text x=\"398\" y=\"64\" font-size=\"13\" font-weight=\"800\" fill=\"#dc2626\" text-anchor=\"middle\">面積倍數</text><text x=\"398\" y=\"88\" font-size=\"15\" font-weight=\"800\" fill=\"#dc2626\" text-anchor=\"middle\">6.25 倍</text></svg>",
+          "caption": "1：2000 縮得比較少，同一個操場的圖上長與寬都是 1：5000 地圖的 2.5 倍，面積就是 2.5 × 2.5 ＝ 6.25 倍。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：先比兩張地圖上的「邊長」倍數：實際操場大小固定，1/2000 除以 1/5000，等於拿後項相除。"
+        },
+        {
+          "type": "eq",
+          "expr": "5000 ÷ 2000 ＝ 2.5",
+          "unit": "倍（圖上長度倍數）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：長與寬都變 2.5 倍，面積再相乘。"
+        },
+        {
+          "type": "eq",
+          "expr": "2.5 × 2.5 ＝ 6.25",
+          "unit": "倍"
+        },
+        {
+          "type": "answer",
+          "text": "答：6.25 倍"
+        }
+      ],
+      "insight": "兩張地圖比大小口訣：「先確定哪張畫得大（分母小的大），拿兩個分母相除得長度倍數，問面積就再平方」。",
+      "distractorAnalysis": {
+        "A": "正確算出長度是 2.5 倍，但忘記題目問的是「面積」，少了平方這一步。",
+        "C": "誤把 2.5 × 2 算成 5 倍，而不是 2.5 × 2.5。",
+        "B": "比例尺分母相除錯算成 5 倍，再平方錯算成 25 倍。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "兩圖長度倍率 ＝ (1/2000) ÷ (1/5000) ＝ 5000 ÷ 2000 ＝ 2.5 倍",
+        "兩圖面積倍率 ＝ 2.5 × 2.5 ＝ 6.25 倍"
+      ],
+      "conceptCompare": "也可以用假設數值法驗證：假設操場實際長 100 公尺（10000 公分），在 1：2000 圖上長 5 公分，在 1：5000 圖上長 2 公分，5 ÷ 2 ＝ 2.5 倍！",
+      "examVariations": "段考常考給定 A 圖面積（如 16 平方公分）求 B 圖面積，先算面積倍率再乘或除即可。"
+    }
+  },
+  {
+    "id": "U07-S2-M-058",
+    "legacyId": "u07_m18",
+    "unitId": "U07",
+    "section": "7-2",
+    "sectionName": "繪製放大圖和縮小圖",
+    "category": "中點三角形",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 9★",
+    "level": 9,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "把一個三角形三條邊的中點連起來，在中間圍成一個倒立的小三角形。這個小三角形的面積是原來大三角形面積的幾分之幾？",
+    "options": [
+      {
+        "key": "A",
+        "text": "1/2",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      },
+      {
+        "key": "B",
+        "text": "1/4",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "1/3",
+        "trapCode": "U07_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "1/8",
+        "trapCode": "U07_RELATIVE_SCALE_ERR"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "(1 / 2) * (1 / 2)",
+      "expect": "1/4"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否能同時從「幾何切割成 4 等份」與「邊長 1/2 縮小圖面積 1/4」兩個角度理解中點連線性質。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><polygon points=\"130,18 45,126 215,126\" fill=\"#f1f5f9\" stroke=\"#334155\" stroke-width=\"2.5\"/><polygon points=\"87.5,72 172.5,72 130,126\" fill=\"#fde68a\" stroke=\"#dc2626\" stroke-width=\"2.5\"/><text x=\"130\" y=\"56\" font-size=\"13\" font-weight=\"700\" fill=\"#475569\" text-anchor=\"middle\">1</text><text x=\"130\" y=\"103\" font-size=\"14\" font-weight=\"800\" fill=\"#dc2626\" text-anchor=\"middle\">2</text><text x=\"87\" y=\"114\" font-size=\"13\" font-weight=\"700\" fill=\"#475569\" text-anchor=\"middle\">3</text><text x=\"173\" y=\"114\" font-size=\"13\" font-weight=\"700\" fill=\"#475569\" text-anchor=\"middle\">4</text><text x=\"335\" y=\"48\" font-size=\"13\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">三條中點連線切成 4 塊一樣大</text><text x=\"335\" y=\"80\" font-size=\"12\" font-weight=\"800\" fill=\"#dc2626\" text-anchor=\"middle\">邊長縮為 1/2 ➔ 面積 1/2 × 1/2 ＝ 1/4</text><text x=\"335\" y=\"110\" font-size=\"13\" fill=\"#475569\" text-anchor=\"middle\">黃色剛好佔整塊的 1/4</text></svg>",
+          "caption": "三條中點連線會把原三角形平分成 4 個全等的小三角形，每一塊邊長都是原來的一半、面積是 1/4。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：把三邊中點連起來，會剛好把原本的大三角形切出 4 個形狀與大小完全相同的小三角形。"
+        },
+        {
+          "type": "eq",
+          "expr": "1 ÷ 4 ＝ 1/4",
+          "unit": ""
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：用放大縮小圖來看也完全相通：小三角形每邊都是大三角形的 1/2，所以面積是 1/2 × 1/2 ＝ 1/4。"
+        },
+        {
+          "type": "answer",
+          "text": "答：1/4"
+        }
+      ],
+      "insight": "「圖形切 4 等份」與「邊長 1/2 ➔ 面積 1/4」兩種思路得出完全一樣的答案，這就是數學之美。",
+      "distractorAnalysis": {
+        "A": "因為取的是各邊「中點（一半）」，就誤以為面積也變成一半（1/2）。",
+        "D": "誤套用了立體圖形的立方（1/2 × 1/2 × 1/2 ＝ 1/8）。",
+        "C": "只數邊角切出的 3 個三角形，漏算中間倒立的那第 4 塊一樣大的小三角形，誤當成只有 3 塊。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "連接三角形三邊中點 ➔ 分成 4 個全等小三角形，每個面積是原來的 1/4"
+      ],
+      "conceptCompare": "如果把中間那個小三角形的三邊中點再連一次，又會變成 1/4 的 1/4，也就是原三角形面積的 1/16！",
+      "examVariations": "奧數與資優題常連續取 2 到 3 次中點連線，問最小三角形的面積，每次乘以 1/4 即可秒解。"
+    }
+  },
+  {
+    "id": "U07-RV-M-059",
+    "legacyId": "u07_m19",
+    "unitId": "U07",
+    "section": "REVIEW",
+    "sectionName": "單元綜合複習",
+    "category": "巨人悖論",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 10★",
+    "level": 10,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "假設一個巨人身體每個方向的長度都放大成一般人的 10 倍，體重也依照體積比例增加。他每平方公分腿骨必須承受的重量是一般人的幾倍？",
+    "options": [
+      {
+        "key": "A",
+        "text": "10 倍",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "一樣重（1 倍）",
+        "trapCode": "U07_PERIMETER_SQUARE_ERR"
+      },
+      {
+        "key": "C",
+        "text": "100 倍",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      },
+      {
+        "key": "D",
+        "text": "1000 倍",
+        "trapCode": "U07_CALC_SLIP"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "(10 * 10 * 10) / (10 * 10)",
+      "expect": "10"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否能同時比較「體積（立方倍）」與「截面積（平方倍）」的成長速度，理解物理與生物的平方—立方規律。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><rect x=\"25\" y=\"22\" width=\"135\" height=\"106\" rx=\"8\" fill=\"#f8fafc\" stroke=\"#64748b\" stroke-width=\"2\"/><text x=\"92\" y=\"50\" font-size=\"14\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"middle\">一般人（1 倍）</text><text x=\"92\" y=\"78\" font-size=\"13\" fill=\"#475569\" text-anchor=\"middle\">體重：1 份</text><text x=\"92\" y=\"104\" font-size=\"13\" fill=\"#475569\" text-anchor=\"middle\">骨頭截面積：1 份</text><text x=\"195\" y=\"78\" font-size=\"13\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">放大 10 倍 ➔</text><rect x=\"232\" y=\"22\" width=\"202\" height=\"106\" rx=\"8\" fill=\"#fef2f2\" stroke=\"#dc2626\" stroke-width=\"2.5\"/><text x=\"333\" y=\"48\" font-size=\"14\" font-weight=\"800\" fill=\"#991b1b\" text-anchor=\"middle\">巨人（身高 10 倍）</text><text x=\"333\" y=\"74\" font-size=\"13\" font-weight=\"700\" fill=\"#b91c1c\" text-anchor=\"middle\">體重（體積）：1000 倍</text><text x=\"333\" y=\"96\" font-size=\"13\" font-weight=\"700\" fill=\"#1d4ed8\" text-anchor=\"middle\">骨截面積（面積）：100 倍</text><text x=\"333\" y=\"118\" font-size=\"13\" font-weight=\"800\" fill=\"#dc2626\" text-anchor=\"middle\">1000 ÷ 100 ＝ 每格扛 10 倍重！</text></svg>",
+          "caption": "體重隨體積暴增 1000 倍，但腿骨截面積只增加 100 倍，每平方公分骨頭要多扛 10 倍重量。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：身體長、寬、高都變 10 倍，體重跟著體積一起暴增。"
+        },
+        {
+          "type": "eq",
+          "expr": "體重倍數 ＝ 10 × 10 × 10 ＝ 1000",
+          "unit": "倍"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：骨頭橫切面的面積只看長和寬兩個方向，只增加 100 倍；把總重量平均分給截面積："
+        },
+        {
+          "type": "eq",
+          "expr": "1000 ÷ 100 ＝ 10",
+          "unit": "倍"
+        },
+        {
+          "type": "answer",
+          "text": "答：10 倍"
+        }
+      ],
+      "insight": "這就是自然界著名的「平方—立方定律」：動物若直接放大 10 倍，骨頭承受壓力會變 10 倍而斷裂，所以大象腿必須特別粗壯，現實中也不可能出現 18 公尺高的巨人。",
+      "distractorAnalysis": {
+        "C": "只算出腿骨截面積變 100 倍，忘了用體重 1000 倍去除。",
+        "D": "只算出體重變 1000 倍，忘了腿骨也同時變粗成 100 倍截面積。",
+        "B": "誤以為全身一起放大 10 倍，負荷就會互相抵銷而維持 1 倍。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "單位面積壓力比 ＝ 體積倍數 ÷ 截面積倍數 ＝ (10 × 10 × 10) ÷ (10 × 10) ＝ 10 倍"
+      ],
+      "conceptCompare": "長度 10 倍 ➔ 面積 100 倍 ➔ 體積 1000 倍；三者倍數差距在放大倍率很大時會非常驚人。",
+      "examVariations": "科普素養題常問「小昆蟲如果等比例放大成 100 倍，為什麼反而會被自己的重量壓垮？」，也是同樣的立方對平方落差。"
+    }
+  },
+  {
+    "id": "U07-S1-M-060",
+    "legacyId": "u07_m20",
+    "unitId": "U07",
+    "section": "7-1",
+    "sectionName": "認識放大圖與縮小圖",
+    "category": "面積增加率",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 10★",
+    "level": 10,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "一個正方形的邊長增加 10%，它的面積會增加百分之幾？",
+    "options": [
+      {
+        "key": "A",
+        "text": "10%",
+        "trapCode": "U07_AREA_LINEAR_SCALE"
+      },
+      {
+        "key": "B",
+        "text": "21%",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "20%",
+        "trapCode": "U07_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "100%",
+        "trapCode": "U07_CALC_SLIP"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "(11 * 11 - 100) / 100",
+      "expect": "21/100"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否能把「邊長增加 10%」轉成 1.1 倍放大圖，並算出新面積多出來的角落小方塊（1%）。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><g transform=\"translate(55,15)\"><rect x=\"0\" y=\"0\" width=\"85\" height=\"85\" fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"2\"/><rect x=\"85\" y=\"0\" width=\"17\" height=\"85\" fill=\"#bbf7d0\" stroke=\"#16a34a\" stroke-width=\"1.5\"/><rect x=\"0\" y=\"85\" width=\"85\" height=\"17\" fill=\"#bbf7d0\" stroke=\"#16a34a\" stroke-width=\"1.5\"/><rect x=\"85\" y=\"85\" width=\"17\" height=\"17\" fill=\"#fca5a5\" stroke=\"#dc2626\" stroke-width=\"2\"/><text x=\"42\" y=\"48\" font-size=\"13\" font-weight=\"700\" fill=\"#1e3a8a\" text-anchor=\"middle\">原面積 100%</text><text x=\"93\" y=\"48\" font-size=\"10\" font-weight=\"700\" fill=\"#15803d\" text-anchor=\"middle\">+10%</text><text x=\"42\" y=\"98\" font-size=\"11\" font-weight=\"700\" fill=\"#15803d\" text-anchor=\"middle\">+10%</text><text x=\"122\" y=\"98\" font-size=\"12\" font-weight=\"800\" fill=\"#dc2626\">多 1%</text><text x=\"51\" y=\"124\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"middle\">10% + 10% + 1% ＝ 21%</text></g><text x=\"322\" y=\"48\" font-size=\"14\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">邊長增加 10% ＝ 變成 1.1 倍</text><text x=\"322\" y=\"78\" font-size=\"15\" font-weight=\"800\" fill=\"#2563eb\" text-anchor=\"middle\">1.1 × 1.1 ＝ 1.21（121%）</text><text x=\"322\" y=\"108\" font-size=\"14\" font-weight=\"800\" fill=\"#dc2626\" text-anchor=\"middle\">121% − 100% ＝ 增加 21%</text></svg>",
+          "caption": "右邊和下方各多出 10% 長條，但右下角還補上一塊 10% × 10% ＝ 1% 的紅色小角，合計增加 21%。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：原本邊長當作 1，增加 10%（0.1）後，新邊長變成原來的 1.1 倍。"
+        },
+        {
+          "type": "eq",
+          "expr": "1.1 × 1.1 ＝ 1.21",
+          "unit": "倍（即 121%）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：減掉原本的面積 1（100%），算出增加的百分率。"
+        },
+        {
+          "type": "eq",
+          "expr": "1.21 − 1 ＝ 0.21 ＝ 21%",
+          "unit": ""
+        },
+        {
+          "type": "answer",
+          "text": "答：21%"
+        }
+      ],
+      "insight": "這題最快的檢查法：假設原邊長 10 公分（面積 100），增加 10% 變 11 公分（面積 121），一眼就看出增加 21%。",
+      "distractorAnalysis": {
+        "A": "直接把邊長增加率 10% 當成面積增加率。",
+        "D": "把 10% 平方誤算成 10 × 10 ＝ 100%。",
+        "C": "只想到右邊加 10%、下面加 10%，合計 20%，漏掉了右下角那塊 0.1 × 0.1 ＝ 1% 的小正方形。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "邊長增加 10% ➔ 面積變成 1.1 × 1.1 ＝ 1.21 倍 ➔ 面積增加 21%"
+      ],
+      "conceptCompare": "反過來如果是「邊長減少 10%」，新邊長變成 0.9 倍，面積變 0.9 × 0.9 ＝ 0.81 倍，所以面積減少 19%（而不是 20%）。",
+      "examVariations": "段考壓軸題會改成「長方形的長增加 20%、寬減少 10%，面積變成原來的幾%？」，直接算 1.2 × 0.9 ＝ 1.08，即增加 8%。"
+    }
+  },
+  {
+    "id": "U08-S1-B-001",
+    "legacyId": "u08_001",
+    "unitId": "U08",
+    "section": "8-1",
+    "sectionName": "間隔問題",
+    "category": "間隔問題",
     "batch": "課本原型題",
     "source": "課本 p.119",
-    "verified": false,
-    "question": "圓形蛋糕的圓周長是 30 公分，沿著周圍每隔 6 公分擠一朵奶油花，共要擠幾朵？",
-    "answer": "5 朵",
-    "steps": [
-      "圓形是封閉的：花朵數 = 間隔數",
-      "30 ÷ 6 = 5"
-    ],
-    "insight": "封閉圖形沒有「端點」，所以不用 +1 也不用 −1。",
-    "trap": {
-      "code": "ERR_INTERVAL_OFF_BY_ONE",
-      "text": "套用直線公式算成 6 朵。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u08_003",
-    "unitId": "U08",
-    "category": "間隔問題",
     "level": 1,
     "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "一座長 80 公尺的橋，在橋的一側每隔 20 公尺設一盞路燈。比較「兩端都設」和「兩端都不設」兩種設法，兩端都設比兩端都不設多設幾盞路燈？",
+    "options": [
+      {
+        "key": "A",
+        "text": "多 2 盞",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "多 1 盞",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "C",
+        "text": "多 4 盞",
+        "trapCode": "U08_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "一樣多",
+        "trapCode": "U08_CLOSED_LOOP_ADD_ONE"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "(80 / 20 + 1) - (80 / 20 - 1)",
+      "expect": "2",
+      "extraChecks": [
+        {
+          "expr": "80 / 20 + 1",
+          "expect": "5"
+        },
+        {
+          "expr": "80 / 20 - 1",
+          "expect": "3"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否理解直線上植樹／設路燈三種端點條件（「兩端都設」、「只設一端」、「兩端都不設」）與間隔數之間的加減 1 關係。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "先算橋長 80 公尺，每隔 20 公尺設一盞路燈，共有幾個間隔："
+        },
+        {
+          "type": "eq",
+          "expr": "80 ÷ 20 ＝ 4",
+          "unit": "個間隔"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 155\" xmlns=\"http://www.w3.org/2000/svg\"><text x=\"10\" y=\"34\" font-size=\"13\" font-weight=\"700\" fill=\"#1e293b\">兩端都設</text><line x1=\"115\" y1=\"30\" x2=\"375\" y2=\"30\" stroke=\"#94a3b8\" stroke-width=\"4\"/><circle cx=\"115\" cy=\"30\" r=\"7\" fill=\"#e11d48\"/><circle cx=\"180\" cy=\"30\" r=\"7\" fill=\"#2563eb\"/><circle cx=\"245\" cy=\"30\" r=\"7\" fill=\"#2563eb\"/><circle cx=\"310\" cy=\"30\" r=\"7\" fill=\"#2563eb\"/><circle cx=\"375\" cy=\"30\" r=\"7\" fill=\"#e11d48\"/><text x=\"420\" y=\"34\" font-size=\"13\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">5 盞</text><text x=\"10\" y=\"78\" font-size=\"13\" font-weight=\"700\" fill=\"#1e293b\">只設一端</text><line x1=\"115\" y1=\"74\" x2=\"375\" y2=\"74\" stroke=\"#94a3b8\" stroke-width=\"4\"/><circle cx=\"115\" cy=\"74\" r=\"7\" fill=\"#2563eb\"/><circle cx=\"180\" cy=\"74\" r=\"7\" fill=\"#2563eb\"/><circle cx=\"245\" cy=\"74\" r=\"7\" fill=\"#2563eb\"/><circle cx=\"310\" cy=\"74\" r=\"7\" fill=\"#2563eb\"/><circle cx=\"375\" cy=\"74\" r=\"7\" fill=\"#ffffff\" stroke=\"#94a3b8\" stroke-width=\"2\"/><text x=\"420\" y=\"78\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">4 盞</text><text x=\"10\" y=\"122\" font-size=\"13\" font-weight=\"700\" fill=\"#1e293b\">兩端都不設</text><line x1=\"115\" y1=\"118\" x2=\"375\" y2=\"118\" stroke=\"#94a3b8\" stroke-width=\"4\"/><circle cx=\"115\" cy=\"118\" r=\"7\" fill=\"#ffffff\" stroke=\"#94a3b8\" stroke-width=\"2\"/><circle cx=\"180\" cy=\"118\" r=\"7\" fill=\"#2563eb\"/><circle cx=\"245\" cy=\"118\" r=\"7\" fill=\"#2563eb\"/><circle cx=\"310\" cy=\"118\" r=\"7\" fill=\"#2563eb\"/><circle cx=\"375\" cy=\"118\" r=\"7\" fill=\"#ffffff\" stroke=\"#94a3b8\" stroke-width=\"2\"/><text x=\"420\" y=\"122\" font-size=\"13\" font-weight=\"700\" fill=\"#059669\" text-anchor=\"middle\">3 盞</text><text x=\"245\" y=\"148\" font-size=\"12\" font-weight=\"700\" fill=\"#475569\" text-anchor=\"middle\">4 個 20 公尺間隔，兩端多設出 2 盞紅燈</text></svg>",
+          "caption": "橋長 80 公尺分為 4 個間隔，三種設法的路燈數量對照圖"
+        },
+        {
+          "type": "eq",
+          "expr": "兩端都設 ＝ 4 ＋ 1 ＝ 5",
+          "unit": "盞"
+        },
+        {
+          "type": "eq",
+          "expr": "只設一端 ＝ 4",
+          "unit": "盞"
+        },
+        {
+          "type": "eq",
+          "expr": "兩端都不設 ＝ 4 − 1 ＝ 3",
+          "unit": "盞"
+        },
+        {
+          "type": "eq",
+          "expr": "5 − 3 ＝ 2",
+          "unit": "盞"
+        },
+        {
+          "type": "answer",
+          "text": "答：多 2 盞"
+        }
+      ],
+      "insight": "手指模型：5 根手指之間有 4 個指縫。直線上兩端都有比兩端都沒有剛好多了頭尾那 2 個端點。",
+      "distractorAnalysis": {
+        "C": "直接拿間隔數 80 ÷ 20 ＝ 4 當成差額，沒有分辨三種設法各自的加減 1。",
+        "D": "誤套用封閉圖形的觀念，以為起點與終點重疊而不會改變路燈總數。",
+        "B": "誤把「兩端都設」只看成 4 盞（或只比較兩端都設 5 盞與只設一端 4 盞），少算了另一端的差距。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "間隔數 ＝ 總長 ÷ 間隔長",
+        "兩端都設 ＝ 間隔數 ＋ 1；只設一端 ＝ 間隔數；兩端都不設 ＝ 間隔數 − 1"
+      ],
+      "conceptCompare": "「兩端都設」和「兩端都不設」永遠相差 2 盞，與總長有幾個間隔無關。",
+      "examVariations": "段考常考「橋的兩側都要設路燈」，算出單側盞數後記得最後還要乘以 2。"
+    }
+  },
+  {
+    "id": "U08-S1-B-002",
+    "legacyId": "u08_002",
+    "unitId": "U08",
+    "section": "8-1",
+    "sectionName": "間隔問題",
+    "category": "間隔問題",
+    "batch": "課本原型題",
+    "source": "課本 p.119",
+    "level": 1,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "圓形蛋糕的圓周長是 30 公分，沿著周圍每隔 6 公分擠一朵奶油花，共要擠幾朵奶油花？",
+    "options": [
+      {
+        "key": "A",
+        "text": "6 朵",
+        "trapCode": "U08_CLOSED_LOOP_ADD_ONE"
+      },
+      {
+        "key": "B",
+        "text": "4 朵",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "C",
+        "text": "5 朵",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "24 朵",
+        "trapCode": "U08_CALC_SLIP"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "30 / 6",
+      "expect": "5"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否知道「封閉圓形」沒有起點與終點的區分，物體數量直接等於間隔數。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 150\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"130\" cy=\"75\" r=\"50\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"3\"/><circle cx=\"130\" cy=\"25\" r=\"8\" fill=\"#e11d48\"/><circle cx=\"178\" cy=\"60\" r=\"8\" fill=\"#e11d48\"/><circle cx=\"159\" cy=\"115\" r=\"8\" fill=\"#e11d48\"/><circle cx=\"101\" cy=\"115\" r=\"8\" fill=\"#e11d48\"/><circle cx=\"82\" cy=\"60\" r=\"8\" fill=\"#e11d48\"/><text x=\"130\" y=\"80\" font-size=\"13\" font-weight=\"700\" fill=\"#92400e\" text-anchor=\"middle\">圓周 30 公分</text><text x=\"235\" y=\"52\" font-size=\"13\" font-weight=\"700\" fill=\"#1e293b\">封閉圓形沒有端點：</text><text x=\"235\" y=\"82\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\">1 朵花對 1 個 6 公分間隔</text><text x=\"235\" y=\"112\" font-size=\"13\" font-weight=\"700\" fill=\"#e11d48\">花朵數 ＝ 間隔數 ＝ 5 朵</text></svg>",
+          "caption": "圓形蛋糕封閉圖形示意圖：5 個 6 公分間隔正好對應 5 朵奶油花"
+        },
+        {
+          "type": "text",
+          "text": "圓形是首尾相接的封閉圖形，所以「花朵數 ＝ 間隔數」，直接用圓周長除以間隔長："
+        },
+        {
+          "type": "eq",
+          "expr": "30 ÷ 6 ＝ 5",
+          "unit": "朵"
+        },
+        {
+          "type": "answer",
+          "text": "答：5 朵"
+        }
+      ],
+      "insight": "封閉圖形（圓形、正方形、長方形周圍）沒有端點，所以點數直接等於間隔數，不用加 1 也不用減 1。",
+      "distractorAnalysis": {
+        "A": "誤套用直線「兩端都設」公式，算出 30 ÷ 6 ＝ 5 後又多加 1 朵變成 6 朵。",
+        "B": "誤套用直線「兩端都不設」公式，算出 5 後又減 1 變成 4 朵。",
+        "D": "未看清「每隔 6 公分」，誤用減法 30 − 6 ＝ 24。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "封閉圖形：物體數量 ＝ 間隔數 ＝ 總周長 ÷ 間隔長"
+      ],
+      "conceptCompare": "把圓形剪開拉直時，起點與終點原本是重疊的同一朵花，拉直後才等同「只種一端」，因此不需加 1。",
+      "examVariations": "若題目改成「正五邊形蛋糕每邊邊長 6 公分，沿著周圍每隔 3 公分擠一朵花」，也是封閉圖形，直接 30 ÷ 3 ＝ 10 朵。"
+    }
+  },
+  {
+    "id": "U08-S1-B-003",
+    "legacyId": "u08_003",
+    "unitId": "U08",
+    "section": "8-1",
+    "sectionName": "間隔問題",
+    "category": "間隔問題",
     "batch": "課本原型題",
     "source": "課本 p.120",
-    "verified": false,
+    "level": 1,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
     "question": "圓形池塘的周長是 1080 公尺，沿著池塘周圍設置 20 個告示牌，每個間隔一樣長。每個間隔長幾公尺？",
-    "answer": "54 公尺",
-    "steps": [
-      "封閉圖形：間隔數 = 告示牌數 = 20",
-      "1080 ÷ 20 = 54"
+    "options": [
+      {
+        "key": "A",
+        "text": "60 公尺",
+        "trapCode": "U08_CALC_SLIP"
+      },
+      {
+        "key": "B",
+        "text": "55 公尺",
+        "trapCode": "U08_CLOSED_LOOP_ADD_ONE"
+      },
+      {
+        "key": "C",
+        "text": "53 公尺",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "D",
+        "text": "54 公尺",
+        "trapCode": null
+      }
     ],
-    "trap": {
-      "code": "ERR_INTERVAL_OFF_BY_ONE",
-      "text": "用 1080 ÷ 19 計算。"
+    "answer": "D",
+    "check": {
+      "expr": "1080 / 20",
+      "expect": "54"
     },
-    "work": "sm"
+    "explanation": {
+      "examPurpose": "測驗學生能否反向利用「封閉圖形間隔數 ＝ 告示牌數」，再由總周長除以間隔數求出每個間隔長。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 135\" xmlns=\"http://www.w3.org/2000/svg\"><ellipse cx=\"135\" cy=\"68\" rx=\"95\" ry=\"45\" fill=\"#e0f2fe\" stroke=\"#0284c7\" stroke-width=\"3\"/><circle cx=\"40\" cy=\"68\" r=\"5\" fill=\"#e11d48\"/><circle cx=\"68\" cy=\"35\" r=\"5\" fill=\"#e11d48\"/><circle cx=\"135\" cy=\"23\" r=\"5\" fill=\"#e11d48\"/><circle cx=\"202\" cy=\"35\" r=\"5\" fill=\"#e11d48\"/><circle cx=\"230\" cy=\"68\" r=\"5\" fill=\"#e11d48\"/><text x=\"135\" y=\"72\" font-size=\"13\" font-weight=\"700\" fill=\"#0369a1\" text-anchor=\"middle\">池塘周長 1080 公尺</text><text x=\"260\" y=\"50\" font-size=\"13\" font-weight=\"700\" fill=\"#1e293b\">封閉池塘周圍：</text><text x=\"260\" y=\"78\" font-size=\"13\" font-weight=\"700\" fill=\"#e11d48\">20 個告示牌 ＝ 20 個間隔</text><text x=\"260\" y=\"106\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\">1080 ÷ 20 ＝ 54 公尺</text></svg>",
+          "caption": "圓形池塘周長 1080 公尺，20 個告示牌平均分成 20 個間隔"
+        },
+        {
+          "type": "text",
+          "text": "池塘是封閉圓形，所以「間隔數 ＝ 告示牌數 ＝ 20」。將周長平分成 20 個間隔："
+        },
+        {
+          "type": "eq",
+          "expr": "1080 ÷ 20 ＝ 54",
+          "unit": "公尺"
+        },
+        {
+          "type": "answer",
+          "text": "答：54 公尺"
+        }
+      ],
+      "insight": "封閉圖形求間隔長：先確定「間隔數 ＝ 物件數」，再用「總周長 ÷ 間隔數」。",
+      "distractorAnalysis": {
+        "B": "算出 1080 ÷ 20 ＝ 54 後，誤以為封閉圖形最後還要再加 1，答成 55 公尺。",
+        "C": "誤套用加減 1 觀念，將正確商 54 減 1 變成 53 公尺。",
+        "A": "除法計算 1080 ÷ 20 時退位與乘法檢核失誤（誤將 108 ÷ 2 算成 60）。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "每個間隔長 ＝ 總周長 ÷ 間隔數",
+        "封閉圖形：間隔數 ＝ 告示牌數"
+      ],
+      "conceptCompare": "求間隔長時要先判斷題目給的是「直線」還是「封閉圖形」，才不會算錯總間隔數。",
+      "examVariations": "若題目問「從第 1 個告示牌走到第 5 個告示牌走了幾公尺？」，共有 5 − 1 ＝ 4 個間隔，距離是 54 × 4 ＝ 216 公尺。"
+    }
   },
   {
-    "id": "u08_004",
+    "id": "U08-S1-B-004",
+    "legacyId": "u08_004",
     "unitId": "U08",
+    "section": "8-1",
+    "sectionName": "間隔問題",
     "category": "間隔問題",
-    "level": 1,
-    "difficulty": 2,
     "batch": "課本原型題",
     "source": "課本 p.120",
-    "verified": false,
+    "level": 1,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
     "question": "卡丁車跑道周長 700 公尺，沿著跑道設置 25 個指標牌，每個間隔一樣長。每個間隔長幾公尺？",
-    "answer": "28 公尺",
-    "steps": [
-      "封閉跑道：間隔數 = 指標牌數 = 25",
-      "700 ÷ 25 = 28"
+    "options": [
+      {
+        "key": "A",
+        "text": "28 公尺",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "27 公尺",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "C",
+        "text": "35 公尺",
+        "trapCode": "U08_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "29 公尺",
+        "trapCode": "U08_CLOSED_LOOP_ADD_ONE"
+      }
     ],
-    "work": "sm"
+    "answer": "A",
+    "check": {
+      "expr": "700 / 25",
+      "expect": "28"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否能辨識卡丁車封閉賽道也是「封閉圖形」，間隔數等於指標牌個數。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "卡丁車跑道繞一圈回到起點，屬於封閉圖形，所以間隔數 ＝ 指標牌數 ＝ 25。"
+        },
+        {
+          "type": "eq",
+          "expr": "700 ÷ 25 ＝ 28",
+          "unit": "公尺"
+        },
+        {
+          "type": "answer",
+          "text": "答：28 公尺"
+        }
+      ],
+      "insight": "不管跑道是圓形還是不規則封閉賽道，只要繞一圈回到原點，間隔數就一定等於指標牌數。",
+      "distractorAnalysis": {
+        "B": "算出 28 後誤以為要再減 1，答成 27 公尺。",
+        "C": "700 ÷ 25 計算失誤，誤把 700 ÷ 20 ＝ 35 當成答案。",
+        "D": "算出 28 後誤套直線植樹口訣多加 1，答成 29 公尺。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "封閉跑道：每個間隔長 ＝ 跑道總周長 ÷ 指標牌數"
+      ],
+      "conceptCompare": "封閉圖形不限於正圓，只要頭尾相連的操場跑道、正方形花圃或池塘，全部適用「物件數 ＝ 間隔數」。",
+      "examVariations": "若改問「如果每個間隔縮短成 20 公尺，需要幾個指標牌？」，則計算 700 ÷ 20 ＝ 35 個。"
+    }
   },
   {
-    "id": "u08_005",
+    "id": "U08-S1-B-005",
+    "legacyId": "u08_005",
     "unitId": "U08",
+    "section": "8-1",
+    "sectionName": "間隔問題",
     "category": "間隔問題",
-    "level": 1,
-    "difficulty": 3,
     "batch": "課本原型題",
     "source": "課本 p.121 練習",
-    "verified": false,
+    "level": 1,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
     "question": "長 80 公尺的走廊，在一側擺放 16 盆花，起點不擺、終點擺，每個間隔一樣長。每個間隔長幾公尺？",
-    "answer": "5 公尺",
-    "steps": [
-      "只有一端擺：間隔數 = 花盆數 = 16",
-      "80 ÷ 16 = 5"
+    "options": [
+      {
+        "key": "A",
+        "text": "4 公尺",
+        "trapCode": "U08_CLOSED_LOOP_ADD_ONE"
+      },
+      {
+        "key": "B",
+        "text": "6 公尺",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "C",
+        "text": "5 公尺",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "10 公尺",
+        "trapCode": "U08_CALC_SLIP"
+      }
     ],
-    "trap": {
-      "code": "ERR_INTERVAL_OFF_BY_ONE",
-      "text": "用 80 ÷ 15 或 80 ÷ 17。"
+    "answer": "C",
+    "check": {
+      "expr": "80 / 16",
+      "expect": "5"
     },
-    "work": "sm"
+    "explanation": {
+      "examPurpose": "測驗學生是否理解直線上「只有一端擺（起點不擺、終點擺）」時，花盆數剛好等於間隔數。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 120\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"40\" y1=\"50\" x2=\"420\" y2=\"50\" stroke=\"#64748b\" stroke-width=\"3\"/><circle cx=\"40\" cy=\"50\" r=\"7\" fill=\"#ffffff\" stroke=\"#94a3b8\" stroke-width=\"2\"/><circle cx=\"116\" cy=\"50\" r=\"7\" fill=\"#059669\"/><circle cx=\"192\" cy=\"50\" r=\"7\" fill=\"#059669\"/><circle cx=\"344\" cy=\"50\" r=\"7\" fill=\"#059669\"/><circle cx=\"420\" cy=\"50\" r=\"7\" fill=\"#059669\"/><text x=\"40\" y=\"30\" font-size=\"12\" fill=\"#64748b\" text-anchor=\"middle\">起點不擺</text><text x=\"420\" y=\"30\" font-size=\"12\" font-weight=\"700\" fill=\"#059669\" text-anchor=\"middle\">終點擺</text><text x=\"268\" y=\"54\" font-size=\"16\" fill=\"#475569\" text-anchor=\"middle\">……</text><text x=\"230\" y=\"85\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">1 個間隔對應右邊 1 盆花 ➔ 共 16 個間隔</text><text x=\"230\" y=\"108\" font-size=\"12\" fill=\"#475569\" text-anchor=\"middle\">總長 80 公尺 ÷ 16 ＝ 5 公尺</text></svg>",
+          "caption": "起點不擺、終點擺時，每一段間隔右端剛好配 1 盆花（16 盆 ＝ 16 個間隔）"
+        },
+        {
+          "type": "text",
+          "text": "只有一端擺花盆時，花盆數 ＝ 間隔數 ＝ 16 個。把走廊總長除以 16："
+        },
+        {
+          "type": "eq",
+          "expr": "80 ÷ 16 ＝ 5",
+          "unit": "公尺"
+        },
+        {
+          "type": "answer",
+          "text": "答：5 公尺"
+        }
+      ],
+      "insight": "直線上「只擺一端」的時候，可以把每 1 段間隔和它後面的 1 盆花綁成一組，因此「間隔數 ＝ 花盆數」。",
+      "distractorAnalysis": {
+        "B": "算出 5 公尺後，誤以為只擺一端要多補 1，多加 1 變成 6 公尺。",
+        "D": "除法計算 80 ÷ 16 時算錯（誤算成 80 ÷ 8 ＝ 10）。",
+        "A": "誤以為兩端問題必須把答案再少 1，算成 5 − 1 ＝ 4 公尺。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "只擺一端：間隔數 ＝ 物件數",
+        "每個間隔長 ＝ 總長 ÷ 間隔數"
+      ],
+      "conceptCompare": "起點不擺終點擺，和起點擺終點不擺，間隔數都剛好等於花盆數。",
+      "examVariations": "若題目改成「走廊兩側都擺花盆，共擺 32 盆」，要先除以 2 算出單側 16 盆再計算間隔長。"
+    }
   },
   {
-    "id": "u08_006",
+    "id": "U08-S1-B-006",
+    "legacyId": "u08_006",
     "unitId": "U08",
+    "section": "8-1",
+    "sectionName": "間隔問題",
     "category": "間隔問題",
-    "level": 1,
-    "difficulty": 3,
     "batch": "課本原型題",
     "source": "課本 p.121 練習",
-    "verified": false,
-    "question": "一條長 104 公分的緞帶上要縫 7 顆鈕扣，兩端都不縫，每個間隔一樣長。每個間隔長幾公分？",
-    "answer": "13 公分",
-    "steps": [
-      "兩端都不縫：間隔數 = 鈕扣數 + 1 = 8",
-      "104 ÷ 8 = 13"
-    ],
-    "trap": {
-      "code": "ERR_INTERVAL_OFF_BY_ONE",
-      "text": "用 104 ÷ 7 或 104 ÷ 6。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u08_007",
-    "unitId": "U08",
-    "category": "間隔問題",
     "level": 1,
     "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "一條長 104 公分的緞帶上要縫 7 顆鈕扣，兩端都不縫，每個間隔一樣長。每個間隔長幾公分？",
+    "options": [
+      {
+        "key": "A",
+        "text": "13 公分",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "14 公分",
+        "trapCode": "U08_CLOSED_LOOP_ADD_ONE"
+      },
+      {
+        "key": "C",
+        "text": "17 公分",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "D",
+        "text": "12 公分",
+        "trapCode": "U08_CALC_SLIP"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "104 / (7 + 1)",
+      "expect": "13"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否掌握「兩端都不設」的反推關係：間隔數比鈕扣數多 1，也就是 7 ＋ 1 ＝ 8 個間隔。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 115\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"30\" y=\"38\" width=\"400\" height=\"18\" rx=\"4\" fill=\"#fef2f2\" stroke=\"#e11d48\" stroke-width=\"2\"/><circle cx=\"80\" cy=\"47\" r=\"6\" fill=\"#2563eb\"/><circle cx=\"130\" cy=\"47\" r=\"6\" fill=\"#2563eb\"/><circle cx=\"180\" cy=\"47\" r=\"6\" fill=\"#2563eb\"/><circle cx=\"230\" cy=\"47\" r=\"6\" fill=\"#2563eb\"/><circle cx=\"280\" cy=\"47\" r=\"6\" fill=\"#2563eb\"/><circle cx=\"330\" cy=\"47\" r=\"6\" fill=\"#2563eb\"/><circle cx=\"380\" cy=\"47\" r=\"6\" fill=\"#2563eb\"/><text x=\"30\" y=\"26\" font-size=\"12\" fill=\"#64748b\" text-anchor=\"middle\">左端不縫</text><text x=\"430\" y=\"26\" font-size=\"12\" fill=\"#64748b\" text-anchor=\"middle\">右端不縫</text><text x=\"230\" y=\"84\" font-size=\"13\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">7 顆藍鈕扣把緞帶分成 7 ＋ 1 ＝ 8 個間隔</text><text x=\"230\" y=\"105\" font-size=\"12\" fill=\"#334155\" text-anchor=\"middle\">104 公分 ÷ 8 ＝ 13 公分</text></svg>",
+          "caption": "兩端都不縫時，7 顆鈕扣將 104 公分緞帶切成 8 段間隔"
+        },
+        {
+          "type": "text",
+          "text": "兩端都不縫鈕扣時，就像把緞帶剪 7 刀，會剪成 7 ＋ 1 ＝ 8 段間隔："
+        },
+        {
+          "type": "eq",
+          "expr": "7 ＋ 1 ＝ 8",
+          "unit": "個間隔"
+        },
+        {
+          "type": "eq",
+          "expr": "104 ÷ 8 ＝ 13",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：13 公分"
+        }
+      ],
+      "insight": "已知物件數求間隔數時剛好相反：「兩端都不設」要加 1；可以把鈕扣想像成剪刀，剪 7 刀會有 8 段。",
+      "distractorAnalysis": {
+        "B": "誤套用「間隔數 ＝ 鈕扣數 ＝ 7」，且誤把 104 ÷ 7 算成 14 公分。",
+        "D": "正確算出 8 個間隔，但計算 104 ÷ 8 時十位退位算錯成 12 公分。",
+        "C": "把「兩端都不設」記成要減 1，誤算成 7 − 1 ＝ 6 個間隔後再取整約 17 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "兩端都不設：間隔數 ＝ 物件數 ＋ 1",
+        "每個間隔長 ＝ 緞帶總長 ÷ 間隔數"
+      ],
+      "conceptCompare": "記不住加減 1 時，用最簡單的「1 顆鈕扣縫在中間」想一下：1 顆鈕扣會分成 2 段間隔，所以間隔數 ＝ 1 ＋ 1 ＝ 2。",
+      "examVariations": "「把一根木頭鋸成幾段」也是相同原理：鋸 7 次不切兩端，共會鋸出 7 ＋ 1 ＝ 8 段。"
+    }
+  },
+  {
+    "id": "U08-S1-B-007",
+    "legacyId": "u08_007",
+    "unitId": "U08",
+    "section": "8-1",
+    "sectionName": "間隔問題",
+    "category": "間隔問題",
     "batch": "課本原型題",
     "source": "課本 p.122 例 7",
-    "verified": false,
+    "level": 1,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
     "question": "筆直的道路一側插了 20 枝旗子，相鄰兩枝的間隔都是 80 公分。從第 6 枝到第 16 枝旗子的距離是多少公分？",
-    "answer": "800 公分",
-    "steps": [
-      "第 6 枝到第 16 枝的間隔數 = 16 − 6 = 10",
-      "80 × 10 = 800"
+    "options": [
+      {
+        "key": "A",
+        "text": "880 公分",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "B",
+        "text": "800 公分",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "720 公分",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      },
+      {
+        "key": "D",
+        "text": "1520 公分",
+        "trapCode": "U08_CALC_SLIP"
+      }
     ],
-    "insight": "第 a 個到第 b 個之間有 (b − a) 個間隔，不用 +1。",
-    "trap": {
-      "code": "ERR_INTERVAL_OFF_BY_ONE",
-      "text": "算成 11 個間隔（880 公分）。"
+    "answer": "B",
+    "check": {
+      "expr": "(16 - 6) * 80",
+      "expect": "800"
     },
-    "work": "sm"
+    "explanation": {
+      "examPurpose": "測驗學生是否理解「第幾個到第幾個」的間隔數算法是兩編號直接相減，不會被總數 20 枝的多餘資訊幹擾。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 115\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"40\" y1=\"52\" x2=\"420\" y2=\"52\" stroke=\"#64748b\" stroke-width=\"3\"/><line x1=\"75\" y1=\"52\" x2=\"385\" y2=\"52\" stroke=\"#e11d48\" stroke-width=\"5\"/><circle cx=\"75\" cy=\"52\" r=\"7\" fill=\"#e11d48\"/><circle cx=\"145\" cy=\"52\" r=\"6\" fill=\"#2563eb\"/><circle cx=\"315\" cy=\"52\" r=\"6\" fill=\"#2563eb\"/><circle cx=\"385\" cy=\"52\" r=\"7\" fill=\"#e11d48\"/><text x=\"75\" y=\"32\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">第 6 枝</text><text x=\"145\" y=\"32\" font-size=\"12\" fill=\"#2563eb\" text-anchor=\"middle\">第 7 枝</text><text x=\"230\" y=\"40\" font-size=\"15\" fill=\"#475569\" text-anchor=\"middle\">……</text><text x=\"315\" y=\"32\" font-size=\"12\" fill=\"#2563eb\" text-anchor=\"middle\">第 15 枝</text><text x=\"385\" y=\"32\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">第 16 枝</text><text x=\"230\" y=\"84\" font-size=\"13\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">間隔數 ＝ 16 − 6 ＝ 10 個（每個 80 公分）</text><text x=\"230\" y=\"105\" font-size=\"12\" fill=\"#334155\" text-anchor=\"middle\">10 × 80 ＝ 800 公分（總共 20 枝的多餘條件不用管）</text></svg>",
+          "caption": "第 6 枝到第 16 枝共有 16 − 6 ＝ 10 個間隔"
+        },
+        {
+          "type": "text",
+          "text": "先算出從第 6 枝到第 16 枝之間有幾個間隔（直接用編號相減，不用加 1）："
+        },
+        {
+          "type": "eq",
+          "expr": "16 − 6 ＝ 10",
+          "unit": "個間隔"
+        },
+        {
+          "type": "eq",
+          "expr": "80 × 10 ＝ 800",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：800 公分"
+        }
+      ],
+      "insight": "第 6 枝到第 16 枝一共有 11 枝旗子，但題目問的是「距離（間隔數）」，所以共有 16 − 6 ＝ 10 個間隔。",
+      "distractorAnalysis": {
+        "A": "把旗子數量（16 − 6 ＋ 1 ＝ 11 枝）直接當成間隔數，多乘了一個 80 公分變成 880 公分。",
+        "D": "沒注意只算第 6 到第 16 枝，直接計算全部 20 枝旗子的總距離 (20 − 1) × 80 ＝ 1520 公分。",
+        "C": "錯以為還要再扣掉 1，算成 9 個間隔 × 80 ＝ 720 公分。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "第甲枝到第乙枝的間隔數 ＝ 乙 − 甲",
+        "距離 ＝ 間隔長 ×（大編號 − 小編號）"
+      ],
+      "conceptCompare": "題目給「總共 20 枝旗子」是干擾條件，只求其中一段距離時看起點和終點的編號就好。",
+      "examVariations": "生活常見考法：「從第 3 根電線桿走到第 11 根，每根間隔 50 公尺，共走了幾公尺？」算法完全相同：(11 − 3) × 50 ＝ 400 公尺。"
+    }
   },
   {
-    "id": "u08_008",
+    "id": "U08-S2-B-008",
+    "legacyId": "u08_008",
     "unitId": "U08",
+    "section": "8-2",
+    "sectionName": "數形規律",
     "category": "數形規律",
-    "level": 1,
-    "difficulty": 2,
     "batch": "課本原型題",
     "source": "課本 p.123 例 1",
-    "verified": false,
-    "question": "火車車廂的裝飾圖案依照下圖的順序，每 3 個一組重複排列。第 25 個圖案是哪一個？",
-    "svg": "\n<svg viewBox=\"0 0 560 90\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"Outfit, sans-serif\">\n  <g fill=\"#fde68a\" stroke=\"#92400e\" stroke-width=\"2.5\" stroke-linejoin=\"round\">\n    <polygon points=\"20,60 50,60 35,30\"/><polygon points=\"75,30 75,60 105,45\"/><polygon points=\"130,30 160,30 145,60\"/>\n    <polygon points=\"185,60 215,60 200,30\"/><polygon points=\"240,30 240,60 270,45\"/><polygon points=\"295,30 325,30 310,60\"/>\n    <polygon points=\"350,60 380,60 365,30\"/>\n  </g>\n  <g font-size=\"13\" fill=\"#64748b\" text-anchor=\"middle\">\n    <text x=\"35\" y=\"80\">1</text><text x=\"90\" y=\"80\">2</text><text x=\"145\" y=\"80\">3</text><text x=\"200\" y=\"80\">4</text>\n    <text x=\"255\" y=\"80\">5</text><text x=\"310\" y=\"80\">6</text><text x=\"365\" y=\"80\">7</text>\n  </g>\n  <text x=\"440\" y=\"52\" font-size=\"26\" fill=\"#92400e\">……</text>\n</svg>",
-    "answer": "△（每組的第 1 個）",
-    "steps": [
-      "每 3 個一組：25 ÷ 3 = 8 …… 1",
-      "排完 8 組後，第 25 個是下一組的第 1 個 → △"
+    "level": 1,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "火車車廂的裝飾圖案依照「△、○、□、△、○、□……」的順序，每 3 個一組重複排列。第 25 個圖案是哪一個？",
+    "svg": "<svg viewBox=\"0 0 460 90\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#92400e\" stroke-width=\"2.5\" stroke-linejoin=\"round\"><polygon points=\"25,52 55,52 40,24\" fill=\"#fde68a\"/><circle cx=\"95\" cy=\"38\" r=\"14\" fill=\"#bfdbfe\"/><rect x=\"136\" y=\"24\" width=\"28\" height=\"28\" fill=\"#fecdd3\"/><polygon points=\"195,52 225,52 210,24\" fill=\"#fde68a\"/><circle cx=\"265\" cy=\"38\" r=\"14\" fill=\"#bfdbfe\"/><rect x=\"306\" y=\"24\" width=\"28\" height=\"28\" fill=\"#fecdd3\"/><polygon points=\"365,52 395,52 380,24\" fill=\"#fde68a\"/></g><g font-size=\"12\" fill=\"#475569\" text-anchor=\"middle\"><text x=\"40\" y=\"74\">1</text><text x=\"95\" y=\"74\">2</text><text x=\"150\" y=\"74\">3</text><text x=\"210\" y=\"74\">4</text><text x=\"265\" y=\"74\">5</text><text x=\"320\" y=\"74\">6</text><text x=\"380\" y=\"74\">7</text></g><text x=\"430\" y=\"45\" font-size=\"22\" fill=\"#92400e\" text-anchor=\"middle\">……</text></svg>",
+    "options": [
+      {
+        "key": "A",
+        "text": "○（每組第 2 個）",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      },
+      {
+        "key": "B",
+        "text": "△（每組第 1 個）",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "正方形（每組第 3 個）",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "D",
+        "text": "無法判斷，因為缺少車廂總數",
+        "trapCode": "U08_CALC_SLIP"
+      }
     ],
-    "insight": "週期問題看「餘數」：餘 1 是第 1 個、餘 2 是第 2 個、整除是最後一個。",
-    "work": "sm"
+    "answer": "B",
+    "skipOptionNumMatch": true,
+    "check": {
+      "expr": "25 - 8 * 3",
+      "expect": "1"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否利用除法求「餘數」，判斷週期性重複排列圖案中指定位置的圖形。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 115\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"20\" y=\"22\" width=\"120\" height=\"44\" rx=\"6\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2\"/><text x=\"80\" y=\"49\" font-size=\"13\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">第 1 組：△ ○ □</text><text x=\"165\" y=\"49\" font-size=\"15\" font-weight=\"700\" fill=\"#64748b\" text-anchor=\"middle\">……</text><rect x=\"190\" y=\"22\" width=\"120\" height=\"44\" rx=\"6\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2\"/><text x=\"250\" y=\"49\" font-size=\"13\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">第 8 組：△ ○ □</text><rect x=\"335\" y=\"22\" width=\"105\" height=\"44\" rx=\"6\" fill=\"#fef2f2\" stroke=\"#e11d48\" stroke-width=\"2.5\"/><text x=\"387\" y=\"49\" font-size=\"13\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">第 25 個：△</text><text x=\"165\" y=\"95\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">前面 8 組共 24 個</text><text x=\"387\" y=\"95\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">餘 1 個（第 1 個）</text></svg>",
+          "caption": "每 3 個一組分組示意：排完 8 組（24 個）後，第 25 個是下一組第 1 個"
+        },
+        {
+          "type": "text",
+          "text": "每 3 個圖案一組，用 25 除以 3 看排完幾組還餘幾個："
+        },
+        {
+          "type": "eq",
+          "expr": "25 ÷ 3 ＝ 8 …… 1",
+          "unit": ""
+        },
+        {
+          "type": "text",
+          "text": "排完完整的 8 組（共 24 個）後，餘數 1 代表第 25 個是第 9 組的第 1 個圖案，也就是 △。"
+        },
+        {
+          "type": "answer",
+          "text": "答：△（每組第 1 個）"
+        }
+      ],
+      "insight": "週期規律問題看「餘數」：餘 1 是每組第 1 個、餘 2 是第 2 個；如果剛好整除（沒有餘數），就是每組的最後一個。",
+      "distractorAnalysis": {
+        "C": "誤算 25 ÷ 3 ＝ 8 沒有餘數，或錯以為商 8 代表整組結束後的最後一個 □。",
+        "D": "沒有發現每 3 個重複一次的固定週期，只需要位置編號就能推算，不需要車廂總數。",
+        "A": "錯把餘數對齊順序算歪（例如從第 2 個開始數或誤算餘數為 2），選成每組第 2 個 ○。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "位置編號 ÷ 每組個數 ＝ 組數 …… 餘數",
+        "餘數對應組內順序；整除時就是該組最後一個"
+      ],
+      "conceptCompare": "週期題目絕對不要一個一個畫到第 25 個；先框出「一組有幾個」，再用除法找餘數最快最準。",
+      "examVariations": "段考常考「第 1 個到第 25 個圖案中，△ 一共出現幾次？」前 8 組各 1 次加上餘下的 1 個 △，共 8 ＋ 1 ＝ 9 次。"
+    }
   },
   {
-    "id": "u08_009",
+    "id": "U08-S2-B-009",
+    "legacyId": "u08_009",
     "unitId": "U08",
+    "section": "8-2",
+    "sectionName": "數形規律",
     "category": "數形規律",
-    "level": 1,
-    "difficulty": 3,
     "batch": "課本原型題",
     "source": "課本 p.124 例 2",
-    "verified": false,
-    "question": "用棉花棒排一排相連的正方形（如下圖）。排 20 個相連的正方形，需要幾根棉花棒？",
-    "svg": "\n<svg viewBox=\"0 0 560 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\">\n  <g stroke=\"#b45309\" stroke-width=\"5\" stroke-linecap=\"round\" fill=\"none\">\n    <rect x=\"30\" y=\"30\" width=\"60\" height=\"60\"/>\n    <rect x=\"150\" y=\"30\" width=\"60\" height=\"60\"/><rect x=\"210\" y=\"30\" width=\"60\" height=\"60\"/>\n    <rect x=\"330\" y=\"30\" width=\"60\" height=\"60\"/><rect x=\"390\" y=\"30\" width=\"60\" height=\"60\"/><rect x=\"450\" y=\"30\" width=\"60\" height=\"60\"/>\n  </g>\n  <g font-size=\"16\" fill=\"#1e1b4b\" text-anchor=\"middle\" font-weight=\"700\">\n    <text x=\"60\" y=\"125\">1 個：4 根</text><text x=\"210\" y=\"125\">2 個：7 根</text><text x=\"420\" y=\"125\">3 個：10 根</text>\n  </g>\n</svg>",
-    "answer": "61 根",
-    "steps": [
-      "想法一：第 1 個用 4 根，之後每多 1 個多 3 根 → 4 + 3 × 19 = 61",
-      "想法二：最左邊 1 根，每個正方形再用 3 根 → 1 + 3 × 20 = 61"
-    ],
-    "insight": "n 個相連正方形 = 3n + 1 根。"
-  },
-  {
-    "id": "u08_010",
-    "unitId": "U08",
-    "category": "數形規律",
     "level": 1,
     "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "用棉花棒在同一水平列排成一排相連的正方形，每個新接上去的正方形都與左邊的正方形共用中間那根棉花棒（第 1 個用了 4 根，多排 1 個就多 3 根）。排成 20 個相連的正方形，一共需要幾根棉花棒？",
+    "svg": "<svg viewBox=\"0 0 460 120\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#b45309\" stroke-width=\"4\" stroke-linecap=\"round\" fill=\"none\"><rect x=\"25\" y=\"20\" width=\"46\" height=\"46\"/><rect x=\"125\" y=\"20\" width=\"46\" height=\"46\"/><rect x=\"171\" y=\"20\" width=\"46\" height=\"46\"/><rect x=\"270\" y=\"20\" width=\"46\" height=\"46\"/><rect x=\"316\" y=\"20\" width=\"46\" height=\"46\"/><rect x=\"362\" y=\"20\" width=\"46\" height=\"46\"/></g><g font-size=\"13\" fill=\"#1e293b\" text-anchor=\"middle\" font-weight=\"700\"><text x=\"48\" y=\"96\">1 個：4 根</text><text x=\"171\" y=\"96\">2 個：7 根</text><text x=\"339\" y=\"96\">3 個：10 根</text></g></svg>",
+    "options": [
+      {
+        "key": "A",
+        "text": "80 根",
+        "trapCode": "U08_COMB_DOUBLE_COUNT"
+      },
+      {
+        "key": "B",
+        "text": "60 根",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "C",
+        "text": "61 根",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "64 根",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "1 + 3 * 20",
+      "expect": "61"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否從圖形觀察出相連正方形「共用邊」的規律，寫出累加關係而不是直接乘以 4。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 120\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"40\" y1=\"25\" x2=\"40\" y2=\"75\" stroke=\"#e11d48\" stroke-width=\"5\" stroke-linecap=\"round\"/><g stroke=\"#2563eb\" stroke-width=\"4\" stroke-linecap=\"round\" fill=\"none\"><polyline points=\"40,25 90,25 90,75 40,75\"/><polyline points=\"90,25 140,25 140,75 90,75\"/><polyline points=\"140,25 190,25 190,75 140,75\"/></g><text x=\"230\" y=\"56\" font-size=\"16\" font-weight=\"700\" fill=\"#475569\">……</text><polyline points=\"270,25 320,25 320,75 270,75\" stroke=\"#2563eb\" stroke-width=\"4\" stroke-linecap=\"round\" fill=\"none\"/><text x=\"40\" y=\"100\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">最左 1 根</text><text x=\"260\" y=\"100\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">後續 20 個正方形各補 3 根藍棒（上、右、下）</text></svg>",
+          "caption": "分解圖：先放最左邊 1 根紅棒，之後 20 個正方形每個只要 3 根藍棒"
+        },
+        {
+          "type": "text",
+          "text": "每個相連正方形都會跟前一個共用中間那根邊，所以「最左邊先放 1 根，之後每個正方形各用 3 根」："
+        },
+        {
+          "type": "eq",
+          "expr": "1 ＋ 3 × 20 ＝ 61",
+          "unit": "根"
+        },
+        {
+          "type": "text",
+          "text": "也可以想成：第 1 個正方形用 4 根，後面多出來的 19 個各多 3 根：4 ＋ 3 × 19 ＝ 61 根。"
+        },
+        {
+          "type": "answer",
+          "text": "答：61 根"
+        }
+      ],
+      "insight": "排一排相連正方形：每多 1 個就多 3 根，總數 ＝ 1 ＋ 3 × 正方形個數（或是 4 ＋ 3 × 多出來的個數）。",
+      "distractorAnalysis": {
+        "A": "沒有發現中間的棉花棒是共用的，直接用 4 × 20 ＝ 80 根重複計算了 19 根共用邊。",
+        "B": "知道每個只要 3 根，卻忘記加上最左邊封口的那 1 根，算成 3 × 20 ＝ 60 根。",
+        "D": "把兩種想法混在一起，將第 1 個的 4 根加上 3 × 20，多加了 3 根變成 64 根。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "相連正方形棒數 ＝ 1 ＋ 3 × 個數（或 4 ＋ 3 × (個數 − 1)）"
+      ],
+      "conceptCompare": "同樣的方法也適用正三角形：1 個正三角形 3 根，之後每多 1 個相連只要多 2 根，總數 ＝ 1 ＋ 2 × 個數。",
+      "examVariations": "反推題：「如果共有 100 根棉花棒，最多可以排幾個相連正方形？」(100 − 1) ÷ 3 ＝ 33 個。"
+    }
+  },
+  {
+    "id": "U08-S2-B-010",
+    "legacyId": "u08_010",
+    "unitId": "U08",
+    "section": "8-2",
+    "sectionName": "數形規律",
+    "category": "數形規律",
     "batch": "課本原型題",
     "source": "課本 p.125 例 3",
-    "verified": false,
-    "question": "用花片排成空心正方形（如下圖）。如果每邊排 30 個花片，一共需要幾個花片？",
-    "svg": "\n<svg viewBox=\"0 0 460 160\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\">\n  <g fill=\"#8b5cf6\" stroke=\"#5b21b6\" stroke-width=\"1.5\">\n    <circle cx=\"40\" cy=\"50\" r=\"9\"/><circle cx=\"64\" cy=\"50\" r=\"9\"/><circle cx=\"40\" cy=\"74\" r=\"9\"/><circle cx=\"64\" cy=\"74\" r=\"9\"/>\n    <circle cx=\"150\" cy=\"38\" r=\"9\"/><circle cx=\"174\" cy=\"38\" r=\"9\"/><circle cx=\"198\" cy=\"38\" r=\"9\"/>\n    <circle cx=\"150\" cy=\"62\" r=\"9\"/><circle cx=\"198\" cy=\"62\" r=\"9\"/>\n    <circle cx=\"150\" cy=\"86\" r=\"9\"/><circle cx=\"174\" cy=\"86\" r=\"9\"/><circle cx=\"198\" cy=\"86\" r=\"9\"/>\n    <circle cx=\"290\" cy=\"26\" r=\"9\"/><circle cx=\"314\" cy=\"26\" r=\"9\"/><circle cx=\"338\" cy=\"26\" r=\"9\"/><circle cx=\"362\" cy=\"26\" r=\"9\"/>\n    <circle cx=\"290\" cy=\"50\" r=\"9\"/><circle cx=\"362\" cy=\"50\" r=\"9\"/>\n    <circle cx=\"290\" cy=\"74\" r=\"9\"/><circle cx=\"362\" cy=\"74\" r=\"9\"/>\n    <circle cx=\"290\" cy=\"98\" r=\"9\"/><circle cx=\"314\" cy=\"98\" r=\"9\"/><circle cx=\"338\" cy=\"98\" r=\"9\"/><circle cx=\"362\" cy=\"98\" r=\"9\"/>\n  </g>\n  <g font-size=\"15\" fill=\"#1e1b4b\" text-anchor=\"middle\" font-weight=\"700\">\n    <text x=\"52\" y=\"140\">每邊 2 個：4 個</text><text x=\"174\" y=\"140\">每邊 3 個：8 個</text><text x=\"326\" y=\"140\">每邊 4 個：12 個</text>\n  </g>\n</svg>",
-    "answer": "116 個",
-    "steps": [
-      "方法一：每邊只算 (30 − 1) 個，4 邊 → 29 × 4 = 116",
-      "方法二：4 邊各 30 個 = 120，4 個角各多算 1 次 → 120 − 4 = 116"
+    "level": 1,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "用花片排成一個「空心正方形」（只排最外圍四條邊，中間完全不放花片；四個角落的花片各屬於相鄰兩條邊）。如果每邊都排 30 個花片，一共需要幾個花片？",
+    "svg": "<svg viewBox=\"0 0 460 135\" xmlns=\"http://www.w3.org/2000/svg\"><g fill=\"#8b5cf6\" stroke=\"#5b21b6\" stroke-width=\"1.5\"><circle cx=\"45\" cy=\"45\" r=\"8\"/><circle cx=\"69\" cy=\"45\" r=\"8\"/><circle cx=\"45\" cy=\"69\" r=\"8\"/><circle cx=\"69\" cy=\"69\" r=\"8\"/><circle cx=\"155\" cy=\"33\" r=\"8\"/><circle cx=\"179\" cy=\"33\" r=\"8\"/><circle cx=\"203\" cy=\"33\" r=\"8\"/><circle cx=\"155\" cy=\"57\" r=\"8\"/><circle cx=\"203\" cy=\"57\" r=\"8\"/><circle cx=\"155\" cy=\"81\" r=\"8\"/><circle cx=\"179\" cy=\"81\" r=\"8\"/><circle cx=\"203\" cy=\"81\" r=\"8\"/><circle cx=\"295\" cy=\"21\" r=\"8\"/><circle cx=\"319\" cy=\"21\" r=\"8\"/><circle cx=\"343\" cy=\"21\" r=\"8\"/><circle cx=\"367\" cy=\"21\" r=\"8\"/><circle cx=\"295\" cy=\"45\" r=\"8\"/><circle cx=\"367\" cy=\"45\" r=\"8\"/><circle cx=\"295\" cy=\"69\" r=\"8\"/><circle cx=\"367\" cy=\"69\" r=\"8\"/><circle cx=\"295\" cy=\"93\" r=\"8\"/><circle cx=\"319\" cy=\"93\" r=\"8\"/><circle cx=\"343\" cy=\"93\" r=\"8\"/><circle cx=\"367\" cy=\"93\" r=\"8\"/></g><g font-size=\"13\" fill=\"#1e293b\" text-anchor=\"middle\" font-weight=\"700\"><text x=\"57\" y=\"122\">每邊 2 個：4 個</text><text x=\"179\" y=\"122\">每邊 3 個：8 個</text><text x=\"331\" y=\"122\">每邊 4 個：12 個</text></g></svg>",
+    "options": [
+      {
+        "key": "A",
+        "text": "120 個",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "B",
+        "text": "116 個",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "112 個",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      },
+      {
+        "key": "D",
+        "text": "117 個",
+        "trapCode": "U08_CALC_SLIP"
+      }
     ],
-    "trap": {
-      "code": "ERR_INTERVAL_OFF_BY_ONE",
-      "text": "直接 30 × 4 = 120，四個角重複算了。"
+    "answer": "B",
+    "check": {
+      "expr": "(30 - 1) * 4",
+      "expect": "116"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生處理空心正方形周界點數時，是否能扣除 4 個角落花片的重複計算。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 135\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"45\" y=\"20\" width=\"92\" height=\"22\" rx=\"11\" fill=\"#fee2e2\" stroke=\"#e11d48\" stroke-width=\"2\"/><rect x=\"142\" y=\"20\" width=\"22\" height=\"92\" rx=\"11\" fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"2\"/><rect x=\"72\" y=\"90\" width=\"92\" height=\"22\" rx=\"11\" fill=\"#dcfce7\" stroke=\"#059669\" stroke-width=\"2\"/><rect x=\"45\" y=\"47\" width=\"22\" height=\"65\" rx=\"11\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"2\"/><text x=\"104\" y=\"68\" font-size=\"12\" font-weight=\"700\" fill=\"#475569\" text-anchor=\"middle\">每組 29 個</text><text x=\"210\" y=\"42\" font-size=\"13\" font-weight=\"700\" fill=\"#1e293b\">分組不重複法：</text><text x=\"210\" y=\"68\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\">每邊只圈 (30 − 1) ＝ 29 個</text><text x=\"210\" y=\"96\" font-size=\"13\" font-weight=\"700\" fill=\"#e11d48\">4 組共 29 × 4 ＝ 116 個</text></svg>",
+          "caption": "空心正方形不重複圈選法：每邊少算 1 個頂點，4 邊正好分成 4 組"
+        },
+        {
+          "type": "text",
+          "text": "四個角落的花片同時屬於兩條邊，直接 30 × 4 會重複算。把每邊少算 1 個角落，分成 4 組："
+        },
+        {
+          "type": "eq",
+          "expr": "(30 − 1) × 4 ＝ 29 × 4 ＝ 116",
+          "unit": "個"
+        },
+        {
+          "type": "text",
+          "text": "或先算 4 邊總數再扣掉重複的 4 個角：30 × 4 − 4 ＝ 120 − 4 ＝ 116 個。"
+        },
+        {
+          "type": "answer",
+          "text": "答：116 個"
+        }
+      ],
+      "insight": "空心正多邊形外圈總數 ＝ (每邊個數 − 1) × 邊數 ＝ 每邊個數 × 邊數 − 頂點數。",
+      "distractorAnalysis": {
+        "A": "直接用 30 × 4 ＝ 120 個，忘了正方形 4 個頂點的花片被重複算了兩次。",
+        "C": "扣過頭了！誤以為每邊要扣掉 2 個角變成 28 × 4 ＝ 112 個，反而漏算了 4 個頂點。",
+        "D": "誤以為只有 3 個角落重複而算成 120 − 3 ＝ 117 個。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "空心正方形花片總數 ＝ (每邊個數 − 1) × 4",
+        "驗算另一法：每邊個數 × 4 − 4"
+      ],
+      "conceptCompare": "如果用「扣角法」想，4 條邊每個頂點都被 2 條邊各算 1 次，多算 1 次就扣掉 4；用「分組法」想，每邊 29 個不重疊，共有 4 組。",
+      "examVariations": "若改排成「空心正六邊形」，公式同理變為 (每邊個數 − 1) × 6。"
     }
   },
   {
-    "id": "u08_011",
+    "id": "U08-S2-B-011",
+    "legacyId": "u08_011",
     "unitId": "U08",
+    "section": "8-2",
+    "sectionName": "數形規律",
     "category": "數形規律",
-    "level": 2,
-    "difficulty": 3,
     "batch": "課本原型題",
     "source": "課本 p.125 思考帽",
-    "verified": false,
+    "level": 2,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
     "question": "用花片排成空心正三角形，每邊的花片數一樣多，一共用了 72 個花片。每邊有幾個花片？",
-    "answer": "25 個",
-    "steps": [
-      "空心正三角形：總數 = (每邊 − 1) × 3",
-      "72 ÷ 3 = 24，每邊 = 24 + 1 = 25",
-      "驗算：25 × 3 − 3 = 72 ✔"
+    "options": [
+      {
+        "key": "A",
+        "text": "25 個",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "23 個",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      },
+      {
+        "key": "C",
+        "text": "24 個",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "D",
+        "text": "27 個",
+        "trapCode": "U08_CALC_SLIP"
+      }
     ],
-    "work": "sm"
-  },
-  {
-    "id": "u08_012",
-    "unitId": "U08",
-    "category": "數形規律",
-    "level": 1,
-    "difficulty": 3,
-    "batch": "課本原型題",
-    "source": "課本 p.134 練習園地八",
-    "verified": false,
-    "question": "用邊長 1 公分的正方形方瓦，排成邊長 10 公分的空心正方形，共需要幾塊方瓦？",
-    "answer": "36 塊",
-    "steps": [
-      "每邊 10 塊：(10 − 1) × 4 = 36"
-    ],
-    "work": "sm"
-  },
-  {
-    "id": "u08_013",
-    "unitId": "U08",
-    "category": "選擇與組合",
-    "level": 1,
-    "difficulty": 2,
-    "batch": "課本原型題",
-    "source": "課本 p.126 例 1",
-    "verified": false,
-    "question": "義式餐廳的義大利麵有 5 種、燉飯有 6 種、披薩有 3 種。如果只單點其中一種主食，共有幾種選擇？",
-    "answer": "14 種",
-    "steps": [
-      "三類只選一種（不會同時發生）→ 相加",
-      "5 + 6 + 3 = 14"
-    ],
-    "insight": "「或」→ 加法原理；「而且 / 每一個都要配」→ 乘法原理。",
-    "trap": {
-      "code": "ERR_ADD_MUL_CONFUSION",
-      "text": "算成 5 × 6 × 3 = 90。"
+    "answer": "A",
+    "check": {
+      "expr": "72 / 3 + 1",
+      "expect": "25"
     },
-    "work": "sm"
-  },
-  {
-    "id": "u08_014",
-    "unitId": "U08",
-    "category": "選擇與組合",
-    "level": 2,
-    "difficulty": 3,
-    "batch": "課本原型題",
-    "source": "課本 p.126 例 2",
-    "verified": false,
-    "question": "有 0、3、5、8 四張數字卡，選兩張排成一個二位數，而且必須是偶數。共有幾種排法？",
-    "answer": "5 種（30、50、80、38、58）",
-    "steps": [
-      "偶數的個位只能是 0 或 8",
-      "個位 0：十位可放 3、5、8 → 3 種",
-      "個位 8：十位不能放 0 → 只能放 3、5 → 2 種",
-      "3 + 2 = 5"
-    ],
-    "trap": {
-      "code": "ERR_ADD_MUL_CONFUSION",
-      "text": "忘記 0 不能放十位，算成 6 種。"
+    "explanation": {
+      "examPurpose": "測驗學生能否逆向思考：已知空心正三角形總花片數，反推每邊有幾個花片。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 130\" xmlns=\"http://www.w3.org/2000/svg\"><polygon points=\"100,20 45,105 155,105\" fill=\"none\" stroke=\"#cbd5e1\" stroke-width=\"2\" stroke-dasharray=\"4 3\"/><line x1=\"100\" y1=\"20\" x2=\"55\" y2=\"90\" stroke=\"#e11d48\" stroke-width=\"6\" stroke-linecap=\"round\"/><line x1=\"45\" y1=\"105\" x2=\"140\" y2=\"105\" stroke=\"#2563eb\" stroke-width=\"6\" stroke-linecap=\"round\"/><line x1=\"155\" y1=\"105\" x2=\"110\" y2=\"35\" stroke=\"#059669\" stroke-width=\"6\" stroke-linecap=\"round\"/><circle cx=\"100\" cy=\"20\" r=\"5\" fill=\"#e11d48\"/><circle cx=\"45\" cy=\"105\" r=\"5\" fill=\"#2563eb\"/><circle cx=\"155\" cy=\"105\" r=\"5\" fill=\"#059669\"/><text x=\"210\" y=\"42\" font-size=\"13\" font-weight=\"700\" fill=\"#1e293b\">72 個平分成 3 組：</text><text x=\"210\" y=\"70\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\">每組 72 ÷ 3 ＝ 24 個</text><text x=\"200\" y=\"98\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\">加上共用頂點：24 ＋ 1 ＝ 25 個</text></svg>",
+          "caption": "空心正三角形 3 組分法：每組 24 個，加上最後 1 個頂點就是每邊 25 個"
+        },
+        {
+          "type": "text",
+          "text": "空心正三角形共有 3 條邊、3 個頂點。先把 72 個花片平分成 3 組不重疊的邊："
+        },
+        {
+          "type": "eq",
+          "expr": "72 ÷ 3 ＝ 24",
+          "unit": "個"
+        },
+        {
+          "type": "text",
+          "text": "每一組都少算了另一端的 1 個頂點，加回來就是每邊的花片數："
+        },
+        {
+          "type": "eq",
+          "expr": "24 ＋ 1 ＝ 25",
+          "unit": "個"
+        },
+        {
+          "type": "answer",
+          "text": "答：25 個"
+        }
+      ],
+      "insight": "正三角形已知總數反推每邊個數：先除以 3（分組），再加 1（補回共用頂點）；也可以想成 (72 ＋ 3) ÷ 3 ＝ 25。",
+      "distractorAnalysis": {
+        "B": "把加回頂點寫成減 1，錯算成 24 − 1 ＝ 23 個。",
+        "D": "誤以為有 3 個頂點就要直接加 3，算成 24 ＋ 3 ＝ 27 個（正確是總數加 3 再除以 3）。",
+        "C": "直接 72 ÷ 3 ＝ 24 個，忘記頂點是被兩條邊共用的，還需要加回 1 個。"
+      }
     },
-    "work": "sm"
-  },
-  {
-    "id": "u08_015",
-    "unitId": "U08",
-    "category": "選擇與組合",
-    "level": 2,
-    "difficulty": 3,
-    "batch": "課本原型題",
-    "source": "課本 p.126 練習",
-    "verified": false,
-    "question": "有 0、1、2、3、4 五張數字卡，選兩張排成一個二位數，而且必須是奇數。共有幾種排法？",
-    "answer": "6 種（21、31、41、13、23、43）",
-    "steps": [
-      "奇數的個位只能是 1 或 3",
-      "個位 1：十位可放 2、3、4 → 3 種",
-      "個位 3：十位可放 1、2、4 → 3 種",
-      "3 + 3 = 6"
-    ],
-    "work": "sm"
-  },
-  {
-    "id": "u08_016",
-    "unitId": "U08",
-    "category": "選擇與組合",
-    "level": 1,
-    "difficulty": 2,
-    "batch": "課本原型題",
-    "source": "課本 p.127 練習",
-    "verified": false,
-    "question": "櫥櫃裡有 5 個不同的杯子和 3 個不同的杯蓋，選一個杯子配一個杯蓋，共有幾種搭配？",
-    "answer": "15 種",
-    "steps": [
-      "每個杯子都可以配 3 種杯蓋",
-      "5 × 3 = 15"
-    ],
-    "trap": {
-      "code": "ERR_ADD_MUL_CONFUSION",
-      "text": "算成 5 + 3 = 8。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u08_017",
-    "unitId": "U08",
-    "category": "選擇與組合",
-    "level": 1,
-    "difficulty": 2,
-    "batch": "課本原型題",
-    "source": "課本 p.128 例 4",
-    "verified": false,
-    "question": "速食店套餐：主餐 3 種、副餐 4 種、飲料 2 種，每份套餐三樣各選一種。共有幾種組合？",
-    "answer": "24 種",
-    "steps": [
-      "分三步驟，每步都要做 → 相乘",
-      "3 × 4 × 2 = 24"
-    ],
-    "work": "sm"
-  },
-  {
-    "id": "u08_018",
-    "unitId": "U08",
-    "category": "選擇與組合",
-    "level": 1,
-    "difficulty": 3,
-    "batch": "課本原型題",
-    "source": "課本 p.128 練習",
-    "verified": false,
-    "question": "登山步道會經過兩座吊橋：登山口到第一座橋有 3 條路，兩座橋之間有 2 條路，第二座橋到山頂有 2 條路。從登山口到山頂共有幾種走法？",
-    "answer": "12 種",
-    "steps": [
-      "三段路依序都要走 → 相乘",
-      "3 × 2 × 2 = 12"
-    ],
-    "work": "sm"
-  },
-  {
-    "id": "u08_019",
-    "unitId": "U08",
-    "category": "和差問題",
-    "level": 1,
-    "difficulty": 3,
-    "batch": "課本原型題",
-    "source": "課本 p.130 例 3",
-    "verified": false,
-    "question": "一份特餐和一份升級套餐共 500 元，升級套餐比特餐貴 80 元。兩種餐點各是多少元？",
-    "svg": "\n<svg viewBox=\"0 0 540 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', Outfit, sans-serif\">\n  <g font-size=\"16\" font-weight=\"700\" fill=\"#1e1b4b\">\n    <text x=\"10\" y=\"44\">升級套餐</text><text x=\"10\" y=\"104\">特餐</text>\n  </g>\n  <rect x=\"100\" y=\"24\" width=\"260\" height=\"30\" rx=\"5\" fill=\"#c7d2fe\" stroke=\"#3730a3\" stroke-width=\"2\"/>\n  <rect x=\"360\" y=\"24\" width=\"80\" height=\"30\" rx=\"5\" fill=\"#fecdd3\" stroke=\"#be123c\" stroke-width=\"2\"/>\n  <text x=\"400\" y=\"45\" font-size=\"15\" text-anchor=\"middle\" fill=\"#9f1239\" font-weight=\"700\">80 元</text>\n  <rect x=\"100\" y=\"84\" width=\"260\" height=\"30\" rx=\"5\" fill=\"#c7d2fe\" stroke=\"#3730a3\" stroke-width=\"2\"/>\n  <line x1=\"360\" y1=\"14\" x2=\"360\" y2=\"124\" stroke=\"#64748b\" stroke-dasharray=\"5 4\"/>\n  <path d=\"M455 24 Q470 24 470 44 L470 60 Q470 69 480 69 Q470 69 470 78 L470 94 Q470 114 455 114\" fill=\"none\" stroke=\"#1e1b4b\" stroke-width=\"2\"/>\n  <text x=\"490\" y=\"74\" font-size=\"16\" font-weight=\"800\" fill=\"#1e1b4b\">500 元</text>\n</svg>",
-    "answer": "升級套餐 290 元，特餐 210 元",
-    "steps": [
-      "先拿掉多出來的 80 元：500 − 80 = 420 → 剩下 2 份特餐",
-      "特餐 = 420 ÷ 2 = 210",
-      "升級套餐 = 210 + 80 = 290"
-    ],
-    "insight": "大數 = (和 + 差) ÷ 2；小數 = (和 − 差) ÷ 2。"
-  },
-  {
-    "id": "u08_020",
-    "unitId": "U08",
-    "category": "和差問題",
-    "level": 1,
-    "difficulty": 3,
-    "batch": "課本原型題",
-    "source": "課本 p.131 例 5",
-    "verified": false,
-    "question": "用一條長 60 公分的繩子圍成一個長方形，長比寬多 6 公分。長和寬各是多少公分？",
-    "answer": "長 18 公分，寬 12 公分",
-    "steps": [
-      "長 + 寬 = 60 ÷ 2 = 30",
-      "長 = (30 + 6) ÷ 2 = 18",
-      "寬 = (30 − 6) ÷ 2 = 12"
-    ],
-    "trap": {
-      "code": "ERR_TRANSFER_HALF_DIFF",
-      "text": "直接用 60 當「長 + 寬」，忘了周長 = (長 + 寬) × 2。"
+    "extensionStudy": {
+      "coreFormulas": [
+        "空心正三角形總數 ＝ (每邊個數 − 1) × 3",
+        "每邊個數 ＝ 總數 ÷ 3 ＋ 1"
+      ],
+      "conceptCompare": "算完後立刻驗算最保險：如果每邊 25 個，3 邊共 25 × 3 ＝ 75 個，扣掉 3 個重複的頂點剛好 75 − 3 ＝ 72 個。",
+      "examVariations": "若換成「空心正方形共用了 72 個花片，每邊有幾個？」，算法變成 72 ÷ 4 ＋ 1 ＝ 19 個。"
     }
   },
   {
-    "id": "u08_021",
+    "id": "U08-S2-B-012",
+    "legacyId": "u08_012",
     "unitId": "U08",
-    "category": "和差問題",
+    "section": "8-2",
+    "sectionName": "數形規律",
+    "category": "數形規律",
+    "batch": "課本原型題",
+    "source": "課本 p.134 練習園地八",
+    "level": 1,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "用邊長 1 公分的正方形方瓦，排成邊長 10 公分的空心正方形，共需要幾塊方瓦？",
+    "options": [
+      {
+        "key": "A",
+        "text": "40 塊",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "B",
+        "text": "32 塊",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      },
+      {
+        "key": "C",
+        "text": "100 塊",
+        "trapCode": "U08_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "36 塊",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "(10 - 1) * 4",
+      "expect": "36"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否能把「邊長 1 公分方瓦排成邊長 10 公分空心正方形」轉化為每邊 10 塊的空心方陣問題。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 130\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"45\" y=\"20\" width=\"75\" height=\"16\" fill=\"#fee2e2\" stroke=\"#e11d48\" stroke-width=\"2\"/><rect x=\"120\" y=\"20\" width=\"16\" height=\"75\" fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"2\"/><rect x=\"61\" y=\"95\" width=\"75\" height=\"16\" fill=\"#dcfce7\" stroke=\"#059669\" stroke-width=\"2\"/><rect x=\"45\" y=\"36\" width=\"16\" height=\"75\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"2\"/><text x=\"195\" y=\"42\" font-size=\"13\" font-weight=\"700\" fill=\"#1e293b\">每邊長 10 公分 ＝ 每邊 10 塊方瓦</text><text x=\"195\" y=\"70\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\">每組佔 10 − 1 ＝ 9 塊方瓦（不重疊）</text><text x=\"195\" y=\"98\" font-size=\"13\" font-weight=\"700\" fill=\"#e11d48\">共需要 9 × 4 ＝ 36 塊方瓦</text></svg>",
+          "caption": "空心方瓦框線拆解圖：4 條顏色長條各 9 塊，完全不重複"
+        },
+        {
+          "type": "text",
+          "text": "方瓦邊長 1 公分，所以邊長 10 公分的正方形每邊剛好有 10 塊方瓦。為避免 4 個角重複計算，每邊只算 10 − 1 ＝ 9 塊："
+        },
+        {
+          "type": "eq",
+          "expr": "(10 − 1) × 4 ＝ 9 × 4 ＝ 36",
+          "unit": "塊"
+        },
+        {
+          "type": "answer",
+          "text": "答：36 塊"
+        }
+      ],
+      "insight": "看到「空心正方形方瓦」時，先確認每邊幾塊，再套用 (每邊塊數 − 1) × 4（也可以用大正方形 10 × 10 扣掉中間空心 8 × 8 ＝ 36 塊）。",
+      "distractorAnalysis": {
+        "A": "直接算 10 × 4 ＝ 40 塊，忘了 4 個角落的方瓦被重複算了兩次。",
+        "B": "每邊少算了 2 塊變成 8 × 4 ＝ 32 塊，漏掉了 4 個角落。",
+        "C": "沒有看清題目是「空心」正方形，直接算成實心面積 10 × 10 ＝ 100 塊。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "空心方瓦塊數 ＝ (每邊塊數 − 1) × 4",
+        "面積扣除法：外層 10 × 10 − 內層空心 8 × 8 ＝ 100 − 64 ＝ 36"
+      ],
+      "conceptCompare": "注意分辨方瓦邊長：若題目改用「邊長 2 公分的方瓦排成邊長 10 公分的空心正方形」，每邊只有 10 ÷ 2 ＝ 5 塊，答案會變成 (5 − 1) × 4 ＝ 16 塊。",
+      "examVariations": "段考也常考「大正方形面積減小正方形面積」兩層實心框線，兩種想法結果都是 36 塊，剛好可以互相驗算。"
+    }
+  },
+  {
+    "id": "U08-S3-B-013",
+    "legacyId": "u08_013",
+    "unitId": "U08",
+    "section": "8-3",
+    "sectionName": "選擇與組合",
+    "category": "選擇與組合",
+    "batch": "課本原型題",
+    "source": "課本 p.126 例 1",
     "level": 1,
     "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "義式餐廳的義大利麵有 5 種、燉飯有 6 種、披薩有 3 種。如果只單點其中一種主食，共有幾種選擇？",
+    "options": [
+      {
+        "key": "A",
+        "text": "11 種",
+        "trapCode": "U08_CALC_SLIP"
+      },
+      {
+        "key": "B",
+        "text": "90 種",
+        "trapCode": "U08_COMB_DOUBLE_COUNT"
+      },
+      {
+        "key": "C",
+        "text": "14 種",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "33 種",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "5 + 6 + 3",
+      "expect": "14"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否能分辨「單選一種（加法原理）」與「搭配組合（乘法原理）」的差異。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "因為只單點「其中一種」主食，義大利麵、燉飯、披薩三類不能同時選，所以直接把各類的數量加起來："
+        },
+        {
+          "type": "eq",
+          "expr": "5 ＋ 6 ＋ 3 ＝ 14",
+          "unit": "種"
+        },
+        {
+          "type": "answer",
+          "text": "答：14 種"
+        }
+      ],
+      "insight": "只選一種（「或」）用加法；每一樣都要選來配對（「而且」）才用乘法。",
+      "distractorAnalysis": {
+        "B": "把單選題誤用成乘法原理，算成 5 × 6 × 3 ＝ 90 種（那是三種主食各點一份的搭配法）。",
+        "D": "把義大利麵與燉飯先相乘再加披薩（5 × 6 ＋ 3 ＝ 33），混淆了加減與乘法規則。",
+        "A": "計算時漏加了披薩的 3 種，只算 5 ＋ 6 ＝ 11 種。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "只選一種（互斥分類）：總選擇數 ＝ 各類數量相加"
+      ],
+      "conceptCompare": "讀題時先圈關鍵字：「單點其中一種」只要加起來；「各點一種搭配套餐」才需要乘起來。",
+      "examVariations": "若題目多加一句「再搭配 4 種飲料，主食和飲料各點一種」，這時要先算出 14 種主食，再 14 × 4 ＝ 56 種搭配。"
+    }
+  },
+  {
+    "id": "U08-S3-B-014",
+    "legacyId": "u08_014",
+    "unitId": "U08",
+    "section": "8-3",
+    "sectionName": "選擇與組合",
+    "category": "選擇與組合",
+    "batch": "課本原型題",
+    "source": "課本 p.126 例 2",
+    "level": 2,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "有 0、3、5、8 四張數字卡，選兩張排成一個二位數，而且必須是偶數。共有幾種排法？",
+    "options": [
+      {
+        "key": "A",
+        "text": "6 種",
+        "trapCode": "U08_COMB_DOUBLE_COUNT"
+      },
+      {
+        "key": "B",
+        "text": "5 種",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "3 種",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      },
+      {
+        "key": "D",
+        "text": "8 種",
+        "trapCode": "U08_CALC_SLIP"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "3 + 2",
+      "expect": "5"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生排數字卡組合時，是否懂得「偶數先固定個位」以及「二位數十位不能是 0」兩個限制條件。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 135\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"20\" y=\"18\" width=\"200\" height=\"96\" rx=\"8\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2\"/><text x=\"120\" y=\"42\" font-size=\"13\" font-weight=\"700\" fill=\"#1d4ed8\" text-anchor=\"middle\">情況一：個位放 0</text><text x=\"120\" y=\"68\" font-size=\"13\" fill=\"#1e293b\" text-anchor=\"middle\">十位可放 3、5、8</text><text x=\"120\" y=\"96\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">30、50、80（共 3 種）</text><rect x=\"240\" y=\"18\" width=\"200\" height=\"96\" rx=\"8\" fill=\"#fef2f2\" stroke=\"#e11d48\" stroke-width=\"2\"/><text x=\"340\" y=\"42\" font-size=\"13\" font-weight=\"700\" fill=\"#be123c\" text-anchor=\"middle\">情況二：個位放 8</text><text x=\"340\" y=\"68\" font-size=\"13\" fill=\"#1e293b\" text-anchor=\"middle\">十位不能放 0，可放 3、5</text><text x=\"340\" y=\"96\" font-size=\"13\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">38、58（共 2 種）</text></svg>",
+          "caption": "先固定偶數個位（0 或 8），再分別列出合法的十位數字"
+        },
+        {
+          "type": "text",
+          "text": "二位數要是偶數，個位只能放 0 或 8；同時十位絕對不能放 0。分開列出來算："
+        },
+        {
+          "type": "eq",
+          "expr": "3 ＋ 2 ＝ 5",
+          "unit": "種"
+        },
+        {
+          "type": "answer",
+          "text": "答：5 種"
+        }
+      ],
+      "insight": "排數字卡有 0 時，一定要把「0 放個位」和「0 不能放最高位」分開討論，才不會多算或漏算。",
+      "distractorAnalysis": {
+        "A": "忘了二位數的十位不能放 0，把「08」也算進去變成 3 ＋ 3 ＝ 6 種。",
+        "C": "只算了個位放 0 的 3 種，忘記個位還可以放 8。",
+        "D": "誤以為兩張卡都有 4 種選擇或把奇數也算進來。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "含 0 排偶數：先分類討論「個位是 0」與「個位是非 0 偶數」"
+      ],
+      "conceptCompare": "千萬不要從十位先選！如果十位選了 8，個位剩 0 一種；如果十位選了 3 或 5，個位有 0 和 8 兩種，分法比較亂。有特殊條件（偶數、奇數）的位數要最先決定。",
+      "examVariations": "若改問「排成二位數共有幾種（不限奇偶）？」，十位不能是 0 有 3 種、個位剩 3 張可選，共 3 × 3 ＝ 9 種。"
+    }
+  },
+  {
+    "id": "U08-S3-B-015",
+    "legacyId": "u08_015",
+    "unitId": "U08",
+    "section": "8-3",
+    "sectionName": "選擇與組合",
+    "category": "選擇與組合",
+    "batch": "課本原型題",
+    "source": "課本 p.126 練習",
+    "level": 2,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "有 0、1、2、3、4 五張數字卡，選兩張排成一個二位數，而且必須是奇數。共有幾種排法？",
+    "options": [
+      {
+        "key": "A",
+        "text": "8 種",
+        "trapCode": "U08_COMB_DOUBLE_COUNT"
+      },
+      {
+        "key": "B",
+        "text": "10 種",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      },
+      {
+        "key": "C",
+        "text": "4 種",
+        "trapCode": "U08_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "6 種",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "3 + 3",
+      "expect": "6"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生排二位奇數時，能否同時處理「個位必為奇數（1 或 3）」與「十位不可為 0」的雙重限制。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 135\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"20\" y=\"18\" width=\"200\" height=\"96\" rx=\"8\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2\"/><text x=\"120\" y=\"42\" font-size=\"13\" font-weight=\"700\" fill=\"#1d4ed8\" text-anchor=\"middle\">情況一：個位放 1</text><text x=\"120\" y=\"68\" font-size=\"13\" fill=\"#1e293b\" text-anchor=\"middle\">十位可放 2、3、4（不放 0）</text><text x=\"120\" y=\"96\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">21、31、41（共 3 種）</text><rect x=\"240\" y=\"18\" width=\"200\" height=\"96\" rx=\"8\" fill=\"#ecfdf5\" stroke=\"#059669\" stroke-width=\"2\"/><text x=\"340\" y=\"42\" font-size=\"13\" font-weight=\"700\" fill=\"#047857\" text-anchor=\"middle\">情況二：個位放 3</text><text x=\"340\" y=\"68\" font-size=\"13\" fill=\"#1e293b\" text-anchor=\"middle\">十位可放 1、2、4（不放 0）</text><text x=\"340\" y=\"96\" font-size=\"13\" font-weight=\"700\" fill=\"#059669\" text-anchor=\"middle\">13、23、43（共 3 種）</text></svg>",
+          "caption": "先固定奇數個位（1 或 3），再排除 0 列出合法的十位數字"
+        },
+        {
+          "type": "text",
+          "text": "奇數的個位只能是 1 或 3；剩下的卡片中十位還不能放 0，所以兩種情況十位都各有 3 個數字可選："
+        },
+        {
+          "type": "eq",
+          "expr": "3 ＋ 3 ＝ 6",
+          "unit": "種"
+        },
+        {
+          "type": "answer",
+          "text": "答：6 種"
+        }
+      ],
+      "insight": "奇數看個位、位數首位不能是 0；先選受限制的個位（2 種），再選十位（扣除個位與 0 剩 3 種），共 2 × 3 ＝ 6 種。",
+      "distractorAnalysis": {
+        "A": "忘了十位不能放 0，多算了 01 與 03 兩種，算成 4 ＋ 4 ＝ 8 種。",
+        "B": "誤以為兩張數字卡可以重複使用，或未扣掉已放個位的卡片，錯算成 2 × 5 ＝ 10 種。",
+        "C": "漏掉其中一個奇數的排法，或錯誤多扣一張數字卡變成 2 ＋ 2 ＝ 4 種。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "二位奇數排法 ＝ 個位奇數選法 × 十位（不含 0 與個位）選法"
+      ],
+      "conceptCompare": "排奇數比排偶數還單純！因為 0 本身不是奇數，不會佔掉個位名額，所以每個奇數個位後面剩下的十位選法數量都完全一樣。",
+      "examVariations": "若改用這五張卡排「三位奇數」，個位有 2 種（1 或 3）、百位不能放 0 與個位剩 3 種、十位可放 0 剩 3 種，共 2 × 3 × 3 ＝ 18 種。"
+    }
+  },
+  {
+    "id": "U08-S3-B-016",
+    "legacyId": "u08_016",
+    "unitId": "U08",
+    "section": "8-3",
+    "sectionName": "選擇與組合",
+    "category": "選擇與組合",
+    "batch": "課本原型題",
+    "source": "課本 p.127 練習",
+    "level": 1,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "櫥櫃裡有 5 個不同的杯子和 3 個不同的杯蓋，選一個杯子配一個杯蓋，共有幾種搭配？",
+    "options": [
+      {
+        "key": "A",
+        "text": "15 種",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "12 種",
+        "trapCode": "U08_CALC_SLIP"
+      },
+      {
+        "key": "C",
+        "text": "18 種",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      },
+      {
+        "key": "D",
+        "text": "8 種",
+        "trapCode": "U08_COMB_DOUBLE_COUNT"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "5 * 3",
+      "expect": "15"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否理解兩件獨立物品要「各選一個配對」時，必須使用乘法原理計算總組數。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "5 個不同的杯子裡，每一個杯子都可以分別搭配 3 個不同的杯蓋，共有 5 個 3 種："
+        },
+        {
+          "type": "eq",
+          "expr": "5 × 3 ＝ 15",
+          "unit": "種"
+        },
+        {
+          "type": "answer",
+          "text": "答：15 種"
+        }
+      ],
+      "insight": "需要「兩樣東西一起搭配」時，把各自的選擇數乘起來就是全部的組合數。",
+      "distractorAnalysis": {
+        "B": "乘法口訣背錯或看錯數字（誤算成 4 × 3 ＝ 12）。",
+        "C": "多算了一組杯蓋或把 6 × 3 ＝ 18 誤當成答案。",
+        "D": "誤將搭配問題用加法計算（5 ＋ 3 ＝ 8），把題目看成「只選杯子或只選杯蓋其中一個」。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "兩層搭配總數 ＝ 第一類選法 × 第二類選法"
+      ],
+      "conceptCompare": "5 個杯子加 3 個杯蓋共 8 個物品，但如果問「配對成一組有幾種方法」，必須是 5 × 3 ＝ 15 種。",
+      "examVariations": "若多加條件「其中 1 個杯子破裂不能使用」，剩下 4 個杯子配 3 個杯蓋，變成 4 × 3 ＝ 12 種。"
+    }
+  },
+  {
+    "id": "U08-S3-B-017",
+    "legacyId": "u08_017",
+    "unitId": "U08",
+    "section": "8-3",
+    "sectionName": "選擇與組合",
+    "category": "選擇與組合",
+    "batch": "課本原型題",
+    "source": "課本 p.128 例 4",
+    "level": 1,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "速食店套餐：主餐 3 種、副餐 4 種、飲料 2 種，每份套餐三樣各選一種。共有幾種組合？",
+    "options": [
+      {
+        "key": "A",
+        "text": "12 種",
+        "trapCode": "U08_CALC_SLIP"
+      },
+      {
+        "key": "B",
+        "text": "9 種",
+        "trapCode": "U08_COMB_DOUBLE_COUNT"
+      },
+      {
+        "key": "C",
+        "text": "14 種",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      },
+      {
+        "key": "D",
+        "text": "24 種",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "3 * 4 * 2",
+      "expect": "24"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否掌握三階段同時選取（「各選一種」）時的連乘計算能力。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 110\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"20\" y=\"24\" width=\"96\" height=\"46\" rx=\"8\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"2\"/><text x=\"68\" y=\"52\" font-size=\"13\" font-weight=\"700\" fill=\"#92400e\" text-anchor=\"middle\">主餐 3 種</text><text x=\"134\" y=\"53\" font-size=\"16\" font-weight=\"700\" fill=\"#475569\" text-anchor=\"middle\">×</text><rect x=\"152\" y=\"24\" width=\"96\" height=\"46\" rx=\"8\" fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"2\"/><text x=\"200\" y=\"52\" font-size=\"13\" font-weight=\"700\" fill=\"#1d4ed8\" text-anchor=\"middle\">副餐 4 種</text><text x=\"266\" y=\"53\" font-size=\"16\" font-weight=\"700\" fill=\"#475569\" text-anchor=\"middle\">×</text><rect x=\"284\" y=\"24\" width=\"96\" height=\"46\" rx=\"8\" fill=\"#dcfce7\" stroke=\"#059669\" stroke-width=\"2\"/><text x=\"332\" y=\"52\" font-size=\"13\" font-weight=\"700\" fill=\"#047857\" text-anchor=\"middle\">飲料 2 種</text><text x=\"420\" y=\"52\" font-size=\"14\" font-weight=\"800\" fill=\"#e11d48\" text-anchor=\"middle\">＝ 24 種</text><text x=\"230\" y=\"96\" font-size=\"12\" font-weight=\"700\" fill=\"#475569\" text-anchor=\"middle\">三步都要各選一樣 ➔ 用乘法連乘</text></svg>",
+          "caption": "速食店三層套餐搭配樹狀連乘示意圖"
+        },
+        {
+          "type": "text",
+          "text": "主餐、副餐、飲料三樣都要各選一種，將每一步的選法連乘起來："
+        },
+        {
+          "type": "eq",
+          "expr": "3 × 4 × 2 ＝ 24",
+          "unit": "種"
+        },
+        {
+          "type": "answer",
+          "text": "答：24 種"
+        }
+      ],
+      "insight": "分好幾個步驟完成一件事，且每一步都要選時，就是乘法原理：把每一步的選擇數量全部乘在一起。",
+      "distractorAnalysis": {
+        "B": "誤把「各選一種」當成「只選一種」，錯用加法算成 3 ＋ 4 ＋ 2 ＝ 9 種。",
+        "C": "前兩樣用乘的、最後一樣卻用加的，算成 3 × 4 ＋ 2 ＝ 14 種。",
+        "A": "漏掉最後一項飲料的 2 種選擇，只算到主餐配副餐 3 × 4 ＝ 12 種。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "三層搭配總數 ＝ 第一層 × 第二層 × 第三層"
+      ],
+      "conceptCompare": "和單點不同，套餐三個關卡缺一不可，所以 3 × 4 先得出 12 種主副餐配法，每一種都能再搭 2 種飲料，變成 24 種。",
+      "examVariations": "若改為「飲料還可以選冰的或熱的（兩種溫度）」，飲料就等於變成 2 × 2 ＝ 4 種選法，總組合數變 48 種。"
+    }
+  },
+  {
+    "id": "U08-S3-B-018",
+    "legacyId": "u08_018",
+    "unitId": "U08",
+    "section": "8-3",
+    "sectionName": "選擇與組合",
+    "category": "選擇與組合",
+    "batch": "課本原型題",
+    "source": "課本 p.128 練習",
+    "level": 1,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "登山步道會經過兩座吊橋：登山口到第一座橋有 3 條路，兩座橋之間有 2 條路，第二座橋到山頂有 2 條路。從登山口到山頂共有幾種走法？",
+    "options": [
+      {
+        "key": "A",
+        "text": "7 種",
+        "trapCode": "U08_COMB_DOUBLE_COUNT"
+      },
+      {
+        "key": "B",
+        "text": "8 種",
+        "trapCode": "U08_CALC_SLIP"
+      },
+      {
+        "key": "C",
+        "text": "12 種",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "6 種",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "3 * 2 * 2",
+      "expect": "12"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否能把「分段接力走完全程」的路線圖問題轉換成乘法原理連乘計算。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 120\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#2563eb\" stroke-width=\"2.2\" fill=\"none\"><path d=\"M 55 55 Q 98 25 140 55\"/><path d=\"M 55 55 L 140 55\"/><path d=\"M 55 55 Q 98 85 140 55\"/><path d=\"M 140 55 Q 208 30 275 55\"/><path d=\"M 140 55 Q 208 80 275 55\"/><path d=\"M 275 55 Q 340 30 405 55\"/><path d=\"M 275 55 Q 340 80 405 55\"/></g><g fill=\"#e11d48\"><circle cx=\"55\" cy=\"55\" r=\"6\"/><circle cx=\"140\" cy=\"55\" r=\"6\"/><circle cx=\"275\" cy=\"55\" r=\"6\"/><circle cx=\"405\" cy=\"55\" r=\"6\"/></g><g font-size=\"12\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\"><text x=\"55\" y=\"22\">登山口</text><text x=\"140\" y=\"22\">第一座橋</text><text x=\"275\" y=\"22\">第二座橋</text><text x=\"405\" y=\"22\">山頂</text><text x=\"98\" y=\"100\" fill=\"#2563eb\">3 條路</text><text x=\"208\" y=\"100\" fill=\"#2563eb\">2 條路</text><text x=\"340\" y=\"100\" fill=\"#2563eb\">2 條路</text></g></svg>",
+          "caption": "登山步道三段路線連接圖：三段依序都要經過，總走法為 3 × 2 × 2"
+        },
+        {
+          "type": "text",
+          "text": "從登山口走到山頂，三段路每一段都必須走過，所以把各段的路線條數相乘："
+        },
+        {
+          "type": "eq",
+          "expr": "3 × 2 × 2 ＝ 12",
+          "unit": "種"
+        },
+        {
+          "type": "answer",
+          "text": "答：12 種"
+        }
+      ],
+      "insight": "接力走路線：只要各段路是「依序接起來走」，就把每段的路線數乘起來。",
+      "distractorAnalysis": {
+        "A": "誤將路線數全部相加（3 ＋ 2 ＋ 2 ＝ 7 種），沒有考慮前段路和後段路可以互相搭配。",
+        "D": "漏算了最後一段（第二座橋到山頂的 2 條路），只算 3 × 2 ＝ 6 種。",
+        "B": "看錯第一段路線條數（誤用 2 × 2 × 2 ＝ 8）或連乘計算出錯。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "多段路線總走法 ＝ 第一段路數 × 第二段路數 × 第三段路數"
+      ],
+      "conceptCompare": "如果題目額外有一條「不經過吊橋、直接從登山口直達山頂的捷徑」，那條捷徑獨立在外面，算法就會變成 3 × 2 × 2 ＋ 1 ＝ 13 種。",
+      "examVariations": "段考常考「從登山口到山頂後，再走不同路線下山」，上下山一來一回要分開算並乘起來。"
+    }
+  },
+  {
+    "id": "U08-S4-B-019",
+    "legacyId": "u08_019",
+    "unitId": "U08",
+    "section": "8-4",
+    "sectionName": "和差問題",
+    "category": "和差問題",
+    "batch": "課本原型題",
+    "source": "課本 p.130 例 3",
+    "level": 1,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "一份特餐和一份升級套餐共 500 元，升級套餐比特餐貴 80 元。一份升級套餐是多少元？",
+    "figure": {
+      "type": "bar",
+      "rows": [
+        {
+          "label": "特餐",
+          "units": 1,
+          "role": "base"
+        },
+        {
+          "label": "升級套餐",
+          "units": 1.4,
+          "role": "compare"
+        }
+      ],
+      "brace": {
+        "kind": "sum",
+        "text": "共 500 元（貴 80 元）"
+      }
+    },
+    "options": [
+      {
+        "key": "A",
+        "text": "210 元",
+        "trapCode": "U08_CHICKEN_RABBIT_SWAP"
+      },
+      {
+        "key": "B",
+        "text": "580 元",
+        "trapCode": "U08_SUM_DIFF_FORGET_DIV2"
+      },
+      {
+        "key": "C",
+        "text": "420 元",
+        "trapCode": "U08_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "290 元",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "(500 + 80) / 2",
+      "expect": "290",
+      "extraChecks": [
+        {
+          "expr": "(500 - 80) / 2",
+          "expect": "210"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否理解標準和差問題線段圖模型，並正確回答「較大數（升級套餐）」的價錢。",
+      "figureNote": "把特餐當作基準長度，升級套餐比它長出 80 元；把這 80 元先補齊到特餐上，總和就會剛好等於兩份升級套餐的價錢。",
+      "steps": [
+        {
+          "type": "bar",
+          "ref": "figure"
+        },
+        {
+          "type": "text",
+          "text": "從線段圖來看，如果把特餐也多加 80 元，兩份餐點就會變成一樣貴，總共需要 500 ＋ 80 ＝ 580 元（相當於 2 份升級套餐）："
+        },
+        {
+          "type": "eq",
+          "expr": "(500 ＋ 80) ÷ 2 ＝ 580 ÷ 2 ＝ 290",
+          "unit": "元"
+        },
+        {
+          "type": "text",
+          "text": "驗算：特餐 ＝ 290 − 80 ＝ 210 元，290 ＋ 210 ＝ 500 元，符合題意。"
+        },
+        {
+          "type": "answer",
+          "text": "答：290 元"
+        }
+      ],
+      "insight": "和差問題口訣：大數 ＝ (和 ＋ 差) ÷ 2；小數 ＝ (和 − 差) ÷ 2。",
+      "distractorAnalysis": {
+        "A": "用 (500 − 80) ÷ 2 ＝ 210 元算出的是較便宜的「特餐」，沒看清楚題目問的是「升級套餐」。",
+        "B": "把和加上差算出 500 ＋ 80 ＝ 580 元後，忘記除以 2 就直接作答。",
+        "C": "算出 500 − 80 ＝ 420 元後忘記除以 2，誤把 2 份特餐的錢當成答案。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "大數 ＝ (和 ＋ 差) ÷ 2",
+        "小數 ＝ (和 − 差) ÷ 2"
+      ],
+      "conceptCompare": "求大數用「加差再除 2」（把小的補成跟大的一樣）；求小數用「減差再除 2」（把大的多餘部分拿掉）。",
+      "examVariations": "段考常考「同時問兩者價錢」或「如果買 2 份升級套餐和 1 份特餐共幾元」，先求出單價再計算即可。"
+    }
+  },
+  {
+    "id": "U08-S4-B-020",
+    "legacyId": "u08_020",
+    "unitId": "U08",
+    "section": "8-4",
+    "sectionName": "和差問題",
+    "category": "和差問題",
+    "batch": "課本原型題",
+    "source": "課本 p.131 例 5",
+    "level": 1,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "md",
+    "question": "用一條長 60 公分的繩子圍成一個長方形，長比寬多 6 公分。這個長方形的寬是多少公分？",
+    "figure": {
+      "type": "bar",
+      "rows": [
+        {
+          "label": "長方形寬",
+          "units": 1,
+          "role": "base"
+        },
+        {
+          "label": "長方形長",
+          "units": 1.5,
+          "role": "compare"
+        }
+      ],
+      "brace": {
+        "kind": "sum",
+        "text": "長 ＋ 寬 ＝ 30 公分（差 6 公分）"
+      }
+    },
+    "options": [
+      {
+        "key": "A",
+        "text": "18 公分",
+        "trapCode": "U08_CHICKEN_RABBIT_SWAP"
+      },
+      {
+        "key": "B",
+        "text": "27 公分",
+        "trapCode": "U08_SUM_DIFF_FORGET_DIV2"
+      },
+      {
+        "key": "C",
+        "text": "24 公分",
+        "trapCode": "U08_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "12 公分",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "(60 / 2 - 6) / 2",
+      "expect": "12"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否先將長方形「周長 60 公分」除以 2 換成「長 ＋ 寬的和」，再套用和差公式求出寬。",
+      "figureNote": "長方形周長包含 2 個長和 2 個寬，所以一組「長 ＋ 寬」只有周長的一半，也就是 30 公分。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：繩子長 60 公分是長方形的周長（2 個長 ＋ 2 個寬），先除以 2 算出 1 組「長 ＋ 寬」："
+        },
+        {
+          "type": "eq",
+          "expr": "60 ÷ 2 ＝ 30",
+          "unit": "公分"
+        },
+        {
+          "type": "bar",
+          "ref": "figure"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：已知「長 ＋ 寬 ＝ 30 公分」，且「長 − 寬 ＝ 6 公分」。把長多出來的 6 公分拿掉，剩下 2 個寬："
+        },
+        {
+          "type": "eq",
+          "expr": "(30 − 6) ÷ 2 ＝ 24 ÷ 2 ＝ 12",
+          "unit": "公分"
+        },
+        {
+          "type": "answer",
+          "text": "答：12 公分"
+        }
+      ],
+      "insight": "長方形周長與和差問題結合時，第一動作永遠是「周長 ÷ 2 ＝ 長 ＋ 寬」，絕不能直接拿周長當兩數和！",
+      "distractorAnalysis": {
+        "A": "用 (30 ＋ 6) ÷ 2 ＝ 18 公分算出的是「長」，沒有看清題目要問的是「寬」。",
+        "B": "忘了周長有兩組長與寬，直接拿 60 當成「長 ＋ 寬」去算 (60 − 6) ÷ 2 ＝ 27 公分。",
+        "C": "算出 30 − 6 ＝ 24 公分後忘記除以 2。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "長 ＋ 寬 ＝ 長方形周長 ÷ 2",
+        "寬（小數）＝ (半周長 − 長寬差) ÷ 2"
+      ],
+      "conceptCompare": "長方形周長 ＝ (長 ＋ 寬) × 2，所以做和差問題前一定要先除 2。",
+      "examVariations": "進階考題會接著問：「這個長方形的面積是多少平方公分？」算出長 18、寬 12 後再算 18 × 12 ＝ 216 平方公分。"
+    }
+  },
+  {
+    "id": "U08-S4-B-021",
+    "legacyId": "u08_021",
+    "unitId": "U08",
+    "section": "8-4",
+    "sectionName": "和差問題",
+    "category": "和差問題",
     "batch": "課本原型題",
     "source": "課本 p.132 例 6",
-    "verified": false,
-    "question": "哥哥有 12 顆糖果，弟弟有 8 顆。哥哥要給弟弟幾顆，兩人才會一樣多？",
-    "answer": "2 顆",
-    "steps": [
-      "相差 12 − 8 = 4",
-      "把差平分：4 ÷ 2 = 2",
-      "驗算：哥哥 10、弟弟 10 ✔"
-    ],
-    "insight": "給出去 k 個，兩人的差會縮小 2k。",
-    "trap": {
-      "code": "ERR_TRANSFER_HALF_DIFF",
-      "text": "答 4 顆——給完變成弟弟比哥哥多 4 顆。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u08_022",
-    "unitId": "U08",
-    "category": "和差問題",
     "level": 1,
     "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "哥哥有 12 顆糖果，弟弟有 8 顆糖果。哥哥要給弟弟幾顆，兩人的糖果才會一樣多？",
+    "figure": {
+      "type": "bar",
+      "rows": [
+        {
+          "label": "弟弟（8 顆）",
+          "units": 2,
+          "role": "base"
+        },
+        {
+          "label": "哥哥（12 顆）",
+          "units": 3,
+          "role": "compare"
+        }
+      ],
+      "brace": {
+        "kind": "diff",
+        "text": "相差 4 顆（平分給弟弟一半）"
+      }
+    },
+    "options": [
+      {
+        "key": "A",
+        "text": "4 顆",
+        "trapCode": "U08_SUM_DIFF_FORGET_DIV2"
+      },
+      {
+        "key": "B",
+        "text": "2 顆",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "10 顆",
+        "trapCode": "U08_AGE_NOW_OFFSET_MISS"
+      },
+      {
+        "key": "D",
+        "text": "1 顆",
+        "trapCode": "U08_CALC_SLIP"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "(12 - 8) / 2",
+      "expect": "2"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否掌握「移多補少」的關鍵觀念：給出相差數量的一半，兩人就會一樣多。",
+      "figureNote": "哥哥比弟弟多出來的 4 顆糖果中，只要把一半（2 顆）移給弟弟，兩人的線段就會一樣長。",
+      "steps": [
+        {
+          "type": "bar",
+          "ref": "figure"
+        },
+        {
+          "type": "text",
+          "text": "先算哥哥比弟弟多幾顆，再把多出來的部分平分成兩份，分給弟弟一份："
+        },
+        {
+          "type": "eq",
+          "expr": "(12 − 8) ÷ 2 ＝ 4 ÷ 2 ＝ 2",
+          "unit": "顆"
+        },
+        {
+          "type": "text",
+          "text": "驗算：哥哥 12 − 2 ＝ 10 顆，弟弟 8 ＋ 2 ＝ 10 顆，剛好一樣多。"
+        },
+        {
+          "type": "answer",
+          "text": "答：2 顆"
+        }
+      ],
+      "insight": "移多補少大原則：給對方 1 顆，自己少 1、對方多 1，兩人的差距會縮小 2 顆！所以只要給「相差數 ÷ 2」。",
+      "distractorAnalysis": {
+        "C": "算出平均後兩人各有 (12 ＋ 8) ÷ 2 ＝ 10 顆，誤把最後每人擁有的數量當成答案。",
+        "D": "除法計算或看題目出錯，算成 1 顆。",
+        "A": "只算出 12 − 8 ＝ 4 顆卻忘記除以 2，如果給 4 顆會反過來變成弟弟 12 顆、哥哥 8 顆。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "移多補少移動量 ＝ (大數 − 小數) ÷ 2"
+      ],
+      "conceptCompare": "也可以用「先求平均」算：總數 12 ＋ 8 ＝ 20 顆，平分每人 10 顆，哥哥多出 12 − 10 ＝ 2 顆。",
+      "examVariations": "反推題：「哥哥給弟弟 5 顆糖果後，兩人一樣多，原本哥哥比弟弟多幾顆？」答案是 5 × 2 ＝ 10 顆。"
+    }
+  },
+  {
+    "id": "U08-S4-B-022",
+    "legacyId": "u08_022",
+    "unitId": "U08",
+    "section": "8-4",
+    "sectionName": "和差問題",
+    "category": "和差問題",
     "batch": "課本原型題",
     "source": "課本 p.132 例 7",
-    "verified": false,
-    "question": "紅瓶裝了 800 毫升的水，綠瓶裝了 600 毫升。紅瓶要倒多少毫升到綠瓶，兩瓶才會一樣多？",
-    "answer": "100 毫升",
-    "steps": [
-      "相差 800 − 600 = 200",
-      "200 ÷ 2 = 100"
-    ],
-    "trap": {
-      "code": "ERR_TRANSFER_HALF_DIFF",
-      "text": "答 200 毫升。"
+    "level": 1,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "紅瓶裝了 800 毫升的水，綠瓶裝了 600 毫升的水。紅瓶要倒多少毫升到綠瓶，兩瓶的水才會一樣多？",
+    "figure": {
+      "type": "bar",
+      "rows": [
+        {
+          "label": "綠瓶（600 毫升）",
+          "units": 3,
+          "role": "base"
+        },
+        {
+          "label": "紅瓶（800 毫升）",
+          "units": 4,
+          "role": "compare"
+        }
+      ],
+      "brace": {
+        "kind": "diff",
+        "text": "多出 200 毫升（倒一半給綠瓶）"
+      }
     },
-    "work": "sm"
+    "options": [
+      {
+        "key": "A",
+        "text": "100 毫升",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "200 毫升",
+        "trapCode": "U08_SUM_DIFF_FORGET_DIV2"
+      },
+      {
+        "key": "C",
+        "text": "700 毫升",
+        "trapCode": "U08_AGE_NOW_OFFSET_MISS"
+      },
+      {
+        "key": "D",
+        "text": "50 毫升",
+        "trapCode": "U08_CALC_SLIP"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "(800 - 600) / 2",
+      "expect": "100"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否能把液體倒水一樣多的生活情境，套用「相差量 ÷ 2」來解決。",
+      "figureNote": "紅瓶比綠瓶多出 200 毫升，把這多出來的 200 毫升倒一半（100 毫升）進綠瓶，兩瓶就會一樣多。",
+      "steps": [
+        {
+          "type": "bar",
+          "ref": "figure"
+        },
+        {
+          "type": "text",
+          "text": "先算出紅瓶比綠瓶多幾毫升的水，再把相差的量平分："
+        },
+        {
+          "type": "eq",
+          "expr": "(800 − 600) ÷ 2 ＝ 200 ÷ 2 ＝ 100",
+          "unit": "毫升"
+        },
+        {
+          "type": "text",
+          "text": "驗算：紅瓶 800 − 100 ＝ 700 毫升，綠瓶 600 ＋ 100 ＝ 700 毫升。"
+        },
+        {
+          "type": "answer",
+          "text": "答：100 毫升"
+        }
+      ],
+      "insight": "兩瓶倒水使水量一樣多，不需要把兩瓶的水全部加起來算平均；直接算「相差 ÷ 2」最快。",
+      "distractorAnalysis": {
+        "C": "把平均水量 (800 ＋ 600) ÷ 2 ＝ 700 毫升當成要倒的水量。",
+        "D": "除以 2 時多除了一次變成 50 毫升。",
+        "B": "只算 800 − 600 ＝ 200 毫升卻忘記除以 2，倒 200 毫升過去會變成綠瓶 800、紅瓶 600。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "倒水量 ＝ (多的一瓶 − 少的一瓶) ÷ 2"
+      ],
+      "conceptCompare": "不論是糖果、零用錢還是裝水，只要是「一個給另一個使兩邊一樣多」，公式永遠都是「差 ÷ 2」。",
+      "examVariations": "若題目先從紅瓶倒掉 40 毫升喝掉，再問倒多少到綠瓶一樣多，要先變成 760 與 600 再計算 (760 − 600) ÷ 2 ＝ 80 毫升。"
+    }
   },
   {
-    "id": "u08_023",
+    "id": "U08-S4-B-023",
+    "legacyId": "u08_023",
     "unitId": "U08",
+    "section": "8-4",
+    "sectionName": "和差問題",
     "category": "和差問題",
-    "level": 2,
-    "difficulty": 3,
     "batch": "課本原型題",
     "source": "課本 p.133 素養評量",
-    "verified": false,
-    "question": "巧庭付了兩人的車資 225 元，思妤付了兩人的餐費 385 元。如果所有費用兩人平均分攤，誰要給誰多少元？",
-    "answer": "巧庭要給思妤 80 元",
-    "steps": [
-      "思妤多付 385 − 225 = 160 元",
-      "平分差額：160 ÷ 2 = 80",
-      "或：總共 610 元，每人 305 元，巧庭少付 305 − 225 = 80"
-    ],
-    "trap": {
-      "code": "ERR_TRANSFER_HALF_DIFF",
-      "text": "答「巧庭給思妤 160 元」。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u08_024",
-    "unitId": "U08",
-    "category": "和差問題",
-    "level": 1,
-    "difficulty": 3,
-    "batch": "課本原型題",
-    "source": "課本 p.135 練習園地八",
-    "verified": false,
-    "question": "一件襯衫比一件裙子便宜 400 元，媽媽買了一件襯衫和一件裙子共花 1200 元。襯衫和裙子各是多少元？",
-    "answer": "裙子 800 元，襯衫 400 元",
-    "steps": [
-      "裙子（大數）= (1200 + 400) ÷ 2 = 800",
-      "襯衫（小數）= (1200 − 400) ÷ 2 = 400"
-    ],
-    "work": "sm"
-  },
-  {
-    "id": "u08_025",
-    "unitId": "U08",
-    "category": "和差問題",
     "level": 2,
     "difficulty": 3,
-    "batch": "課本原型題",
-    "source": "課本 p.135 練習園地八",
-    "verified": false,
-    "question": "天平左盤放了 480 公克的物品，從左盤拿 50 公克移到右盤，天平剛好平衡。右盤原本放了多少公克？",
-    "answer": "380 公克",
-    "steps": [
-      "移 50 公克就平衡 → 原本左盤比右盤多 50 × 2 = 100 公克",
-      "右盤 = 480 − 100 = 380"
-    ],
-    "trap": {
-      "code": "ERR_TRANSFER_HALF_DIFF",
-      "text": "算成 480 − 50 = 430 公克。"
+    "questionType": "choice",
+    "work": "sm",
+    "question": "巧庭付了兩人的車資 225 元，思妤付了兩人的餐費 385 元。如果所有費用兩人平均分攤，巧庭應該再給思妤多少元？",
+    "figure": {
+      "type": "bar",
+      "rows": [
+        {
+          "label": "巧庭（225 元）",
+          "units": 1,
+          "role": "base"
+        },
+        {
+          "label": "思妤（385 元）",
+          "units": 1.7,
+          "role": "compare"
+        }
+      ],
+      "brace": {
+        "kind": "diff",
+        "text": "思妤多付 160 元（巧庭補一半）"
+      }
     },
-    "work": "sm"
+    "options": [
+      {
+        "key": "A",
+        "text": "80 元",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "305 元",
+        "trapCode": "U08_AGE_NOW_OFFSET_MISS"
+      },
+      {
+        "key": "C",
+        "text": "160 元",
+        "trapCode": "U08_SUM_DIFF_FORGET_DIV2"
+      },
+      {
+        "key": "D",
+        "text": "610 元",
+        "trapCode": "U08_CALC_SLIP"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "(385 - 225) / 2",
+      "expect": "80"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否能把「兩人分別代墊費用後平均分攤」的帳務題，轉化為移多補少模型求解。",
+      "figureNote": "思妤付得比較多，多出了 160 元；這多付的 160 元兩人各負擔一半，所以巧庭只要補還思妤 80 元。",
+      "steps": [
+        {
+          "type": "bar",
+          "ref": "figure"
+        },
+        {
+          "type": "text",
+          "text": "方法一（算差額平分）：思妤比巧庭多付了 385 − 225 ＝ 160 元，把多付的錢平分一半："
+        },
+        {
+          "type": "eq",
+          "expr": "(385 − 225) ÷ 2 ＝ 160 ÷ 2 ＝ 80",
+          "unit": "元"
+        },
+        {
+          "type": "text",
+          "text": "方法二（算總和再分攤）：總共 225 ＋ 385 ＝ 610 元，每人應付 610 ÷ 2 ＝ 305 元，巧庭少付了 305 − 225 ＝ 80 元。"
+        },
+        {
+          "type": "answer",
+          "text": "答：80 元"
+        }
+      ],
+      "insight": "分攤費用題跟移多補少一樣：誰付得多，少付的人就補「兩人付款差額的一半」給對方。",
+      "distractorAnalysis": {
+        "B": "算出每人應分攤的金額 (225 ＋ 385) ÷ 2 ＝ 305 元後，忘記扣掉巧庭已經付出的 225 元。",
+        "D": "只算出了兩人的總花費 225 ＋ 385 ＝ 610 元，沒有算出要補給對方的金額。",
+        "C": "直接把思妤多付的差額 385 − 225 ＝ 160 元當成答案，忘記除以 2（給 160 元會變成巧庭反而多出錢）。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "少付者補付金額 ＝ (多付者金額 − 少付者金額) ÷ 2",
+        "驗算：每人應付金額 ＝ 總花費 ÷ 2"
+      ],
+      "conceptCompare": "三個人分攤費用時，就必須使用「方法二」先算全部總花費 ÷ 3 得到每人應出金額，再看各人多退少補。",
+      "examVariations": "段考常同時問「誰要給誰多少元？」，記得付款金額較小的人（巧庭）給付款較大的人（思妤）。"
+    }
   },
   {
-    "id": "u08_101",
+    "id": "U08-S4-B-024",
+    "legacyId": "u08_024",
     "unitId": "U08",
+    "section": "8-4",
+    "sectionName": "和差問題",
+    "category": "和差問題",
+    "batch": "課本原型題",
+    "source": "課本 p.135 練習園地八",
+    "level": 1,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "一件襯衫比一件裙子便宜 400 元，媽媽買了一件襯衫和一件裙子共花 1200 元。一件襯衫是多少元？",
+    "figure": {
+      "type": "bar",
+      "rows": [
+        {
+          "label": "襯衫",
+          "units": 1,
+          "role": "base"
+        },
+        {
+          "label": "裙子",
+          "units": 2,
+          "role": "compare"
+        }
+      ],
+      "brace": {
+        "kind": "sum",
+        "text": "共 1200 元（裙子貴 400 元）"
+      }
+    },
+    "options": [
+      {
+        "key": "A",
+        "text": "800 元",
+        "trapCode": "U08_CHICKEN_RABBIT_SWAP"
+      },
+      {
+        "key": "B",
+        "text": "1600 元",
+        "trapCode": "U08_SUM_DIFF_FORGET_DIV2"
+      },
+      {
+        "key": "C",
+        "text": "400 元",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "600 元",
+        "trapCode": "U08_CALC_SLIP"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "(1200 - 400) / 2",
+      "expect": "400",
+      "extraChecks": [
+        {
+          "expr": "(1200 + 400) / 2",
+          "expect": "800"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生在「便宜 400 元」的表述下，是否能分辨誰是較小的數（襯衫），並正確求得襯衫價錢。",
+      "figureNote": "襯衫比裙子便宜 400 元，代表裙子比襯衫多 400 元；先從總價 1200 元扣掉多出的 400 元，剩下的錢剛好等於 2 件襯衫。",
+      "steps": [
+        {
+          "type": "bar",
+          "ref": "figure"
+        },
+        {
+          "type": "text",
+          "text": "襯衫較便宜（小數），先把裙子多出來的 400 元從總花費拿掉，剩下 2 件襯衫的價錢："
+        },
+        {
+          "type": "eq",
+          "expr": "(1200 − 400) ÷ 2 ＝ 800 ÷ 2 ＝ 400",
+          "unit": "元"
+        },
+        {
+          "type": "text",
+          "text": "驗算：裙子 ＝ 400 ＋ 400 ＝ 800 元，400 ＋ 800 ＝ 1200 元，符合題意。"
+        },
+        {
+          "type": "answer",
+          "text": "答：400 元"
+        }
+      ],
+      "insight": "題目說「甲比乙便宜 400 元」，意思就是「甲是小數、乙是大數」，求小數用 (和 − 差) ÷ 2。",
+      "distractorAnalysis": {
+        "A": "用 (1200 ＋ 400) ÷ 2 ＝ 800 元算出的是「裙子（大數）」的價錢，沒有看清題目要問的是襯衫。",
+        "B": "算完 1200 ＋ 400 ＝ 1600 元後忘記除以 2。",
+        "D": "直接拿總花費除以 2 算成 1200 ÷ 2 ＝ 600 元，忽略了兩件衣服相差 400 元。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "小數（較便宜者）＝ (和 − 差) ÷ 2"
+      ],
+      "conceptCompare": "有些同學看到「400 元」跟答案「400 元」一樣會懷疑自己算錯，只要把裙子 800 ＋ 襯衫 400 加起來檢查等於 1200 元就能放心！",
+      "examVariations": "若題目改成「買兩件襯衫和一件裙子共 1600 元」，可以先想像成「多加 400 元把裙子也看成襯衫，或者 3 件襯衫 ＋ 400 ＝ 1600 元」。"
+    }
+  },
+  {
+    "id": "U08-S4-B-025",
+    "legacyId": "u08_025",
+    "unitId": "U08",
+    "section": "8-4",
+    "sectionName": "和差問題",
+    "category": "和差問題",
+    "batch": "課本原型題",
+    "source": "課本 p.135 練習園地八",
+    "level": 2,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "天平左盤放了 480 公克的物品，從左盤拿 50 公克移到右盤，天平剛好平衡。右盤原本放了多少公克？",
+    "figure": {
+      "type": "bar",
+      "rows": [
+        {
+          "label": "右盤原本",
+          "units": 1.5,
+          "role": "base"
+        },
+        {
+          "label": "左盤（480 公克）",
+          "units": 2,
+          "role": "compare"
+        }
+      ],
+      "brace": {
+        "kind": "diff",
+        "text": "原本相差 50 × 2 ＝ 100 公克"
+      }
+    },
+    "options": [
+      {
+        "key": "A",
+        "text": "430 公克",
+        "trapCode": "U08_SUM_DIFF_FORGET_DIV2"
+      },
+      {
+        "key": "B",
+        "text": "380 公克",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "580 公克",
+        "trapCode": "U08_CHICKEN_RABBIT_SWAP"
+      },
+      {
+        "key": "D",
+        "text": "290 公克",
+        "trapCode": "U08_CALC_SLIP"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "480 - 50 * 2",
+      "expect": "380"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否理解移多補少的「逆推」原理：移動 50 公克能平衡，代表原本兩邊相差 50 × 2 ＝ 100 公克。",
+      "figureNote": "左盤移走 50 公克變成 430 公克，右盤得到 50 公克後也變成 430 公克，所以原本左盤比右盤重 100 公克。",
+      "steps": [
+        {
+          "type": "bar",
+          "ref": "figure"
+        },
+        {
+          "type": "text",
+          "text": "方法一（差兩倍法）：從左盤拿 50 公克到右盤就平衡，表示原本左盤比右盤重 50 × 2 ＝ 100 公克："
+        },
+        {
+          "type": "eq",
+          "expr": "480 − 50 × 2 ＝ 480 − 100 ＝ 380",
+          "unit": "公克"
+        },
+        {
+          "type": "text",
+          "text": "方法二（平衡後回推）：左盤拿走 50 公克後剩 430 公克，所以右盤加上 50 公克後也是 430 公克，原本右盤為 430 − 50 ＝ 380 公克。"
+        },
+        {
+          "type": "answer",
+          "text": "答：380 公克"
+        }
+      ],
+      "insight": "「甲給乙 50 就一樣多」代表原本「甲比乙多 50 × 2 ＝ 100」，千萬不要直接只減 50！",
+      "distractorAnalysis": {
+        "C": "加減方向相反，把右盤誤當成比較重的一邊，算成 480 ＋ 100 ＝ 580 公克。",
+        "D": "套錯和差公式或加減計算失誤。",
+        "A": "誤以為左盤原本只比右盤重 50 公克，直接算 480 − 50 ＝ 430 公克（這是移動後的重量，不是右盤原本的重量）。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "移動 50 後平衡 ➔ 原先相差 ＝ 50 × 2 ＝ 100",
+        "平衡法驗算：左盤 − 50 ＝ 右盤 ＋ 50"
+      ],
+      "conceptCompare": "容易搞混時，「方法二」最直覺：先算左盤移動後剩下 430 公克，這時兩邊相等所以右盤也是 430，再扣掉放進來的 50 就得到原本 380 公克。",
+      "examVariations": "考題常改成：「甲有 480 元，甲給乙 50 元後兩人錢一樣多，請問兩人原本共有多少元？」480 ＋ 380 ＝ 860 元（或直接 430 × 2 ＝ 860 元）。"
+    }
+  },
+  {
+    "id": "U08-S1-O-026",
+    "legacyId": "u08_101",
+    "unitId": "U08",
+    "section": "8-1",
+    "sectionName": "間隔問題",
     "category": "間隔問題",
-    "level": 3,
-    "difficulty": 4,
     "batch": "奧數天梯",
     "source": "Unit08 AI_SPEC level_3（雙重植樹重合）",
-    "verified": true,
-    "question": "周長 400 公尺的環形跑道，原本每隔 8 公尺插一面旗子。後來改成每隔 10 公尺插一面（起點不變）。有幾面旗子不用移動？",
-    "answer": "10 面",
-    "steps": [
-      "不用移動的位置要同時是 8 和 10 的倍數 → 每 40 公尺一個",
-      "封閉跑道：400 ÷ 40 = 10"
-    ],
-    "insight": "兩種間隔重合 → 找最小公倍數；再套用封閉圖形「點數 = 間隔數」。",
-    "work": "sm"
-  },
-  {
-    "id": "u08_102",
-    "unitId": "U08",
-    "category": "數形規律",
     "level": 3,
     "difficulty": 4,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "周長 400 公尺的環形跑道，原本每隔 8 公尺插一面旗子。後來改成每隔 10 公尺插一面（起點位置不變）。一共有幾面旗子不用移動？",
+    "options": [
+      {
+        "key": "A",
+        "text": "11 面",
+        "trapCode": "U08_CLOSED_LOOP_ADD_ONE"
+      },
+      {
+        "key": "B",
+        "text": "10 面",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "9 面",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "D",
+        "text": "5 面",
+        "trapCode": "U08_CALC_SLIP"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "400 / 40",
+      "expect": "10"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否結合「最小公倍數」與「封閉環形植樹」概念，找出兩種間隔同時重合的點數。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：不用移動的旗子位置，必須同時是 8 公尺和 10 公尺的倍數。先找出 8 和 10 的最小公倍數："
+        },
+        {
+          "type": "eq",
+          "expr": "8 和 10 的最小公倍數 ＝ 40",
+          "unit": "公尺"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 120\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"35\" y1=\"50\" x2=\"415\" y2=\"50\" stroke=\"#94a3b8\" stroke-width=\"3\"/><circle cx=\"45\" cy=\"50\" r=\"7\" fill=\"#e11d48\"/><circle cx=\"120\" cy=\"50\" r=\"5\" fill=\"#2563eb\"/><circle cx=\"195\" cy=\"50\" r=\"5\" fill=\"#2563eb\"/><circle cx=\"270\" cy=\"50\" r=\"5\" fill=\"#2563eb\"/><circle cx=\"345\" cy=\"50\" r=\"5\" fill=\"#2563eb\"/><circle cx=\"405\" cy=\"50\" r=\"7\" fill=\"#e11d48\"/><text x=\"45\" y=\"28\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">0 公尺（重合）</text><text x=\"405\" y=\"28\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\" text-anchor=\"middle\">40 公尺（重合）</text><text x=\"230\" y=\"82\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">每隔 40 公尺重合 1 次（封閉環形直接相除）</text><text x=\"230\" y=\"104\" font-size=\"12\" fill=\"#334155\" text-anchor=\"middle\">400 ÷ 40 ＝ 10 面旗子不用移動</text></svg>",
+          "caption": "雙重植樹重合圖：8 與 10 的最小公倍數是 40，每 40 公尺重合一次"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：跑道是封閉的環形，沒有起點與終點重複的問題，所以重合的面數直接等於間隔數："
+        },
+        {
+          "type": "eq",
+          "expr": "400 ÷ 40 ＝ 10",
+          "unit": "面"
+        },
+        {
+          "type": "answer",
+          "text": "答：10 面"
+        }
+      ],
+      "insight": "雙重植樹找「不用移動」的點：先用最小公倍數求出新的重合間隔，再依照直線或封閉圖形算點數。",
+      "distractorAnalysis": {
+        "A": "環形跑道是封閉圖形，卻誤套用直線「兩端都設」公式多加 1，算成 10 ＋ 1 ＝ 11 面。",
+        "C": "誤算成要再減 1，少算了起點那一面旗子，答成 9 面。",
+        "D": "直接用 8 × 10 ＝ 80 公尺當作最小公倍數，算出 400 ÷ 80 ＝ 5 面。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "重合間隔 ＝ 原間隔與新間隔的最小公倍數",
+        "環形（封閉）不用移動數 ＝ 總周長 ÷ 重合間隔"
+      ],
+      "conceptCompare": "如果題目改成「筆直的 400 公尺跑道（兩端都插旗）」，答案才會變成 400 ÷ 40 ＋ 1 ＝ 11 面。",
+      "examVariations": "進階題會問：「拔起來重插的旗子有幾面？」原本共 400 ÷ 8 ＝ 50 面，扣掉不用動的 10 面，共有 40 面需要拔起。"
+    }
+  },
+  {
+    "id": "U08-S2-O-027",
+    "legacyId": "u08_102",
+    "unitId": "U08",
+    "section": "8-2",
+    "sectionName": "數形規律",
+    "category": "數形規律",
     "batch": "奧數天梯",
     "source": "Unit08 AI_SPEC level_3（火柴棒方格）",
-    "verified": true,
-    "question": "用火柴棒排成 2 排、每排 10 個的方格（共 20 個小正方形），一共需要幾根火柴棒？",
-    "answer": "52 根",
-    "steps": [
-      "橫的：3 條橫線 × 每條 10 根 = 30",
-      "直的：11 條直線 × 每條 2 根 = 22",
-      "30 + 22 = 52"
+    "level": 3,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "用火柴棒排成 2 排、每排 10 個相連的小正方形方格（共有 20 個小正方形），一共需要幾根火柴棒？",
+    "options": [
+      {
+        "key": "A",
+        "text": "80 根",
+        "trapCode": "U08_COMB_DOUBLE_COUNT"
+      },
+      {
+        "key": "B",
+        "text": "50 根",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "C",
+        "text": "61 根",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      },
+      {
+        "key": "D",
+        "text": "52 根",
+        "trapCode": null
+      }
     ],
-    "insight": "m 排 n 列方格：橫的 (m + 1) × n 根、直的 (n + 1) × m 根。"
+    "answer": "D",
+    "check": {
+      "expr": "3 * 10 + 11 * 2",
+      "expect": "52"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否能把二維火柴方格拆成「所有橫線」與「所有直線」兩個方向分開計數，避免錯用單排公式或漏數封口線。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 130\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#e11d48\" stroke-width=\"3.5\" stroke-linecap=\"round\"><line x1=\"40\" y1=\"25\" x2=\"340\" y2=\"25\"/><line x1=\"40\" y1=\"55\" x2=\"340\" y2=\"55\"/><line x1=\"40\" y1=\"85\" x2=\"340\" y2=\"85\"/></g><g stroke=\"#2563eb\" stroke-width=\"3\" stroke-linecap=\"round\"><line x1=\"40\" y1=\"25\" x2=\"40\" y2=\"85\"/><line x1=\"70\" y1=\"25\" x2=\"70\" y2=\"85\"/><line x1=\"100\" y1=\"25\" x2=\"100\" y2=\"85\"/><line x1=\"130\" y1=\"25\" x2=\"130\" y2=\"85\"/><line x1=\"160\" y1=\"25\" x2=\"160\" y2=\"85\"/><line x1=\"190\" y1=\"25\" x2=\"190\" y2=\"85\"/><line x1=\"220\" y1=\"25\" x2=\"220\" y2=\"85\"/><line x1=\"250\" y1=\"25\" x2=\"250\" y2=\"85\"/><line x1=\"280\" y1=\"25\" x2=\"280\" y2=\"85\"/><line x1=\"310\" y1=\"25\" x2=\"310\" y2=\"85\"/><line x1=\"340\" y1=\"25\" x2=\"340\" y2=\"85\"/></g><text x=\"355\" y=\"42\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\">3 條紅橫線</text><text x=\"355\" y=\"64\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\">各 10 根＝30</text><text x=\"225\" y=\"112\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">11 條藍直線 × 2 根 ＝ 22 根（合計 30 ＋ 22 ＝ 52 根）</text></svg>",
+          "caption": "方格分方向數法：紅線算所有橫邊（3 × 10），藍線算所有直邊（11 × 2）"
+        },
+        {
+          "type": "text",
+          "text": "2 排、每排 10 個正方形時，把橫的跟直的分開來算，絕對不會重複也不會漏掉："
+        },
+        {
+          "type": "eq",
+          "expr": "橫的：3 × 10 ＝ 30",
+          "unit": "根"
+        },
+        {
+          "type": "eq",
+          "expr": "直的：(10 ＋ 1) × 2 ＝ 11 × 2 ＝ 22",
+          "unit": "根"
+        },
+        {
+          "type": "eq",
+          "expr": "30 ＋ 22 ＝ 52",
+          "unit": "根"
+        },
+        {
+          "type": "answer",
+          "text": "答：52 根"
+        }
+      ],
+      "insight": "排成整齊的網格時，不要一個一個正方形數！分成「橫排線段」和「直行線段」：2 排格子有 2 ＋ 1 ＝ 3 條橫線；10 列格子有 10 ＋ 1 ＝ 11 條直線。",
+      "distractorAnalysis": {
+        "A": "沒有扣除共用邊，直接用 20 × 4 ＝ 80 根。",
+        "B": "直線只算了 10 條而漏掉最右邊封口的那條，變成 30 ＋ 20 ＝ 50 根。",
+        "C": "誤套用單排正方形規律（1 ＋ 3 × 20 ＝ 61 根），忘記上下兩排相接時還會多共用 10 根橫線。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "橫排棒數 ＝ (排數 ＋ 1) × 每排格數",
+        "直行棒數 ＝ (每排格數 ＋ 1) × 排數"
+      ],
+      "conceptCompare": "這個「分方向數線段」的方法跟植樹間隔完全相通：10 個格子就像 10 個間隔，兩端都要有直線，所以共有 10 ＋ 1 ＝ 11 條直線。",
+      "examVariations": "若改問「排成 3 排、每排 5 個正方形（共 15 格）需要幾根？」，橫的 4 × 5 ＝ 20、直的 6 × 3 ＝ 18，合計 38 根。"
+    }
   },
   {
-    "id": "u08_103",
+    "id": "U08-S3-O-028",
+    "legacyId": "u08_103",
     "unitId": "U08",
+    "section": "8-3",
+    "sectionName": "選擇與組合",
     "category": "選擇與組合",
-    "level": 4,
-    "difficulty": 4,
     "batch": "奧數天梯",
     "source": "Unit08 AI_SPEC level_4（塗色問題）",
-    "verified": true,
-    "question": "一排有 4 個格子，用紅、黃、藍 3 種顏色塗色，每格塗一種，相鄰兩格不能同色。共有幾種塗法？",
-    "answer": "24 種",
-    "steps": [
-      "第 1 格：3 種",
-      "第 2 格：不能和第 1 格同色 → 2 種",
-      "第 3、4 格同理各 2 種",
-      "3 × 2 × 2 × 2 = 24"
+    "level": 4,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "一排有 4 個格子，用紅、黃、藍 3 種顏色塗色，每格塗一種顏色，而且相鄰兩格不能同色。共有幾種塗法？",
+    "options": [
+      {
+        "key": "A",
+        "text": "81 種",
+        "trapCode": "U08_COMB_DOUBLE_COUNT"
+      },
+      {
+        "key": "B",
+        "text": "12 種",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      },
+      {
+        "key": "C",
+        "text": "9 種",
+        "trapCode": "U08_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "24 種",
+        "trapCode": null
+      }
     ],
-    "insight": "「只跟前一格比」的限制 → 乘法原理逐格算。",
-    "work": "sm"
+    "answer": "D",
+    "check": {
+      "expr": "3 * 2 * 2 * 2",
+      "expect": "24"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否理解「相鄰不同色」只限制相鄰兩格，不限制間隔格子重複用色，並用乘法原理逐格推算。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 115\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"25\" y=\"20\" width=\"82\" height=\"46\" rx=\"6\" fill=\"#fee2e2\" stroke=\"#e11d48\" stroke-width=\"2.2\"/><text x=\"66\" y=\"48\" font-size=\"13\" font-weight=\"700\" fill=\"#be123c\" text-anchor=\"middle\">第 1 格：3 種</text><text x=\"121\" y=\"49\" font-size=\"16\" font-weight=\"700\" fill=\"#475569\" text-anchor=\"middle\">×</text><rect x=\"135\" y=\"20\" width=\"82\" height=\"46\" rx=\"6\" fill=\"#fef3c7\" stroke=\"#d97706\" stroke-width=\"2.2\"/><text x=\"176\" y=\"48\" font-size=\"13\" font-weight=\"700\" fill=\"#92400e\" text-anchor=\"middle\">第 2 格：2 種</text><text x=\"231\" y=\"49\" font-size=\"16\" font-weight=\"700\" fill=\"#475569\" text-anchor=\"middle\">×</text><rect x=\"245\" y=\"20\" width=\"82\" height=\"46\" rx=\"6\" fill=\"#dbeafe\" stroke=\"#2563eb\" stroke-width=\"2.2\"/><text x=\"286\" y=\"48\" font-size=\"13\" font-weight=\"700\" fill=\"#1d4ed8\" text-anchor=\"middle\">第 3 格：2 種</text><text x=\"341\" y=\"49\" font-size=\"16\" font-weight=\"700\" fill=\"#475569\" text-anchor=\"middle\">×</text><rect x=\"355\" y=\"20\" width=\"82\" height=\"46\" rx=\"6\" fill=\"#fee2e2\" stroke=\"#e11d48\" stroke-width=\"2.2\"/><text x=\"396\" y=\"48\" font-size=\"13\" font-weight=\"700\" fill=\"#be123c\" text-anchor=\"middle\">第 4 格：2 種</text><text x=\"230\" y=\"96\" font-size=\"13\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">第 2、3、4 格只要不和前一格同色，各都有 2 種選法</text></svg>",
+          "caption": "相鄰異色塗色圖：第 1 格 3 種，之後每格只需避開前一格顏色（各 2 種）"
+        },
+        {
+          "type": "text",
+          "text": "從左到右一格一格塗色：第 1 格沒有任何限制有 3 種選法；第 2 格只要不和第 1 格同色就有 2 種；第 3 格只要不和第 2 格同色，還是可以塗回第 1 格的顏色，所以一樣有 2 種；第 4 格也是 2 種："
+        },
+        {
+          "type": "eq",
+          "expr": "3 × 2 × 2 × 2 ＝ 24",
+          "unit": "種"
+        },
+        {
+          "type": "answer",
+          "text": "答：24 種"
+        }
+      ],
+      "insight": "相鄰異色塗色問題：第 3 格可以和第 1 格同色！只要跟「緊鄰的前一格」不一樣就好，所以後面每一格都是 2 種。",
+      "distractorAnalysis": {
+        "A": "忘了「相鄰兩格不能同色」的規定，直接把每格都當成 3 種算成 3 × 3 × 3 × 3 ＝ 81 種。",
+        "B": "誤以為第 3 格不能跟第 1、2 格同色（把顏色當成不能重複使用），錯算成 3 × 2 × 1 × 2 ＝ 12 種。",
+        "C": "把每格的選法誤用加法相加（3 ＋ 2 ＋ 2 ＋ 2 ＝ 9 種）。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "一排格子相鄰異色 ＝ 顏色數 × (顏色數 − 1) × (顏色數 − 1) × ……"
+      ],
+      "conceptCompare": "排成「一排」和圍成「一圈」不一樣！排成一排時第 4 格只受第 3 格影響；若是 4 格圍成一圈，第 4 格還要避開第 1 格，就不能直接這樣連乘。",
+      "examVariations": "若改用 4 種顏色塗 4 個格子（相鄰異色），算法就變成 4 × 3 × 3 × 3 ＝ 108 種。"
+    }
   },
   {
-    "id": "u08_m01",
+    "id": "U08-S4-O-029",
+    "legacyId": null,
     "unitId": "U08",
-    "category": "純腦力體操",
-    "topic": "植樹兩端",
-    "level": 1,
-    "stars": 1,
-    "difficulty": 1,
+    "section": "8-4",
+    "sectionName": "和差問題",
+    "category": "三人和差問題",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L5（三量和差基準轉換）",
+    "level": 5,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "md",
+    "question": "甲、乙、丙三人合買一套科學百科全書，總共付了 180 元。已知甲比乙多付 15 元，乙比丙多付 12 元，請問甲付了多少元？",
+    "figure": {
+      "type": "bar",
+      "rows": [
+        {
+          "label": "丙的金額",
+          "units": 1,
+          "role": "base"
+        },
+        {
+          "label": "乙（多丙12元）",
+          "units": 1.25,
+          "role": "compare"
+        },
+        {
+          "label": "甲（多丙27元）",
+          "units": 1.6,
+          "role": "extra"
+        }
+      ],
+      "brace": {
+        "kind": "sum",
+        "text": "三人合計 180 元"
+      }
+    },
+    "options": [
+      {
+        "key": "A",
+        "text": "59 元",
+        "trapCode": "U08_CHICKEN_RABBIT_SWAP"
+      },
+      {
+        "key": "B",
+        "text": "141 元",
+        "trapCode": "U08_SUM_DIFF_FORGET_DIV2"
+      },
+      {
+        "key": "C",
+        "text": "74 元",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "78 元",
+        "trapCode": "U08_CALC_SLIP"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "(180 - 12 - (12 + 15)) / 3 + 12 + 15",
+      "expect": "74",
+      "extraChecks": [
+        {
+          "expr": "74 + 59 + 47",
+          "expect": "180"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否透過線段圖將「三人和差」對齊同一個最小基準量（丙），扣掉多餘差額後先平分出丙，再逐層推回甲。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：以金額最少的「丙」為基準，找出乙和甲各自比丙多付幾元。乙比丙多 12 元，甲比乙多 15 元，所以甲比丙多 12 ＋ 15 ＝ 27 元。"
+        },
+        {
+          "type": "bar"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：從總金額 180 元中，把乙和甲比丙多出的部分先扣掉，剩下的錢就剛好是 3 個丙一樣多。"
+        },
+        {
+          "type": "eq",
+          "expr": "180 − 12 − 27 ＝ 141",
+          "unit": "元"
+        },
+        {
+          "type": "eq",
+          "expr": "丙 ＝ 141 ÷ 3 ＝ 47",
+          "unit": "元"
+        },
+        {
+          "type": "text",
+          "text": "第 3 步：由丙的 47 元往回算出甲（加 27 元），並檢驗三人合計是否為 180 元。"
+        },
+        {
+          "type": "eq",
+          "expr": "甲 ＝ 47 ＋ 27 ＝ 74",
+          "unit": "元"
+        },
+        {
+          "type": "answer",
+          "text": "答：甲付了 74 元"
+        }
+      ],
+      "insight": "三人和差題要先「找最小量當基準」，把多出來的差額全部剪掉後，再除以 3 平分！",
+      "figureNote": "線段圖以最少的丙為基準，乙比丙多出 12 元、甲比丙多出 12＋15 ＝ 27 元，三人線段總和為 180 元。",
+      "distractorAnalysis": {
+        "A": "算出的是乙的金額 47 ＋ 12 ＝ 59 元，看錯題目問的對象，忘記甲還要再加 15 元。",
+        "D": "誤以為三人總差額只有 12 ＋ 15 ＝ 27 元（漏算甲裡面的那份 12 元），算成 (180 − 27) ÷ 3 ＋ 27 ＝ 78 元。",
+        "B": "把多餘差額 12 ＋ 27 ＝ 39 元從 180 元扣掉後，忘記除以 3 平分就直接回答 141 元。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "三量和差先求最小量 ＝ (總和 − 中量多出 − 最大量多出) ÷ 3",
+        "算完後務必驗算三人的和與兩兩差額是否符合題意"
+      ],
+      "conceptCompare": "兩人（和差）是除以 2；三人（和差）對齊最小量扣掉差額後，要除以 3，最常錯在以為甲只比丙多 15 元。",
+      "examVariations": "段考常改為三人的體重、成績或木棒長度比較，有時會改成「甲給丙幾元後三人一樣多」，此時直接算總平均 180 ÷ 3 ＝ 60 元即可比較。"
+    }
+  },
+  {
+    "id": "U08-S1-O-030",
+    "legacyId": null,
+    "unitId": "U08",
+    "section": "8-1",
+    "sectionName": "間隔問題",
+    "category": "公路兩側電線桿與距離",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L5（道路兩旁植樹設燈）",
+    "level": 5,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "一條筆直的景觀大道全長 240 公尺，工程人員在道路的「兩側」每隔 15 公尺設置一盞太陽能路燈，且起點與終點兩端都要設置。這條大道總共需要幾盞路燈？",
+    "options": [
+      {
+        "key": "A",
+        "text": "17 盞",
+        "trapCode": "U08_BOTH_SIDES_FORGET_MUL2"
+      },
+      {
+        "key": "B",
+        "text": "34 盞",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "32 盞",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "D",
+        "text": "30 盞",
+        "trapCode": "U08_CALC_SLIP"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "(240 / 15 + 1) * 2",
+      "expect": "34"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生在直線兩端都設的間隔問題中，能否先求單側盞數（間隔數 ＋ 1），再注意「兩側／兩旁」必須乘以 2。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：先算道路「單側」總共有幾個 15 公尺的間隔。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 520 175\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"40\" y=\"52\" width=\"440\" height=\"66\" rx=\"6\" fill=\"#f1f5f9\" stroke=\"#64748b\" stroke-width=\"2\"/><line x1=\"40\" y1=\"85\" x2=\"480\" y2=\"85\" stroke=\"#94a3b8\" stroke-width=\"2\" stroke-dasharray=\"10 8\"/><circle cx=\"40\" cy=\"42\" r=\"7\" fill=\"#f59e0b\" stroke=\"#b45309\" stroke-width=\"2\"/><circle cx=\"128\" cy=\"42\" r=\"7\" fill=\"#f59e0b\" stroke=\"#b45309\" stroke-width=\"2\"/><circle cx=\"216\" cy=\"42\" r=\"7\" fill=\"#f59e0b\" stroke=\"#b45309\" stroke-width=\"2\"/><circle cx=\"392\" cy=\"42\" r=\"7\" fill=\"#f59e0b\" stroke=\"#b45309\" stroke-width=\"2\"/><circle cx=\"480\" cy=\"42\" r=\"7\" fill=\"#f59e0b\" stroke=\"#b45309\" stroke-width=\"2\"/><circle cx=\"40\" cy=\"128\" r=\"7\" fill=\"#f59e0b\" stroke=\"#b45309\" stroke-width=\"2\"/><circle cx=\"128\" cy=\"128\" r=\"7\" fill=\"#f59e0b\" stroke=\"#b45309\" stroke-width=\"2\"/><circle cx=\"216\" cy=\"128\" r=\"7\" fill=\"#f59e0b\" stroke=\"#b45309\" stroke-width=\"2\"/><circle cx=\"392\" cy=\"128\" r=\"7\" fill=\"#f59e0b\" stroke=\"#b45309\" stroke-width=\"2\"/><circle cx=\"480\" cy=\"128\" r=\"7\" fill=\"#f59e0b\" stroke=\"#b45309\" stroke-width=\"2\"/><text x=\"304\" y=\"46\" font-size=\"15\" font-weight=\"bold\" fill=\"#b45309\" text-anchor=\"middle\">……</text><text x=\"304\" y=\"132\" font-size=\"15\" font-weight=\"bold\" fill=\"#b45309\" text-anchor=\"middle\">……</text><text x=\"84\" y=\"25\" font-size=\"12\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"middle\">15 公尺</text><text x=\"172\" y=\"25\" font-size=\"12\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"middle\">15 公尺</text><text x=\"436\" y=\"25\" font-size=\"12\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"middle\">15 公尺</text><text x=\"260\" y=\"160\" font-size=\"13\" font-weight=\"bold\" fill=\"#0f172a\" text-anchor=\"middle\">全長 240 公尺（單側 16 間隔 ➔ 17 盞；兩側共 34 盞）</text></svg>",
+          "caption": "道路「兩側」都要設燈，單側兩端都設需 16 ＋ 1 ＝ 17 盞，兩側共 17 × 2 ＝ 34 盞"
+        },
+        {
+          "type": "eq",
+          "expr": "240 ÷ 15 ＝ 16",
+          "unit": "個間隔"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：因為兩端都要設路燈，單側盞數等於間隔數加 1。"
+        },
+        {
+          "type": "eq",
+          "expr": "16 ＋ 1 ＝ 17",
+          "unit": "盞（單側）"
+        },
+        {
+          "type": "text",
+          "text": "第 3 步：題目要求道路「兩側」都設，所以要把單側盞數乘以 2。"
+        },
+        {
+          "type": "eq",
+          "expr": "17 × 2 ＝ 34",
+          "unit": "盞"
+        },
+        {
+          "type": "answer",
+          "text": "答：總共需要 34 盞路燈"
+        }
+      ],
+      "insight": "看到「道路兩側、橋樑兩旁、走廊左右兩邊」這類關鍵字，一定要在最後乘以 2！",
+      "distractorAnalysis": {
+        "A": "只算出了道路其中一側的路燈數 16 ＋ 1 ＝ 17 盞，忘記兩側都要設置而少乘 2。",
+        "D": "誤把「兩端都設」記成「兩端都不設」，算出單側 16 − 1 ＝ 15 盞，兩側 30 盞。",
+        "C": "算出 16 個間隔後，忘記兩端都設要加 1，直接算成 16 × 2 ＝ 32 盞。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "直線兩端都設（單側）＝ 總長 ÷ 間隔長 ＋ 1",
+        "道路兩側總數 ＝ 單側盞數 × 2"
+      ],
+      "conceptCompare": "直線兩端都設要「＋1」，兩端都不設要「−1」，只有環形封閉路線才是「間隔數 ＝ 物體數」。別看到道路題也套封閉公式。",
+      "examVariations": "進階題會問「一共裝了 34 盞路燈，已知兩側兩端都有裝，問相鄰兩盞燈相距幾公尺？」，要先 34 ÷ 2 ＝ 17 盞，再減 1 得 16 個間隔，最後 240 ÷ 16 ＝ 15 公尺。"
+    }
+  },
+  {
+    "id": "U08-RV-O-031",
+    "legacyId": null,
+    "unitId": "U08",
+    "section": "REVIEW",
+    "sectionName": "綜合複習與應用",
+    "category": "雞兔同籠標準假設法",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L5（大小車載客假設法）",
+    "level": 5,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "md",
+    "question": "六年級舉辦戶外教學，租用了大車與小車共 14 輛，剛好把 94 位師生全部載滿。已知每輛大車可載 8 人、每輛小車可載 5 人，請問共租用了幾輛大車？",
+    "figure": {
+      "type": "bar",
+      "rows": [
+        {
+          "label": "小車每輛 (5人)",
+          "units": 1,
+          "role": "base"
+        },
+        {
+          "label": "大車每輛 (8人)",
+          "units": 1.6,
+          "role": "compare"
+        }
+      ],
+      "brace": {
+        "kind": "diff",
+        "text": "每換 1 輛多載 8 − 5 ＝ 3 人"
+      }
+    },
+    "options": [
+      {
+        "key": "A",
+        "text": "6 輛",
+        "trapCode": "U08_CHICKEN_RABBIT_SWAP"
+      },
+      {
+        "key": "B",
+        "text": "8 輛",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "12 輛",
+        "trapCode": "U08_PENALTY_DIFF_ERR"
+      },
+      {
+        "key": "D",
+        "text": "9 輛",
+        "trapCode": "U08_CALC_SLIP"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "(94 - 5 * 14) / (8 - 5)",
+      "expect": "8",
+      "extraChecks": [
+        {
+          "expr": "8 * 8 + 6 * 5",
+          "expect": "94"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生運用「假設法」解決雞兔同籠變形問題的能力，並能正確對應替換對象與人數差。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：假設這 14 輛車全部都是「小車」，先算出總共可以載多少人。"
+        },
+        {
+          "type": "eq",
+          "expr": "5 × 14 ＝ 70",
+          "unit": "人"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：比較與實際人數 94 人的差距，並看每次把 1 輛小車換成大車能多載幾人。"
+        },
+        {
+          "type": "bar"
+        },
+        {
+          "type": "eq",
+          "expr": "94 − 70 ＝ 24",
+          "unit": "人（少算的人數）"
+        },
+        {
+          "type": "eq",
+          "expr": "24 ÷ (8 − 5) ＝ 8",
+          "unit": "輛（大車）"
+        },
+        {
+          "type": "answer",
+          "text": "答：共租用了 8 輛大車"
+        }
+      ],
+      "insight": "「假設全部是小車，算出來就會是大車！」假設的對象和算出來的對象剛好相反，題目問大車就直接假設全是小車最快。",
+      "figureNote": "線段圖顯示每將 1 輛小車換成大車，載客量就會增加 8 − 5 ＝ 3 人，總差額 24 人除以 3 即得大車輛數。",
+      "distractorAnalysis": {
+        "C": "計算大車與小車載客差時誤算成差 2 人，得出 24 ÷ 2 ＝ 12 輛。",
+        "D": "計算 94 − 70 時誤減成 27 人，再除以 3 得到 9 輛。",
+        "A": "求出小車有 6 輛後忘記減回大車，或假設全是大車算出小車就直接作答。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "假設全為小量 ➔ 大量數 ＝ (實際總量 − 小量單價 × 總數) ÷ (大量單價 − 小量單價)",
+        "假設法算出來的數量永遠是「被替換進去」的那一種"
+      ],
+      "conceptCompare": "假設全是大車（8 × 14 ＝ 112 人），多出 112 − 94 ＝ 18 人，18 ÷ 3 ＝ 6 輛是小車，最後仍須算 14 − 6 ＝ 8 輛大車；若一開始就假設全是小車，就能一步直達大車答案。",
+      "examVariations": "常見換皮題包括大小和尚吃饅頭、兩人與三人協力車、兩種面額鈔票或郵票混合問題。"
+    }
+  },
+  {
+    "id": "U08-S2-O-032",
+    "legacyId": null,
+    "unitId": "U08",
+    "section": "8-2",
+    "sectionName": "數形規則",
+    "category": "三層實心與空心方陣換算",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L6（三層空心方陣總人數）",
+    "level": 6,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "md",
+    "question": "校慶大會操排成一個 3 層的空心正方形方陣，最外層每一邊站了 16 位學生，相鄰兩層的總人數都相差 8 人。請問這個 3 層空心方陣總共有幾位學生？",
+    "options": [
+      {
+        "key": "A",
+        "text": "168 位",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "B",
+        "text": "112 位",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      },
+      {
+        "key": "C",
+        "text": "148 位",
+        "trapCode": "U08_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "156 位",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "(16 - 1) * 4 + (14 - 1) * 4 + (12 - 1) * 4",
+      "expect": "156",
+      "extraChecks": [
+        {
+          "expr": "16 * 16 - 10 * 10",
+          "expect": "156"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否理解空心正方形每層人數需扣除 4 個重複頂點，以及多層方陣相鄰兩層每邊少 2 人、總數少 8 人的規律。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：算出最外層人數。正方形每邊 16 人，四個角落會重複計算一次，所以最外層共有 (16 − 1) × 4 ＝ 60 人。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 210\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"24\" y=\"18\" width=\"174\" height=\"174\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"3\"/><rect x=\"48\" y=\"42\" width=\"126\" height=\"126\" fill=\"#eef2ff\" stroke=\"#4f46e5\" stroke-width=\"3\"/><rect x=\"72\" y=\"66\" width=\"78\" height=\"78\" fill=\"#f0fdfa\" stroke=\"#0d9488\" stroke-width=\"3\"/><rect x=\"94\" y=\"88\" width=\"34\" height=\"34\" fill=\"#ffffff\" stroke=\"#94a3b8\" stroke-width=\"1.5\" stroke-dasharray=\"4 3\"/><text x=\"111\" y=\"110\" font-size=\"11\" fill=\"#64748b\" text-anchor=\"middle\">空心</text><text x=\"215\" y=\"52\" font-size=\"12\" font-weight=\"bold\" fill=\"#1d4ed8\">外層每邊16人：(16−1)×4 ＝ 60 人</text><text x=\"215\" y=\"96\" font-size=\"12\" font-weight=\"bold\" fill=\"#4338ca\">中層每邊14人：60 − 8 ＝ 52 人</text><text x=\"215\" y=\"140\" font-size=\"12\" font-weight=\"bold\" fill=\"#0f766e\">內層每邊12人：52 − 8 ＝ 44 人</text><text x=\"215\" y=\"182\" font-size=\"12\" font-weight=\"bold\" fill=\"#be123c\">合計：60 ＋ 52 ＋ 44 ＝ 156 人</text></svg>",
+          "caption": "往內縮 1 層，左右上下各少 1 人，因此每邊少 2 人、整圈少 8 人"
+        },
+        {
+          "type": "eq",
+          "expr": "中層人數 ＝ 60 − 8 ＝ 52",
+          "unit": "人"
+        },
+        {
+          "type": "eq",
+          "expr": "內層人數 ＝ 52 − 8 ＝ 44",
+          "unit": "人"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：把三層人數相加（或用中層平均 52 × 3）。"
+        },
+        {
+          "type": "eq",
+          "expr": "60 ＋ 52 ＋ 44 ＝ 156",
+          "unit": "人"
+        },
+        {
+          "type": "answer",
+          "text": "答：總共有 156 位學生"
+        }
+      ],
+      "insight": "多層正方形方陣往內 1 層，每邊會少 2 人（頭尾各縮進 1 格），因此整圈總人數固定少 8 人！",
+      "distractorAnalysis": {
+        "A": "每層計算時忘記扣除 4 個重複角落，錯算成 16×4 ＋ 14×4 ＋ 12×4 ＝ 168 位。",
+        "B": "只加了外兩層 60 ＋ 52 ＝ 112 位而漏掉最內層；或用大正方形減小正方形面積時誤減 12×12 得到 256 − 144 ＝ 112 位。",
+        "C": "三層相加 60 ＋ 52 ＋ 44 時十位與個位進位失誤，錯算成 148 位。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "單層方陣總人數 ＝ (每邊人數 − 1) × 4",
+        "多層空心方陣：總人數 ＝ 中間層人數 × 層數（層數為奇數時）"
+      ],
+      "conceptCompare": "也可以用「大實心 − 小空心」來算：3 層往內共縮 6 人，內部空心每邊為 16 − 2×3 ＝ 10 人，因此 16 × 16 − 10 × 10 ＝ 256 − 100 ＝ 156 位！",
+      "examVariations": "反推題會給「3 層空心方陣共有 156 人」，先用 156 ÷ 3 ＝ 52 求出中層人數，再加 8 得最外層 60 人，最後 60 ÷ 4 ＋ 1 ＝ 每邊 16 人。"
+    }
+  },
+  {
+    "id": "U08-RV-O-033",
+    "legacyId": null,
+    "unitId": "U08",
+    "section": "REVIEW",
+    "sectionName": "綜合複習與應用",
+    "category": "測驗答對得5倒扣2",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L6（倒扣計分假設法）",
+    "level": 6,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "md",
+    "question": "數學競試共有 20 題選擇題，規定答對 1 題得 5 分，答錯 1 題不但不給分還要倒扣 2 分（每題都必須作答）。小宇全部寫完後拿到 72 分，請問他答對了幾題？",
+    "figure": {
+      "type": "bar",
+      "rows": [
+        {
+          "label": "小宇實得分數",
+          "units": 1.44,
+          "role": "compare"
+        },
+        {
+          "label": "20題全對滿分",
+          "units": 2,
+          "role": "base"
+        }
+      ],
+      "brace": {
+        "kind": "diff",
+        "text": "少了 28 分（每錯 1 題少 5＋2 ＝ 7 分）"
+      }
+    },
+    "options": [
+      {
+        "key": "A",
+        "text": "15 題",
+        "trapCode": "U08_CALC_SLIP"
+      },
+      {
+        "key": "B",
+        "text": "4 題",
+        "trapCode": "U08_CHICKEN_RABBIT_SWAP"
+      },
+      {
+        "key": "C",
+        "text": "6 題",
+        "trapCode": "U08_PENALTY_DIFF_ERR"
+      },
+      {
+        "key": "D",
+        "text": "16 題",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "20 - (20 * 5 - 72) / (5 + 2)",
+      "expect": "16",
+      "extraChecks": [
+        {
+          "expr": "16 * 5 - 4 * 2",
+          "expect": "72"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生在「倒扣計分」情境下，能否正確算出錯 1 題的總分差為「原本可得的 5 分 ＋ 倒扣的 2 分 ＝ 7 分」，而非只扣 2 分或 5 − 2 ＝ 3 分。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：假設 20 題全部答對，總分應該是 5 × 20 ＝ 100 分。"
+        },
+        {
+          "type": "bar"
+        },
+        {
+          "type": "eq",
+          "expr": "100 − 72 ＝ 28",
+          "unit": "分（被扣掉的分數）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：每錯 1 題，不只沒拿到 5 分，還倒扣 2 分，所以一來一回共相差 5 ＋ 2 ＝ 7 分。"
+        },
+        {
+          "type": "eq",
+          "expr": "28 ÷ (5 ＋ 2) ＝ 4",
+          "unit": "題（答錯）"
+        },
+        {
+          "type": "eq",
+          "expr": "20 − 4 ＝ 16",
+          "unit": "題（答對）"
+        },
+        {
+          "type": "answer",
+          "text": "答：他答對了 16 題"
+        }
+      ],
+      "insight": "「得分與倒扣」的單題差距要把兩數「相加」（5 ＋ 2 ＝ 7 分），因為你既沒賺到 5 分，又賠掉 2 分！",
+      "figureNote": "線段圖對比滿分 100 分與實得 72 分的差距 28 分，將少掉的 28 分除以每錯 1 題損失的 7 分即得答錯 4 題。",
+      "distractorAnalysis": {
+        "B": "只算出答錯的 4 題就直接選 4 題，忘記題目問的是「答對幾題」。",
+        "C": "誤以為錯 1 題只比滿分少 2 分（沒加進拿不到的 5 分），算成錯 28 ÷ 2 ＝ 14 題，剩對 6 題。",
+        "A": "減法 100 − 72 誤算成 35 分，導致算成錯 5 題、答對 15 題。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "錯 1 題總損失 ＝ 答對得分 ＋ 答錯倒扣分",
+        "答錯題數 ＝ (滿分 − 實得分數) ÷ (得分 ＋ 倒扣分)"
+      ],
+      "conceptCompare": "一般雞兔同籠（兩者都是正數）單個差距用「大 − 小」；有「倒扣／賠錢」時，一正一負之間的距離要用「加」的，就像溫度從零上 5 度降到零下 2 度共降了 7 度。",
+      "examVariations": "若題目多加入「未作答 0 分」，則需先由條件鎖定未作答題數，再對剩餘作答題套用假設法。"
+    }
+  },
+  {
+    "id": "U08-S4-O-034",
+    "legacyId": null,
+    "unitId": "U08",
+    "section": "8-4",
+    "sectionName": "和差問題",
+    "category": "年齡和反推今年與過幾年",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L6（年齡差不變與和差應用）",
+    "level": 6,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "4 年前爸爸比兒子大 28 歲，今年父子兩人的年齡總和剛好是 54 歲。請問兒子「今年」是幾歲？",
+    "figure": {
+      "type": "bar",
+      "rows": [
+        {
+          "label": "兒子今年",
+          "units": 1,
+          "role": "base"
+        },
+        {
+          "label": "爸爸今年",
+          "units": 2.2,
+          "role": "compare"
+        }
+      ],
+      "brace": {
+        "kind": "diff",
+        "text": "年齡差永遠不變 ＝ 28 歲"
+      }
+    },
+    "options": [
+      {
+        "key": "A",
+        "text": "13 歲",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "11 歲",
+        "trapCode": "U08_AGE_DIFF_CHANGE"
+      },
+      {
+        "key": "C",
+        "text": "9 歲",
+        "trapCode": "U08_AGE_NOW_OFFSET_MISS"
+      },
+      {
+        "key": "D",
+        "text": "26 歲",
+        "trapCode": "U08_SUM_DIFF_FORGET_DIV2"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "(54 - 28) / 2",
+      "expect": "13",
+      "extraChecks": [
+        {
+          "expr": "(54 + 28) / 2",
+          "expect": "41"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否掌握「兩人年齡差永遠不變」的核心性質，並能正確套用和差公式求出今年年齡。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：無論經過幾年，爸爸與兒子每年都會同時長大 1 歲，因此「年齡差永遠不變」。4 年前大 28 歲，今年爸爸一樣比兒子大 28 歲。"
+        },
+        {
+          "type": "bar"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：已知今年兩人年齡和是 54 歲、年齡差是 28 歲，套用和差問題求小數（兒子今年）。"
+        },
+        {
+          "type": "eq",
+          "expr": "(54 − 28) ÷ 2 ＝ 13",
+          "unit": "歲"
+        },
+        {
+          "type": "answer",
+          "text": "答：兒子今年是 13 歲"
+        }
+      ],
+      "insight": "年齡問題的黃金定律：「年齡和每年會加 2（兩人各加 1），但年齡差永遠不變！」",
+      "figureNote": "線段圖表示今年爸爸與兒子的年齡合計 54 歲，爸爸永遠比兒子多出 28 歲，扣掉 28 歲後剩下的兩小段相等。",
+      "distractorAnalysis": {
+        "B": "誤以為經過 4 年後年齡差也會變大 4 歲變成 32 歲，錯算成 (54 − 32) ÷ 2 ＝ 11 歲。",
+        "D": "算出今年和減差 54 − 28 ＝ 26 歲後，忘記除以 2 就直接作答。",
+        "C": "先換算 4 年前年紀和 54 − 8 ＝ 46 歲，算出 4 年前兒子 (46 − 28) ÷ 2 ＝ 9 歲後，卻忘記加回 4 年變成今年。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "年齡差永遠不變（過去、現在、未來都一樣）",
+        "較小年齡 ＝ (今年年齡和 − 年齡差) ÷ 2"
+      ],
+      "conceptCompare": "如果這題先轉成 4 年前算，記得兩個人合計要扣掉 4 × 2 ＝ 8 歲，算出兒子 4 年前 9 歲後一定要再加 4 歲回到今年。",
+      "examVariations": "延伸題常繼續追問：「再過幾年，爸爸的年齡會剛好是兒子的 3 倍？」只要利用年齡差 28 歲 ＝ 2 倍差，就能算出那時兒子 14 歲，也就是 1 年後！"
+    }
+  },
+  {
+    "id": "U08-S1-O-035",
+    "legacyId": null,
+    "unitId": "U08",
+    "section": "8-1",
+    "sectionName": "間隔問題",
+    "category": "環形花圃轉角必種間隔",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L7（長方形四周轉角植樹）",
+    "level": 7,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "md",
+    "question": "社區有一塊長 96 公尺、寬 72 公尺的長方形廣場，想在廣場四周邊界等距離種樹，規定相鄰兩棵樹的距離必須相等，且四個轉角處都一定要種樹。請問最少需要種幾棵樹？",
+    "options": [
+      {
+        "key": "A",
+        "text": "15 棵",
+        "trapCode": "U08_CLOSED_LOOP_ADD_ONE"
+      },
+      {
+        "key": "B",
+        "text": "7 棵",
+        "trapCode": "U08_BOTH_SIDES_FORGET_MUL2"
+      },
+      {
+        "key": "C",
+        "text": "14 棵",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "18 棵",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "(96 + 72) * 2 / 24",
+      "expect": "14"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否結合「最大公因數求最大間隔」與「長方形封閉周長植樹（棵數 ＝ 總間隔數）」，避免重複計算 4 個轉角。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：要讓樹的總數「最少」，相鄰兩棵樹的間隔就要「最大」。因為四個轉角必種樹，間隔必須同時整除長 96 公尺與寬 72 公尺，即求 96 和 72 的最大公因數。"
+        },
+        {
+          "type": "eq",
+          "expr": "96 與 72 的最大公因數 ＝ 24",
+          "unit": "公尺（最大間隔）"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 220\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"80\" y=\"36\" width=\"280\" height=\"150\" fill=\"#f0fdf4\" stroke=\"#15803d\" stroke-width=\"2.5\"/><circle cx=\"80\" cy=\"36\" r=\"7\" fill=\"#dc2626\"/><circle cx=\"150\" cy=\"36\" r=\"5\" fill=\"#16a34a\"/><circle cx=\"220\" cy=\"36\" r=\"5\" fill=\"#16a34a\"/><circle cx=\"290\" cy=\"36\" r=\"5\" fill=\"#16a34a\"/><circle cx=\"360\" cy=\"36\" r=\"7\" fill=\"#dc2626\"/><circle cx=\"360\" cy=\"86\" r=\"5\" fill=\"#16a34a\"/><circle cx=\"360\" cy=\"136\" r=\"5\" fill=\"#16a34a\"/><circle cx=\"360\" cy=\"186\" r=\"7\" fill=\"#dc2626\"/><circle cx=\"290\" cy=\"186\" r=\"5\" fill=\"#16a34a\"/><circle cx=\"220\" cy=\"186\" r=\"5\" fill=\"#16a34a\"/><circle cx=\"150\" cy=\"186\" r=\"5\" fill=\"#16a34a\"/><circle cx=\"80\" cy=\"186\" r=\"7\" fill=\"#dc2626\"/><circle cx=\"80\" cy=\"136\" r=\"5\" fill=\"#16a34a\"/><circle cx=\"80\" cy=\"86\" r=\"5\" fill=\"#16a34a\"/><text x=\"220\" y=\"22\" font-size=\"13\" font-weight=\"bold\" fill=\"#1e293b\" text-anchor=\"middle\">長 96 公尺（4 個 24 公尺間隔）</text><text x=\"410\" y=\"114\" font-size=\"13\" font-weight=\"bold\" fill=\"#1e293b\" text-anchor=\"middle\">寬 72 公尺</text><text x=\"410\" y=\"132\" font-size=\"12\" fill=\"#15803d\" text-anchor=\"middle\">（3 個間隔）</text><text x=\"220\" y=\"116\" font-size=\"13\" font-weight=\"bold\" fill=\"#b91c1c\" text-anchor=\"middle\">紅點＝4 個必種轉角，總周長封閉</text></svg>",
+          "caption": "長邊 4 間隔、寬邊 3 間隔，長方形四周屬於封閉圖形，棵數 ＝ 總間隔數 ＝ (4＋3)×2 ＝ 14 棵"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：算出廣場周長並除以最大間隔 24 公尺。因為長方形四周是封閉迴圈，總棵數等於總間隔數。"
+        },
+        {
+          "type": "eq",
+          "expr": "(96 ＋ 72) × 2 ÷ 24 ＝ 14",
+          "unit": "棵"
+        },
+        {
+          "type": "answer",
+          "text": "答：最少需要種 14 棵樹"
+        }
+      ],
+      "insight": "長方形或三角形四周圍種樹也是「封閉圖形」！千萬別拆成四條邊各加 1 再相加，那樣會把四個轉角多算一遍。",
+      "distractorAnalysis": {
+        "A": "算出總間隔 14 個後，誤以為還要像直線兩端都種那樣加 1，得到 15 棵。",
+        "B": "只算了一個長邊和一個寬邊 (96 ＋ 72) ÷ 24 ＝ 7 棵，忘記周長有兩組長和寬要乘以 2。",
+        "D": "分別把四條邊套用兩端都種加 1，算成 (4 ＋ 1) × 2 ＋ (3 ＋ 1) × 2 ＝ 18 棵，將 4 個轉角都重複算了兩次。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "四個轉角必種求最少棵數 ➔ 間隔 ＝ 長與寬的最大公因數",
+        "封閉多邊形植樹：總棵數 ＝ 總周長 ÷ 間隔長"
+      ],
+      "conceptCompare": "若題目改成「四個轉角不種樹（只立雕像）」，則總樹數要在封閉棵數 14 棵中扣掉 4 個轉角位置，變成 14 − 4 ＝ 10 棵。",
+      "examVariations": "若長寬改為 96 公尺與 72 公尺且限定間隔至少 10 公尺以上，可用 24 的因數（24 或 12）測試不同的植樹方案。"
+    }
+  },
+  {
+    "id": "U08-S3-O-036",
+    "legacyId": null,
+    "unitId": "U08",
+    "section": "8-3",
+    "sectionName": "選擇與組合",
+    "category": "循環賽與握手組合",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L7（單循環賽總場數）",
+    "level": 7,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "全國國小躲避球錦標賽決賽共有 9 支隊伍參加，賽制採用「單循環賽」（任兩支隊伍之間都要正好比賽 1 場）。請問整個決賽總共要進行幾場比賽？",
+    "options": [
+      {
+        "key": "A",
+        "text": "72 場",
+        "trapCode": "U08_COMB_DOUBLE_COUNT"
+      },
+      {
+        "key": "B",
+        "text": "45 場",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      },
+      {
+        "key": "C",
+        "text": "36 場",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "32 場",
+        "trapCode": "U08_CALC_SLIP"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "9 * 8 / 2",
+      "expect": "36",
+      "extraChecks": [
+        {
+          "expr": "8 + 7 + 6 + 5 + 4 + 3 + 2 + 1",
+          "expect": "36"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生處理「任選兩人配對／單循環賽」時，能否分辨不計先後順序（甲對乙與乙對甲為同一場）而必須除以 2 避免重複計算。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：9 支隊伍中，每一隊都要和其餘 9 − 1 ＝ 8 隊各比賽 1 場，看似共有 9 × 8 ＝ 72 場。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 210\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"130\" cy=\"105\" r=\"76\" fill=\"none\" stroke=\"#e2e8f0\" stroke-width=\"1.5\"/><line x1=\"130\" y1=\"29\" x2=\"179\" y2=\"47\" stroke=\"#e11d48\" stroke-width=\"2\"/><line x1=\"130\" y1=\"29\" x2=\"205\" y2=\"92\" stroke=\"#e11d48\" stroke-width=\"2\"/><line x1=\"130\" y1=\"29\" x2=\"196\" y2=\"143\" stroke=\"#e11d48\" stroke-width=\"2\"/><line x1=\"130\" y1=\"29\" x2=\"156\" y2=\"176\" stroke=\"#e11d48\" stroke-width=\"2\"/><line x1=\"130\" y1=\"29\" x2=\"104\" y2=\"176\" stroke=\"#e11d48\" stroke-width=\"2\"/><line x1=\"130\" y1=\"29\" x2=\"64\" y2=\"143\" stroke=\"#e11d48\" stroke-width=\"2\"/><line x1=\"130\" y1=\"29\" x2=\"55\" y2=\"92\" stroke=\"#e11d48\" stroke-width=\"2\"/><line x1=\"130\" y1=\"29\" x2=\"81\" y2=\"47\" stroke=\"#e11d48\" stroke-width=\"2\"/><circle cx=\"130\" cy=\"29\" r=\"10\" fill=\"#e11d48\"/><text x=\"130\" y=\"33\" font-size=\"10\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">1</text><circle cx=\"179\" cy=\"47\" r=\"9\" fill=\"#3b82f6\"/><text x=\"179\" y=\"51\" font-size=\"10\" fill=\"#ffffff\" text-anchor=\"middle\">2</text><circle cx=\"205\" cy=\"92\" r=\"9\" fill=\"#3b82f6\"/><text x=\"205\" y=\"96\" font-size=\"10\" fill=\"#ffffff\" text-anchor=\"middle\">3</text><circle cx=\"196\" cy=\"143\" r=\"9\" fill=\"#3b82f6\"/><text x=\"196\" y=\"147\" font-size=\"10\" fill=\"#ffffff\" text-anchor=\"middle\">4</text><circle cx=\"156\" cy=\"176\" r=\"9\" fill=\"#3b82f6\"/><text x=\"156\" y=\"180\" font-size=\"10\" fill=\"#ffffff\" text-anchor=\"middle\">5</text><circle cx=\"104\" cy=\"176\" r=\"9\" fill=\"#3b82f6\"/><text x=\"104\" y=\"180\" font-size=\"10\" fill=\"#ffffff\" text-anchor=\"middle\">6</text><circle cx=\"64\" cy=\"143\" r=\"9\" fill=\"#3b82f6\"/><text x=\"64\" y=\"147\" font-size=\"10\" fill=\"#ffffff\" text-anchor=\"middle\">7</text><circle cx=\"55\" cy=\"92\" r=\"9\" fill=\"#3b82f6\"/><text x=\"55\" y=\"96\" font-size=\"10\" fill=\"#ffffff\" text-anchor=\"middle\">8</text><circle cx=\"81\" cy=\"47\" r=\"9\" fill=\"#3b82f6\"/><text x=\"81\" y=\"51\" font-size=\"10\" fill=\"#ffffff\" text-anchor=\"middle\">9</text><text x=\"335\" y=\"72\" font-size=\"13\" font-weight=\"bold\" fill=\"#1e293b\" text-anchor=\"middle\">第 1 隊要打 8 場</text><text x=\"335\" y=\"104\" font-size=\"13\" fill=\"#475569\" text-anchor=\"middle\">「1對2」和「2對1」是同一場</text><text x=\"335\" y=\"136\" font-size=\"13\" font-weight=\"bold\" fill=\"#be123c\" text-anchor=\"middle\">9 × 8 ÷ 2 ＝ 36 場</text><text x=\"335\" y=\"166\" font-size=\"12\" fill=\"#0f766e\" text-anchor=\"middle\">（或 8＋7＋6＋5＋4＋3＋2＋1 ＝ 36）</text></svg>",
+          "caption": "每條連線代表 1 場比賽，若直接 9 × 8 會讓每條線被前後兩隊重複算到 2 次"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：因為「甲隊對乙隊」和「乙隊對甲隊」是同一場比賽，每場都被重複算了 2 次，所以必須除以 2。"
+        },
+        {
+          "type": "eq",
+          "expr": "9 × 8 ÷ 2 ＝ 36",
+          "unit": "場"
+        },
+        {
+          "type": "answer",
+          "text": "答：總共要進行 36 場比賽"
+        }
+      ],
+      "insight": "握手、單循環賽、圓周上任兩點連成線段，全都是同一套做法：人數 × (人數 − 1) ÷ 2！",
+      "distractorAnalysis": {
+        "A": "直接算成 9 × 8 ＝ 72 場，忘記每場比賽由兩隊共同進行、重複算了 2 次而少除以 2。",
+        "D": "累加 8 ＋ 7 ＋ 6 ＋ 5 ＋ 4 ＋ 3 ＋ 2 ＋ 1 時漏算某項，誤算成 32 場。",
+        "B": "誤把累加起點從 9 開始加（9＋8＋…＋1 ＝ 45），或算成 9 × 10 ÷ 2 ＝ 45 場（自己不能跟自己比賽）。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "單循環賽總場數 ＝ 隊數 × (隊數 − 1) ÷ 2",
+        "雙循環賽（分主客場）總場數 ＝ 隊數 × (隊數 − 1)"
+      ],
+      "conceptCompare": "注意區分「單循環賽」與「單淘汰賽」：9 隊打單循環賽要 36 場；若是 9 隊打單淘汰賽（輸一場就出局），每場淘汰 1 隊、留下 1 個冠軍，只需要 9 − 1 ＝ 8 場！",
+      "examVariations": "若改問「火車站從第 1 站到第 9 站，單程共要印幾種不同票價的車票？（往返不同站）」，若不分方向是 36 種，若去程與回程算不同車票則是 72 種。"
+    }
+  },
+  {
+    "id": "U08-RV-O-037",
+    "legacyId": null,
+    "unitId": "U08",
+    "section": "REVIEW",
+    "sectionName": "綜合複習與應用",
+    "category": "相向相遇問題",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L7（相向相遇與速度和）",
+    "level": 7,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "小晴與阿哲分別站在相距 900 公尺的筆直步道兩端，兩人同時出發「相向而行」（面對面走向對方）。已知小晴每分鐘走 65 公尺，阿哲每分鐘走 85 公尺，請問出發幾分鐘後兩人會相遇？",
+    "options": [
+      {
+        "key": "A",
+        "text": "45 分鐘",
+        "trapCode": "U08_SPEED_DIR_CONFUSION"
+      },
+      {
+        "key": "B",
+        "text": "7 分鐘",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "C",
+        "text": "5 分鐘",
+        "trapCode": "U08_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "6 分鐘",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "900 / (65 + 85)",
+      "expect": "6"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生在兩人「相向而行」的相遇問題中，能否正確使用「速度和」（距離縮短的速率）來計算相遇時間。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：兩人面對面相向走來，每過 1 分鐘，兩人距離就會一起縮短 65 ＋ 85 ＝ 150 公尺。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 480 155\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"40\" y1=\"95\" x2=\"440\" y2=\"95\" stroke=\"#334155\" stroke-width=\"3\"/><circle cx=\"40\" cy=\"95\" r=\"6\" fill=\"#e11d48\"/><circle cx=\"440\" cy=\"95\" r=\"6\" fill=\"#2563eb\"/><path d=\"M 52 75 L 150 75\" stroke=\"#e11d48\" stroke-width=\"3\"/><polygon points=\"150,69 164,75 150,81\" fill=\"#e11d48\"/><path d=\"M 428 75 L 310 75\" stroke=\"#2563eb\" stroke-width=\"3\"/><polygon points=\"310,69 296,75 310,81\" fill=\"#2563eb\"/><line x1=\"214\" y1=\"82\" x2=\"214\" y2=\"108\" stroke=\"#0d9488\" stroke-width=\"2.5\" stroke-dasharray=\"3 2\"/><text x=\"102\" y=\"60\" font-size=\"12\" font-weight=\"bold\" fill=\"#be123c\" text-anchor=\"middle\">小晴 65 公尺／分</text><text x=\"368\" y=\"60\" font-size=\"12\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"middle\">阿哲 85 公尺／分</text><text x=\"214\" y=\"42\" font-size=\"12\" font-weight=\"bold\" fill=\"#0f766e\" text-anchor=\"middle\">相遇點</text><text x=\"240\" y=\"132\" font-size=\"13\" font-weight=\"bold\" fill=\"#1e293b\" text-anchor=\"middle\">相距 900 公尺（每分鐘共縮短 65＋85 ＝ 150 公尺）</text></svg>",
+          "caption": "兩人相向而行時，雙方走過的距離加起來正好等於總距離 900 公尺"
+        },
+        {
+          "type": "eq",
+          "expr": "65 ＋ 85 ＝ 150",
+          "unit": "公尺／分鐘（速度和）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：用總距離除以速度和，求出幾分鐘後兩人會合。"
+        },
+        {
+          "type": "eq",
+          "expr": "900 ÷ 150 ＝ 6",
+          "unit": "分鐘"
+        },
+        {
+          "type": "answer",
+          "text": "答：出發 6 分鐘後兩人會相遇"
+        }
+      ],
+      "insight": "「相向相遇用速度和（兩速相加），同向追趕用速度差（兩速相減）」。先看箭頭方向再決定加還是減！",
+      "distractorAnalysis": {
+        "A": "混淆相向與同向方向，誤用速度差計算成 900 ÷ (85 − 65) ＝ 45 分鐘。",
+        "B": "算出 6 分鐘後受間隔植樹題影響，多加 1 分鐘誤答 7 分鐘。",
+        "C": "計算速度和 65 ＋ 85 時進位出錯誤算成 180，算得 900 ÷ 180 ＝ 5 分鐘。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "相遇時間 ＝ 總距離 ÷ (甲速率 ＋ 乙速率)",
+        "相遇時兩人各走距離 ＝ 各自速率 × 相遇時間"
+      ],
+      "conceptCompare": "相遇時，阿哲走得比較快，所以會走過中點（走了 85 × 6 ＝ 510 公尺），小晴走了 65 × 6 ＝ 390 公尺，兩人剛好在中點偏小晴那側 60 公尺處相遇。",
+      "examVariations": "若題目改成「兩人相向走，途中還相距 150 公尺時過了幾分鐘？」，只要把目標縮短距離改成 900 − 150 ＝ 750 公尺，再除以 150 得 5 分鐘。"
+    }
+  },
+  {
+    "id": "U08-S2-O-038",
+    "legacyId": null,
+    "unitId": "U08",
+    "section": "8-2",
+    "sectionName": "數形規則",
+    "category": "週期餘數兼數字總和",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L8（循環數列前段總和）",
+    "level": 8,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "md",
+    "question": "有一串數字依照「3, 1, 4, 2, 3, 1, 4, 2, …」的規律不斷重複排列下去。請問這串數列從頭數起「前 35 個數字」的總和是多少？",
+    "options": [
+      {
+        "key": "A",
+        "text": "84",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      },
+      {
+        "key": "B",
+        "text": "88",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "90",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "D",
+        "text": "78",
+        "trapCode": "U08_CALC_SLIP"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "(3 + 1 + 4 + 2) * 8 + (3 + 1 + 4)",
+      "expect": "88"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生面對週期數列時，是否能透過「分組求組數與餘數」計算前段總和，避免誤把餘數當成只取單一項。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：找出循環週期與每組的數字總和。這串數字以「3, 1, 4, 2」4 個為一組不斷重複，每組總和為 3 ＋ 1 ＋ 4 ＋ 2 ＝ 10。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 490 165\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"20\" y=\"34\" width=\"118\" height=\"52\" rx=\"8\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2\"/><text x=\"79\" y=\"65\" font-size=\"15\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"middle\">3, 1, 4, 2</text><text x=\"79\" y=\"108\" font-size=\"12\" font-weight=\"bold\" fill=\"#1e293b\" text-anchor=\"middle\">第 1 組（和＝10）</text><text x=\"162\" y=\"65\" font-size=\"16\" font-weight=\"bold\" fill=\"#64748b\" text-anchor=\"middle\">……</text><rect x=\"186\" y=\"34\" width=\"118\" height=\"52\" rx=\"8\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2\"/><text x=\"245\" y=\"65\" font-size=\"15\" font-weight=\"bold\" fill=\"#1d4ed8\" text-anchor=\"middle\">3, 1, 4, 2</text><text x=\"245\" y=\"108\" font-size=\"12\" font-weight=\"bold\" fill=\"#1e293b\" text-anchor=\"middle\">第 8 組（和＝10）</text><rect x=\"328\" y=\"34\" width=\"136\" height=\"52\" rx=\"8\" fill=\"#fef2f2\" stroke=\"#e11d48\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/><text x=\"396\" y=\"65\" font-size=\"15\" font-weight=\"bold\" fill=\"#be123c\" text-anchor=\"middle\">3, 1, 4</text><text x=\"396\" y=\"108\" font-size=\"12\" font-weight=\"bold\" fill=\"#be123c\" text-anchor=\"middle\">餘 3 個（和＝8）</text><text x=\"245\" y=\"146\" font-size=\"13\" font-weight=\"bold\" fill=\"#0f172a\" text-anchor=\"middle\">前 35 個數字 ＝ 8 整組 ＋ 餘 3 個 ＝ 80 ＋ 8 ＝ 88</text></svg>",
+          "caption": "35 ÷ 4 ＝ 8 餘 3，代表有 8 個完整循環組，加上新的一組前 3 個數字"
+        },
+        {
+          "type": "eq",
+          "expr": "35 ÷ 4 ＝ 8 … 3",
+          "unit": "組（餘 3 個）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：計算 8 整組的和，再加上餘下 3 個數字（依序為 3、1、4）。"
+        },
+        {
+          "type": "eq",
+          "expr": "10 × 8 ＋ (3 ＋ 1 ＋ 4) ＝ 88",
+          "unit": ""
+        },
+        {
+          "type": "answer",
+          "text": "答：前 35 個數字的總和是 88"
+        }
+      ],
+      "insight": "求「第 35 個是誰」看餘數第 3 個（是 4）；但求「前 35 個的總和」必須把餘下的 3 個數字「全部」加起來（3 ＋ 1 ＋ 4 ＝ 8）！",
+      "distractorAnalysis": {
+        "A": "混淆題目問法，只把第 35 個數字「4」單獨加進去，誤算成 80 ＋ 4 ＝ 84。",
+        "C": "看到有餘數就直接算成完整 9 組，誤答 10 × 9 ＝ 90。",
+        "D": "除法 35 ÷ 4 商誤算為 7 組（或每組和少算 1），得到 70 ＋ 8 ＝ 78。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "週期總和 ＝ 每組和 × 完整組數 ＋ 餘數前幾項之和",
+        "若剛好整除無餘數，代表最後一項剛好是該組的最後一個數"
+      ],
+      "conceptCompare": "週期題最常考三種問法：(1) 第幾個是什麼？(2) 前幾個總和是多少？(3) 前幾個裡面數字 3 出現幾次？做法全都是先用除法找「組數」與「餘數」。",
+      "examVariations": "若題目改成「從頭開始連續加幾個數字，總和會剛好達到 88？」，先用 88 ÷ 10 ＝ 8 組餘 8，再看新組前幾項湊成 8（3＋1＋4 ＝ 8，需 3 項），答案就是 4 × 8 ＋ 3 ＝ 35 個。"
+    }
+  },
+  {
+    "id": "U08-S4-O-039",
+    "legacyId": null,
+    "unitId": "U08",
+    "section": "8-4",
+    "sectionName": "和差問題",
+    "category": "同向追趕先走差距問題",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L8（延遲出發同向追及）",
+    "level": 8,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "md",
+    "question": "弟弟每分鐘走 50 公尺，從校門口先出發走了 6 分鐘後，哥哥才發現弟弟忘了帶餐盒，立刻以每分鐘 80 公尺的速度沿同一方向去追趕弟弟。請問哥哥出發幾分鐘後可以追上弟弟？",
+    "figure": {
+      "type": "bar",
+      "rows": [
+        {
+          "label": "弟弟每分鐘走",
+          "units": 1,
+          "role": "base"
+        },
+        {
+          "label": "哥哥每分鐘走",
+          "units": 1.6,
+          "role": "compare"
+        }
+      ],
+      "brace": {
+        "kind": "diff",
+        "text": "每分鐘追近 80 − 50 ＝ 30 公尺"
+      }
+    },
+    "options": [
+      {
+        "key": "A",
+        "text": "16 分鐘",
+        "trapCode": "U08_AGE_NOW_OFFSET_MISS"
+      },
+      {
+        "key": "B",
+        "text": "6 分鐘",
+        "trapCode": "U08_SPEED_DIR_CONFUSION"
+      },
+      {
+        "key": "C",
+        "text": "15 分鐘",
+        "trapCode": "U08_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "10 分鐘",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "(50 * 6) / (80 - 50)",
+      "expect": "10",
+      "extraChecks": [
+        {
+          "expr": "80 * 10",
+          "expect": "800"
+        },
+        {
+          "expr": "50 * (6 + 10)",
+          "expect": "800"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生在「先走再追」的同向追及問題中，能否先算出先走造成的距離差，再除以兩人速度差求追趕時間。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：先算出弟弟先走 6 分鐘後，已經領先哥哥多遠的距離。"
+        },
+        {
+          "type": "eq",
+          "expr": "50 × 6 ＝ 300",
+          "unit": "公尺（起跑差距）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：哥哥開始追時，弟弟也同時在前進，因此哥哥每分鐘只能把差距縮短 80 − 50 ＝ 30 公尺。"
+        },
+        {
+          "type": "bar"
+        },
+        {
+          "type": "eq",
+          "expr": "300 ÷ (80 − 50) ＝ 10",
+          "unit": "分鐘"
+        },
+        {
+          "type": "answer",
+          "text": "答：哥哥出發 10 分鐘後可以追上弟弟"
+        }
+      ],
+      "insight": "追及問題兩步驟：(1) 找出「起追時的距離差」，(2) 除以「速度差（快減慢）」。最後可用「哥哥走 80×10＝800，弟弟走 50×16＝800」驗算！",
+      "figureNote": "線段圖顯示哥哥每分鐘比弟弟多走 30 公尺，要追回弟弟先走出的 300 公尺距離差，需要 300 ÷ 30 ＝ 10 分鐘。",
+      "distractorAnalysis": {
+        "A": "算出哥哥追趕 10 分鐘後，又誤把弟弟先走的 6 分鐘加進去，錯答成弟弟總行走時間 16 分鐘。",
+        "B": "忽略弟弟在追趕期間也會繼續前進，直接用 300 ÷ 50 ＝ 6 分鐘作答。",
+        "C": "計算速度差 80 − 50 時誤算成 20 公尺，得到 300 ÷ 20 ＝ 15 分鐘。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "同向追趕時間 ＝ 原先距離差 ÷ (快者速率 − 慢者速率)",
+        "追上地點距起點距離 ＝ 快者速率 × 追趕時間"
+      ],
+      "conceptCompare": "注意題目問的是「哥哥出發後幾分鐘」還是「弟弟出發後共幾分鐘」。問哥哥是 10 分鐘；若問弟弟則要算 6 ＋ 10 ＝ 16 分鐘。",
+      "examVariations": "時鐘的時針與分針追趕、或操場快者倒追一圈，都是完全一樣的「距離差 ÷ 速度差」模型。"
+    }
+  },
+  {
+    "id": "U08-RV-O-040",
+    "legacyId": null,
+    "unitId": "U08",
+    "section": "REVIEW",
+    "sectionName": "綜合複習與應用",
+    "category": "郵票總和與張數差假設法",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L8（雞兔假設反推兩量差）",
+    "level": 8,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "md",
+    "question": "郵局窗口賣出 3 元與 5 元兩種紀念郵票合計共 30 張，總收款金額剛好是 114 元。請問賣出的「3 元郵票」比「5 元郵票」多幾張？",
+    "figure": {
+      "type": "bar",
+      "rows": [
+        {
+          "label": "3 元郵票單價",
+          "units": 1.2,
+          "role": "base"
+        },
+        {
+          "label": "5 元郵票單價",
+          "units": 2,
+          "role": "compare"
+        }
+      ],
+      "brace": {
+        "kind": "diff",
+        "text": "每換 1 張價差 5 − 3 ＝ 2 元"
+      }
+    },
+    "options": [
+      {
+        "key": "A",
+        "text": "6 張",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "12 張",
+        "trapCode": "U08_CHICKEN_RABBIT_SWAP"
+      },
+      {
+        "key": "C",
+        "text": "24 張",
+        "trapCode": "U08_SUM_DIFF_FORGET_DIV2"
+      },
+      {
+        "key": "D",
+        "text": "3 張",
+        "trapCode": "U08_PENALTY_DIFF_ERR"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "(30 - (114 - 3 * 30) / (5 - 3)) - (114 - 3 * 30) / (5 - 3)",
+      "expect": "6",
+      "extraChecks": [
+        {
+          "expr": "18 * 3 + 12 * 5",
+          "expect": "114"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否先以假設法求出兩種郵票各自張數，並看清最後提問「多幾張」再做一次相減與驗算。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：假設 30 張全部都是 3 元郵票，先算出假設總金額與實際金額的差距。"
+        },
+        {
+          "type": "eq",
+          "expr": "3 × 30 ＝ 90",
+          "unit": "元"
+        },
+        {
+          "type": "eq",
+          "expr": "114 − 90 ＝ 24",
+          "unit": "元（差額）"
+        },
+        {
+          "type": "bar"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：每將 1 張 3 元郵票換成 5 元郵票會多 5 − 3 ＝ 2 元，因此可算出 5 元與 3 元郵票的張數。"
+        },
+        {
+          "type": "eq",
+          "expr": "5 元郵票 ＝ 24 ÷ (5 − 3) ＝ 12",
+          "unit": "張"
+        },
+        {
+          "type": "eq",
+          "expr": "3 元郵票 ＝ 30 − 12 ＝ 18",
+          "unit": "張"
+        },
+        {
+          "type": "eq",
+          "expr": "18 − 12 ＝ 6",
+          "unit": "張"
+        },
+        {
+          "type": "answer",
+          "text": "答：3 元郵票比 5 元郵票多 6 張"
+        }
+      ],
+      "insight": "高年級奧數題常在算出雞兔數量後，最後一問改成「相差幾隻／相差幾張」，務必多讀一次問題結尾再選答案！",
+      "figureNote": "線段圖表示 5 元與 3 元郵票的單價相差 2 元，用總差額 24 元除以每張差價 2 元即得 5 元郵票有 12 張。",
+      "distractorAnalysis": {
+        "B": "只算出 5 元郵票有 12 張就作答，忘記還要算出 3 元郵票 18 張並相減求張數差。",
+        "C": "算出總價差 114 − 90 ＝ 24 元後，忘記除以每張價差 2 元，直接把 24 當成張數作答。",
+        "D": "算單張價差時誤把 5 − 3 寫成 5 ＋ 3 ＝ 8 元，算出 24 ÷ 8 ＝ 3 張。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "假設法求完各自數量後，還要確認題目問的是單一數量還是「數量差」",
+        "總和驗算：18 × 3 ＋ 12 × 5 ＝ 54 ＋ 60 ＝ 114 元"
+      ],
+      "conceptCompare": "求得總數 30 張後，若先用「對半分各 15 張」試算（3×15＋5×15 ＝ 120 元），比 114 元多 6 元，表示 5 元要換成 3 元 6 ÷ 2 ＝ 3 張，立刻得到 18 張與 12 張，這是很方便的折半驗證法！",
+      "examVariations": "若題目多出一種 10 元郵票且告知「3 元和 5 元數量相等」，只要把 3 元與 5 元各 1 張捆綁成「平均 4 元 1 張」，就能直接化為兩量雞兔問題！"
+    }
+  },
+  {
+    "id": "U08-S1-O-041",
+    "legacyId": null,
+    "unitId": "U08",
+    "section": "8-1",
+    "sectionName": "間隔問題",
+    "category": "鋸木頭兼計時休息間隔",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L9（鋸木頭與最後不休息間隔）",
+    "level": 9,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "md",
+    "question": "木工師傅要把一根長木頭鋸成 6 段。已知每鋸一次需要 4 分鐘，每鋸完一次會固定休息 1 分鐘（最後一次鋸完已經完工，不再休息）。請問把木頭鋸成 6 段總共需要幾分鐘？",
+    "options": [
+      {
+        "key": "A",
+        "text": "29 分鐘",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "B",
+        "text": "25 分鐘",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      },
+      {
+        "key": "C",
+        "text": "24 分鐘",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "20 分鐘",
+        "trapCode": "U08_CALC_SLIP"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "(6 - 1) * 4 + (6 - 2) * 1",
+      "expect": "24"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否處理「雙重間隔」問題：段數轉次數（6−1 ＝ 5 次鋸木）以及次數轉休息次數（5−1 ＝ 4 次休息，最後一次不休）。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：把木頭鋸成 6 段，實際只需要下鋸 6 − 1 ＝ 5 次。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 500 175\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"30\" y=\"34\" width=\"440\" height=\"32\" rx=\"6\" fill=\"#fef3c7\" stroke=\"#b45309\" stroke-width=\"2\"/><line x1=\"103\" y1=\"26\" x2=\"103\" y2=\"74\" stroke=\"#e11d48\" stroke-width=\"2.5\" stroke-dasharray=\"4 3\"/><line x1=\"176\" y1=\"26\" x2=\"176\" y2=\"74\" stroke=\"#e11d48\" stroke-width=\"2.5\" stroke-dasharray=\"4 3\"/><line x1=\"250\" y1=\"26\" x2=\"250\" y2=\"74\" stroke=\"#e11d48\" stroke-width=\"2.5\" stroke-dasharray=\"4 3\"/><line x1=\"323\" y1=\"26\" x2=\"323\" y2=\"74\" stroke=\"#e11d48\" stroke-width=\"2.5\" stroke-dasharray=\"4 3\"/><line x1=\"397\" y1=\"26\" x2=\"397\" y2=\"74\" stroke=\"#e11d48\" stroke-width=\"2.5\" stroke-dasharray=\"4 3\"/><text x=\"103\" y=\"96\" font-size=\"11\" font-weight=\"bold\" fill=\"#be123c\" text-anchor=\"middle\">鋸1(4分)</text><text x=\"140\" y=\"118\" font-size=\"11\" fill=\"#2563eb\" text-anchor=\"middle\">休1分</text><text x=\"176\" y=\"96\" font-size=\"11\" font-weight=\"bold\" fill=\"#be123c\" text-anchor=\"middle\">鋸2(4分)</text><text x=\"213\" y=\"118\" font-size=\"11\" fill=\"#2563eb\" text-anchor=\"middle\">休1分</text><text x=\"250\" y=\"96\" font-size=\"11\" font-weight=\"bold\" fill=\"#be123c\" text-anchor=\"middle\">鋸3(4分)</text><text x=\"287\" y=\"118\" font-size=\"11\" fill=\"#2563eb\" text-anchor=\"middle\">休1分</text><text x=\"323\" y=\"96\" font-size=\"11\" font-weight=\"bold\" fill=\"#be123c\" text-anchor=\"middle\">鋸4(4分)</text><text x=\"360\" y=\"118\" font-size=\"11\" fill=\"#2563eb\" text-anchor=\"middle\">休1分</text><text x=\"397\" y=\"96\" font-size=\"11\" font-weight=\"bold\" fill=\"#be123c\" text-anchor=\"middle\">鋸5(4分)</text><text x=\"448\" y=\"118\" font-size=\"11\" font-weight=\"bold\" fill=\"#0f766e\" text-anchor=\"middle\">完工不休</text><text x=\"250\" y=\"154\" font-size=\"13\" font-weight=\"bold\" fill=\"#0f172a\" text-anchor=\"middle\">鋸 5 次共 20 分 ＋ 休息 4 次共 4 分 ＝ 24 分鐘</text></svg>",
+          "caption": "6 段木頭只鋸 5 刀；5 刀之間有 4 個休息間隔，第 5 刀鋸完直接完工"
+        },
+        {
+          "type": "eq",
+          "expr": "鋸木頭時間 ＝ 4 × 5 ＝ 20",
+          "unit": "分鐘"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：5 次鋸木頭之間只有 5 − 1 ＝ 4 次休息時間（最後一次鋸完不需再休）。"
+        },
+        {
+          "type": "eq",
+          "expr": "休息時間 ＝ 1 × (5 − 1) ＝ 4",
+          "unit": "分鐘"
+        },
+        {
+          "type": "eq",
+          "expr": "20 ＋ 4 ＝ 24",
+          "unit": "分鐘"
+        },
+        {
+          "type": "answer",
+          "text": "答：總共需要 24 分鐘"
+        }
+      ],
+      "insight": "這題有兩層「減 1」：(1) 6 段只需鋸 5 次；(2) 鋸 5 次中間只休 4 次！兩層都減對才不會算多。",
+      "distractorAnalysis": {
+        "A": "直接把 6 段當成鋸 6 次，算成鋸 6 次 24 分鐘加上休息 5 次 5 分鐘 ＝ 29 分鐘。",
+        "B": "算對鋸 5 次，但忘記最後一次鋸完不休息，多加了 1 分鐘變成 (4＋1) × 5 ＝ 25 分鐘。",
+        "D": "只算了鋸木頭的時間 4 × 5 ＝ 20 分鐘，完全漏算中間休息的 4 分鐘。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "鋸的次數 ＝ 段數 − 1",
+        "休息次數 ＝ 鋸的次數 − 1 ＝ 段數 − 2"
+      ],
+      "conceptCompare": "類似的「最後一次不計算」問題還有青蛙跳井（最後一天跳出井口不會再滑下去）以及巴士發車／吃藥計時。",
+      "examVariations": "若題目反問「師傅工作了 39 分鐘，同樣每鋸 4 分鐘休息 1 分鐘，木頭總共被鋸成幾段？」，先把每次看成 5 分鐘：(39 ＋ 1) ÷ 5 ＝ 8 次鋸木（加 1 是補齊最後一次沒休的 1 分鐘），最後 8 ＋ 1 ＝ 9 段！"
+    }
+  },
+  {
+    "id": "U08-S4-O-042",
+    "legacyId": null,
+    "unitId": "U08",
+    "section": "8-4",
+    "sectionName": "和差問題",
+    "category": "跨雙時點母女年齡回推",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L9（跨十年雙時點年齡倍數）",
+    "level": 9,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "lg",
+    "question": "5 年後媽媽與女兒的年齡和是 54 歲，而 5 年前媽媽的年齡剛好是女兒的 3 倍多 6 歲。請問女兒「今年」是幾歲？",
+    "figure": {
+      "type": "bar",
+      "rows": [
+        {
+          "label": "5年前女兒",
+          "units": 1,
+          "role": "base"
+        },
+        {
+          "label": "5年前媽媽(3倍多6)",
+          "units": 2.4,
+          "role": "compare"
+        }
+      ],
+      "brace": {
+        "kind": "sum",
+        "text": "5年前和 34 歲"
+      }
+    },
+    "options": [
+      {
+        "key": "A",
+        "text": "7 歲",
+        "trapCode": "U08_AGE_NOW_OFFSET_MISS"
+      },
+      {
+        "key": "B",
+        "text": "17 歲",
+        "trapCode": "U08_AGE_DIFF_CHANGE"
+      },
+      {
+        "key": "C",
+        "text": "12 歲",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "14 歲",
+        "trapCode": "U08_SUM_DIFF_FORGET_DIV2"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "((54 - 10 * 2) - 6) / (3 + 1) + 5",
+      "expect": "12",
+      "extraChecks": [
+        {
+          "expr": "(12 + 5) + (32 + 5)",
+          "expect": "54"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生能否將「不同時間點的年齡和」統一換算到「倍數條件所在的那一年（5 年前）」，並小心每人經歷 10 年、兩人合計差 20 歲。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：因為倍數條件發生在「5 年前」，先把「5 年後」的年齡和 54 歲倒推回「5 年前」。從 5 年後到 5 年前共隔了 5 ＋ 5 ＝ 10 年，母女兩人合計要扣掉 10 × 2 ＝ 20 歲。"
+        },
+        {
+          "type": "eq",
+          "expr": "54 − 10 × 2 ＝ 34",
+          "unit": "歲（5 年前年紀和）"
+        },
+        {
+          "type": "bar"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：5 年前媽媽是女兒的 3 倍多 6 歲，先扣掉多出來的 6 歲，剩下的就是女兒的 1 ＋ 3 ＝ 4 倍。"
+        },
+        {
+          "type": "eq",
+          "expr": "(34 − 6) ÷ (1 ＋ 3) ＝ 7",
+          "unit": "歲（5 年前女兒）"
+        },
+        {
+          "type": "text",
+          "text": "第 3 步：從 5 年前加回 5 歲，還原成女兒「今年」的年齡。"
+        },
+        {
+          "type": "eq",
+          "expr": "7 ＋ 5 ＝ 12",
+          "unit": "歲"
+        },
+        {
+          "type": "answer",
+          "text": "答：女兒今年是 12 歲"
+        }
+      ],
+      "insight": "年齡倍數題一定要「先對齊時間點」再算倍數！從 5 年後回到 5 年前是跨越 10 年，兩人共少 20 歲，最後別忘了加 5 回到今年！",
+      "figureNote": "線段圖呈現 5 年前兩人的關係：女兒為 1 份，媽媽為 3 份再多 6 歲，兩人當時合計 54 − 20 ＝ 34 歲。",
+      "distractorAnalysis": {
+        "A": "算出 5 年前女兒是 7 歲後直接作答，忘記加回 5 歲還原成今年。",
+        "D": "求出 5 年前年紀和 34 歲扣 6 得 28 歲後，忘記共有 1 ＋ 3 ＝ 4 倍份數，誤只除以 2 得到 14 歲。",
+        "B": "忘記年齡和會隨時間改變，直接拿 5 年後的 54 歲當 5 年前算成 (54 − 6) ÷ 4 ＋ 5 ＝ 17 歲。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "跨雙時點時間差 ＝ 前年數 ＋ 後年數（兩人和要乘以 2）",
+        "基準量（較小年齡）＝ (對齊後和 − 多出歲數) ÷ (倍數 ＋ 1)"
+      ],
+      "conceptCompare": "求得女兒今年 12 歲後可以立刻驗算：媽媽 5 年前為 7 × 3 ＋ 6 ＝ 27 歲、今年 32 歲；5 年後女兒 17 歲、媽媽 37 歲，17 ＋ 37 ＝ 54 歲，完全吻合！",
+      "examVariations": "若改為「5 年前媽媽比女兒的 3 倍少 2 歲」，只要把總和 34 「補上」少掉的 2 歲變成 (34 ＋ 2) ÷ 4 ＝ 9 歲即可。"
+    }
+  },
+  {
+    "id": "U08-RV-O-043",
+    "legacyId": null,
+    "unitId": "U08",
+    "section": "REVIEW",
+    "sectionName": "綜合複習與應用",
+    "category": "環湖追及兩次相遇週期",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L9（環湖反向相遇與同向倒追）",
+    "level": 9,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "lg",
+    "question": "一座圓形環湖步道周長 1200 公尺。小宇（每分鐘走 90 公尺）和小萱（每分鐘走 60 公尺）同時從同一地點出發，若「背對背反向而行」幾分鐘後首次相遇？若改成「朝同一方向同向而行」，幾分鐘後小宇會從後方追上並剛好領先小萱一整圈？",
+    "options": [
+      {
+        "key": "A",
+        "text": "反向 40 分鐘、同向 8 分鐘",
+        "trapCode": "U08_SPEED_DIR_CONFUSION"
+      },
+      {
+        "key": "B",
+        "text": "反向 8 分鐘、同向 40 分鐘",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "反向 9 分鐘、同向 41 分鐘",
+        "trapCode": "U08_CLOSED_LOOP_ADD_ONE"
+      },
+      {
+        "key": "D",
+        "text": "反向 20 分鐘、同向 45 分鐘",
+        "trapCode": "U08_CALC_SLIP"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "1200 / (90 + 60)",
+      "expect": "8",
+      "extraChecks": [
+        {
+          "expr": "1200 / (90 - 60)",
+          "expect": "40"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生在環形封閉跑道上，是否能同時分辨「反向合走一圈（速度和）」與「同向倒追一圈（速度差）」的物理意義與公式。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：反向而行時，兩人從同一點背對背出發，合起來剛好走完一整圈 1200 公尺時會第一次相遇，要用「速度和」。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 480 195\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"125\" cy=\"88\" r=\"58\" fill=\"#f0f9ff\" stroke=\"#0284c7\" stroke-width=\"3\"/><circle cx=\"125\" cy=\"30\" r=\"6\" fill=\"#e11d48\"/><path d=\"M 114 31 A 58 58 0 0 0 68 80\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"3\"/><polygon points=\"63,76 67,90 75,78\" fill=\"#2563eb\"/><path d=\"M 136 31 A 58 58 0 0 1 182 80\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3\"/><polygon points=\"175,78 183,90 187,76\" fill=\"#e11d48\"/><text x=\"125\" y=\"92\" font-size=\"12\" font-weight=\"bold\" fill=\"#0369a1\" text-anchor=\"middle\">周長 1200 公尺</text><text x=\"125\" y=\"168\" font-size=\"12\" font-weight=\"bold\" fill=\"#1e293b\" text-anchor=\"middle\">反向：合走 1 圈（速度和 150）</text><circle cx=\"355\" cy=\"88\" r=\"58\" fill=\"#fef2f2\" stroke=\"#e11d48\" stroke-width=\"3\"/><circle cx=\"355\" cy=\"30\" r=\"6\" fill=\"#e11d48\"/><path d=\"M 366 31 A 58 58 0 0 1 412 80\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"3\"/><polygon points=\"405,78 413,90 417,76\" fill=\"#e11d48\"/><path d=\"M 366 42 A 46 46 0 0 1 398 76\" fill=\"none\" stroke=\"#16a34a\" stroke-width=\"2.5\"/><polygon points=\"392,75 400,85 403,72\" fill=\"#16a34a\"/><text x=\"355\" y=\"92\" font-size=\"12\" font-weight=\"bold\" fill=\"#be123c\" text-anchor=\"middle\">快者多走 1 圈</text><text x=\"355\" y=\"168\" font-size=\"12\" font-weight=\"bold\" fill=\"#1e293b\" text-anchor=\"middle\">同向：追上 1 圈（速度差 30）</text></svg>",
+          "caption": "同點出發環湖：反向相遇靠「速度和」合走 1 圈；同向追及靠「速度差」多跑 1 圈"
+        },
+        {
+          "type": "eq",
+          "expr": "反向相遇 ＝ 1200 ÷ (90 ＋ 60) ＝ 8",
+          "unit": "分鐘"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：同向而行時，快的小宇要從後面追上慢的小萱，代表小宇必須比小萱多走整整一圈 1200 公尺，要用「速度差」。"
+        },
+        {
+          "type": "eq",
+          "expr": "同向追及 ＝ 1200 ÷ (90 − 60) ＝ 40",
+          "unit": "分鐘"
+        },
+        {
+          "type": "answer",
+          "text": "答：反向 8 分鐘後相遇，同向 40 分鐘後追上領先一圈"
+        }
+      ],
+      "insight": "環形跑道同點出發：「反向合走一圈（用速度和）」、「同向快者多跑一圈（用速度差）」！",
+      "distractorAnalysis": {
+        "A": "把反向與同向的加減公式完全顛倒，錯用速度差算反向、速度和算同向。",
+        "D": "除數或減法估算失誤，誤將速度和算成 60（1200 ÷ 60 ＝ 20）或把速度差看錯。",
+        "C": "誤以為封閉跑道計算時間也要像直線端點植樹一樣加 1，兩個答案都多加了 1 分鐘。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "環形同點反向相遇時間 ＝ 圓周長 ÷ (甲速 ＋ 乙速)",
+        "環形同點同向追上時間 ＝ 圓周長 ÷ (快者速 − 慢者速)"
+      ],
+      "conceptCompare": "因為兩人每次相遇或追上後，就等於「又從同一點同時出發」，所以反向每隔 8 分鐘相遇一次，同向每隔 40 分鐘倒追一圈！",
+      "examVariations": "進階問題會問：「如果同向出發，經過幾分鐘後兩人會第一次同時回到最初的起點？」這就要先算小宇走一圈 1200 ÷ 90 ＝ 13 1/3 分、小萱走一圈 1200 ÷ 60 ＝ 20 分，再找兩者的最小公倍時間 40 分鐘。"
+    }
+  },
+  {
+    "id": "U08-S3-O-044",
+    "legacyId": null,
+    "unitId": "U08",
+    "section": "8-3",
+    "sectionName": "選擇與組合",
+    "category": "棋盤過河卒最短捷徑數",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L10（含障礙點棋盤捷徑標數法）",
+    "level": 10,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "lg",
+    "question": "有一個橫向 4 格、縱向 3 格的方格棋盤街道，小螞蟻要從左下角「起點」沿著格子線走到右上角「終點」，每次只能「向右」或「向上」移動。若從起點算起向右 2 格、向上 1 格的路口剛好有積水不能通過，請問共有幾種最短走法？",
+    "options": [
+      {
+        "key": "A",
+        "text": "35 種",
+        "trapCode": "U08_COMB_DOUBLE_COUNT"
+      },
+      {
+        "key": "B",
+        "text": "17 種",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "19 種",
+        "trapCode": "U08_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "29 種",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "(7 * 6 * 5) / (3 * 2 * 1) - 3 * (4 * 3) / 2",
+      "expect": "17"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生使用「節點標數法」解決含障礙點（過河卒）棋盤最短路徑問題的能力，並理解每個路口走法數等於左方與下方路口走法數之和。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：使用小學最實用的「標數法」：起點與最底邊、最左邊的路口都只有 1 種直走方式，全部先標上 1；積水的路口不能走，標成 0。"
+        },
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 245\" xmlns=\"http://www.w3.org/2000/svg\"><g stroke=\"#94a3b8\" stroke-width=\"2\"><line x1=\"70\" y1=\"40\" x2=\"390\" y2=\"40\"/><line x1=\"70\" y1=\"95\" x2=\"390\" y2=\"95\"/><line x1=\"70\" y1=\"150\" x2=\"390\" y2=\"150\"/><line x1=\"70\" y1=\"205\" x2=\"390\" y2=\"205\"/><line x1=\"70\" y1=\"40\" x2=\"70\" y2=\"205\"/><line x1=\"150\" y1=\"40\" x2=\"150\" y2=\"205\"/><line x1=\"230\" y1=\"40\" x2=\"230\" y2=\"205\"/><line x1=\"310\" y1=\"40\" x2=\"310\" y2=\"205\"/><line x1=\"390\" y1=\"40\" x2=\"390\" y2=\"205\"/></g><circle cx=\"230\" cy=\"150\" r=\"15\" fill=\"#fee2e2\" stroke=\"#dc2626\" stroke-width=\"2.5\"/><text x=\"230\" y=\"155\" font-size=\"13\" font-weight=\"bold\" fill=\"#dc2626\" text-anchor=\"middle\">0(水)</text><text x=\"70\" y=\"225\" font-size=\"12\" font-weight=\"bold\" fill=\"#15803d\" text-anchor=\"middle\">起點 1</text><text x=\"150\" y=\"225\" font-size=\"12\" font-weight=\"bold\" fill=\"#1e293b\" text-anchor=\"middle\">1</text><text x=\"230\" y=\"225\" font-size=\"12\" font-weight=\"bold\" fill=\"#1e293b\" text-anchor=\"middle\">1</text><text x=\"310\" y=\"225\" font-size=\"12\" font-weight=\"bold\" fill=\"#1e293b\" text-anchor=\"middle\">1</text><text x=\"390\" y=\"225\" font-size=\"12\" font-weight=\"bold\" fill=\"#1e293b\" text-anchor=\"middle\">1</text><text x=\"55\" y=\"154\" font-size=\"12\" font-weight=\"bold\" fill=\"#1e293b\" text-anchor=\"end\">1</text><text x=\"55\" y=\"99\" font-size=\"12\" font-weight=\"bold\" fill=\"#1e293b\" text-anchor=\"end\">1</text><text x=\"55\" y=\"44\" font-size=\"12\" font-weight=\"bold\" fill=\"#1e293b\" text-anchor=\"end\">1</text><text x=\"142\" y=\"143\" font-size=\"12\" font-weight=\"bold\" fill=\"#2563eb\" text-anchor=\"end\">2</text><text x=\"302\" y=\"143\" font-size=\"12\" font-weight=\"bold\" fill=\"#2563eb\" text-anchor=\"end\">1</text><text x=\"382\" y=\"143\" font-size=\"12\" font-weight=\"bold\" fill=\"#2563eb\" text-anchor=\"end\">2</text><text x=\"142\" y=\"88\" font-size=\"12\" font-weight=\"bold\" fill=\"#2563eb\" text-anchor=\"end\">3</text><text x=\"222\" y=\"88\" font-size=\"12\" font-weight=\"bold\" fill=\"#2563eb\" text-anchor=\"end\">3</text><text x=\"302\" y=\"88\" font-size=\"12\" font-weight=\"bold\" fill=\"#2563eb\" text-anchor=\"end\">4</text><text x=\"382\" y=\"88\" font-size=\"12\" font-weight=\"bold\" fill=\"#2563eb\" text-anchor=\"end\">6</text><text x=\"142\" y=\"33\" font-size=\"12\" font-weight=\"bold\" fill=\"#2563eb\" text-anchor=\"end\">4</text><text x=\"222\" y=\"33\" font-size=\"12\" font-weight=\"bold\" fill=\"#2563eb\" text-anchor=\"end\">7</text><text x=\"302\" y=\"33\" font-size=\"12\" font-weight=\"bold\" fill=\"#2563eb\" text-anchor=\"end\">11</text><circle cx=\"390\" cy=\"40\" r=\"16\" fill=\"#dcfce7\" stroke=\"#16a34a\" stroke-width=\"2.5\"/><text x=\"390\" y=\"45\" font-size=\"14\" font-weight=\"bold\" fill=\"#15803d\" text-anchor=\"middle\">17</text><text x=\"390\" y=\"18\" font-size=\"12\" font-weight=\"bold\" fill=\"#15803d\" text-anchor=\"middle\">終點</text></svg>",
+          "caption": "每個交叉口數字 ＝ 左邊路口數字 ＋ 下邊路口數字；積水處標記為 0 不傳遞"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：由左下往右上逐排相加，積水點（向右 2、向上 1）記為 0，所以它右邊路口變成 0＋1 ＝ 1、上邊路口變成 3＋0 ＝ 3。"
+        },
+        {
+          "type": "eq",
+          "expr": "終點處 ＝ 11 ＋ 6 ＝ 17",
+          "unit": "種"
+        },
+        {
+          "type": "answer",
+          "text": "答：共有 17 種最短走法"
+        }
+      ],
+      "insight": "遇到障礙點時「標數法」比扣減法更不容易算錯：只要把不能走的點標 0，其餘每一格都是「左邊 ＋ 下邊」！",
+      "distractorAnalysis": {
+        "A": "算出了沒有積水障礙時的全部 35 種最短走法，完全忘記扣除經過積水點的路線。",
+        "C": "在網格逐點標數相加時，把積水點右方或上方錯加導致最後總和算成 19 種。",
+        "D": "用總走法減去障礙點路線時，誤以為從積水點到終點只有 2 種走法，少扣成 35 − 3 × 2 ＝ 29 種。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "棋盤捷徑標數法：每個路口走法數 ＝ 左邊路口走法數 ＋ 下方路口走法數",
+        "無法經過的障礙點直接標記為 0"
+      ],
+      "conceptCompare": "也可以用「全部 − 必經積水點」驗算：無障礙共 35 種；起點到積水點 3 種，積水點到終點 6 種，必經積水點有 3 × 6 ＝ 18 種，35 − 18 ＝ 17 種！",
+      "examVariations": "若積水的是「一段路」而不是路口，只要畫標數圖時把斷掉的那條邊擦掉不傳遞即可，原理完全相同。"
+    }
+  },
+  {
+    "id": "U08-RV-O-045",
+    "legacyId": null,
+    "unitId": "U08",
+    "section": "REVIEW",
+    "sectionName": "綜合複習與應用",
+    "category": "損壞賠錢搬運花瓶問題",
+    "batch": "奧數天梯",
+    "source": "奧數天梯 L10（搬運花瓶倒賠假設法）",
+    "level": 10,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "lg",
+    "question": "陶瓷工廠請搬運工運送 200 個高級花瓶，約定每完好送達 1 個可得工錢 3 元，但每打破 1 個不但拿不到工錢，還要倒賠 12 元。運送結束後，搬運工實際領到 540 元，請問他打破了幾個花瓶？",
+    "figure": {
+      "type": "bar",
+      "rows": [
+        {
+          "label": "實際領到工錢",
+          "units": 1.8,
+          "role": "compare"
+        },
+        {
+          "label": "全完好應領工錢",
+          "units": 2,
+          "role": "base"
+        }
+      ],
+      "brace": {
+        "kind": "diff",
+        "text": "少領 60 元（每破 1 個少 3＋12 ＝ 15 元）"
+      }
+    },
+    "options": [
+      {
+        "key": "A",
+        "text": "4 個",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "5 個",
+        "trapCode": "U08_PENALTY_DIFF_ERR"
+      },
+      {
+        "key": "C",
+        "text": "196 個",
+        "trapCode": "U08_CHICKEN_RABBIT_SWAP"
+      },
+      {
+        "key": "D",
+        "text": "6 個",
+        "trapCode": "U08_CALC_SLIP"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "(200 * 3 - 540) / (3 + 12)",
+      "expect": "4",
+      "extraChecks": [
+        {
+          "expr": "196 * 3 - 4 * 12",
+          "expect": "540"
+        }
+      ]
+    },
+    "explanation": {
+      "examPurpose": "測驗學生在「完好賺錢、打破倒賠」的進階假設法中，是否能算出每打破 1 個實際損失「原本工錢 ＋ 倒賠金額」，再求打破個數。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：假設 200 個花瓶全部完好送達，應領到的總工錢是 3 × 200 ＝ 600 元。"
+        },
+        {
+          "type": "bar"
+        },
+        {
+          "type": "eq",
+          "expr": "600 − 540 ＝ 60",
+          "unit": "元（少領的工錢）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：每打破 1 個花瓶，不僅拿不到原本的 3 元工錢，還要倒賠 12 元，所以和全完好相比，每破 1 個共會少領 3 ＋ 12 ＝ 15 元。"
+        },
+        {
+          "type": "eq",
+          "expr": "60 ÷ (3 ＋ 12) ＝ 4",
+          "unit": "個"
+        },
+        {
+          "type": "answer",
+          "text": "答：他打破了 4 個花瓶"
+        }
+      ],
+      "insight": "搬花瓶打破倒賠跟測驗倒扣一模一樣：每打破 1 個的總損失 ＝ 「沒賺到的 3 元」＋「倒貼出去的 12 元」＝ 15 元！",
+      "figureNote": "線段圖呈現全完好應領 600 元與實領 540 元相差 60 元，將少領的 60 元除以每破 1 個的損失 15 元即得 4 個。",
+      "distractorAnalysis": {
+        "C": "算出完好送達的有 200 − 4 ＝ 196 個後，選成了完好的個數而非打破的個數。",
+        "D": "計算 600 − 540 時誤減成 90 元，導致算出 90 ÷ 15 ＝ 6 個。",
+        "B": "誤以為每打破 1 個只比原本少 12 元，沒有加回拿不到的 3 元工錢，錯算成 60 ÷ 12 ＝ 5 個。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "打破個數 ＝ (總件數 × 完好工錢 − 實領工錢) ÷ (完好工錢 ＋ 倒賠罰金)",
+        "驗算：完好 196 × 3 − 打破 4 × 12 ＝ 588 − 48 ＝ 540 元"
+      ],
+      "conceptCompare": "假設全完好最不容易出錯；若假設「全部打破」，總共要倒賠 200 × 12 ＝ 2400 元，會出現負數，小學階段建議統一假設「全部完好／全部答對」。",
+      "examVariations": "若題目改成「運送 200 個花瓶，破了 4 個後實領 540 元，已知完好 1 個給 3 元，問打破 1 個要倒賠幾元？」，先算少領 60 元 ➔ 每個少 60 ÷ 4 ＝ 15 元 ➔ 倒賠 15 − 3 ＝ 12 元。"
+    }
+  },
+  {
+    "id": "U08-S1-M-046",
+    "legacyId": "u08_m01",
+    "unitId": "U08",
+    "section": "8-1",
+    "sectionName": "間隔問題",
+    "category": "植樹兩端",
     "batch": "純腦力體操",
     "source": "早餐免動筆思維天梯 1★",
-    "verified": true,
+    "level": 1,
+    "difficulty": 1,
+    "questionType": "choice",
+    "work": "sm",
     "question": "20 公尺的直路，每隔 5 公尺種一棵樹，兩端都種，共幾棵？",
     "options": [
-      "4 棵",
-      "5 棵",
-      "6 棵",
-      "20 棵"
+      {
+        "key": "A",
+        "text": "4 棵",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "B",
+        "text": "6 棵",
+        "trapCode": "U08_CLOSED_LOOP_ADD_ONE"
+      },
+      {
+        "key": "C",
+        "text": "5 棵",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "20 棵",
+        "trapCode": "U08_CALC_SLIP"
+      }
     ],
-    "answer": "B",
-    "answerKey": "B",
-    "steps": [
-      "間隔數 ＝ $20 \\div 5 = 4$。",
-      "兩端都種：棵數 ＝ 間隔數 ＋ 1 ＝ 5。"
-    ],
-    "insight": "直線兩端都種：點 ＝ 段 ＋ 1。",
-    "trap": {
-      "code": "ERR_U08_M01",
-      "text": "只算間隔數 4。"
+    "answer": "C",
+    "check": {
+      "expr": "20 / 5 + 1",
+      "expect": "5"
     },
-    "work": "sm"
+    "explanation": {
+      "examPurpose": "測驗學生是否理解直線上「兩端都種」時，樹的棵數會比間隔數多 1。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 130\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><line x1=\"50\" y1=\"70\" x2=\"410\" y2=\"70\" stroke=\"#475569\" stroke-width=\"3\"/><circle cx=\"50\" cy=\"70\" r=\"10\" fill=\"#16a34a\"/><circle cx=\"140\" cy=\"70\" r=\"10\" fill=\"#16a34a\"/><circle cx=\"230\" cy=\"70\" r=\"10\" fill=\"#16a34a\"/><circle cx=\"320\" cy=\"70\" r=\"10\" fill=\"#16a34a\"/><circle cx=\"410\" cy=\"70\" r=\"10\" fill=\"#16a34a\"/><text x=\"50\" y=\"46\" font-size=\"12\" font-weight=\"700\" fill=\"#15803d\" text-anchor=\"middle\">起點種</text><text x=\"410\" y=\"46\" font-size=\"12\" font-weight=\"700\" fill=\"#15803d\" text-anchor=\"middle\">終點種</text><text x=\"95\" y=\"94\" font-size=\"12\" fill=\"#2563eb\" text-anchor=\"middle\">5 公尺</text><text x=\"185\" y=\"94\" font-size=\"12\" fill=\"#2563eb\" text-anchor=\"middle\">5 公尺</text><text x=\"275\" y=\"94\" font-size=\"12\" fill=\"#2563eb\" text-anchor=\"middle\">5 公尺</text><text x=\"365\" y=\"94\" font-size=\"12\" fill=\"#2563eb\" text-anchor=\"middle\">5 公尺</text><text x=\"230\" y=\"118\" font-size=\"13\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"middle\">總長 20 公尺（4 個間隔 → 5 棵樹）</text></svg>",
+          "caption": "20 公尺每隔 5 公尺分一段共有 4 個間隔，因為起點和終點都要種樹，所以共有 5 棵樹。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：先用總長除以每個間隔的長度，算出共有幾個間隔。"
+        },
+        {
+          "type": "eq",
+          "expr": "20 ÷ 5 ＝ 4",
+          "unit": "個間隔"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：直路兩端都要種樹，就像張開手掌有 4 個指縫、5 根手指頭，棵數會比間隔數多 1。"
+        },
+        {
+          "type": "eq",
+          "expr": "4 ＋ 1 ＝ 5",
+          "unit": "棵"
+        },
+        {
+          "type": "answer",
+          "text": "答：5 棵"
+        }
+      ],
+      "insight": "直線兩端都種樹：棵數 ＝ 間隔數 ＋ 1；忘記加減 1 時，伸出手指頭數數「指縫與手指」馬上就能確認。",
+      "distractorAnalysis": {
+        "A": "只算出了 20 ÷ 5 ＝ 4 個間隔，卻忘記直路兩端都要種樹必須再加 1。",
+        "D": "沒有將總長除以間隔距離，直接把路長 20 當作答案。",
+        "B": "在間隔數上誤套用多補端點或再加 1，算出 4 ＋ 2 ＝ 6 棵。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "直線兩端都種：棵數 ＝ 間隔數 ＋ 1",
+        "間隔數 ＝ 總長 ÷ 間隔長"
+      ],
+      "conceptCompare": "直路植樹分三種：兩端都種是「間隔數 ＋ 1」、只種一端是「等於間隔數」、兩端都不種是「間隔數 − 1」。",
+      "examVariations": "若題目改成「馬路兩側都要種」，算出單側 5 棵後，別忘了再乘以 2 變成 10 棵。"
+    }
   },
   {
-    "id": "u08_m02",
+    "id": "U08-S1-M-047",
+    "legacyId": "u08_m02",
     "unitId": "U08",
-    "category": "純腦力體操",
-    "topic": "封閉植樹",
-    "level": 1,
-    "stars": 1,
-    "difficulty": 1,
+    "section": "8-1",
+    "sectionName": "間隔問題",
+    "category": "封閉植樹",
     "batch": "純腦力體操",
     "source": "早餐免動筆思維天梯 1★",
-    "verified": true,
+    "level": 1,
+    "difficulty": 1,
+    "questionType": "choice",
+    "work": "sm",
     "question": "周長 20 公尺的圓形水池，每隔 5 公尺種一棵樹，共幾棵？",
     "options": [
-      "4 棵",
-      "5 棵",
-      "3 棵",
-      "6 棵"
+      {
+        "key": "A",
+        "text": "5 棵",
+        "trapCode": "U08_CLOSED_LOOP_ADD_ONE"
+      },
+      {
+        "key": "B",
+        "text": "4 棵",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "3 棵",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "D",
+        "text": "6 棵",
+        "trapCode": "U08_CALC_SLIP"
+      }
     ],
-    "answer": "A",
-    "answerKey": "A",
-    "steps": [
-      "封閉圖形頭尾相接，起點 ＝ 終點。",
-      "棵數 ＝ 間隔數 ＝ 4。"
-    ],
-    "insight": "封閉圖形：點 ＝ 段。",
-    "trap": {
-      "code": "ERR_U08_M02",
-      "text": "套用直線公式多加 1。"
+    "answer": "B",
+    "check": {
+      "expr": "20 / 5",
+      "expect": "4"
     },
-    "work": "sm"
+    "explanation": {
+      "examPurpose": "測驗學生是否區分「封閉圓形」與「直線兩端都種」的植樹差別，理解封閉圖形棵數等於間隔數。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 400 160\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><circle cx=\"150\" cy=\"80\" r=\"52\" fill=\"#e0f2fe\" stroke=\"#0284c7\" stroke-width=\"3\"/><circle cx=\"150\" cy=\"28\" r=\"8\" fill=\"#16a34a\"/><circle cx=\"202\" cy=\"80\" r=\"8\" fill=\"#16a34a\"/><circle cx=\"150\" cy=\"132\" r=\"8\" fill=\"#16a34a\"/><circle cx=\"98\" cy=\"80\" r=\"8\" fill=\"#16a34a\"/><text x=\"150\" y=\"84\" font-size=\"13\" font-weight=\"700\" fill=\"#0369a1\" text-anchor=\"middle\">周長 20 公尺</text><text x=\"198\" y=\"42\" font-size=\"12\" fill=\"#334155\">5 公尺</text><text x=\"198\" y=\"126\" font-size=\"12\" fill=\"#334155\">5 公尺</text><text x=\"72\" y=\"42\" font-size=\"12\" fill=\"#334155\">5 公尺</text><text x=\"72\" y=\"126\" font-size=\"12\" fill=\"#334155\">5 公尺</text><text x=\"310\" y=\"72\" font-size=\"13\" font-weight=\"700\" fill=\"#15803d\" text-anchor=\"middle\">頭尾相接成一圈</text><text x=\"310\" y=\"96\" font-size=\"13\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">4 個間隔 ＝ 4 棵樹</text></svg>",
+          "caption": "圓形水池頭尾相接，起點與終點重合，因此 4 段 5 公尺的圓弧剛好對應 4 棵樹。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：封閉圓形的起點和終點連在一起，相當於「只種一端」，所以棵數剛好等於間隔數。"
+        },
+        {
+          "type": "eq",
+          "expr": "20 ÷ 5 ＝ 4",
+          "unit": "棵"
+        },
+        {
+          "type": "answer",
+          "text": "答：4 棵"
+        }
+      ],
+      "insight": "封閉圖形（圓形、正方形、三角形周圍）沒有起點和終點之分：棵數 ＝ 間隔數，不必加 1 也不必減 1。",
+      "distractorAnalysis": {
+        "C": "誤以為要把間隔數減 1，算出 4 − 1 ＝ 3 棵。",
+        "D": "除法或加減端點時計算粗心，算出不合理的 6 棵。",
+        "A": "誤把封閉圓形當成直線兩端都種，算出 4 個間隔後又多加 1 變成 5 棵。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "封閉圖形植樹：棵數 ＝ 總周長 ÷ 間隔長 ＝ 間隔數"
+      ],
+      "conceptCompare": "把直線路彎成圓形時，原本兩端的那 2 棵樹會重疊合成 1 棵，所以「間隔數 ＋ 1」就會少 1 變回「等於間隔數」。",
+      "examVariations": "只要是繞著公園池塘、環形跑道或蛋糕外圈等封閉路線擺設物品，全部都是「個數 ＝ 間隔數」。"
+    }
   },
   {
-    "id": "u08_m03",
+    "id": "U08-S1-M-048",
+    "legacyId": "u08_m03",
     "unitId": "U08",
-    "category": "純腦力體操",
-    "topic": "鋸木頭",
-    "level": 2,
-    "stars": 2,
-    "difficulty": 2,
+    "section": "8-1",
+    "sectionName": "間隔問題",
+    "category": "鋸木頭",
     "batch": "純腦力體操",
     "source": "早餐免動筆思維天梯 2★",
-    "verified": true,
+    "level": 2,
+    "difficulty": 1,
+    "questionType": "choice",
+    "work": "sm",
     "question": "一根木頭要鋸成 5 段，需要鋸幾次？",
     "options": [
-      "5 次",
-      "6 次",
-      "10 次",
-      "4 次"
+      {
+        "key": "A",
+        "text": "5 次",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "B",
+        "text": "6 次",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      },
+      {
+        "key": "C",
+        "text": "4 次",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "10 次",
+        "trapCode": "U08_CALC_SLIP"
+      }
     ],
-    "answer": "D",
-    "answerKey": "D",
-    "steps": [
-      "鋸 1 次變 2 段，每多鋸 1 次多 1 段。",
-      "5 段需要鋸 4 次。"
-    ],
-    "insight": "刀數 ＝ 段數 − 1（植樹問題的變形）。",
-    "trap": {
-      "code": "ERR_U08_M03",
-      "text": "以為段數 ＝ 次數。"
+    "answer": "C",
+    "check": {
+      "expr": "5 - 1",
+      "expect": "4"
     },
-    "work": "sm"
+    "explanation": {
+      "examPurpose": "測驗學生是否能把「鋸木頭／剪緞帶」轉換為植樹間隔模型，掌握刀數比段數少 1 的關係。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 120\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><rect x=\"40\" y=\"48\" width=\"380\" height=\"26\" rx=\"4\" fill=\"#fef3c7\" stroke=\"#b45309\" stroke-width=\"2\"/><line x1=\"116\" y1=\"36\" x2=\"116\" y2=\"86\" stroke=\"#dc2626\" stroke-width=\"2.5\" stroke-dasharray=\"5,4\"/><line x1=\"192\" y1=\"36\" x2=\"192\" y2=\"86\" stroke=\"#dc2626\" stroke-width=\"2.5\" stroke-dasharray=\"5,4\"/><line x1=\"268\" y1=\"36\" x2=\"268\" y2=\"86\" stroke=\"#dc2626\" stroke-width=\"2.5\" stroke-dasharray=\"5,4\"/><line x1=\"344\" y1=\"36\" x2=\"344\" y2=\"86\" stroke=\"#dc2626\" stroke-width=\"2.5\" stroke-dasharray=\"5,4\"/><text x=\"116\" y=\"28\" font-size=\"12\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">1 刀</text><text x=\"192\" y=\"28\" font-size=\"12\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">2 刀</text><text x=\"268\" y=\"28\" font-size=\"12\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">3 刀</text><text x=\"344\" y=\"28\" font-size=\"12\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">4 刀</text><text x=\"78\" y=\"106\" font-size=\"12\" fill=\"#334155\" text-anchor=\"middle\">段1</text><text x=\"154\" y=\"106\" font-size=\"12\" fill=\"#334155\" text-anchor=\"middle\">段2</text><text x=\"230\" y=\"106\" font-size=\"12\" fill=\"#334155\" text-anchor=\"middle\">段3</text><text x=\"306\" y=\"106\" font-size=\"12\" fill=\"#334155\" text-anchor=\"middle\">段4</text><text x=\"382\" y=\"106\" font-size=\"12\" fill=\"#334155\" text-anchor=\"middle\">段5</text></svg>",
+          "caption": "每鋸 1 刀就多切出 1 段，木頭兩端本來就是斷開的，所以切出 5 段只需要 4 刀。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：鋸木頭就像「兩端都不種樹」，因為木頭的最左邊和最右邊不需要鋸。"
+        },
+        {
+          "type": "eq",
+          "expr": "5 − 1 ＝ 4",
+          "unit": "次"
+        },
+        {
+          "type": "answer",
+          "text": "答：4 次"
+        }
+      ],
+      "insight": "刀數 ＝ 段數 − 1。從最簡單的「鋸 1 次變 2 段」去記，就永遠不會弄錯。",
+      "distractorAnalysis": {
+        "A": "直覺以為要幾段就得鋸幾次，忘了第 4 刀切完就已經分成第 4 段與第 5 段。",
+        "B": "把加減 1 的方向做反，誤算成 5 ＋ 1 ＝ 6 次。",
+        "D": "誤將段數乘以 2，算成 5 × 2 ＝ 10 次。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "鋸的次數 ＝ 分成的段數 − 1",
+        "總時間 ＝ 每次鋸的時間 × (段數 − 1)"
+      ],
+      "conceptCompare": "這和「兩端都不種樹」完全一樣：段數就是間隔數，鋸的位置就是樹的位置。",
+      "examVariations": "進階題常考「鋸成 4 段要 12 分鐘，那麼鋸成 7 段要幾分鐘？」，必須先算 4 − 1 ＝ 3 次，每次 4 分鐘，再算 6 次 × 4 ＝ 24 分鐘。"
+    }
   },
   {
-    "id": "u08_m04",
+    "id": "U08-S1-M-049",
+    "legacyId": "u08_m04",
     "unitId": "U08",
-    "category": "純腦力體操",
-    "topic": "爬樓梯",
-    "level": 2,
-    "stars": 2,
-    "difficulty": 2,
+    "section": "8-1",
+    "sectionName": "間隔問題",
+    "category": "爬樓梯",
     "batch": "純腦力體操",
     "source": "早餐免動筆思維天梯 2★",
-    "verified": true,
+    "level": 2,
+    "difficulty": 1,
+    "questionType": "choice",
+    "work": "sm",
     "question": "從 1 樓走到 4 樓要 30 秒，同樣速度從 1 樓走到 8 樓要幾秒？",
     "options": [
-      "60 秒",
-      "70 秒",
-      "80 秒",
-      "56 秒"
-    ],
-    "answer": "B",
-    "answerKey": "B",
-    "steps": [
-      "1 樓到 4 樓只爬了 3 層 → 每層 10 秒。",
-      "1 樓到 8 樓爬 7 層 → 70 秒。"
-    ],
-    "insight": "樓層問題 ＝ 植樹問題：層數 ＝ 樓數 − 1。",
-    "trap": {
-      "code": "ERR_U08_M04",
-      "text": "以為 4 樓變 8 樓時間就加倍。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u08_m05",
-    "unitId": "U08",
-    "category": "純腦力體操",
-    "topic": "和差問題",
-    "level": 3,
-    "stars": 3,
-    "difficulty": 3,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 3★",
-    "verified": true,
-    "question": "兩數和是 20，差是 4，大數是多少？",
-    "options": [
-      "12",
-      "8",
-      "16",
-      "10"
+      {
+        "key": "A",
+        "text": "70 秒",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "60 秒",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      },
+      {
+        "key": "C",
+        "text": "80 秒",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "D",
+        "text": "56 秒",
+        "trapCode": "U08_CALC_SLIP"
+      }
     ],
     "answer": "A",
-    "answerKey": "A",
-    "steps": [
-      "大數 ＝ (和 ＋ 差) ÷ 2 ＝ $24 \\div 2 = 12$。"
-    ],
-    "insight": "把小的補成大的：和 ＋ 差 ＝ 2 個大數。",
-    "trap": {
-      "code": "ERR_U08_M05",
-      "text": "算出小數 8 就選。"
+    "check": {
+      "expr": "30 / (4 - 1) * (8 - 1)",
+      "expect": "70"
     },
-    "work": "sm"
+    "explanation": {
+      "examPurpose": "測驗學生是否知道「爬樓梯層數 ＝ 終點樓層 − 起點樓層」，不能直接拿樓層數字成比例放大。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：從 1 樓走到 4 樓，其實只爬了 3 層樓梯（1→2、2→3、3→4），先算出爬 1 層要幾秒。"
+        },
+        {
+          "type": "eq",
+          "expr": "4 − 1 ＝ 3",
+          "unit": "層"
+        },
+        {
+          "type": "eq",
+          "expr": "30 ÷ 3 ＝ 10",
+          "unit": "秒（每爬 1 層的時間）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：從 1 樓走到 8 樓總共要爬 7 層樓梯，乘以每層的時間即可。"
+        },
+        {
+          "type": "eq",
+          "expr": "8 − 1 ＝ 7",
+          "unit": "層"
+        },
+        {
+          "type": "eq",
+          "expr": "10 × 7 ＝ 70",
+          "unit": "秒"
+        },
+        {
+          "type": "answer",
+          "text": "答：70 秒"
+        }
+      ],
+      "insight": "樓層問題也是間隔問題：你站在 1 樓不用爬，所以爬的層數永遠是「目標樓層 − 1」。",
+      "distractorAnalysis": {
+        "B": "誤以為 8 樓是 4 樓的 2 倍，就直接把 30 秒乘以 2 算成 60 秒。",
+        "C": "忘記扣掉起點 1 樓，誤以為 1 樓到 8 樓要爬 8 層而算成 10 × 8 ＝ 80 秒。",
+        "D": "在計算層數差或乘法時粗心失誤，錯算為 56 秒。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "實際爬的層數 ＝ 到達樓層 − 出發樓層",
+        "總時間 ＝ 單層時間 × 實際爬的層數"
+      ],
+      "conceptCompare": "「幾樓」相當於數線上的點（樹），「爬幾層樓梯」相當於點與點之間的距離（間隔）。",
+      "examVariations": "若題目改成「從 3 樓走到 8 樓」，實際爬的層數就是 8 − 3 ＝ 5 層，不是 8 − 1 層，讀題時要特別看清起點。"
+    }
   },
   {
-    "id": "u08_m06",
+    "id": "U08-S4-M-050",
+    "legacyId": "u08_m05",
     "unitId": "U08",
-    "category": "純腦力體操",
-    "topic": "火柴正方形",
-    "level": 3,
-    "stars": 3,
-    "difficulty": 3,
+    "section": "8-4",
+    "sectionName": "和差與移多補少",
+    "category": "和差問題",
     "batch": "純腦力體操",
     "source": "早餐免動筆思維天梯 3★",
-    "verified": true,
+    "level": 3,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "兩數和是 20，差是 4，大數是多少？",
+    "figure": {
+      "type": "bar",
+      "rows": [
+        {
+          "label": "小數",
+          "units": 2,
+          "role": "base"
+        },
+        {
+          "label": "大數",
+          "units": 3,
+          "role": "compare"
+        }
+      ],
+      "brace": {
+        "kind": "sum",
+        "text": "兩數和 ＝ 20（大數比小數多 4）"
+      }
+    },
+    "options": [
+      {
+        "key": "A",
+        "text": "16",
+        "trapCode": "U08_SUM_DIFF_FORGET_DIV2"
+      },
+      {
+        "key": "B",
+        "text": "8",
+        "trapCode": "U08_CHICKEN_RABBIT_SWAP"
+      },
+      {
+        "key": "C",
+        "text": "12",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "10",
+        "trapCode": "U08_CALC_SLIP"
+      }
+    ],
+    "answer": "C",
+    "check": {
+      "expr": "(20 + 4) / 2",
+      "expect": "12"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否掌握經典和差問題解法，能透過線段圖把兩數補齊後除以 2 求出大數。",
+      "steps": [
+        {
+          "type": "bar"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：把較小的數補上相差的 4，兩個數就會變得和大數一樣大，這時總和變成 2 個大數。"
+        },
+        {
+          "type": "eq",
+          "expr": "20 ＋ 4 ＝ 24",
+          "unit": "（2 個大數的和）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：平分成 2 份，就得到大數了。"
+        },
+        {
+          "type": "eq",
+          "expr": "24 ÷ 2 ＝ 12",
+          "unit": ""
+        },
+        {
+          "type": "answer",
+          "text": "答：12"
+        }
+      ],
+      "insight": "和差口訣：大數 ＝ (和 ＋ 差) ÷ 2；小數 ＝ (和 − 差) ÷ 2。算完可以馬上驗算：12 ＋ 8 ＝ 20、12 − 8 ＝ 4，完全正確！",
+      "figureNote": "小數線段加上相差的 4 後就和大數等長，兩段合起來是 20 ＋ 4 ＝ 24，除以 2 就得到大數 12。",
+      "distractorAnalysis": {
+        "B": "用 (20 − 4) ÷ 2 ＝ 8 算成了小數，沒看清題目要問的是大數。",
+        "D": "直接把總和 20 平分成兩半得 10，忽略了兩數相差 4 的條件。",
+        "A": "只算了 20 − 4 ＝ 16，卻忘記最後要除以 2 平分兩數。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "大數 ＝ (和 ＋ 差) ÷ 2",
+        "小數 ＝ (和 − 差) ÷ 2"
+      ],
+      "conceptCompare": "求大數要用「補齊（和 ＋ 差）」；求小數則把多出的剪掉（和 − 差），最後一定要記得除以 2。",
+      "examVariations": "段考常把「和」藏在長方形周長裡，例如「周長 40、長比寬多 4」，必須先除以 2 得到長 ＋ 寬 ＝ 20，才能套用本題算法。"
+    }
+  },
+  {
+    "id": "U08-S2-M-051",
+    "legacyId": "u08_m06",
+    "unitId": "U08",
+    "section": "8-2",
+    "sectionName": "規律問題",
+    "category": "火柴正方形",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 3★",
+    "level": 3,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
     "question": "用火柴棒排一排相連的正方形，排 1 個要 4 根，每多 1 個多 3 根。排 10 個要幾根？",
     "options": [
-      "40 根",
-      "30 根",
-      "31 根",
-      "41 根"
+      {
+        "key": "A",
+        "text": "40 根",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      },
+      {
+        "key": "B",
+        "text": "30 根",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "C",
+        "text": "41 根",
+        "trapCode": "U08_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "31 根",
+        "trapCode": null
+      }
     ],
-    "answer": "C",
-    "answerKey": "C",
-    "steps": [
-      "第一個 4 根，之後 9 個各 3 根。",
-      "$4 + 9 \\times 3 = 31$，也就是 $3 \\times 10 + 1$。"
-    ],
-    "insight": "公式 $3n + 1$：每個正方形 3 根，加最左邊 1 根。",
-    "trap": {
-      "code": "ERR_U08_M06",
-      "text": "直接 $4 \\times 10 = 40$，重複算了共用邊。"
+    "answer": "D",
+    "check": {
+      "expr": "4 + 3 * (10 - 1)",
+      "expect": "31"
     },
-    "work": "sm"
+    "explanation": {
+      "examPurpose": "測驗學生能否從圖形排列中找出「首項加固定差值」或「共用邊拆分」的規律。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 120\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><line x1=\"40\" y1=\"25\" x2=\"40\" y2=\"75\" stroke=\"#dc2626\" stroke-width=\"4\"/><path d=\"M 40,25 L 90,25 L 90,75 L 40,75\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"3.5\"/><path d=\"M 90,25 L 140,25 L 140,75 L 90,75\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"3.5\"/><path d=\"M 140,25 L 190,25 L 190,75 L 140,75\" fill=\"#eff6ff\" fill-opacity=\"0.3\" stroke=\"#2563eb\" stroke-width=\"3.5\"/><text x=\"235\" y=\"56\" font-size=\"18\" font-weight=\"700\" fill=\"#475569\" text-anchor=\"middle\">……</text><path d=\"M 280,25 L 330,25 L 330,75 L 280,75\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"3.5\" stroke-dasharray=\"4,2\"/><text x=\"40\" y=\"98\" font-size=\"12\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">先放 1 根</text><text x=\"260\" y=\"98\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">每多 1 格補 3 根藍棒（共 10 組）</text></svg>",
+          "caption": "把最左邊的 1 根紅色火柴單獨算，後面 10 個正方形每個都剛好需要 3 根藍色火柴。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：除了第 1 個正方形需要 4 根，後面多排的 9 個正方形都共用左邊那根，所以各只需要 3 根。"
+        },
+        {
+          "type": "eq",
+          "expr": "10 − 1 ＝ 9",
+          "unit": "個（後面多排的正方形）"
+        },
+        {
+          "type": "eq",
+          "expr": "4 ＋ 3 × 9 ＝ 31",
+          "unit": "根"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：也可以想成「先放最左邊 1 根，再加 10 組各 3 根」：1 ＋ 3 × 10 ＝ 31 根，結果完全一樣。"
+        },
+        {
+          "type": "answer",
+          "text": "答：31 根"
+        }
+      ],
+      "insight": "相連正方形的規律：1 ＋ 3 × 正方形個數（或 4 ＋ 3 × (個數 − 1)），因為相鄰共用邊省下了火柴棒。",
+      "distractorAnalysis": {
+        "A": "誤以為排 10 個正方形都要獨立用 4 根，算成 4 × 10 ＝ 40 根，重複算了共用的邊。",
+        "B": "只算出 3 × 10 ＝ 30 根，卻忘記加上最左邊最初的那 1 根。",
+        "C": "在套用乘加步驟時計算粗心，誤算出 41 根。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "橫排相連正方形火柴數 ＝ 1 ＋ 3 × 正方形個數",
+        "也可以記為：4 ＋ 3 × (正方形個數 − 1)"
+      ],
+      "conceptCompare": "如果是用牙籤排相連的「正三角形」，每多 1 個只多 2 根，所以公式變成「1 ＋ 2 × 正三角形個數」。",
+      "examVariations": "段考常會反過來問：「用了 61 根火柴棒，可以排出幾個相連的正方形？」，只要先減最左邊 1 根剩 60，再除以 3 就得 20 個。"
+    }
   },
   {
-    "id": "u08_m07",
+    "id": "U08-S2-M-052",
+    "legacyId": "u08_m07",
     "unitId": "U08",
-    "category": "純腦力體操",
-    "topic": "空心方陣",
-    "level": 4,
-    "stars": 4,
-    "difficulty": 4,
+    "section": "8-2",
+    "sectionName": "規律問題",
+    "category": "空心方陣",
     "batch": "純腦力體操",
     "source": "早餐免動筆思維天梯 4★",
-    "verified": true,
+    "level": 4,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
     "question": "空心方陣每邊 10 人，最外一圈共有幾人？",
     "options": [
-      "40 人",
-      "36 人",
-      "100 人",
-      "38 人"
-    ],
-    "answer": "B",
-    "answerKey": "B",
-    "steps": [
-      "4 邊各 10 人 ＝ 40，但 4 個角各被算了 2 次。",
-      "$40 - 4 = 36$。"
-    ],
-    "insight": "方陣外圈 ＝ $4n - 4$ ＝ $4(n - 1)$。",
-    "trap": {
-      "code": "ERR_U08_M07",
-      "text": "忘了扣掉重複的角。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u08_m08",
-    "unitId": "U08",
-    "category": "純腦力體操",
-    "topic": "數列規律",
-    "level": 4,
-    "stars": 4,
-    "difficulty": 4,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 4★",
-    "verified": true,
-    "question": "1、4、9、16、□，□ 是多少？",
-    "options": [
-      "20",
-      "24",
-      "25",
-      "32"
-    ],
-    "answer": "C",
-    "answerKey": "C",
-    "steps": [
-      "$1 \\times 1$、$2 \\times 2$、$3 \\times 3$、$4 \\times 4$。",
-      "下一個 $5 \\times 5 = 25$。"
-    ],
-    "insight": "差 3、5、7、9 是連續奇數 → 平方數。",
-    "trap": {
-      "code": "ERR_U08_M08",
-      "text": "只看差 3、5、7 卻算錯下一個。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u08_m09",
-    "unitId": "U08",
-    "category": "純腦力體操",
-    "topic": "雞兔同籠",
-    "level": 5,
-    "stars": 5,
-    "difficulty": 5,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 5★",
-    "verified": true,
-    "question": "雞兔同籠共 10 個頭、32 隻腳，兔子有幾隻？",
-    "options": [
-      "4 隻",
-      "5 隻",
-      "8 隻",
-      "6 隻"
-    ],
-    "answer": "D",
-    "answerKey": "D",
-    "steps": [
-      "假設全是雞：20 隻腳，少了 12 隻。",
-      "每把 1 隻雞換成兔子多 2 隻腳。",
-      "$12 \\div 2 = 6$ 隻兔子。"
-    ],
-    "insight": "假設法：全部假設成一種，再用差額換。",
-    "trap": {
-      "code": "ERR_U08_M09",
-      "text": "算出雞 4 隻就選。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u08_m10",
-    "unitId": "U08",
-    "category": "純腦力體操",
-    "topic": "高斯配對",
-    "level": 5,
-    "stars": 5,
-    "difficulty": 5,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 5★",
-    "verified": true,
-    "question": "$1 + 2 + 3 + \\cdots + 10$ 等於多少？",
-    "options": [
-      "50",
-      "55",
-      "100",
-      "110"
-    ],
-    "answer": "B",
-    "answerKey": "B",
-    "steps": [
-      "頭尾配對：$1 + 10 = 11$，共 5 對。",
-      "$11 \\times 5 = 55$。"
-    ],
-    "insight": "等差數列和 ＝ (首 ＋ 尾) × 項數 ÷ 2。",
-    "trap": {
-      "code": "ERR_U08_M10",
-      "text": "忘了除以 2 選 110。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u08_m11",
-    "unitId": "U08",
-    "category": "純腦力體操",
-    "topic": "敲鐘間隔",
-    "level": 6,
-    "stars": 6,
-    "difficulty": 6,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 6★",
-    "verified": true,
-    "question": "時鐘 3 點敲 3 下用 2 秒，6 點敲 6 下要幾秒？",
-    "options": [
-      "4 秒",
-      "6 秒",
-      "3 秒",
-      "5 秒"
-    ],
-    "answer": "D",
-    "answerKey": "D",
-    "steps": [
-      "敲 3 下只有 2 個間隔 → 每間隔 1 秒。",
-      "敲 6 下有 5 個間隔 → 5 秒。"
-    ],
-    "insight": "時間花在「間隔」上，不是在「敲」上。",
-    "trap": {
-      "code": "ERR_U08_M11",
-      "text": "以為 3 下 2 秒，6 下就 4 秒。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u08_m12",
-    "unitId": "U08",
-    "category": "純腦力體操",
-    "topic": "容斥原理",
-    "level": 6,
-    "stars": 6,
-    "difficulty": 6,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 6★",
-    "verified": true,
-    "question": "1 到 100 中，是 3 的倍數「或」5 的倍數的數有幾個？",
-    "options": [
-      "53 個",
-      "33 個",
-      "47 個",
-      "39 個"
-    ],
-    "answer": "C",
-    "answerKey": "C",
-    "steps": [
-      "3 的倍數 33 個，5 的倍數 20 個。",
-      "同時是 15 的倍數被算了 2 次：6 個。",
-      "$33 + 20 - 6 = 47$。"
-    ],
-    "insight": "容斥：A ＋ B − 重疊（結合第 1 單元最小公倍數）。",
-    "trap": {
-      "code": "ERR_U08_M12",
-      "text": "直接 33 ＋ 20 ＝ 53，忘了扣重複。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u08_m13",
-    "unitId": "U08",
-    "category": "純腦力體操",
-    "topic": "排隊位置",
-    "level": 7,
-    "stars": 7,
-    "difficulty": 7,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 7★",
-    "verified": true,
-    "question": "小明排隊，從前面數是第 8 個，從後面數是第 12 個，這一排共幾人？",
-    "options": [
-      "20 人",
-      "21 人",
-      "19 人",
-      "18 人"
-    ],
-    "answer": "C",
-    "answerKey": "C",
-    "steps": [
-      "$8 + 12 = 20$，但小明被算了兩次。",
-      "$20 - 1 = 19$。"
-    ],
-    "insight": "前數 ＋ 後數 − 1。",
-    "trap": {
-      "code": "ERR_U08_M13",
-      "text": "直接相加得 20。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u08_m14",
-    "unitId": "U08",
-    "category": "純腦力體操",
-    "topic": "數列奇偶",
-    "level": 7,
-    "stars": 7,
-    "difficulty": 7,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 7★",
-    "verified": true,
-    "question": "數列 1、1、2、3、5、8、13、……（每項是前兩項的和），第 100 項是奇數還是偶數？",
-    "options": [
-      "奇數",
-      "偶數",
-      "無法判斷",
-      "剛好是 0"
+      {
+        "key": "A",
+        "text": "36 人",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "40 人",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "C",
+        "text": "100 人",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      },
+      {
+        "key": "D",
+        "text": "38 人",
+        "trapCode": "U08_CALC_SLIP"
+      }
     ],
     "answer": "A",
-    "answerKey": "A",
-    "steps": [
-      "只看奇偶：奇、奇、偶、奇、奇、偶……3 個一循環。",
-      "第 3、6、9……項是偶數。",
-      "100 不是 3 的倍數（99 才是）→ 第 100 項是奇數。"
-    ],
-    "insight": "巨大數列不用算值，只追蹤「奇偶週期」。",
-    "trap": {
-      "code": "ERR_U08_M14",
-      "text": "想把數列寫到第 100 項。"
+    "check": {
+      "expr": "(10 - 1) * 4",
+      "expect": "36"
     },
-    "work": "sm"
+    "explanation": {
+      "examPurpose": "測驗學生在計算正方形周邊人數（空心方陣）時，是否記得扣除 4 個頂點被重複計算的人數。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 380 160\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><rect x=\"60\" y=\"24\" width=\"112\" height=\"112\" fill=\"none\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/><line x1=\"60\" y1=\"24\" x2=\"156\" y2=\"24\" stroke=\"#dc2626\" stroke-width=\"6\" stroke-linecap=\"round\"/><line x1=\"172\" y1=\"24\" x2=\"172\" y2=\"120\" stroke=\"#2563eb\" stroke-width=\"6\" stroke-linecap=\"round\"/><line x1=\"172\" y1=\"136\" x2=\"76\" y2=\"136\" stroke=\"#16a34a\" stroke-width=\"6\" stroke-linecap=\"round\"/><line x1=\"60\" y1=\"136\" x2=\"60\" y2=\"40\" stroke=\"#d97706\" stroke-width=\"6\" stroke-linecap=\"round\"/><text x=\"116\" y=\"84\" font-size=\"13\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"middle\">每組 9 人</text><text x=\"282\" y=\"62\" font-size=\"13\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">4 條邊轉一圈分組：</text><text x=\"282\" y=\"86\" font-size=\"13\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">每邊扣除下一個轉角</text><text x=\"282\" y=\"110\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">(10 − 1) × 4 ＝ 36 人</text></svg>",
+          "caption": "把 4 條邊順時針各分成「每組 9 人」（含頭不含尾），4 組剛好不重複也不遺漏地湊成整圈。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：如果直接 4 邊各算 10 人（40 人），四個角落的人剛好各被鄰邊重複算了 2 次。"
+        },
+        {
+          "type": "eq",
+          "expr": "10 × 4 − 4 ＝ 36",
+          "unit": "人"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：也可以把四條邊順時針各少算 1 個頂點，變成 (10 − 1) × 4 ＝ 36 人。"
+        },
+        {
+          "type": "answer",
+          "text": "答：36 人"
+        }
+      ],
+      "insight": "正方形方陣外圈 ＝ (每邊人數 − 1) × 4（或每邊人數 × 4 − 4），關鍵是處理四個頂點的重複問題。",
+      "distractorAnalysis": {
+        "C": "誤把空心方陣外圈人數當成實心方陣總人數 10 × 10 ＝ 100 人。",
+        "D": "知道要扣掉重複角落，但粗心只扣了 2 人而非 4 人。",
+        "B": "直接算成 10 × 4 ＝ 40 人，忘記四個角落的人都被計算了兩次。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "空心正方形外圈 ＝ (每邊個數 − 1) × 4",
+        "正三角形外圈 ＝ (每邊個數 − 1) × 3"
+      ],
+      "conceptCompare": "正多邊形外圈其實和「封閉圖形植樹」道理相同：轉角算 1 個點，總數就等於 4 條邊的間隔數總和。",
+      "examVariations": "若改問「正三角形花壇每邊擺 10 盆花（三個頂點都擺），共要幾盆？」，算式為 (10 − 1) × 3 ＝ 27 盆。"
+    }
   },
   {
-    "id": "u08_m15",
+    "id": "U08-S2-M-053",
+    "legacyId": "u08_m08",
     "unitId": "U08",
-    "category": "純腦力體操",
-    "topic": "握手問題",
-    "level": 8,
-    "stars": 8,
-    "difficulty": 8,
+    "section": "8-2",
+    "sectionName": "規律問題",
+    "category": "數列規律",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 4★",
+    "level": 4,
+    "difficulty": 2,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "1、4、9、16、□，□ 是多少？",
+    "options": [
+      {
+        "key": "A",
+        "text": "20",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      },
+      {
+        "key": "B",
+        "text": "24",
+        "trapCode": "U08_CALC_SLIP"
+      },
+      {
+        "key": "C",
+        "text": "32",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "D",
+        "text": "25",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "5 * 5",
+      "expect": "25"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生對平方數列與相鄰差為連續奇數（3、5、7、9）規律的敏感度。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：觀察每一項和項次之間的乘法關係，或是相鄰兩數的差。"
+        },
+        {
+          "type": "eq",
+          "expr": "1 ＝ 1 × 1，4 ＝ 2 × 2，9 ＝ 3 × 3，16 ＝ 4 × 4",
+          "unit": ""
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：第 5 項就是 5 × 5 ＝ 25（也可以用相差 3、5、7，下一個加 9：16 ＋ 9 ＝ 25）。"
+        },
+        {
+          "type": "eq",
+          "expr": "5 × 5 ＝ 25",
+          "unit": ""
+        },
+        {
+          "type": "answer",
+          "text": "答：25"
+        }
+      ],
+      "insight": "1、4、9、16、25、36……是經典的平方數列，同時相鄰兩數的差剛好是 3、5、7、9、11……的連續奇數。",
+      "distractorAnalysis": {
+        "A": "沒有觀察前後項差的變化，誤以為第 4 項 16 加上 4 就得 20。",
+        "B": "看出差值在變大，但計算 16 ＋ 9 時粗心錯算成 16 ＋ 8 ＝ 24。",
+        "C": "誤以為數列是用乘以 2 變大的，將 16 × 2 ＝ 32 當成下一項。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "第 1 項到第 10 項平方數：1、4、9、16、25、36、49、64、81、100"
+      ],
+      "conceptCompare": "找數列規律時，先算「前後兩數的差」，如果差每次固定增加 2（3、5、7、9），通常就對應正方形點陣圖的面積！",
+      "examVariations": "段考常考「這組數列第 10 個數是多少？」，用 10 × 10 ＝ 100 比一個一個加奇數快得多。"
+    }
+  },
+  {
+    "id": "U08-RV-M-054",
+    "legacyId": "u08_m09",
+    "unitId": "U08",
+    "section": "REVIEW",
+    "sectionName": "怎樣解題總複習",
+    "category": "雞兔同籠",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 5★",
+    "level": 5,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "雞兔同籠共 10 個頭、32 隻腳，兔子有幾隻？",
+    "figure": {
+      "type": "bar",
+      "rows": [
+        {
+          "label": "假設全雞腳數",
+          "units": 5,
+          "role": "base"
+        },
+        {
+          "label": "實際總腳數",
+          "units": 8,
+          "role": "compare"
+        }
+      ],
+      "brace": {
+        "kind": "diff",
+        "text": "多出 32 − 20 ＝ 12 隻腳（每隻兔比雞多 2 隻腳）"
+      }
+    },
+    "options": [
+      {
+        "key": "A",
+        "text": "4 隻",
+        "trapCode": "U08_CHICKEN_RABBIT_SWAP"
+      },
+      {
+        "key": "B",
+        "text": "5 隻",
+        "trapCode": "U08_CALC_SLIP"
+      },
+      {
+        "key": "C",
+        "text": "8 隻",
+        "trapCode": "U08_PENALTY_DIFF_ERR"
+      },
+      {
+        "key": "D",
+        "text": "6 隻",
+        "trapCode": null
+      }
+    ],
+    "answer": "D",
+    "check": {
+      "expr": "(32 - 10 * 2) / (4 - 2)",
+      "expect": "6"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否熟練使用「假設法」解決雞兔問題，並能清楚辨別求出的是雞還是兔。",
+      "steps": [
+        {
+          "type": "bar"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：題目要求兔子，就先假設 10 隻全部都是雞，算出總腳數與實際腳數的差。"
+        },
+        {
+          "type": "eq",
+          "expr": "2 × 10 ＝ 20",
+          "unit": "隻腳（假設全是雞）"
+        },
+        {
+          "type": "eq",
+          "expr": "32 − 20 ＝ 12",
+          "unit": "隻腳（少算的腳數）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：每把 1 隻雞換成 1 隻兔子會多出 4 − 2 ＝ 2 隻腳，把少算的 12 隻腳除以 2 就是兔子數。"
+        },
+        {
+          "type": "eq",
+          "expr": "12 ÷ (4 − 2) ＝ 6",
+          "unit": "隻兔子"
+        },
+        {
+          "type": "answer",
+          "text": "答：6 隻"
+        }
+      ],
+      "insight": "假設法口訣：假設全都是「另一種」，求出來的結果就會剛好是「題目要問的那一種」！",
+      "figureNote": "假設 10 隻全是雞只有 20 隻腳，比實際 32 隻腳少了 12 隻；每換 1 隻兔子能補回 2 隻腳，12 ÷ 2 ＝ 6 隻兔子。",
+      "distractorAnalysis": {
+        "A": "假設全都是兔算出雞有 4 隻後，搞反對象直接選成 4 隻。",
+        "B": "沒有算每隻動物的腳數差，誤把 10 隻對半平分成 5 隻。",
+        "C": "假設全是兔得 40 − 32 ＝ 8 隻腳差後，忘記除以每隻差 2 隻腳就直接作答。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "假設全雞時：兔子隻數 ＝ (總腳數 − 2 × 總頭數) ÷ (4 − 2)",
+        "假設全兔時：雞的隻數 ＝ (4 × 總頭數 − 總腳數) ÷ (4 − 2)"
+      ],
+      "conceptCompare": "雞兔問題的重點不是真的養雞養兔，舉凡大小車載人、5 元與 10 元硬幣、雙人房與四人房全部都用同一招「假設法」。",
+      "examVariations": "段考最常出現「測驗答對得 5 分、答錯倒扣 2 分」，此時每換一題的分數差是 5 ＋ 2 ＝ 7 分（不是 5 − 2），要特別小心！"
+    }
+  },
+  {
+    "id": "U08-S2-M-055",
+    "legacyId": "u08_m10",
+    "unitId": "U08",
+    "section": "8-2",
+    "sectionName": "規律問題",
+    "category": "高斯配對",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 5★",
+    "level": 5,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "1 ＋ 2 ＋ 3 ＋ …… ＋ 10 等於多少？",
+    "options": [
+      {
+        "key": "A",
+        "text": "50",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      },
+      {
+        "key": "B",
+        "text": "55",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "100",
+        "trapCode": "U08_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "110",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "(1 + 10) * 10 / 2",
+      "expect": "55"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否理解等差數列「頭尾配對」的高斯求和想法，並記得總數要除以 2。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 125\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><path d=\"M 45,75 Q 230,10 415,75\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"2\"/><path d=\"M 86,75 Q 230,26 374,75\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"2\"/><path d=\"M 127,75 Q 230,40 333,75\" fill=\"none\" stroke=\"#16a34a\" stroke-width=\"2\"/><path d=\"M 168,75 Q 230,52 292,75\" fill=\"none\" stroke=\"#d97706\" stroke-width=\"2\"/><path d=\"M 209,75 Q 230,62 251,75\" fill=\"none\" stroke=\"#7c3aed\" stroke-width=\"2\"/><text x=\"45\" y=\"94\" font-size=\"14\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">1</text><text x=\"86\" y=\"94\" font-size=\"14\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">2</text><text x=\"127\" y=\"94\" font-size=\"14\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">3</text><text x=\"168\" y=\"94\" font-size=\"14\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">4</text><text x=\"209\" y=\"94\" font-size=\"14\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">5</text><text x=\"251\" y=\"94\" font-size=\"14\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">6</text><text x=\"292\" y=\"94\" font-size=\"14\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">7</text><text x=\"333\" y=\"94\" font-size=\"14\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">8</text><text x=\"374\" y=\"94\" font-size=\"14\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">9</text><text x=\"415\" y=\"94\" font-size=\"14\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">10</text><text x=\"230\" y=\"116\" font-size=\"13\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">頭尾配成 5 對：1＋10、2＋9、3＋8、4＋7、5＋6，每對和都是 11</text></svg>",
+          "caption": "把 1 到 10 從兩端頭尾配對，剛好可以配成 5 對，每一對的和都是 11。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：將最小和最大的數頭尾配對，發現每對的和都一樣是 11，10 個數共有 5 對。"
+        },
+        {
+          "type": "eq",
+          "expr": "1 ＋ 10 ＝ 11",
+          "unit": "（每對的和）"
+        },
+        {
+          "type": "eq",
+          "expr": "11 × (10 ÷ 2) ＝ 55",
+          "unit": ""
+        },
+        {
+          "type": "answer",
+          "text": "答：55"
+        }
+      ],
+      "insight": "等差數列總和 ＝ (首項 ＋ 尾項) × 項數 ÷ 2，就像計算梯形面積「(上底 ＋ 下底) × 高 ÷ 2」一樣！",
+      "distractorAnalysis": {
+        "A": "誤以為每對的和是 10，算成 10 × 5 ＝ 50。",
+        "C": "未正確配對求和，粗心算成 10 × 10 ＝ 100。",
+        "D": "直接算 (1 ＋ 10) × 10 ＝ 110，卻忘記因為兩個數配成一對，最後要除以 2。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "等差數列和 ＝ (頭 ＋ 尾) × 個數 ÷ 2"
+      ],
+      "conceptCompare": "把 1 到 10 排成正梯形，再把一組倒過來的 10 到 1 併在一起，每一行都是 11、共有 10 行，因此兩組共 110，除以 2 就是 55。",
+      "examVariations": "若問「1 ＋ 2 ＋ 3 ＋ …… ＋ 100」，同樣算法 (1 ＋ 100) × 100 ÷ 2 ＝ 5050，背起來在腦力題很有用！"
+    }
+  },
+  {
+    "id": "U08-S1-M-056",
+    "legacyId": "u08_m11",
+    "unitId": "U08",
+    "section": "8-1",
+    "sectionName": "間隔問題",
+    "category": "敲鐘間隔",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 6★",
+    "level": 6,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "時鐘 3 點敲 3 下用 2 秒，6 點敲 6 下要幾秒？",
+    "options": [
+      {
+        "key": "A",
+        "text": "4 秒",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      },
+      {
+        "key": "B",
+        "text": "5 秒",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "3 秒",
+        "trapCode": "U08_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "6 秒",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      }
+    ],
+    "answer": "B",
+    "check": {
+      "expr": "2 / (3 - 1) * (6 - 1)",
+      "expect": "5"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否看穿「敲鐘花的時間是在兩聲之間的間隔，而不是在敲的次數」，能轉換成間隔問題計算。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 130\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><text x=\"36\" y=\"42\" font-size=\"13\" font-weight=\"700\" fill=\"#334155\">敲 3 下</text><circle cx=\"110\" cy=\"38\" r=\"7\" fill=\"#2563eb\"/><circle cx=\"170\" cy=\"38\" r=\"7\" fill=\"#2563eb\"/><circle cx=\"230\" cy=\"38\" r=\"7\" fill=\"#2563eb\"/><path d=\"M 110,30 Q 140,12 170,30\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"2\"/><path d=\"M 170,30 Q 200,12 230,30\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"2\"/><text x=\"140\" y=\"18\" font-size=\"11\" fill=\"#dc2626\" text-anchor=\"middle\">1 秒</text><text x=\"200\" y=\"18\" font-size=\"11\" fill=\"#dc2626\" text-anchor=\"middle\">1 秒</text><text x=\"36\" y=\"96\" font-size=\"13\" font-weight=\"700\" fill=\"#334155\">敲 6 下</text><circle cx=\"110\" cy=\"92\" r=\"7\" fill=\"#16a34a\"/><circle cx=\"170\" cy=\"92\" r=\"7\" fill=\"#16a34a\"/><circle cx=\"230\" cy=\"92\" r=\"7\" fill=\"#16a34a\"/><circle cx=\"290\" cy=\"92\" r=\"7\" fill=\"#16a34a\"/><circle cx=\"350\" cy=\"92\" r=\"7\" fill=\"#16a34a\"/><circle cx=\"410\" cy=\"92\" r=\"7\" fill=\"#16a34a\"/><path d=\"M 110,84 Q 140,66 170,84\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"2\"/><path d=\"M 170,84 Q 200,66 230,84\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"2\"/><path d=\"M 230,84 Q 260,66 290,84\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"2\"/><path d=\"M 290,84 Q 320,66 350,84\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"2\"/><path d=\"M 350,84 Q 380,66 410,84\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"2\"/><text x=\"260\" y=\"118\" font-size=\"12\" font-weight=\"700\" fill=\"#15803d\" text-anchor=\"middle\">共有 5 個間隔 → 1 × 5 ＝ 5 秒</text></svg>",
+          "caption": "敲第 1 下就開始計時，敲 3 下只經過 2 個間隔（共 2 秒），敲 6 下要經過 5 個間隔（共 5 秒）。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：敲 3 下之間只有 3 − 1 ＝ 2 個時間間隔，用 2 秒代表每個間隔是 1 秒。"
+        },
+        {
+          "type": "eq",
+          "expr": "2 ÷ (3 − 1) ＝ 1",
+          "unit": "秒（每個間隔）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：敲 6 下有 6 − 1 ＝ 5 個間隔，所以需要 5 秒。"
+        },
+        {
+          "type": "eq",
+          "expr": "1 × (6 − 1) ＝ 5",
+          "unit": "秒"
+        },
+        {
+          "type": "answer",
+          "text": "答：5 秒"
+        }
+      ],
+      "insight": "時間花在「間隔」上，不是花在「敲」的那一瞬間：敲 1 下在第 0 秒，所以間隔數 ＝ 敲的次數 − 1。",
+      "distractorAnalysis": {
+        "A": "誤以為 6 下是 3 下的 2 倍，就直接把 2 秒乘以 2 算成 4 秒。",
+        "C": "在換算間隔數與秒數時粗心算錯，誤得出 3 秒。",
+        "D": "知道每個間隔 1 秒，卻忘了間隔數比次數少 1，算成 6 × 1 ＝ 6 秒。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "間隔數 ＝ 敲鐘次數 − 1",
+        "總耗時 ＝ 每個間隔秒數 × (敲鐘次數 − 1)"
+      ],
+      "conceptCompare": "敲鐘問題和「爬樓梯」、「吃藥計時」完全是同一種間隔模型：第 1 次都在起點 0 秒，後面每間隔一次才計時間。",
+      "examVariations": "若題目接著問「半夜 12 點敲 12 下要幾秒？」，千萬別乘 4 變成 8 秒，正確算法是 1 × (12 − 1) ＝ 11 秒。"
+    }
+  },
+  {
+    "id": "U08-S2-M-057",
+    "legacyId": "u08_m12",
+    "unitId": "U08",
+    "section": "8-2",
+    "sectionName": "規律問題",
+    "category": "容斥原理",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 6★",
+    "level": 6,
+    "difficulty": 3,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "1 到 100 中，是 3 的倍數「或」5 的倍數的數有幾個？",
+    "options": [
+      {
+        "key": "A",
+        "text": "47 個",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "33 個",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      },
+      {
+        "key": "C",
+        "text": "53 個",
+        "trapCode": "U08_COMB_DOUBLE_COUNT"
+      },
+      {
+        "key": "D",
+        "text": "39 個",
+        "trapCode": "U08_CALC_SLIP"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "33 + 20 - 6",
+      "expect": "47"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否能結合公倍數與重複扣除（容斥原理），排除同時是 3 和 5 的公倍數被算了兩次的情況。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 420 140\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><circle cx=\"160\" cy=\"68\" r=\"50\" fill=\"#dbeafe\" fill-opacity=\"0.75\" stroke=\"#2563eb\" stroke-width=\"2.5\"/><circle cx=\"250\" cy=\"68\" r=\"50\" fill=\"#fef3c7\" fill-opacity=\"0.75\" stroke=\"#d97706\" stroke-width=\"2.5\"/><text x=\"132\" y=\"64\" font-size=\"13\" font-weight=\"700\" fill=\"#1e40af\" text-anchor=\"middle\">3 的倍數</text><text x=\"132\" y=\"84\" font-size=\"13\" font-weight=\"700\" fill=\"#1e40af\" text-anchor=\"middle\">共 33 個</text><text x=\"278\" y=\"64\" font-size=\"13\" font-weight=\"700\" fill=\"#b45309\" text-anchor=\"middle\">5 的倍數</text><text x=\"278\" y=\"84\" font-size=\"13\" font-weight=\"700\" fill=\"#b45309\" text-anchor=\"middle\">共 20 個</text><text x=\"205\" y=\"64\" font-size=\"12\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">15 的倍數</text><text x=\"205\" y=\"82\" font-size=\"12\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">重疊 6 個</text><text x=\"205\" y=\"132\" font-size=\"13\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">33 ＋ 20 − 6 ＝ 47 個</text></svg>",
+          "caption": "像 15、30、45、60、75、90 這 6 個數同時屬於兩個圈圈，加總後必須扣回 1 次。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：先分別算出 1 到 100 中 3 的倍數、5 的倍數各有多少個（取整數商）。"
+        },
+        {
+          "type": "eq",
+          "expr": "100 ÷ 3 ＝ 33 … 1",
+          "unit": "（3 的倍數有 33 個）"
+        },
+        {
+          "type": "eq",
+          "expr": "100 ÷ 5 ＝ 20",
+          "unit": "（5 的倍數有 20 個）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：同時是 3 和 5 的倍數，就是 15 的倍數（15、30、45、60、75、90），這 6 個在兩邊各算了 1 次，所以要扣掉 6 個。"
+        },
+        {
+          "type": "eq",
+          "expr": "100 ÷ 15 ＝ 6 … 10",
+          "unit": "（重疊 6 個）"
+        },
+        {
+          "type": "eq",
+          "expr": "33 ＋ 20 − 6 ＝ 47",
+          "unit": "個"
+        },
+        {
+          "type": "answer",
+          "text": "答：47 個"
+        }
+      ],
+      "insight": "計算「甲或乙」的總個數時：甲的個數 ＋ 乙的個數 − 兩者重疊的個數，才不會把重疊部分多算一次。",
+      "distractorAnalysis": {
+        "B": "只算出了 3 的倍數有 33 個，漏掉了 5 的倍數也要算進去。",
+        "C": "直接將 33 ＋ 20 ＝ 53，忘記扣掉同時是 15 的倍數被重複計算的 6 個數。",
+        "D": "在計算除法個數或加減時粗心出錯，算出 39 個。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "1 到某數中某因數的倍數個數 ＝ 該數 ÷ 因數（取整數商）",
+        "甲或乙總數 ＝ 甲 ＋ 乙 − 同時滿足甲與乙（公倍數）"
+      ],
+      "conceptCompare": "求兩數的「公倍數」必須先找最小公倍數（3 和 5 的最小公倍數是 15），再看 100 裡面有幾個 15。",
+      "examVariations": "段考常把題目反過來問：「1 到 100 中，既不是 3 的倍數也不是 5 的倍數有幾個？」，只要用 100 − 47 ＝ 53 個就解決了。"
+    }
+  },
+  {
+    "id": "U08-S1-M-058",
+    "legacyId": "u08_m13",
+    "unitId": "U08",
+    "section": "8-1",
+    "sectionName": "間隔問題",
+    "category": "排隊位置",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 7★",
+    "level": 7,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "小明排隊，從前面數是第 8 個，從後面數是第 12 個，這一排共幾人？",
+    "options": [
+      {
+        "key": "A",
+        "text": "19 人",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "21 人",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "C",
+        "text": "20 人",
+        "trapCode": "U08_COMB_DOUBLE_COUNT"
+      },
+      {
+        "key": "D",
+        "text": "18 人",
+        "trapCode": "U08_CALC_SLIP"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "8 + 12 - 1",
+      "expect": "19"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生對排隊問題中「序數包含自己」的重複計數判斷。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 120\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><line x1=\"40\" y1=\"56\" x2=\"420\" y2=\"56\" stroke=\"#94a3b8\" stroke-width=\"3\"/><circle cx=\"40\" cy=\"56\" r=\"6\" fill=\"#64748b\"/><circle cx=\"190\" cy=\"56\" r=\"10\" fill=\"#dc2626\"/><circle cx=\"420\" cy=\"56\" r=\"6\" fill=\"#64748b\"/><path d=\"M 40,36 L 40,28 L 190,28 L 190,36\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"2\"/><text x=\"115\" y=\"20\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">從前面數第 8 個（含小明）</text><path d=\"M 190,76 L 190,84 L 420,84 L 420,76\" fill=\"none\" stroke=\"#16a34a\" stroke-width=\"2\"/><text x=\"305\" y=\"102\" font-size=\"12\" font-weight=\"700\" fill=\"#15803d\" text-anchor=\"middle\">從後面數第 12 個（也含小明）</text><text x=\"190\" y=\"42\" font-size=\"12\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">小明</text></svg>",
+          "caption": "前面數過來的 8 個人與後面數過去的 12 個人，剛好都在「小明」這裡重疊了 1 次。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：從前面數到小明有 8 人，從後面數到小明有 12 人，兩邊都把小明自己算進去了。"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：把兩邊加起來後，小明重複算了 2 次，所以要扣掉 1 次。"
+        },
+        {
+          "type": "eq",
+          "expr": "8 ＋ 12 − 1 ＝ 19",
+          "unit": "人"
+        },
+        {
+          "type": "answer",
+          "text": "答：19 人"
+        }
+      ],
+      "insight": "前數 ＋ 後數 − 1。如果分不清是「第 8 個」還是「前面有 8 個人」，記得：「第」字有包含自己，「有」字不含自己！",
+      "distractorAnalysis": {
+        "B": "錯用「之間還有幾人」或加錯方向，算成 8 ＋ 12 ＋ 1 ＝ 21 人。",
+        "D": "在減 1 時多減了一人或計算粗心，錯算成 18 人。",
+        "C": "直接把 8 ＋ 12 ＝ 20，忘記小明在兩次報數中被重複計算了 1 次。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "全隊人數 ＝ 前面數來第幾個 ＋ 後面數來第幾個 − 1"
+      ],
+      "conceptCompare": "比較這兩句話：「小明前面有 8 人、後面有 12 人」總人數是 8 ＋ 1 ＋ 12 ＝ 21 人；「從前面數第 8 個、從後面數第 12 個」總人數是 8 ＋ 12 − 1 ＝ 19 人。",
+      "examVariations": "段考也常考「隊伍共 25 人，小華排在從前面數第 9 個，從後面數是第幾個？」，用 25 − 9 ＋ 1 ＝ 第 17 個。"
+    }
+  },
+  {
+    "id": "U08-S2-M-059",
+    "legacyId": "u08_m14",
+    "unitId": "U08",
+    "section": "8-2",
+    "sectionName": "規律問題",
+    "category": "數列奇偶",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 7★",
+    "level": 7,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "數列 1、1、2、3、5、8、13、……（每項是前兩項的和），第 100 項是奇數還是偶數？",
+    "options": [
+      {
+        "key": "A",
+        "text": "無法判斷",
+        "trapCode": "U08_COMB_DOUBLE_COUNT"
+      },
+      {
+        "key": "B",
+        "text": "偶數",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      },
+      {
+        "key": "C",
+        "text": "奇數",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "剛好是 0",
+        "trapCode": "U08_CALC_SLIP"
+      }
+    ],
+    "answer": "C",
+    "skipOptionNumMatch": true,
+    "check": {
+      "expr": "100 - 3 * 33",
+      "expect": "1"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否會把大數列簡化為「奇偶週期規律」，利用除法餘數直接判斷第 100 項的奇偶性。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：把數列 1、1、2、3、5、8、13……全部改寫成「奇、偶」，並找出重複出現的一組循環。"
+        },
+        {
+          "type": "text",
+          "text": "奇、奇、偶、奇、奇、偶、奇……可以發現每「3 個數」為一組不斷循環（奇、奇、偶）。"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：用 100 除以每組 3 個，看餘數對應到每組的第幾個。"
+        },
+        {
+          "type": "eq",
+          "expr": "100 ÷ 3 ＝ 33 … 1",
+          "unit": "（餘 1 代表第 34 組的第 1 個）"
+        },
+        {
+          "type": "text",
+          "text": "第 3 步：每組第 1 個都是「奇數」，所以第 100 項是奇數。"
+        },
+        {
+          "type": "answer",
+          "text": "答：奇數"
+        }
+      ],
+      "insight": "遇到巨大的項數不用硬算數值，只追蹤「奇偶性」的週期：奇 ＋ 奇 ＝ 偶、奇 ＋ 偶 ＝ 奇，就能馬上看出 3 個一循環。",
+      "distractorAnalysis": {
+        "B": "找錯週期或餘數看錯位置，誤把餘 1 當成每組最後一個而選偶數。",
+        "D": "誤以為規律數列經過很多項後會循環回到 0。",
+        "A": "誤以為沒有把數列算到第 100 個數字就無法知道奇偶。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "奇數 ＋ 奇數 ＝ 偶數；奇數 ＋ 偶數 ＝ 奇數",
+        "週期問題定位：總項數 ÷ 每組個數 ＝ 組數 … 餘數（整除看最後一個）"
+      ],
+      "conceptCompare": "這種只看奇偶、餘數而不算真實大小的想法，是解決超大項次問題的必備絕招。",
+      "examVariations": "若改問「前 100 項裡面共有幾個偶數？」，因為每 3 項有 1 個偶數，100 ÷ 3 ＝ 33 組餘 1（第 100 項是奇數），所以剛好有 33 個偶數。"
+    }
+  },
+  {
+    "id": "U08-S3-M-060",
+    "legacyId": "u08_m15",
+    "unitId": "U08",
+    "section": "8-3",
+    "sectionName": "搭配與組合問題",
+    "category": "握手問題",
     "batch": "純腦力體操",
     "source": "早餐免動筆思維天梯 8★",
-    "verified": true,
+    "level": 8,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "sm",
     "question": "6 個人，每兩人握手一次，共握幾次？",
     "options": [
-      "30 次",
-      "15 次",
-      "36 次",
-      "12 次"
+      {
+        "key": "A",
+        "text": "15 次",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "30 次",
+        "trapCode": "U08_COMB_DOUBLE_COUNT"
+      },
+      {
+        "key": "C",
+        "text": "36 次",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      },
+      {
+        "key": "D",
+        "text": "12 次",
+        "trapCode": "U08_CALC_SLIP"
+      }
     ],
-    "answer": "B",
-    "answerKey": "B",
-    "steps": [
-      "每人和其他 5 人握 → $6 \\times 5 = 30$。",
-      "每次握手被兩人各算一次 → $30 \\div 2 = 15$。"
-    ],
-    "insight": "兩兩配對 ＝ $n(n - 1) \\div 2$。",
-    "trap": {
-      "code": "ERR_U08_M15",
-      "text": "忘了除以 2。"
+    "answer": "A",
+    "check": {
+      "expr": "6 * 5 / 2",
+      "expect": "15"
     },
-    "work": "sm"
+    "explanation": {
+      "examPurpose": "測驗學生是否理解兩兩配對組合中「甲握乙與乙握甲算同一次」，需除以 2 排除重複計算。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 420 150\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><line x1=\"110\" y1=\"30\" x2=\"170\" y2=\"30\" stroke=\"#dc2626\" stroke-width=\"2\"/><line x1=\"110\" y1=\"30\" x2=\"200\" y2=\"75\" stroke=\"#dc2626\" stroke-width=\"2\"/><line x1=\"110\" y1=\"30\" x2=\"170\" y2=\"120\" stroke=\"#dc2626\" stroke-width=\"2\"/><line x1=\"110\" y1=\"30\" x2=\"110\" y2=\"120\" stroke=\"#dc2626\" stroke-width=\"2\"/><line x1=\"110\" y1=\"30\" x2=\"80\" y2=\"75\" stroke=\"#dc2626\" stroke-width=\"2\"/><line x1=\"170\" y1=\"30\" x2=\"200\" y2=\"75\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><line x1=\"170\" y1=\"30\" x2=\"170\" y2=\"120\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><line x1=\"170\" y1=\"30\" x2=\"110\" y2=\"120\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><line x1=\"170\" y1=\"30\" x2=\"80\" y2=\"75\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><line x1=\"200\" y1=\"75\" x2=\"170\" y2=\"120\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><line x1=\"200\" y1=\"75\" x2=\"110\" y2=\"120\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><line x1=\"200\" y1=\"75\" x2=\"80\" y2=\"75\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><line x1=\"170\" y1=\"120\" x2=\"110\" y2=\"120\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><line x1=\"170\" y1=\"120\" x2=\"80\" y2=\"75\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><line x1=\"110\" y1=\"120\" x2=\"80\" y2=\"75\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><circle cx=\"110\" cy=\"30\" r=\"7\" fill=\"#dc2626\"/><circle cx=\"170\" cy=\"30\" r=\"7\" fill=\"#2563eb\"/><circle cx=\"200\" cy=\"75\" r=\"7\" fill=\"#2563eb\"/><circle cx=\"170\" cy=\"120\" r=\"7\" fill=\"#2563eb\"/><circle cx=\"110\" cy=\"120\" r=\"7\" fill=\"#2563eb\"/><circle cx=\"80\" cy=\"75\" r=\"7\" fill=\"#2563eb\"/><text x=\"315\" y=\"66\" font-size=\"13\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">紅點連出 5 條線</text><text x=\"315\" y=\"90\" font-size=\"13\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"middle\">5 ＋ 4 ＋ 3 ＋ 2 ＋ 1 ＝ 15 次</text></svg>",
+          "caption": "6 個人排成一圈，第 1 人與其餘 5 人握手，第 2 人只要再握剩下 4 人，依序加起來共 15 次。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：每個人都和其他 5 個人握一次手，共會算出 6 × 5 ＝ 30 次。"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：但每對人之間只握一次（你握我 ＝ 我握你），剛才每人各自算一次等於重複算了 2 遍，所以必須除以 2。"
+        },
+        {
+          "type": "eq",
+          "expr": "6 × 5 ÷ 2 ＝ 15",
+          "unit": "次"
+        },
+        {
+          "type": "answer",
+          "text": "答：15 次"
+        }
+      ],
+      "insight": "兩兩握手或單循環賽總次數 ＝ 人數 × (人數 − 1) ÷ 2，也可以從 5 ＋ 4 ＋ 3 ＋ 2 ＋ 1 慢慢加出 15 次來互相檢查。",
+      "distractorAnalysis": {
+        "C": "忘記人不會自己跟自己握手，算成 6 × 6 ＝ 36 次。",
+        "D": "誤用 6 × 2 ＝ 12 次，沒有正確列出配對算式。",
+        "B": "算出了 6 × 5 ＝ 30 次，卻忘記兩人互相握手只算 1 次，沒有除以 2。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "兩兩配對次數 ＝ 人數 × (人數 − 1) ÷ 2",
+        "或倒數相加：(人數 − 1) ＋ (人數 − 2) ＋ …… ＋ 1"
+      ],
+      "conceptCompare": "注意區分「互相寄賀年卡」與「互相握手」：互寄卡片你寄給我、我寄給你算 2 張，不用除以 2（6 × 5 ＝ 30 張）；握手和單循環球賽沒有順序之分，一定要除以 2。",
+      "examVariations": "段考常考「9 支球隊打單循環賽，每兩隊比一場，共要比幾場？」，算式為 9 × 8 ÷ 2 ＝ 36 場。"
+    }
   },
   {
-    "id": "u08_m16",
+    "id": "U08-S1-M-061",
+    "legacyId": "u08_m16",
     "unitId": "U08",
-    "category": "純腦力體操",
-    "topic": "兩側植樹",
-    "level": 8,
-    "stars": 8,
-    "difficulty": 8,
+    "section": "8-1",
+    "sectionName": "間隔問題",
+    "category": "兩側植樹",
     "batch": "純腦力體操",
     "source": "早餐免動筆思維天梯 8★",
-    "verified": true,
+    "level": 8,
+    "difficulty": 4,
+    "questionType": "choice",
+    "work": "sm",
     "question": "100 公尺長的路，兩側每隔 10 公尺種一棵樹，兩端都種，共幾棵？",
     "options": [
-      "11 棵",
-      "20 棵",
-      "22 棵",
-      "10 棵"
-    ],
-    "answer": "C",
-    "answerKey": "C",
-    "steps": [
-      "一側：$100 \\div 10 + 1 = 11$ 棵。",
-      "兩側：$11 \\times 2 = 22$ 棵。"
-    ],
-    "insight": "先算一側再乘 2。",
-    "trap": {
-      "code": "ERR_U08_M16",
-      "text": "忘了「兩側」或忘了 ＋1。"
-    },
-    "work": "sm"
-  },
-  {
-    "id": "u08_m17",
-    "unitId": "U08",
-    "category": "純腦力體操",
-    "topic": "青蛙爬井",
-    "level": 9,
-    "stars": 9,
-    "difficulty": 9,
-    "batch": "純腦力體操",
-    "source": "早餐免動筆思維天梯 9★",
-    "verified": true,
-    "question": "井深 10 公尺，青蛙白天爬 3 公尺、晚上滑下 2 公尺。第幾天能爬出井口？",
-    "options": [
-      "第 10 天",
-      "第 8 天",
-      "第 7 天",
-      "第 9 天"
+      {
+        "key": "A",
+        "text": "11 棵",
+        "trapCode": "U08_BOTH_SIDES_FORGET_MUL2"
+      },
+      {
+        "key": "B",
+        "text": "22 棵",
+        "trapCode": null
+      },
+      {
+        "key": "C",
+        "text": "20 棵",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "D",
+        "text": "10 棵",
+        "trapCode": "U08_CALC_SLIP"
+      }
     ],
     "answer": "B",
-    "answerKey": "B",
-    "steps": [
-      "每天淨爬 1 公尺，但最後一天爬到頂就出去了，不會再滑。",
-      "前 7 天結束時在 7 公尺。",
-      "第 8 天白天爬 3 公尺 → 10 公尺，出井！"
-    ],
-    "insight": "最後一步要單獨看：不要用「淨速度」算到底。",
-    "trap": {
-      "code": "ERR_U08_M17",
-      "text": "用 $10 \\div 1 = 10$ 天。"
+    "check": {
+      "expr": "(100 / 10 + 1) * 2",
+      "expect": "22"
     },
-    "work": "sm"
+    "explanation": {
+      "examPurpose": "測驗學生在植樹問題中是否能同時顧及「兩端都種（＋ 1）」與「馬路兩側（× 2）」兩個關鍵條件。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 130\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><rect x=\"40\" y=\"42\" width=\"380\" height=\"46\" fill=\"#f1f5f9\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/><circle cx=\"48\" cy=\"32\" r=\"6\" fill=\"#16a34a\"/><circle cx=\"118\" cy=\"32\" r=\"6\" fill=\"#16a34a\"/><circle cx=\"188\" cy=\"32\" r=\"6\" fill=\"#16a34a\"/><text x=\"255\" y=\"36\" font-size=\"14\" font-weight=\"700\" fill=\"#475569\">……</text><circle cx=\"342\" cy=\"32\" r=\"6\" fill=\"#16a34a\"/><circle cx=\"412\" cy=\"32\" r=\"6\" fill=\"#16a34a\"/><circle cx=\"48\" cy=\"98\" r=\"6\" fill=\"#16a34a\"/><circle cx=\"118\" cy=\"98\" r=\"6\" fill=\"#16a34a\"/><circle cx=\"188\" cy=\"98\" r=\"6\" fill=\"#16a34a\"/><text x=\"255\" y=\"102\" font-size=\"14\" font-weight=\"700\" fill=\"#475569\">……</text><circle cx=\"342\" cy=\"98\" r=\"6\" fill=\"#16a34a\"/><circle cx=\"412\" cy=\"98\" r=\"6\" fill=\"#16a34a\"/><text x=\"230\" y=\"69\" font-size=\"13\" font-weight=\"700\" fill=\"#1e293b\" text-anchor=\"middle\">馬路長 100 公尺（每側 10 個間隔 → 11 棵）</text><text x=\"230\" y=\"122\" font-size=\"12\" font-weight=\"700\" fill=\"#15803d\" text-anchor=\"middle\">上側 11 棵 ＋ 下側 11 棵 ＝ 22 棵</text></svg>",
+          "caption": "馬路的上下兩側各有一排樹，每側有 10 個間隔、兩端都種共 11 棵，兩側合計 22 棵。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：先只看馬路的其中一側，算出間隔數後因為兩端都種，再加 1。"
+        },
+        {
+          "type": "eq",
+          "expr": "100 ÷ 10 ＋ 1 ＝ 11",
+          "unit": "棵（單側棵數）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：題目要求馬路「兩側」都要種樹，最後把單側棵數乘以 2。"
+        },
+        {
+          "type": "eq",
+          "expr": "11 × 2 ＝ 22",
+          "unit": "棵"
+        },
+        {
+          "type": "answer",
+          "text": "答：22 棵"
+        }
+      ],
+      "insight": "遇到「兩旁／兩側」題型一定要最後才乘以 2：先算單側，再乘 2；如果已知總棵數反求路長，則要先除以 2 回單側！",
+      "distractorAnalysis": {
+        "A": "算對了單側是 11 棵，卻漏看「兩側」兩個字而忘記乘以 2。",
+        "D": "只算出單側的間隔數 100 ÷ 10 ＝ 10，既沒加 1 也沒乘以 2。",
+        "C": "記得乘以 2，卻忘了每側兩端都種要先加 1，只算 10 × 2 ＝ 20 棵。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "道路兩側植樹總數 ＝ 單側棵數 × 2"
+      ],
+      "conceptCompare": "題目中最容易漏看的關鍵字就是「一側」還是「兩側（兩旁）」，畫圖時養成習慣先把馬路兩邊都點出樹的位置。",
+      "examVariations": "反推題常考：「240 公尺筆直公路兩側兩端都設路燈，總共設了 34 盞，相鄰兩盞路燈相距幾公尺？」，必須先 34 ÷ 2 ＝ 17 盞，再 17 − 1 ＝ 16 個間隔，240 ÷ 16 ＝ 15 公尺。"
+    }
   },
   {
-    "id": "u08_m18",
+    "id": "U08-S1-M-062",
+    "legacyId": "u08_m17",
     "unitId": "U08",
-    "category": "純腦力體操",
-    "topic": "淘汰賽",
-    "level": 9,
-    "stars": 9,
-    "difficulty": 9,
+    "section": "8-1",
+    "sectionName": "間隔問題",
+    "category": "青蛙爬井",
     "batch": "純腦力體操",
     "source": "早餐免動筆思維天梯 9★",
-    "verified": true,
+    "level": 9,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "sm",
+    "question": "井深 10 公尺，青蛙白天爬 3 公尺、晚上滑下 2 公尺。第幾天能爬出井口？",
+    "options": [
+      {
+        "key": "A",
+        "text": "第 8 天",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "第 10 天",
+        "trapCode": "U08_AGE_NOW_OFFSET_MISS"
+      },
+      {
+        "key": "C",
+        "text": "第 7 天",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "D",
+        "text": "第 9 天",
+        "trapCode": "U08_CALC_SLIP"
+      }
+    ],
+    "answer": "A",
+    "check": {
+      "expr": "(10 - 3) / (3 - 2) + 1",
+      "expect": "8"
+    },
+    "explanation": {
+      "examPurpose": "測驗學生是否理解「最後一天白天爬到井口就已經出井，不會再於晚上滑下」的分段思考。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 155\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><rect x=\"80\" y=\"20\" width=\"70\" height=\"118\" fill=\"#e2e8f0\" stroke=\"#475569\" stroke-width=\"2\"/><line x1=\"65\" y1=\"20\" x2=\"165\" y2=\"20\" stroke=\"#16a34a\" stroke-width=\"3\"/><line x1=\"80\" y1=\"55\" x2=\"150\" y2=\"55\" stroke=\"#2563eb\" stroke-width=\"2\" stroke-dasharray=\"4,3\"/><path d=\"M 115,134 L 115,60\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"3\"/><path d=\"M 115,52 L 115,24\" fill=\"none\" stroke=\"#16a34a\" stroke-width=\"3.5\"/><text x=\"175\" y=\"25\" font-size=\"12\" font-weight=\"700\" fill=\"#15803d\">井口 10 公尺（第 8 天白天爬出）</text><text x=\"180\" y=\"60\" font-size=\"13\" font-weight=\"700\" fill=\"#2563eb\">第 7 天結束時爬到 7 公尺</text><text x=\"180\" y=\"105\" font-size=\"12\" fill=\"#334155\">前 7 天每天淨上升 3 − 2 ＝ 1 公尺</text><text x=\"180\" y=\"138\" font-size=\"12\" fill=\"#475569\">井底 0 公尺</text></svg>",
+          "caption": "先保留最後一天白天能爬上的 3 公尺，前 7 天到達 7 公尺後，第 8 天白天一跳就到 10 公尺井口。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：先把最後一天白天會爬完的 3 公尺預留出來，看看前面需要淨上升幾公尺。"
+        },
+        {
+          "type": "eq",
+          "expr": "10 − 3 ＝ 7",
+          "unit": "公尺（前幾天需淨上升的距離）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：每天白天爬 3 公尺、晚上滑 2 公尺，一天淨爬 3 − 2 ＝ 1 公尺，爬到 7 公尺需要 7 天。"
+        },
+        {
+          "type": "eq",
+          "expr": "7 ÷ (3 − 2) ＝ 7",
+          "unit": "天"
+        },
+        {
+          "type": "text",
+          "text": "第 3 步：第 8 天白天再往上爬 3 公尺，7 ＋ 3 ＝ 10 公尺剛好到達井口出去，所以共花 7 ＋ 1 ＝ 8 天。"
+        },
+        {
+          "type": "eq",
+          "expr": "7 ＋ 1 ＝ 8",
+          "unit": "天"
+        },
+        {
+          "type": "answer",
+          "text": "答：第 8 天"
+        }
+      ],
+      "insight": "青蛙爬井口訣：先扣掉最後白天那一段，算出前面要幾天，最後再加上那 1 天；千萬別直接拿總深度除以淨爬高度！",
+      "distractorAnalysis": {
+        "C": "算出前 7 天抵達 7 公尺後就停下來作答，忘記還要加上最後爬出去的第 8 天。",
+        "D": "估算最後一天或倒推剩餘距離時加減錯位，誤算出第 9 天。",
+        "B": "直接用總深度 10 ÷ 每天淨爬 1 ＝ 10 天，忘了第 8 天白天爬到井口後不會再滑下來。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "安全距離 ＝ 井深 − 白天爬升高度",
+        "總天數 ＝ (井深 − 白天爬高) ÷ (白天爬高 − 晚上下滑) ＋ 1（若前面有餘數則無條件進位成整數天）"
+      ],
+      "conceptCompare": "這種「最後一步不會退回」的現象，在工程進度、蝸牛爬樹或存錢買東西湊滿目標時都會遇到。",
+      "examVariations": "若改為「井深 11 公尺，白天爬 4 公尺、晚上滑 2 公尺」，11 − 4 ＝ 7 公尺，每天淨爬 2 公尺需 4 天（到達 8 公尺），第 5 天白天直接爬出井口，共 5 天。"
+    }
+  },
+  {
+    "id": "U08-S3-M-063",
+    "legacyId": "u08_m18",
+    "unitId": "U08",
+    "section": "8-3",
+    "sectionName": "搭配與組合問題",
+    "category": "淘汰賽",
+    "batch": "純腦力體操",
+    "source": "早餐免動筆思維天梯 9★",
+    "level": 9,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "sm",
     "question": "64 人參加單淘汰賽（每場淘汰 1 人），要比幾場才能產生冠軍？",
     "options": [
-      "32 場",
-      "64 場",
-      "6 場",
-      "63 場"
+      {
+        "key": "A",
+        "text": "32 場",
+        "trapCode": "U08_COMB_DOUBLE_COUNT"
+      },
+      {
+        "key": "B",
+        "text": "64 場",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "C",
+        "text": "6 場",
+        "trapCode": "U08_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "63 場",
+        "trapCode": null
+      }
     ],
     "answer": "D",
-    "answerKey": "D",
-    "steps": [
-      "每場剛好淘汰 1 人。",
-      "最後只剩冠軍 1 人 → 淘汰 63 人 → 63 場。"
-    ],
-    "insight": "換個角度：數「被淘汰的人」，比數「每輪場數」快。",
-    "trap": {
-      "code": "ERR_U08_M18",
-      "text": "只算第一輪 32 場，或算成 6 輪。"
+    "check": {
+      "expr": "64 - 1",
+      "expect": "63"
     },
-    "work": "sm"
+    "explanation": {
+      "examPurpose": "測驗學生是否能跳脫一輪一輪加總的繁瑣計算，改用「一場剛好淘汰 1 人」的一對一對應思維秒解。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：單淘汰賽每一場比賽都會有 1 位贏家晉級、1 位輸家被淘汰。"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：64 人最後只剩下 1 位冠軍，代表必須淘汰掉 64 − 1 ＝ 63 人，而淘汰 1 人剛好需要 1 場比賽。"
+        },
+        {
+          "type": "eq",
+          "expr": "64 − 1 ＝ 63",
+          "unit": "場"
+        },
+        {
+          "type": "text",
+          "text": "第 3 步：也可以用每輪場數驗算：32 ＋ 16 ＋ 8 ＋ 4 ＋ 2 ＋ 1 ＝ 63 場，完全一致。"
+        },
+        {
+          "type": "answer",
+          "text": "答：63 場"
+        }
+      ],
+      "insight": "換個角度想：不要去數「每一輪比幾場」，直接數「總共要淘汰幾個人」！幾個人被淘汰就要比幾場。",
+      "distractorAnalysis": {
+        "A": "只算出了第一輪 64 ÷ 2 ＝ 32 場，忘記還要加上後續決賽各輪的場數。",
+        "B": "誤以為有 64 位選手就要比 64 場，忘了最後的冠軍從頭到尾不會被淘汰。",
+        "C": "把總共要打 6 輪（32、16、8、4、2、1）誤當成總共只打 6 場比賽。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "單淘汰賽產生唯一冠軍總場數 ＝ 參賽總人數 − 1"
+      ],
+      "conceptCompare": "即使參賽人數不是 2 的連乘積（例如 37 隊參加有輪空的單淘汰賽），一樣是每場淘汰 1 隊、留 1 冠，總場數照樣是 37 − 1 ＝ 36 場！",
+      "examVariations": "段考偶爾會改問「若還要另外加賽一場季軍戰，共要比幾場？」，那就會多 1 場變成 (人數 − 1) ＋ 1 ＝ 64 場。"
+    }
   },
   {
-    "id": "u08_m19",
+    "id": "U08-RV-M-064",
+    "legacyId": "u08_m19",
     "unitId": "U08",
-    "category": "純腦力體操",
-    "topic": "抽屜原理",
-    "level": 10,
-    "stars": 10,
-    "difficulty": 10,
+    "section": "REVIEW",
+    "sectionName": "怎樣解題總複習",
+    "category": "抽屜原理",
     "batch": "純腦力體操",
     "source": "早餐免動筆思維天梯 10★",
-    "verified": true,
+    "level": 10,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "sm",
     "question": "抽屜裡有紅襪 20 隻、黑襪 20 隻混在一起，摸黑拿，最少拿幾隻能保證有 2 隻同色？",
     "options": [
-      "21 隻",
-      "2 隻",
-      "11 隻",
-      "3 隻"
+      {
+        "key": "A",
+        "text": "3 隻",
+        "trapCode": null
+      },
+      {
+        "key": "B",
+        "text": "2 隻",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      },
+      {
+        "key": "C",
+        "text": "11 隻",
+        "trapCode": "U08_CALC_SLIP"
+      },
+      {
+        "key": "D",
+        "text": "21 隻",
+        "trapCode": "U08_COMB_DOUBLE_COUNT"
+      }
     ],
-    "answer": "D",
-    "answerKey": "D",
-    "steps": [
-      "只有 2 種顏色 ＝ 2 個抽屜。",
-      "最倒楣：前 2 隻一紅一黑。",
-      "第 3 隻一定和其中一隻同色。"
-    ],
-    "insight": "最壞情況 ＋ 1：顏色數 ＋ 1。",
-    "trap": {
-      "code": "ERR_U08_M19",
-      "text": "以為要拿超過一半 21 隻。"
+    "answer": "A",
+    "check": {
+      "expr": "2 + 1",
+      "expect": "3"
     },
-    "work": "sm"
+    "explanation": {
+      "examPurpose": "測驗學生是否理解「抽屜原理」與「最壞情況 ＋ 1」的邏輯推理，不受干擾數字 20 的影響。",
+      "steps": [
+        {
+          "type": "text",
+          "text": "第 1 步：題目要保證有 2 隻同色，思考時要先假設自己運氣「最倒楣」：每種顏色都只各拿到 1 隻。"
+        },
+        {
+          "type": "eq",
+          "expr": "1 ＋ 1 ＝ 2",
+          "unit": "隻（1 紅 1 黑，還沒有同色）"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：抽屜裡只有紅、黑 2 種顏色，所以再多拿第 3 隻時，不管是紅是黑，一定會跟手上其中一隻湊成同色！"
+        },
+        {
+          "type": "eq",
+          "expr": "2 ＋ 1 ＝ 3",
+          "unit": "隻"
+        },
+        {
+          "type": "answer",
+          "text": "答：3 隻"
+        }
+      ],
+      "insight": "「保證」問題看最壞情況：幾種顏色就先把每種各拿 1 隻（2 隻），再多拿 1 隻（共 3 隻）就一定達標，跟原本有 20 隻還是 200 隻毫無關係。",
+      "distractorAnalysis": {
+        "B": "只考慮運氣最好時（前 2 隻剛好同色），忘了題目要求「一定保證」需考量最倒楣的情況。",
+        "C": "誤把單色數量 20 除以 2 再加 1，粗心算出 11 隻。",
+        "D": "誤以為必須把某一種顏色的 20 隻全部拿完再加 1 隻，算成 20 ＋ 1 ＝ 21 隻。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "保證 2 隻同色最少拿取數 ＝ 顏色總數 ＋ 1"
+      ],
+      "conceptCompare": "如果題目變成「要保證拿到一雙紅襪（指定顏色）」，才需要把另一色全拿光再加 2 隻（20 ＋ 2 ＝ 22 隻）；只要沒指定哪一色，「顏色數 ＋ 1」就夠了！",
+      "examVariations": "若抽屜裡有紅、黑、白 3 種顏色的襪子各 20 隻，至少要拿 3 ＋ 1 ＝ 4 隻才能保證有 2 隻同色。"
+    }
   },
   {
-    "id": "u08_m20",
+    "id": "U08-S2-M-065",
+    "legacyId": "u08_m20",
     "unitId": "U08",
-    "category": "純腦力體操",
-    "topic": "對折摺痕",
-    "level": 10,
-    "stars": 10,
-    "difficulty": 10,
+    "section": "8-2",
+    "sectionName": "規律問題",
+    "category": "對折摺痕",
     "batch": "純腦力體操",
     "source": "早餐免動筆思維天梯 10★",
-    "verified": true,
+    "level": 10,
+    "difficulty": 5,
+    "questionType": "choice",
+    "work": "sm",
     "question": "一張紙對折 5 次後攤開，上面共有幾條摺痕？",
     "options": [
-      "5 條",
-      "10 條",
-      "31 條",
-      "32 條"
+      {
+        "key": "A",
+        "text": "5 條",
+        "trapCode": "U08_PATTERN_INDEX_OFF"
+      },
+      {
+        "key": "B",
+        "text": "10 條",
+        "trapCode": "U08_CALC_SLIP"
+      },
+      {
+        "key": "C",
+        "text": "31 條",
+        "trapCode": null
+      },
+      {
+        "key": "D",
+        "text": "32 條",
+        "trapCode": "U08_INTERVAL_OFF_BY_ONE"
+      }
     ],
     "answer": "C",
-    "answerKey": "C",
-    "steps": [
-      "對折 1 次：1 條；2 次：3 條；3 次：7 條……",
-      "對折 $n$ 次分成 $2^n$ 份，摺痕 ＝ 份數 − 1。",
-      "$2^5 - 1 = 32 - 1 = 31$。"
-    ],
-    "insight": "份數翻倍 ＋ 植樹「段 − 1」雙重模型。",
-    "trap": {
-      "code": "ERR_U08_M20",
-      "text": "以為折幾次就幾條，或選份數 32。"
+    "check": {
+      "expr": "2 * 2 * 2 * 2 * 2 - 1",
+      "expect": "31"
     },
-    "work": "sm"
+    "explanation": {
+      "examPurpose": "測驗學生是否能結合「對折一次份數變 2 倍」與「摺痕數 ＝ 份數 − 1（間隔問題）」雙重規律。",
+      "steps": [
+        {
+          "type": "svg",
+          "svg": "<svg viewBox=\"0 0 460 135\" xmlns=\"http://www.w3.org/2000/svg\" font-family=\"'Noto Sans TC', sans-serif\"><rect x=\"25\" y=\"20\" width=\"120\" height=\"30\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"1.5\"/><line x1=\"85\" y1=\"20\" x2=\"85\" y2=\"50\" stroke=\"#dc2626\" stroke-width=\"2\" stroke-dasharray=\"3,2\"/><text x=\"85\" y=\"68\" font-size=\"11\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"middle\">對折 1 次：2 份、1 條</text><rect x=\"170\" y=\"20\" width=\"120\" height=\"30\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"1.5\"/><line x1=\"200\" y1=\"20\" x2=\"200\" y2=\"50\" stroke=\"#dc2626\" stroke-width=\"2\" stroke-dasharray=\"3,2\"/><line x1=\"230\" y1=\"20\" x2=\"230\" y2=\"50\" stroke=\"#dc2626\" stroke-width=\"2\" stroke-dasharray=\"3,2\"/><line x1=\"260\" y1=\"20\" x2=\"260\" y2=\"50\" stroke=\"#dc2626\" stroke-width=\"2\" stroke-dasharray=\"3,2\"/><text x=\"230\" y=\"68\" font-size=\"11\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"middle\">對折 2 次：4 份、3 條</text><rect x=\"315\" y=\"20\" width=\"120\" height=\"30\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"1.5\"/><line x1=\"330\" y1=\"20\" x2=\"330\" y2=\"50\" stroke=\"#dc2626\" stroke-width=\"1.5\" stroke-dasharray=\"3,2\"/><line x1=\"345\" y1=\"20\" x2=\"345\" y2=\"50\" stroke=\"#dc2626\" stroke-width=\"1.5\" stroke-dasharray=\"3,2\"/><line x1=\"360\" y1=\"20\" x2=\"360\" y2=\"50\" stroke=\"#dc2626\" stroke-width=\"1.5\" stroke-dasharray=\"3,2\"/><line x1=\"375\" y1=\"20\" x2=\"375\" y2=\"50\" stroke=\"#dc2626\" stroke-width=\"1.5\" stroke-dasharray=\"3,2\"/><line x1=\"390\" y1=\"20\" x2=\"390\" y2=\"50\" stroke=\"#dc2626\" stroke-width=\"1.5\" stroke-dasharray=\"3,2\"/><line x1=\"405\" y1=\"20\" x2=\"405\" y2=\"50\" stroke=\"#dc2626\" stroke-width=\"1.5\" stroke-dasharray=\"3,2\"/><line x1=\"420\" y1=\"20\" x2=\"420\" y2=\"50\" stroke=\"#dc2626\" stroke-width=\"1.5\" stroke-dasharray=\"3,2\"/><text x=\"375\" y=\"68\" font-size=\"11\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"middle\">對折 3 次：8 份、7 條</text><text x=\"230\" y=\"100\" font-size=\"13\" font-weight=\"700\" fill=\"#1e40af\" text-anchor=\"middle\">對折 5 次：2 × 2 × 2 × 2 × 2 ＝ 32 份</text><text x=\"230\" y=\"122\" font-size=\"13\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">摺痕 ＝ 份數 − 1 ＝ 32 − 1 ＝ 31 條</text></svg>",
+          "caption": "每多對折 1 次，紙張分成的等份數就乘以 2；而摺痕在紙的內部，永遠比份數少 1。"
+        },
+        {
+          "type": "text",
+          "text": "第 1 步：每對折 1 次，紙會被平分成原本的 2 倍份數，對折 5 次就是連續乘 5 個 2。"
+        },
+        {
+          "type": "eq",
+          "expr": "2 × 2 × 2 × 2 × 2 ＝ 32",
+          "unit": "份"
+        },
+        {
+          "type": "text",
+          "text": "第 2 步：摺痕就像鋸木頭的刀口，分成 32 份中間共有 32 − 1 ＝ 31 條摺痕。"
+        },
+        {
+          "type": "eq",
+          "expr": "32 − 1 ＝ 31",
+          "unit": "條摺痕"
+        },
+        {
+          "type": "answer",
+          "text": "答：31 條"
+        }
+      ],
+      "insight": "對折 1 次變 2 份（1 條摺痕）、2 次變 4 份（3 條）、3 次變 8 份（7 條）……先算連乘 2 得到總份數，再減 1 就是摺痕數。",
+      "distractorAnalysis": {
+        "A": "誤以為對折幾次只會產生幾條摺痕，忽略折起來後同時折出了好幾層。",
+        "B": "錯把對折次數 5 乘以 2，算成 10 條。",
+        "D": "算對了總共分成 32 份，卻忘記摺痕數 ＝ 份數 − 1 而誤選 32 條。"
+      }
+    },
+    "extensionStudy": {
+      "coreFormulas": [
+        "對折 5 次分成的份數 ＝ 2 × 2 × 2 × 2 × 2 ＝ 32 份",
+        "摺痕數 ＝ 總份數 − 1"
+      ],
+      "conceptCompare": "摺痕和剪紙條是一樣的原理：紙張被折成 32 等份，兩邊邊緣不算摺痕，所以中間只有 31 條摺痕。",
+      "examVariations": "若題目接著問「沿著所有摺痕剪開後，總共會剪出幾張小紙片？」，剪開後就是總份數 32 張，不要再減 1 囉！"
+    }
   },
   {
     "id": "EX_XISONG_01",

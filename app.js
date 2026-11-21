@@ -270,8 +270,9 @@
       }
       const lbRaw = localStorage.getItem(getUserStorageKey(LOCAL_ARENA_KEYS.legacyBackup, uid));
       state.u05LegacyBackup = lbRaw ? JSON.parse(lbRaw) : null;
+      state.legacyMigrationBackup = state.u05LegacyBackup;
 
-      // P9: 自動將舊版 u05_* ID 無損轉移至新版 U05-* 4D ID（冪等，保留 u05LegacyBackup）
+      // P9/U68: 自動將舊版 u05~u08_* ID 無損轉移至新版 4D ID（冪等，保留 u05LegacyBackup / legacyMigrationBackup）
       if (window.MathArena && window.MathArena.migrateLegacyIdsInState) {
         const mig = window.MathArena.migrateLegacyIdsInState(state, QUESTION_BANK);
         if (mig.migratedCount > 0) {
@@ -280,8 +281,11 @@
           localStorage.setItem(getUserStorageKey(STORAGE_KEYS.successCounts, uid), JSON.stringify(state.successCounts));
           localStorage.setItem(getUserStorageKey(STORAGE_KEYS.slowCounts, uid), JSON.stringify(state.slowCounts));
           localStorage.setItem(getUserStorageKey(STORAGE_KEYS.history, uid), JSON.stringify(state.fullHistory));
-          if (state.u05LegacyBackup) {
-            localStorage.setItem(getUserStorageKey(LOCAL_ARENA_KEYS.legacyBackup, uid), JSON.stringify(state.u05LegacyBackup));
+          const backupPayload = state.legacyMigrationBackup || state.u05LegacyBackup;
+          if (backupPayload) {
+            state.u05LegacyBackup = backupPayload;
+            state.legacyMigrationBackup = backupPayload;
+            localStorage.setItem(getUserStorageKey(LOCAL_ARENA_KEYS.legacyBackup, uid), JSON.stringify(backupPayload));
           }
         }
       }

@@ -28,6 +28,10 @@
     U06_AREA_FORMULA_CONFUSION: '圓周長與圓面積公式混淆',
     U06_COMPOSITE_BOUNDARY_ERR: '複合圖形周長漏算弧長或直線段',
     U06_PI_CONSTANT_MYTH: '圓周率是否為固定常數觀念誤判',
+    U06_ROLLER_TURN_ERR: '滾輪圈數與行進距離乘除搞反',
+    U06_TRACK_INNER_OUTER_ERR: '操場跑道誤算內側直線或半圓湊整錯',
+    U06_ROPE_TANGENT_MISS: '圓管綑綁漏算直線切線段或圓弧合',
+    U06_DECIMAL_SHIFT_ERR: '乘除 3.14 小數點位數對齊錯誤',
     U06_CALC_SLIP: '圓周長乘 3.14 計算粗心',
     // U07 放大、縮小與比例尺
     U07_ANGLE_SCALED: '誤以為放大縮小會改變對應角',
@@ -37,6 +41,10 @@
     U07_CORRESPONDING_SIDE_SWAP: '對應邊或對應點找錯對象',
     U07_RELATIVE_SCALE_ERR: '基準比較（幾倍放大／幾分之幾縮圖）搞反',
     U07_BAR_SCALE_READ_ERR: '比例尺圖示一格代表長度誤判',
+    U07_GRID_COUNT_ERR: '方格紙邊長格數或對應點位置數錯',
+    U07_PERIMETER_SQUARE_ERR: '誤把周長或邊長放大倍數也平方',
+    U07_DUAL_MAP_RATIO_ERR: '雙地圖不同比例尺換算倍率方向顛倒',
+    U07_RATIO_FRACTION_INV: '比例尺比值或縮放倍數分子分母寫反',
     U07_CALC_SLIP: '比例尺換算計算粗心',
     // U08 怎樣解題
     U08_CHICKEN_RABBIT_SWAP: '雞兔假設法求出的動物對象搞反',
@@ -46,6 +54,10 @@
     U08_SUM_DIFF_FORGET_DIV2: '和差問題加減後忘記除以 2',
     U08_INTERVAL_OFF_BY_ONE: '間隔問題（植樹／剪繩）端點加減 1 錯誤',
     U08_PATTERN_INDEX_OFF: '規律／周期問題餘數對應位置看錯',
+    U08_CLOSED_LOOP_ADD_ONE: '封閉圓形植樹誤套用直線＋1或−1',
+    U08_BOTH_SIDES_FORGET_MUL2: '馬路兩側種樹／設燈忘記乘2或除回單側',
+    U08_COMB_DOUBLE_COUNT: '單循環比賽或搭配組合忘記排除重複',
+    U08_SPEED_DIR_CONFUSION: '相向相遇與同向追趕速率加減方向搞反',
     U08_CALC_SLIP: '應用題計算粗心失誤',
   };
 
@@ -177,6 +189,7 @@
         if (st.type === 'mul') return `直式乘法：${st.a} × ${st.b}`;
         if (st.type === 'addsub') return `直式計算：${st.a} ${st.op} ${st.b}`;
         if (st.type === 'bar') return '[線段圖]';
+        if (st.type === 'svg') return `[圖解示意：${st.caption || '幾何／結構步驟圖'}]`;
         return '';
       }).filter(Boolean);
     } else {
@@ -346,7 +359,7 @@
     if (!stateObj || legacyKeys.length === 0) return { migratedCount: 0, map };
 
     let migratedCount = 0;
-    const capturedBackup = stateObj.u05LegacyBackup || {
+    const capturedBackup = stateObj.legacyMigrationBackup || stateObj.u05LegacyBackup || {
       migratedAt: null,
       errorBook: [],
       errorCounts: {},
@@ -415,6 +428,7 @@
         capturedBackup.migratedAt = Date.now();
       }
       stateObj.u05LegacyBackup = capturedBackup;
+      stateObj.legacyMigrationBackup = capturedBackup;
     }
 
     return { migratedCount, map };
@@ -1280,8 +1294,9 @@
         : ['課本原型題', '奧數天梯', '純腦力體操', '段考真題'],
       unitProgress: clonePlainObject(s.unitProgress),
     };
-    if (s.u05LegacyBackup && typeof s.u05LegacyBackup === 'object') {
-      payload.u05LegacyBackup = JSON.parse(JSON.stringify(s.u05LegacyBackup));
+    const backupRef = s.legacyMigrationBackup || s.u05LegacyBackup;
+    if (backupRef && typeof backupRef === 'object') {
+      payload.u05LegacyBackup = JSON.parse(JSON.stringify(backupRef));
     }
     if (o.resetAt) {
       payload.resetAt = Number(o.resetAt) || payload.updatedAt;
