@@ -64,6 +64,14 @@
     "pages": "六校名校段考全真題庫",
     "hue": 45,
     "isExam": true
+  },
+  {
+    "id": "EXAM_MID2",
+    "no": "期末",
+    "title": "六年級上_第二次段考",
+    "pages": "八校九卷期末考全真題庫",
+    "hue": 38,
+    "isExam": true
   }
 ];
   if (typeof module !== 'undefined' && module.exports) {

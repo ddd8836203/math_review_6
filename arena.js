@@ -7,6 +7,7 @@
   'use strict';
 
   const TRAP_LABEL_MAP = {
+    // U05 兩量關係
     U05_BASE_SWAP: '基準與比較搞反',
     U05_SUM_FORGET_ONE: '母子和忘記＋1',
     U05_DIFF_FORGET_MINUS_ONE: '母子差忘記−1',
@@ -19,10 +20,51 @@
     U05_TRANSFER_TOTAL_CHANGE: '移動時總和忘不變',
     U05_AGE_DIFF_CHANGE: '年齡差誤以為會變',
     U05_CALC_SLIP: '計算粗心失誤',
+    // U06 圓周長與扇形周長
+    U06_FORGET_TWO_RADII: '扇形周長漏加兩條半徑',
+    U06_DIAMETER_RADIUS_SWAP: '直徑與半徑混淆（忘記×2或÷2）',
+    U06_ANGLE_FRACTION_WRONG: '圓心角佔幾分之幾圓換算錯誤',
+    U06_ARC_AS_PERIMETER: '把弧長誤當成扇形總周長',
+    U06_AREA_FORMULA_CONFUSION: '圓周長與圓面積公式混淆',
+    U06_COMPOSITE_BOUNDARY_ERR: '複合圖形周長漏算弧長或直線段',
+    U06_PI_CONSTANT_MYTH: '圓周率是否為固定常數觀念誤判',
+    U06_CALC_SLIP: '圓周長乘 3.14 計算粗心',
+    // U07 放大、縮小與比例尺
+    U07_ANGLE_SCALED: '誤以為放大縮小會改變對應角',
+    U07_AREA_LINEAR_SCALE: '面積放大倍數忘記平方（n×n）',
+    U07_SCALE_UNIT_MISMATCH: '公分與公尺／公里換算位數錯誤',
+    U07_SCALE_MUL_DIV_SWAP: '縮圖與實際長度的乘除方向做反',
+    U07_CORRESPONDING_SIDE_SWAP: '對應邊或對應點找錯對象',
+    U07_RELATIVE_SCALE_ERR: '基準比較（幾倍放大／幾分之幾縮圖）搞反',
+    U07_BAR_SCALE_READ_ERR: '比例尺圖示一格代表長度誤判',
+    U07_CALC_SLIP: '比例尺換算計算粗心',
+    // U08 怎樣解題
+    U08_CHICKEN_RABBIT_SWAP: '雞兔假設法求出的動物對象搞反',
+    U08_PENALTY_DIFF_ERR: '對錯倒扣（贏輸／加扣分）總差額算錯',
+    U08_AGE_DIFF_CHANGE: '年齡差誤以為會隨時間改變',
+    U08_AGE_NOW_OFFSET_MISS: '算出過去／未來年齡後忘記加回今年',
+    U08_SUM_DIFF_FORGET_DIV2: '和差問題加減後忘記除以 2',
+    U08_INTERVAL_OFF_BY_ONE: '間隔問題（植樹／剪繩）端點加減 1 錯誤',
+    U08_PATTERN_INDEX_OFF: '規律／周期問題餘數對應位置看錯',
+    U08_CALC_SLIP: '應用題計算粗心失誤',
   };
 
   function getTrapLabel(code) {
     return TRAP_LABEL_MAP[code] || code || '常見思維陷阱';
+  }
+
+  /**
+   * 跨單元篩選匹配：一般單元（U01~U08）除匹配 unitId 外，亦納入試卷題目標註之 targetUnitId / secondaryUnitIds。
+   */
+  function matchesUnitFilter(q, unitId) {
+    if (!unitId || unitId === 'ALL') return true;
+    if (!q) return false;
+    if (q.unitId === unitId) return true;
+    if (/^U0[1-8]$/.test(unitId)) {
+      if (q.targetUnitId === unitId) return true;
+      if (Array.isArray(q.secondaryUnitIds) && q.secondaryUnitIds.includes(unitId)) return true;
+    }
+    return false;
   }
 
   function escHtml(s) {
@@ -60,27 +102,15 @@
   }
 
   /**
-   * 統一轉接 Schema v4D-1（U05 等 4D 題）與舊版題型（U01~U04, U06~U08, EXAM_MID1）。
+   * 共用單題／題組子題的選項與 4D 解析正規化器，避免單題與題組邏輯重複。
    */
-  function normalizeQuestion(q, opts) {
-    const km = (opts && opts.kidsMath) || (typeof root !== 'undefined' && root.KidsMath) || null;
-    const fmt = (opts && opts.formatMathForKids) || defaultFormatMathForKids;
-    const is4D = !!(q && q.explanation && typeof q.explanation === 'object' && Array.isArray(q.explanation.steps));
+  function normalizeOptionSetAnd4D(src, opts) {
+    const is4D = opts.is4D;
+    const km = opts.km;
+    const fmt = opts.fmt;
+    const parentRaw = opts.parentRaw || src;
 
-    const level = Number((q && (q.level || q.stars)) || 1);
-    const difficulty = Number((q && q.difficulty) || 2);
-    const band = getDifficultyBand(q);
-
-    const questionHtml = renderTextSafe(q && q.question, is4D, km, fmt);
-    const questionPlain = String((q && q.question) || '').replace(/<br\s*\/?>/gi, ' ').replace(/<[^>]+>/g, '');
-
-    // 題幹插圖：舊題 q.svg 屬於題意幾何圖（作答前就顯示）；4D figure 屬詳解輔助線段圖（於詳解 D4 / bar step 顯示）
-    const stemFigureHtml = (q && q.svg) ? String(q.svg) : '';
-    const solutionFigureHtml = (q && q.figure && q.figure.type === 'bar' && km && typeof km.renderBarDiagramSvg === 'function')
-      ? km.renderBarDiagramSvg(q.figure)
-      : '';
-
-    const rawOptions = Array.isArray(q && q.options) ? q.options : [];
+    const rawOptions = Array.isArray(src && src.options) ? src.options : [];
     const hasOptions = rawOptions.length > 0;
     const LETTERS = ['A', 'B', 'C', 'D'];
 
@@ -111,14 +141,14 @@
     let answerKey = null;
     if (hasOptions) {
       if (is4D) {
-        answerKey = String((q && q.answer) || '').trim().charAt(0).toUpperCase();
+        answerKey = String((src && src.answer) || '').trim().charAt(0).toUpperCase();
       } else {
-        answerKey = String((q && (q.answerKey || (q.answer && q.answer.trim().charAt(0)))) || '').toUpperCase();
+        answerKey = String((src && (src.answerKey || (src.answer && src.answer.trim().charAt(0)))) || '').toUpperCase();
       }
     }
 
     let answerDisplayHtml = '';
-    let answerPlainText = String((q && q.answer) || '');
+    let answerPlainText = String((src && src.answer) || '');
     if (hasOptions && answerKey) {
       const matched = normalizedOptions.find(o => o.key === answerKey);
       if (matched) {
@@ -131,17 +161,16 @@
       answerDisplayHtml = fmt(answerPlainText);
     }
 
-    // Steps normalization
     let stepBlocksHtml = [];
     let stepsPlain = [];
-    if (is4D) {
-      stepBlocksHtml = (q.explanation.steps || []).map(st => ({
+    if (is4D && src && src.explanation && Array.isArray(src.explanation.steps)) {
+      stepBlocksHtml = (src.explanation.steps || []).map(st => ({
         type: st.type,
         html: km && typeof km.renderStepBlockHtml === 'function'
-          ? km.renderStepBlockHtml(st, q)
+          ? km.renderStepBlockHtml(st, parentRaw)
           : `<div class="km-step km-step-text">${escHtml(st.text || st.expr || '')}</div>`,
       }));
-      stepsPlain = (q.explanation.steps || []).map(st => {
+      stepsPlain = (src.explanation.steps || []).map(st => {
         if (st.type === 'text' || st.type === 'answer') return st.text;
         if (st.type === 'eq') return `${st.expr}${st.unit ? ' (' + st.unit + ')' : ''}`;
         if (st.type === 'longdiv') return `直式除法：${st.dividend} ÷ ${st.divisor}`;
@@ -151,7 +180,7 @@
         return '';
       }).filter(Boolean);
     } else {
-      const rawSteps = Array.isArray(q && q.steps) ? q.steps : [];
+      const rawSteps = Array.isArray(src && src.steps) ? src.steps : [];
       stepBlocksHtml = rawSteps.map((s, idx) => ({
         type: 'legacy',
         html: `<div class="km-step km-step-legacy"><span class="legacy-step-num">${idx + 1}</span><div class="legacy-step-body">${fmt(String(s))}</div></div>`,
@@ -159,14 +188,13 @@
       stepsPlain = rawSteps.map(s => String(s));
     }
 
-    const examPurpose = is4D ? String(q.explanation.examPurpose || '') : '';
-    const distractorAnalysis = is4D ? (q.explanation.distractorAnalysis || {}) : null;
-    const figureNote = is4D ? (q.explanation.figureNote || null) : null;
-    const insight = is4D ? String(q.explanation.insight || '') : String((q && q.insight) || '');
+    const exp = (is4D && src && src.explanation && typeof src.explanation === 'object') ? src.explanation : {};
+    const examPurpose = is4D ? String(exp.examPurpose || '') : '';
+    const distractorAnalysis = is4D ? (exp.distractorAnalysis || {}) : null;
+    const figureNote = is4D ? (exp.figureNote || null) : null;
+    const insight = is4D ? String(exp.insight || '') : String((src && src.insight) || '');
     const insightHtml = renderTextSafe(insight, is4D, km, fmt);
-    const extensionStudy = is4D && q.extensionStudy ? q.extensionStudy : null;
 
-    // Trap summary (compat for error-book list & legacy UI)
     let primaryTrap = null;
     if (is4D) {
       const wrongOpt = normalizedOptions.find(o => o.trapCode);
@@ -174,36 +202,16 @@
         const reason = distractorAnalysis && distractorAnalysis[wrongOpt.key] ? distractorAnalysis[wrongOpt.key] : wrongOpt.trapLabel;
         primaryTrap = { code: wrongOpt.trapCode, label: wrongOpt.trapLabel, text: reason };
       }
-    } else if (q && q.trap) {
+    } else if (src && src.trap) {
       primaryTrap = {
-        code: q.trap.code || '',
-        label: q.trap.code || '',
-        text: fmt(q.trap.text || ''),
+        code: src.trap.code || '',
+        label: src.trap.code || '',
+        text: fmt(src.trap.text || ''),
       };
     }
 
     return {
-      raw: q,
-      id: q && q.id,
-      legacyId: (q && q.legacyId) || null,
-      unitId: (q && q.unitId) || '',
-      section: (q && q.section) || '',
-      sectionName: (q && q.sectionName) || '',
-      category: (q && q.category) || '觀念綜合',
-      batch: (q && q.batch) || '課本原型題',
-      source: (q && q.source) || '',
-      school: (q && q.school) || null,
-      work: (q && q.work) || 'md',
-      level,
-      difficulty,
-      band,
-      is4D,
-      questionHtml,
-      questionPlain,
-      stemFigureHtml,
-      solutionFigureHtml,
-      cropImage: (q && q.cropImage) || null,
-      examPageImage: (q && q.examPageImage) || null,
+      choiceStyle: (src && src.choiceStyle) || 'standard',
       hasOptions,
       options: normalizedOptions,
       answerKey,
@@ -219,8 +227,99 @@
       insight,
       insightHtml,
       primaryTrap,
-      extensionStudy,
     };
+  }
+
+  /**
+   * 統一轉接 Schema v4D-1 / v4D-2（單題與 group 題組）與舊版題型（U01~U04, U06~U08, EXAM_MID1）。
+   */
+  function normalizeQuestion(q, opts) {
+    const km = (opts && opts.kidsMath) || (typeof root !== 'undefined' && root.KidsMath) || null;
+    const fmt = (opts && opts.formatMathForKids) || defaultFormatMathForKids;
+    const isGroup = !!(q && q.questionType === 'group' && Array.isArray(q.subQuestions) && q.subQuestions.length > 0);
+    const is4D = isGroup || !!(q && q.explanation && typeof q.explanation === 'object' && Array.isArray(q.explanation.steps));
+
+    const level = Number((q && (q.level || q.stars)) || 1);
+    const difficulty = Number((q && q.difficulty) || 2);
+    const band = getDifficultyBand(q);
+
+    const questionHtml = renderTextSafe(q && q.question, is4D, km, fmt);
+    const questionPlain = String((q && q.question) || '').replace(/<br\s*\/?>/gi, ' ').replace(/<[^>]+>/g, '');
+
+    // 題幹插圖：舊題 q.svg 屬於題意幾何圖（作答前就顯示）；4D figure 屬詳解輔助線段圖（於詳解 D4 / bar step 顯示）
+    const stemFigureHtml = (q && q.svg) ? String(q.svg) : '';
+    const solutionFigureHtml = (q && q.figure && q.figure.type === 'bar' && km && typeof km.renderBarDiagramSvg === 'function')
+      ? km.renderBarDiagramSvg(q.figure)
+      : '';
+
+    let core;
+    let normalizedSubs = [];
+    if (isGroup) {
+      normalizedSubs = q.subQuestions.map((sub, sIdx) => {
+        const subCore = normalizeOptionSetAnd4D(sub, { is4D: true, km, fmt, parentRaw: q });
+        return Object.assign({}, subCore, {
+          subId: sub.subId || `${q.id}-SUB-${sIdx + 1}`,
+          label: sub.label || `(${sIdx + 1})`,
+          questionHtml: renderTextSafe(sub.question || '', true, km, fmt),
+          questionPlain: String(sub.question || '').replace(/<[^>]+>/g, ''),
+          stemImage: sub.stemImage || null,
+        });
+      });
+      const firstTrapSub = normalizedSubs.find(s => s.primaryTrap);
+      core = {
+        choiceStyle: 'standard',
+        hasOptions: false,
+        options: [],
+        answerKey: null,
+        answerDisplayHtml: normalizedSubs.map(s => `<span class="group-ans-chip">${escHtml(s.label)} ${s.answerDisplayHtml}</span>`).join(' '),
+        answerPlainText: normalizedSubs.map(s => `${s.label} ${s.answerPlainText}`).join('；'),
+        examPurpose: '',
+        examPurposeHtml: '',
+        stepBlocksHtml: [],
+        stepsPlain: normalizedSubs.flatMap(s => [s.label, ...s.stepsPlain]),
+        distractorAnalysis: null,
+        figureNote: null,
+        figureNoteHtml: '',
+        insight: '',
+        insightHtml: '',
+        primaryTrap: firstTrapSub ? firstTrapSub.primaryTrap : null,
+      };
+    } else {
+      core = normalizeOptionSetAnd4D(q, { is4D, km, fmt, parentRaw: q });
+    }
+
+    const extensionStudy = is4D && q.extensionStudy ? q.extensionStudy : null;
+
+    return Object.assign({
+      raw: q,
+      id: q && q.id,
+      legacyId: (q && q.legacyId) || null,
+      unitId: (q && q.unitId) || '',
+      targetUnitId: (q && q.targetUnitId) || null,
+      secondaryUnitIds: Array.isArray(q && q.secondaryUnitIds) ? q.secondaryUnitIds : [],
+      section: (q && q.section) || '',
+      sectionName: (q && q.sectionName) || '',
+      category: (q && q.category) || '觀念綜合',
+      batch: (q && q.batch) || '課本原型題',
+      source: (q && q.source) || '',
+      school: (q && q.school) || null,
+      work: (q && q.work) || 'md',
+      level,
+      difficulty,
+      band,
+      is4D,
+      isGroup,
+      subQuestions: normalizedSubs,
+      questionHtml,
+      questionPlain,
+      stemFigureHtml,
+      solutionFigureHtml,
+      stemImage: (q && q.stemImage) || null,
+      figureSvg: (q && q.figureSvg) || null,
+      cropImage: (q && q.cropImage) || null,
+      examPageImage: (q && q.examPageImage) || null,
+      extensionStudy,
+    }, core);
   }
 
   /**
@@ -342,7 +441,7 @@
       const errSet = new Set((stateObj && stateObj.errorBook) || []);
       list = list.filter(q => errSet.has(q.id));
     } else if (f.unit && f.unit !== 'ALL') {
-      list = list.filter(q => q.unitId === f.unit);
+      list = list.filter(q => matchesUnitFilter(q, f.unit));
     }
 
     if (f.errorsOnly) {
@@ -354,7 +453,7 @@
     if (f.batch && f.batch !== 'ALL') {
       list = list.filter(q => (q.batch || '課本原型題') === f.batch);
     }
-    if ((f.unit === 'EXAM_MID1' || f.batch === '段考真題') && f.school && f.school !== 'ALL') {
+    if ((f.unit === 'EXAM_MID1' || f.unit === 'EXAM_MID2' || f.batch === '段考真題') && f.school && f.school !== 'ALL') {
       list = list.filter(q => q.school === f.school);
     }
 
@@ -439,7 +538,148 @@
   }
 
   /**
-   * 渲染完整 #view-arena HTML（含 3 層級聯控制列 + 考題主卡 + 4D 診斷區 + 延伸學習 3 模組 + 抽屜速跳盤）
+   * 共用選項列渲染（支援 standard / tf / compare3 及單題／題組子題）。
+   */
+  function renderOptionsGridHtml(item, opts) {
+    const o = opts || {};
+    const showDiagnosis = !!o.showDiagnosis;
+    const isExamMode = !!o.isExamMode;
+    const examSubmitted = !!o.examSubmitted;
+    const isBlinded = !!o.isBlinded;
+    const ansRecord = o.ansRecord || null;
+    const examDraft = o.examDraft || null;
+    const subId = o.subId || null;
+
+    const styleCls = item.choiceStyle === 'tf'
+      ? 'tf-grid'
+      : item.choiceStyle === 'compare3'
+        ? 'cmp3-grid'
+        : '';
+
+    return item.options.map(opt => {
+      let cls = 'opt-btn arena-opt-btn';
+      let dis = '';
+      if (showDiagnosis) {
+        dis = 'disabled';
+        if (opt.key === item.answerKey) cls += ' opt-correct';
+        else if (ansRecord && ansRecord.userChoice === opt.key && ansRecord.result === 'bad') cls += ' opt-wrong';
+        else cls += ' opt-dim';
+      } else if (isExamMode && !examSubmitted && examDraft === opt.key) {
+        cls += ' opt-picked-draft';
+      }
+      const dataAttrs = subId
+        ? `data-arena-subq="${escHtml(subId)}" data-arena-subopt="${opt.key}"`
+        : `data-arena-opt="${opt.key}"`;
+      return `
+        <button type="button" class="${cls}" ${dataAttrs} ${dis} ${isBlinded ? 'disabled' : ''}>
+          <span class="opt-letter">${opt.key}</span>
+          <span class="opt-text">${opt.html}</span>
+        </button>
+      `;
+    }).join('');
+  }
+
+  /**
+   * 共用 4D 診斷與作答回饋面板渲染器（單題與題組子題共用，杜絕重複）。
+   */
+  function renderWrongTrapBannerHtml(item, ansRecord, is4D, kidsMath, formatMathForKids) {
+    if (!item.hasOptions || !ansRecord) return '';
+    if (ansRecord.result === 'ok') {
+      return `
+        <div class="arena-alert ok">
+          🎯 <b>作答正確！</b>${is4D ? '觀念基準鎖定準確！' : '繼續維持手感！'}
+        </div>
+      `;
+    }
+    const pickedOpt = item.options.find(o => o.key === ansRecord.userChoice);
+    const daMsg = item.distractorAnalysis && ansRecord.userChoice ? item.distractorAnalysis[ansRecord.userChoice] : '';
+    return `
+      <div class="arena-alert bad">
+        <div class="alert-head">
+          💡 <b>你選了 (${escHtml(ansRecord.userChoice || '?')})</b>
+          ${pickedOpt && pickedOpt.trapCode ? `<span class="trap-chip">${escHtml(pickedOpt.trapLabel)} <code>${escHtml(pickedOpt.trapCode)}</code></span>` : ''}
+        </div>
+        ${daMsg ? `<div class="alert-body">${renderTextSafe(daMsg, is4D, kidsMath, formatMathForKids)}</div>` : ''}
+      </div>
+    `;
+  }
+
+  function renderD3BreakdownHtml(item, ansRecord, is4D, kidsMath, formatMathForKids) {
+    if (is4D && item.distractorAnalysis) {
+      const wrongItems = item.options.filter(o => o.key !== item.answerKey).map(o => `
+        <div class="da-row ${ansRecord && ansRecord.userChoice === o.key ? 'da-picked' : ''}">
+          <div class="da-head">
+            <span class="da-key">(${o.key})</span>
+            ${o.trapCode ? `<span class="trap-chip">${escHtml(o.trapLabel || '')} <code>${escHtml(o.trapCode)}</code></span>` : '<span class="trap-chip">常見誤選</span>'}
+          </div>
+          <div class="da-desc">${renderTextSafe(item.distractorAnalysis[o.key] || '', true, kidsMath, formatMathForKids)}</div>
+        </div>
+      `).join('');
+      if (!wrongItems) return '';
+      return `
+        <div class="box trap arena-d3">
+          <h4>⚠️ 維度三：陷阱選項盲點拆解</h4>
+          ${wrongItems}
+        </div>
+      `;
+    }
+    if (item.primaryTrap) {
+      return `
+        <div class="box trap">
+          <h4>⚠️ 典型錯誤防坑診斷 ${item.primaryTrap.code ? `<code>${escHtml(item.primaryTrap.code)}</code>` : ''}</h4>
+          <div>${item.primaryTrap.text}</div>
+        </div>
+      `;
+    }
+    return '';
+  }
+
+  function render4DCoreBoxesHtml(item, ansRecord, is4D, kidsMath, formatMathForKids, extra) {
+    const ex = extra || {};
+    const figureSvg = ex.figureSvg || '';
+    const d3Html = renderD3BreakdownHtml(item, ansRecord, is4D, kidsMath, formatMathForKids);
+    const hasD4 = !!(item.figureNoteHtml || item.solutionFigureHtml || figureSvg);
+    const d4Html = hasD4 ? `
+      <div class="box figure-note arena-d4">
+        <h4>${figureSvg && !item.figureNoteHtml ? '📐 維度四：標準作圖解答對照' : '📊 維度四：線段圖與基準定位關鍵'}</h4>
+        ${figureSvg ? `<div class="d4-svg-wrap">${figureSvg}</div>` : ''}
+        ${item.solutionFigureHtml ? `<div class="km-inline-fig">${item.solutionFigureHtml}</div>` : ''}
+        ${item.figureNoteHtml ? `<p>${item.figureNoteHtml}</p>` : ''}
+      </div>
+    ` : '';
+
+    return `
+      <div class="box final">
+        <h4>🎯 正確答案</h4>
+        <div class="ans">${item.answerDisplayHtml}</div>
+      </div>
+      ${item.examPurposeHtml ? `
+        <div class="box purpose arena-d1">
+          <h4>🎯 維度一：考點與命題核心</h4>
+          <div>${item.examPurposeHtml}</div>
+        </div>
+      ` : ''}
+      ${item.stepBlocksHtml.length > 0 ? `
+        <div class="box steps arena-d2">
+          <h4>📐 維度二：小六無代數分步算理</h4>
+          <div class="km-steps-flow">
+            ${item.stepBlocksHtml.map(s => s.html).join('')}
+          </div>
+        </div>
+      ` : ''}
+      ${d3Html}
+      ${d4Html}
+      ${item.insightHtml ? `
+        <div class="box insight">
+          <h4>💡 秒殺直覺與數感要領</h4>
+          <div>${item.insightHtml}</div>
+        </div>
+      ` : ''}
+    `;
+  }
+
+  /**
+   * 渲染完整 #view-arena HTML（含 3 層級聯控制列 + 考題主卡 + 複合題組 + 4D 診斷區 + 延伸學習 3 模組 + 抽屜速跳盤）
    */
   function renderArenaHtml(ctx) {
     const {
@@ -464,11 +704,18 @@
     const roundKey = round.roundKey;
     const ansRecord = nq && round.answered ? round.answered[nq.id] : null;
     const examDraft = nq && round.examDrafts ? round.examDrafts[nq.id] : null;
+    const subAnsMap = (nq && nq.isGroup && round.subAnswered && round.subAnswered[nq.id]) || {};
+    const subDraftMap = (nq && nq.isGroup && round.subExamDrafts && round.subExamDrafts[nq.id]) || {};
     const isExamMode = filter.examMode === 'exam';
-    const isAnswered = !!ansRecord;
-    const showDiagnosis = isAnswered && (!isExamMode || round.examSubmitted);
+    const allSubsAnswered = !!(nq && nq.isGroup && nq.subQuestions.every(s => !!subAnsMap[s.subId]));
+    const isAnswered = nq && nq.isGroup ? (!!ansRecord || allSubsAnswered) : !!ansRecord;
+    const showDiagnosis = nq && nq.isGroup
+      ? (isExamMode ? !!round.examSubmitted : allSubsAnswered)
+      : (isAnswered && (!isExamMode || round.examSubmitted));
     const answeredCount = isExamMode
-      ? Object.keys(round.examDrafts || {}).length
+      ? pool.filter(pq => pq.questionType === 'group'
+        ? (pq.subQuestions || []).every(s => round.subExamDrafts && round.subExamDrafts[pq.id] && round.subExamDrafts[pq.id][s.subId])
+        : !!(round.examDrafts && round.examDrafts[pq.id])).length
       : Object.keys(round.answered || {}).length;
 
     const unitPills = [
@@ -476,7 +723,7 @@
       { id: 'ERROR_BOOK', label: `🔥 錯題本 (${state.errorBook.length})` },
       ...units.map(u => ({
         id: u.id,
-        label: u.isExam ? '🏆 段考真題' : `第${u.no}單元 ${u.title}`,
+        label: u.isExam ? `🏆 ${u.title.replace('六年級上_', '')}` : `第${u.no}單元 ${u.title}`,
       })),
     ];
 
@@ -494,6 +741,9 @@
       { id: 'standard', label: '★★ 標準 (L4~L6)' },
       { id: 'challenge', label: '★★★ 挑戰 (L7~L10)' },
     ];
+
+    const showSchoolDropdown = (filter.unit === 'EXAM_MID1' || filter.unit === 'EXAM_MID2' || filter.batch === '段考真題')
+      && Array.isArray(examSchools) && examSchools.length > 1;
 
     const cascadeBarHtml = hideCascadeBar ? `
       <div class="arena-explicit-bar card-surface">
@@ -526,7 +776,7 @@
                 </button>
               `;
             }).join('')}
-            ${(filter.unit === 'EXAM_MID1' || filter.batch === '段考真題') ? `
+            ${showSchoolDropdown ? `
               <select class="arena-school-select" id="arena-school-select" aria-label="選擇段考學校">
                 ${examSchools.map(sch => `<option value="${escHtml(sch.id)}" ${filter.school === sch.id ? 'selected' : ''}>🏫 ${escHtml(sch.shortName)}</option>`).join('')}
               </select>
@@ -578,114 +828,122 @@
 
     const unitObj = units.find(u => u.id === nq.unitId) || { title: '綜合特訓', no: '?' };
     const isErr = state.errorBook.includes(nq.id);
-    const hasImage = !!(nq.cropImage || nq.examPageImage);
-    const isImgMode = !!(state.imgModeQuestions && state.imgModeQuestions[nq.id]);
-    const isBlinded = !!round.hideOptions && nq.hasOptions && !showDiagnosis;
+    const hasLegacyCropToggle = !nq.is4D && !!(nq.cropImage || nq.examPageImage);
+    const isImgMode = hasLegacyCropToggle && !!(state.imgModeQuestions && state.imgModeQuestions[nq.id]);
+    const hasAnySubAns = nq.isGroup && Object.keys(subAnsMap).length > 0;
+    const isBlinded = !!round.hideOptions && (nq.hasOptions || nq.isGroup) && !showDiagnosis;
     const isExtOpen = !!(round.openExt && round.openExt[nq.id]);
 
     const starCount = nq.difficulty;
     const diffStars = '★'.repeat(starCount) + '☆'.repeat(Math.max(0, 5 - starCount));
 
-    // Choices rendering
-    const optionsHtml = nq.hasOptions ? `
-      <div class="arena-opt-tools">
-        ${!showDiagnosis ? `
-          <button type="button" class="btn btn-sm btn-ghost ${round.hideOptions ? 'on' : ''}" id="btn-toggle-blind">
-            ${round.hideOptions ? '👁️ 顯示選項並作答' : '🙈 遮住選項（先用計算紙算）'}
-          </button>
-        ` : ''}
-        ${isExamMode && !round.examSubmitted ? `
-          <span class="exam-draft-status">${examDraft ? `已暫存選擇 (${examDraft})` : '尚未作答，請點選 A / B / C / D'}</span>
-        ` : ''}
+    // Inline stemImage directly under question text (always visible, never hidden behind toggle)
+    const inlineStemImgHtml = nq.stemImage ? `
+      <div class="stem-inline-figure" id="arena-stem-image" title="點擊放大檢視題目圖表">
+        <img src="${escHtml(nq.stemImage)}" alt="題目附圖" class="exam-stem-img">
+        <div class="crop-zoom-hint">🔍 點擊題圖可放大檢視</div>
       </div>
-      <div class="options-grid ${isBlinded ? 'options-blinded' : ''}" id="arena-options-grid">
-        ${nq.options.map(opt => {
-          let cls = 'opt-btn arena-opt-btn';
-          let dis = '';
-          if (showDiagnosis) {
-            dis = 'disabled';
-            if (opt.key === nq.answerKey) cls += ' opt-correct';
-            else if (ansRecord && ansRecord.userChoice === opt.key && ansRecord.result === 'bad') cls += ' opt-wrong';
-            else cls += ' opt-dim';
-          } else if (isExamMode && examDraft === opt.key) {
-            cls += ' opt-picked-draft';
-          }
-          return `
-            <button type="button" class="${cls}" data-arena-opt="${opt.key}" ${dis} ${isBlinded ? 'disabled' : ''}>
-              <span class="opt-letter">${opt.key}</span>
-              <span class="opt-text">${opt.html}</span>
+    ` : '';
+
+    // Choices or Compound Group rendering
+    let mainInteractiveHtml = '';
+    if (nq.isGroup) {
+      const subCardsHtml = nq.subQuestions.map(sub => {
+        const subAns = subAnsMap[sub.subId] || null;
+        const subDraft = subDraftMap[sub.subId] || null;
+        const showSubDiag = isExamMode ? !!(round.examSubmitted && subAns) : !!subAns;
+        const styleCls = sub.choiceStyle === 'tf' ? 'tf-grid' : sub.choiceStyle === 'compare3' ? 'cmp3-grid' : '';
+        const subImgHtml = sub.stemImage ? `
+          <div class="stem-inline-figure subq-inline-figure" data-zoom-img="${escHtml(sub.stemImage)}" title="點擊放大檢視小題圖表">
+            <img src="${escHtml(sub.stemImage)}" alt="小題附圖" class="exam-stem-img">
+            <div class="crop-zoom-hint">🔍 點擊題圖可放大檢視</div>
+          </div>
+        ` : '';
+        const subDiagHtml = showSubDiag ? `
+          <div class="arena-sub-diagnosis" id="arena-sub-ans-${escHtml(sub.subId)}">
+            ${renderWrongTrapBannerHtml(sub, subAns, true, kidsMath, formatMathForKids)}
+            <div class="answer arena-answer-4d sub-answer-4d">
+              ${render4DCoreBoxesHtml(sub, subAns, true, kidsMath, formatMathForKids)}
+            </div>
+          </div>
+        ` : '';
+
+        return `
+          <div class="arena-subq-card ${showSubDiag ? 'subq-done' : ''}" data-subq-id="${escHtml(sub.subId)}">
+            <div class="subq-stem">
+              <span class="subq-badge">${escHtml(sub.label)}</span>
+              <div class="subq-text">${sub.questionHtml}</div>
+            </div>
+            ${subImgHtml}
+            ${isExamMode && !round.examSubmitted ? `
+              <div class="subq-draft-hint">${subDraft ? `已暫存 (${subDraft})` : '請點選此小題選項'}</div>
+            ` : ''}
+            <div class="options-grid ${styleCls} ${isBlinded ? 'options-blinded' : ''}">
+              ${renderOptionsGridHtml(sub, {
+                showDiagnosis: showSubDiag,
+                isExamMode,
+                examSubmitted: !!round.examSubmitted,
+                isBlinded,
+                ansRecord: subAns,
+                examDraft: subDraft,
+                subId: sub.subId,
+              })}
+            </div>
+            ${subDiagHtml}
+          </div>
+        `;
+      }).join('');
+
+      mainInteractiveHtml = `
+        <div class="arena-opt-tools">
+          ${!showDiagnosis ? `
+            <button type="button" class="btn btn-sm btn-ghost ${round.hideOptions ? 'on' : ''}" id="btn-toggle-blind">
+              ${round.hideOptions ? '👁️ 顯示選項並作答' : '🙈 遮住選項（先用計算紙算）'}
             </button>
-          `;
-        }).join('')}
-      </div>
-    ` : `
-      ${!showDiagnosis ? `
+          ` : ''}
+          <span class="group-progress-badge">題組共 ${nq.subQuestions.length} 小題（已完成 ${Object.keys(isExamMode && !round.examSubmitted ? subDraftMap : subAnsMap).length} / ${nq.subQuestions.length}）</span>
+        </div>
+        <div class="arena-group-list" id="arena-group-list">
+          ${subCardsHtml}
+        </div>
+      `;
+    } else if (nq.hasOptions) {
+      const styleCls = nq.choiceStyle === 'tf' ? 'tf-grid' : nq.choiceStyle === 'compare3' ? 'cmp3-grid' : '';
+      mainInteractiveHtml = `
+        <div class="arena-opt-tools">
+          ${!showDiagnosis ? `
+            <button type="button" class="btn btn-sm btn-ghost ${round.hideOptions ? 'on' : ''}" id="btn-toggle-blind">
+              ${round.hideOptions ? '👁️ 顯示選項並作答' : '🙈 遮住選項（先用計算紙算）'}
+            </button>
+          ` : ''}
+          ${isExamMode && !round.examSubmitted ? `
+            <span class="exam-draft-status">${examDraft ? `已暫存選擇 (${examDraft})` : '尚未作答，請點選正確選項'}</span>
+          ` : ''}
+        </div>
+        <div class="options-grid ${styleCls} ${isBlinded ? 'options-blinded' : ''}" id="arena-options-grid">
+          ${renderOptionsGridHtml(nq, {
+            showDiagnosis,
+            isExamMode,
+            examSubmitted: !!round.examSubmitted,
+            isBlinded,
+            ansRecord,
+            examDraft,
+          })}
+        </div>
+      `;
+    } else if (!showDiagnosis) {
+      mainInteractiveHtml = `
         <div class="reveal" id="arena-reveal-area">
           <button type="button" class="btn btn-primary btn-lg btn-block" id="btn-arena-reveal-open">
             👁️ 我在紙上算好了，查看正解與詳解
           </button>
         </div>
-      ` : ''}
-    `;
-
-    // 4D Diagnosis Panel
-    let wrongTrapBannerHtml = '';
-    if (showDiagnosis && nq.hasOptions && ansRecord) {
-      if (ansRecord.result === 'ok') {
-        wrongTrapBannerHtml = `
-          <div class="arena-alert ok">
-            🎯 <b>作答正確！</b>${nq.is4D ? '觀念基準鎖定準確！' : '繼續維持手感！'}
-          </div>
-        `;
-      } else {
-        const pickedOpt = nq.options.find(o => o.key === ansRecord.userChoice);
-        const daMsg = nq.distractorAnalysis && ansRecord.userChoice ? nq.distractorAnalysis[ansRecord.userChoice] : '';
-        wrongTrapBannerHtml = `
-          <div class="arena-alert bad">
-            <div class="alert-head">
-              💡 <b>你選了 (${escHtml(ansRecord.userChoice || '?')})</b>
-              ${pickedOpt && pickedOpt.trapCode ? `<span class="trap-chip">${escHtml(pickedOpt.trapLabel)} <code>${escHtml(pickedOpt.trapCode)}</code></span>` : ''}
-            </div>
-            ${daMsg ? `<div class="alert-body">${renderTextSafe(daMsg, nq.is4D, kidsMath, formatMathForKids)}</div>` : ''}
-          </div>
-        `;
-      }
-    }
-
-    // Wrong option breakdown list for Dimension 3
-    let d3Html = '';
-    if (nq.is4D && nq.distractorAnalysis) {
-      const wrongItems = nq.options.filter(o => o.key !== nq.answerKey).map(o => `
-        <div class="da-row ${ansRecord && ansRecord.userChoice === o.key ? 'da-picked' : ''}">
-          <div class="da-head">
-            <span class="da-key">(${o.key})</span>
-            <span class="trap-chip">${escHtml(o.trapLabel || '')} <code>${escHtml(o.trapCode || '')}</code></span>
-          </div>
-          <div class="da-desc">${renderTextSafe(nq.distractorAnalysis[o.key] || '', true, kidsMath, formatMathForKids)}</div>
-        </div>
-      `).join('');
-      d3Html = `
-        <div class="box trap arena-d3">
-          <h4>⚠️ 維度三：陷阱選項盲點拆解</h4>
-          ${wrongItems}
-        </div>
-      `;
-    } else if (nq.primaryTrap) {
-      d3Html = `
-        <div class="box trap">
-          <h4>⚠️ 典型錯誤防坑診斷 ${nq.primaryTrap.code ? `<code>${escHtml(nq.primaryTrap.code)}</code>` : ''}</h4>
-          <div>${nq.primaryTrap.text}</div>
-        </div>
       `;
     }
 
-    const d4Html = nq.figureNoteHtml ? `
-      <div class="box figure-note arena-d4">
-        <h4>📊 維度四：線段圖與基準定位關鍵</h4>
-        ${nq.solutionFigureHtml ? `<div class="km-inline-fig">${nq.solutionFigureHtml}</div>` : ''}
-        <p>${nq.figureNoteHtml}</p>
-      </div>
-    ` : '';
+    const wrongTrapBannerHtml = (showDiagnosis && !nq.isGroup && nq.hasOptions && ansRecord)
+      ? renderWrongTrapBannerHtml(nq, ansRecord, nq.is4D, kidsMath, formatMathForKids)
+      : '';
 
     const extHtml = nq.extensionStudy ? `
       <div class="arena-ext-wrap">
@@ -711,7 +969,7 @@
       </div>
     ` : '';
 
-    const legacySelfGradeHtml = (!nq.hasOptions) ? `
+    const legacySelfGradeHtml = (!nq.hasOptions && !nq.isGroup) ? `
       <div class="feedback">
         <p>請誠實回饋你剛才的紙筆作答狀況：</p>
         <div class="fb-row">
@@ -782,11 +1040,14 @@
               <span class="tag lv">L${nq.level} · ${diffStars}</span>
               <span class="tag">${escHtml(nq.source)}</span>
               ${nq.is4D ? `<span class="tag badge-4d">✨ 4D詳解</span>` : ''}
+              ${nq.isGroup ? `<span class="tag badge-group">📑 複合題組</span>` : ''}
               ${isErr ? `<span class="tag bad">🔥 待消滅錯題</span>` : ''}
             </div>
             <div class="q-right-actions">
-              ${(isAnswered && !isExamMode) ? `<button type="button" class="btn btn-sm btn-ghost" id="btn-arena-retry-this">🔄 重練本題</button>` : ''}
-              ${hasImage ? `
+              ${((isAnswered || hasAnySubAns) && !isExamMode) ? `<button type="button" class="btn btn-sm btn-ghost" id="btn-arena-retry-this">🔄 重練本題</button>` : ''}
+              ${nq.is4D && nq.examPageImage ? `
+                <button type="button" class="btn-crop-toggle" id="btn-arena-full-page">📄 查看整頁原卷</button>
+              ` : hasLegacyCropToggle ? `
                 <button type="button" class="btn-crop-toggle ${isImgMode ? 'active' : ''}" id="btn-arena-crop-toggle">
                   ${isImgMode ? '📝 返回文字' : '📷 看考卷原圖'}
                 </button>
@@ -796,7 +1057,9 @@
 
           <div class="q-text arena-q-text" id="arena-q-content" style="${isImgMode ? 'display:none;' : ''}">${nq.questionHtml}</div>
 
-          ${hasImage ? `
+          ${inlineStemImgHtml}
+
+          ${hasLegacyCropToggle ? `
             <div class="crop-image-container" id="arena-crop-container" style="${isImgMode ? 'display:block;' : 'display:none;'}">
               <div class="crop-img-wrap" id="arena-crop-zoom">
                 <img src="${escHtml(nq.cropImage || nq.examPageImage)}" alt="考卷原圖" class="exam-crop-img">
@@ -812,45 +1075,28 @@
 
           ${nq.stemFigureHtml ? `<div class="q-figure">${nq.stemFigureHtml}</div>` : ''}
 
-          ${optionsHtml}
+          ${mainInteractiveHtml}
 
           ${wrongTrapBannerHtml}
 
-          ${showDiagnosis || (!nq.hasOptions && round.openRevealed && round.openRevealed[nq.id]) ? `
+          ${nq.isGroup ? (showDiagnosis ? `
             <div class="answer arena-answer-4d" id="arena-answer-area">
-              <div class="box final">
-                <h4>🎯 正確答案</h4>
-                <div class="ans">${nq.answerDisplayHtml}</div>
-              </div>
-
-              ${nq.examPurposeHtml ? `
-                <div class="box purpose arena-d1">
-                  <h4>🎯 維度一：考點與命題核心</h4>
-                  <div>${nq.examPurposeHtml}</div>
-                </div>
-              ` : ''}
-
-              ${nq.stepBlocksHtml.length > 0 ? `
-                <div class="box steps arena-d2">
-                  <h4>📐 維度二：小六無代數分步算理</h4>
-                  <div class="km-steps-flow">
-                    ${nq.stepBlocksHtml.map(s => s.html).join('')}
-                  </div>
-                </div>
-              ` : ''}
-
-              ${d3Html}
-              ${d4Html}
-              ${nq.insightHtml ? `
-                <div class="box insight">
-                  <h4>💡 秒殺直覺與數感要領</h4>
-                  <div>${nq.insightHtml}</div>
+              ${nq.figureSvg ? `
+                <div class="box figure-note arena-d4">
+                  <h4>📐 標準作圖解答對照</h4>
+                  <div class="d4-svg-wrap">${nq.figureSvg}</div>
                 </div>
               ` : ''}
               ${extHtml}
               ${legacySelfGradeHtml}
             </div>
-          ` : ''}
+          ` : '') : ((showDiagnosis || (!nq.hasOptions && round.openRevealed && round.openRevealed[nq.id])) ? `
+            <div class="answer arena-answer-4d" id="arena-answer-area">
+              ${render4DCoreBoxesHtml(nq, ansRecord, nq.is4D, kidsMath, formatMathForKids, { figureSvg: nq.figureSvg })}
+              ${extHtml}
+              ${legacySelfGradeHtml}
+            </div>
+          ` : '')}
 
           <div class="quiz-bottom-nav">
             <button type="button" class="btn btn-ghost btn-lg" id="btn-arena-prev" ${curIdx === 0 ? 'disabled' : ''}>⏮️ 上一題</button>
@@ -865,7 +1111,7 @@
   }
 
   /**
-   * 產生 A4 列印考卷 HTML（支援 'student' 學生空白卷 與 'teacher' 家長詳解卷）
+   * 產生 A4 列印考卷 HTML（支援 'student' 學生空白卷 與 'teacher' 家長詳解卷，完整支援 stemImage 與 group 題組）
    * 學生空白卷嚴格確保零答案與零詳解外洩。
    */
   function buildPaperSheetHtml(selectedQuestions, opts) {
@@ -880,13 +1126,73 @@
     const fmt = o.formatMathForKids || defaultFormatMathForKids;
     const isTeacher = printMode === 'teacher';
 
+    const buildItemTeacherKeyHtml = (item, extraSvg) => {
+      const wrongBreakdown = item.is4D && item.distractorAnalysis
+        ? item.options.filter(x => x.key !== item.answerKey).map(x => `<li><b>(${x.key}) [${escHtml(x.trapCode || '')}]</b> ${renderTextSafe(item.distractorAnalysis[x.key] || '', true, km, fmt)}</li>`).join('')
+        : (item.primaryTrap ? `<li><b>${item.primaryTrap.code ? `[${escHtml(item.primaryTrap.code)}] ` : ''}</b>${item.primaryTrap.text}</li>` : '');
+      return `
+        <div class="pq-teacher-key">
+          <div class="pq-key-ans">✅ 正解：${item.answerDisplayHtml}</div>
+          ${item.examPurposeHtml ? `<div class="pq-key-purpose"><b>🎯 考點：</b>${item.examPurposeHtml}</div>` : ''}
+          ${item.stepBlocksHtml.length > 0 ? `
+            <div class="pq-key-steps">
+              <b>📐 詳解步驟：</b>
+              <div class="km-steps-flow pq-print-flow">${item.stepBlocksHtml.map(s => s.html).join('')}</div>
+            </div>
+          ` : ''}
+          ${extraSvg ? `<div class="pq-key-svg"><b>📐 標準作圖解答對照：</b><div class="d4-svg-wrap">${extraSvg}</div></div>` : ''}
+          ${wrongBreakdown ? `<ul class="pq-key-traps"><b>⚠️ 陷阱剖析：</b>${wrongBreakdown}</ul>` : ''}
+          ${item.figureNoteHtml && !item.solutionFigureHtml ? `<div class="pq-key-note"><b>📊 圖解定位：</b>${item.figureNoteHtml}</div>` : ''}
+          ${item.insightHtml ? `<div class="pq-key-insight"><b>💡 速解口訣：</b>${item.insightHtml}</div>` : ''}
+        </div>
+      `;
+    };
+
     const questionsHtml = (selectedQuestions || []).map((q, idx) => {
       const nq = normalizeQuestion(q, { kidsMath: km, formatMathForKids: fmt });
       const workClass = nq.work || workSizeFallback;
       const isSpecificCrop = q.cropImage && !/_p\d+\.png$/i.test(q.cropImage);
       const figHtml = nq.stemFigureHtml
         ? `<div class="pq-fig">${nq.stemFigureHtml}</div>`
-        : (isSpecificCrop ? `<div class="pq-fig"><img src="${escHtml(q.cropImage)}" alt="考卷題圖" style="max-width:140mm; max-height:55mm; object-fit:contain;"></div>` : '');
+        : nq.stemImage
+          ? `<div class="pq-stem-figure"><img src="${escHtml(nq.stemImage)}" alt="題目附圖" class="pq-stem-img"></div>`
+          : (isSpecificCrop ? `<div class="pq-fig"><img src="${escHtml(q.cropImage)}" alt="考卷題圖" style="max-width:140mm; max-height:55mm; object-fit:contain;"></div>` : '');
+
+      if (nq.isGroup) {
+        const subItemsHtml = nq.subQuestions.map(sub => {
+          const subImg = sub.stemImage
+            ? `<div class="pq-stem-figure"><img src="${escHtml(sub.stemImage)}" alt="小題附圖" class="pq-stem-img"></div>`
+            : '';
+          const subOpts = sub.hasOptions ? `
+            <div class="pq-options">
+              ${sub.options.map(opt => `<div><b>(${opt.key})</b> ${opt.html}</div>`).join('')}
+            </div>
+          ` : '';
+          const subKey = isTeacher ? buildItemTeacherKeyHtml(Object.assign({}, sub, { is4D: true }), '') : '';
+          return `
+            <div class="pq-subq-item">
+              <div class="pq-subq-title"><b>${escHtml(sub.label)}</b> <span>${sub.questionHtml}</span></div>
+              ${subImg}
+              ${subOpts}
+              ${!isTeacher ? '<div class="pq-ans pq-sub-ans">答：<i></i></div>' : subKey}
+            </div>
+          `;
+        }).join('');
+
+        return `
+          <div class="pq pq-group ${isTeacher ? 'pq-teacher-item' : ''}" data-qid="${escHtml(nq.id)}">
+            <div class="pq-title">
+              <span class="pq-no">${idx + 1}.</span>
+              <div style="flex: 1">${nq.questionHtml}</div>
+            </div>
+            ${figHtml}
+            <div class="pq-subq-list">${subItemsHtml}</div>
+            ${!isTeacher
+              ? `<div class="work-grid ${workClass}" title="5mm 手寫草稿格"></div>`
+              : (nq.figureSvg ? `<div class="pq-teacher-key"><div class="pq-key-svg"><b>📐 標準作圖解答對照：</b><div class="d4-svg-wrap">${nq.figureSvg}</div></div></div>` : '')}
+          </div>
+        `;
+      }
 
       const optionsHtml = nq.hasOptions ? `
         <div class="pq-options">
@@ -894,28 +1200,7 @@
         </div>
       ` : '';
 
-      let teacherKeyHtml = '';
-      if (isTeacher) {
-        const wrongBreakdown = nq.is4D && nq.distractorAnalysis
-          ? nq.options.filter(x => x.key !== nq.answerKey).map(x => `<li><b>(${x.key}) [${escHtml(x.trapCode || '')}]</b> ${renderTextSafe(nq.distractorAnalysis[x.key] || '', true, km, fmt)}</li>`).join('')
-          : (nq.primaryTrap ? `<li><b>${nq.primaryTrap.code ? `[${escHtml(nq.primaryTrap.code)}] ` : ''}</b>${nq.primaryTrap.text}</li>` : '');
-
-        teacherKeyHtml = `
-          <div class="pq-teacher-key">
-            <div class="pq-key-ans">✅ 正解：${nq.answerDisplayHtml}</div>
-            ${nq.examPurposeHtml ? `<div class="pq-key-purpose"><b>🎯 考點：</b>${nq.examPurposeHtml}</div>` : ''}
-            ${nq.stepBlocksHtml.length > 0 ? `
-              <div class="pq-key-steps">
-                <b>📐 詳解步驟：</b>
-                <div class="km-steps-flow pq-print-flow">${nq.stepBlocksHtml.map(s => s.html).join('')}</div>
-              </div>
-            ` : ''}
-            ${wrongBreakdown ? `<ul class="pq-key-traps"><b>⚠️ 陷阱剖析：</b>${wrongBreakdown}</ul>` : ''}
-            ${nq.figureNoteHtml && !nq.solutionFigureHtml ? `<div class="pq-key-note"><b>📊 圖解定位：</b>${nq.figureNoteHtml}</div>` : ''}
-            ${nq.insightHtml ? `<div class="pq-key-insight"><b>💡 速解口訣：</b>${nq.insightHtml}</div>` : ''}
-          </div>
-        `;
-      }
+      const teacherKeyHtml = isTeacher ? buildItemTeacherKeyHtml(nq, nq.figureSvg) : '';
 
       return `
         <div class="pq ${isTeacher ? 'pq-teacher-item' : ''}" data-qid="${escHtml(nq.id)}">
@@ -923,8 +1208,8 @@
             <span class="pq-no">${idx + 1}.</span>
             <div style="flex: 1">${nq.questionHtml}</div>
           </div>
-          ${optionsHtml}
           ${figHtml}
+          ${optionsHtml}
           ${!isTeacher ? `<div class="work-grid ${workClass}" title="5mm 手寫草稿格"></div><div class="pq-ans">答：<i></i></div>` : teacherKeyHtml}
         </div>
       `;
@@ -1076,6 +1361,7 @@
   const api = {
     TRAP_LABEL_MAP,
     getTrapLabel,
+    matchesUnitFilter,
     getDifficultyBand,
     normalizeQuestion,
     buildLegacyIdMap,

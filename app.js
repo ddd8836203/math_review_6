@@ -10,8 +10,8 @@
   // -------------------------------------------------------
   // 全域狀態
   // -------------------------------------------------------
-  const EXAM_SCHOOLS = [
-    { id: 'ALL', name: '全部學校 (綜合練習)', shortName: '🎲 全部名校綜合', count: 215 },
+  const EXAM_SCHOOLS_MID1 = [
+    { id: 'ALL', name: '全部學校 (第一次段考綜合)', shortName: '🎲 全部名校綜合', count: 215 },
     { id: '臺北市立西松國小', name: '臺北市立西松國小', shortName: '西松國小', count: 24 },
     { id: '桃子腳國民中小學', name: '桃子腳國民中小學', shortName: '桃子腳國中小', count: 32 },
     { id: '高雄市立獅湖國小', name: '高雄市立獅湖國小', shortName: '獅湖國小', count: 42 },
@@ -19,6 +19,58 @@
     { id: '桃園市普仁國小', name: '桃園市普仁國小', shortName: '普仁國小', count: 40 },
     { id: '臺南市和順國小', name: '臺南市和順國小', shortName: '和順國小', count: 27 },
   ];
+
+  const EXAM_SCHOOLS_MID2 = [
+    { id: 'ALL', name: '全部學校 (八校九卷期末綜合)', shortName: '🎲 八校九卷綜合', count: 243 },
+    { id: '臺南市和順國小', name: '臺南市和順國小 (114學年)', shortName: '和順國小', count: 20 },
+    { id: '桃園市普仁國小', name: '桃園市普仁國小 (114學年)', shortName: '普仁國小', count: 29 },
+    { id: '桃子腳國民中小學', name: '新北市桃子腳國中小 (114學年)', shortName: '桃子腳國中小', count: 25 },
+    { id: '高雄市立獅湖國小 (114)', name: '高雄市立獅湖國小 (114學年)', shortName: '獅湖國小 (114)', count: 25 },
+    { id: '高雄市鳳山區忠孝國小', name: '高雄市鳳山區忠孝國小 (114學年)', shortName: '忠孝國小', count: 35 },
+    { id: '新北市安和國小', name: '新北市安和國小 (113學年)', shortName: '安和國小', count: 23 },
+    { id: '桃園市建德國小', name: '桃園市建德國小 (113學年)', shortName: '建德國小', count: 18 },
+    { id: '桃園市大華國小', name: '桃園市大華國小 (113學年)', shortName: '大華國小', count: 32 },
+    { id: '高雄市立獅湖國小 (113)', name: '高雄市立獅湖國小 (113學年)', shortName: '獅湖國小 (113)', count: 36 },
+  ];
+
+  function isExamUnitId(uId) {
+    return uId === 'EXAM_MID1' || uId === 'EXAM_MID2';
+  }
+
+  function getExamSchoolsForContext(unitId, batch) {
+    if (unitId === 'EXAM_MID1') return EXAM_SCHOOLS_MID1;
+    if (unitId === 'EXAM_MID2') return EXAM_SCHOOLS_MID2;
+    if (/^U0[5-8]$/.test(String(unitId || ''))) {
+      // 動態計算該一般單元（U05~U08）有涵蓋的第二次段考學校清單
+      const unitExamQs = QUESTION_BANK.filter(q =>
+        q.unitId === 'EXAM_MID2' && window.MathArena && window.MathArena.matchesUnitFilter(q, unitId)
+      );
+      const countBySch = {};
+      for (const q of unitExamQs) {
+        if (q.school) countBySch[q.school] = (countBySch[q.school] || 0) + 1;
+      }
+      const res = [{ id: 'ALL', name: '全部學校', shortName: `🎲 全部期末學校 (${unitExamQs.length}題)`, count: unitExamQs.length }];
+      for (const sch of EXAM_SCHOOLS_MID2) {
+        if (sch.id !== 'ALL' && countBySch[sch.id]) {
+          res.push(Object.assign({}, sch, {
+            shortName: `${sch.shortName} (${countBySch[sch.id]}題)`,
+            count: countBySch[sch.id],
+          }));
+        }
+      }
+      return res;
+    }
+    // ALL / 混合：聯集去重
+    const seen = new Set(['ALL']);
+    const merged = [{ id: 'ALL', name: '全部學校', shortName: '🎲 全部名校綜合', count: 458 }];
+    for (const s of [...EXAM_SCHOOLS_MID2, ...EXAM_SCHOOLS_MID1]) {
+      if (!seen.has(s.id)) {
+        seen.add(s.id);
+        merged.push(s);
+      }
+    }
+    return merged;
+  }
 
   // -------------------------------------------------------
   // 多人學習帳號設定 (預設 4 人：Rex + Test 1~3)
@@ -567,7 +619,7 @@
 
   function getProgressKey(unitId) {
     if (!unitId) return null;
-    return unitId === 'EXAM_MID1' ? `EXAM_MID1_${state.examSchool || 'ALL'}` : unitId;
+    return isExamUnitId(unitId) ? `${unitId}_${state.examSchool || 'ALL'}` : unitId;
   }
 
   // -------------------------------------------------------
@@ -821,7 +873,9 @@
   }
 
   function getUnitStats(unitId) {
-    const all = QUESTION_BANK.filter(q => q.unitId === unitId);
+    const all = (window.MathArena && window.MathArena.matchesUnitFilter)
+      ? QUESTION_BANK.filter(q => window.MathArena.matchesUnitFilter(q, unitId))
+      : QUESTION_BANK.filter(q => q.unitId === unitId);
     const active = filterQuestionsByBatches(all);
     const errCount = active.filter(q => state.errorBook.includes(q.id)).length;
     const mastered = active.filter(q => (state.successCounts[q.id] || 0) >= 1 && !state.errorBook.includes(q.id)).length;
@@ -870,6 +924,8 @@
       const isLocked = st.total === 0;
       const isMentalActive = state.selectedBatches.length === 1 && state.selectedBatches[0] === '純腦力體操';
       const isExamUnit = !!u.isExam;
+      const cardSchools = u.id === 'EXAM_MID2' ? EXAM_SCHOOLS_MID2 : EXAM_SCHOOLS_MID1;
+      const selectedCardSchool = cardSchools.some(s => s.id === state.examSchool) ? state.examSchool : 'ALL';
 
       return `
         <article class="unit-card ${isExamUnit ? 'exam-card' : ''} ${isLocked ? 'locked' : ''}" style="--hue: ${u.hue}">
@@ -879,14 +935,14 @@
           <div class="u-meta">
             <span class="tag ${st.pct === 100 ? 'ok' : ''}">掌握 ${st.pct}%</span>
             ${st.errCount > 0 ? `<span class="tag bad">🔥 ${st.errCount} 題待消滅</span>` : ''}
-            ${isExamUnit ? `<span class="tag exam-badge">🏆 6校全真考卷</span>` : `<span class="tag lv">${st.hasMental ? `⭐ 10★天梯` : `天梯 L${st.maxLevel}`}</span>`}
+            ${isExamUnit ? `<span class="tag exam-badge">${u.id === 'EXAM_MID2' ? '🏆 8校9卷全真期末' : '🏆 6校全真考卷'}</span>` : `<span class="tag lv">${st.hasMental ? `⭐ 10★天梯` : `天梯 L${st.maxLevel}`}</span>`}
             <span class="tag">${st.total} 題</span>
           </div>
 
           ${isExamUnit ? `
             <div class="exam-card-quick-select" style="margin-top: 6px;">
               <select class="exam-school-select" data-exam-select="${u.id}" style="width: 100%; padding: 8px 10px; border-radius: 10px; border: 1.5px solid #fcd34d; font-size: 13px; font-weight: 700; color: #78350f; background: #fffdf5; outline: none; cursor: pointer;">
-                ${EXAM_SCHOOLS.map(sch => `<option value="${sch.id}" ${state.examSchool === sch.id ? 'selected' : ''}>${sch.shortName} (${sch.count}題)</option>`).join('')}
+                ${cardSchools.map(sch => `<option value="${sch.id}" ${selectedCardSchool === sch.id ? 'selected' : ''}>${sch.shortName} (${sch.count}題)</option>`).join('')}
               </select>
             </div>
           ` : ''}
@@ -1000,7 +1056,7 @@
 
         <div class="section-title">
           <h2>📚 單元進度地圖</h2>
-          <span class="muted">翰林版第十一冊 · 全 8 單元 + 六校段考全真題庫</span>
+          <span class="muted">翰林版第十一冊 · 全 8 單元 + 兩次段考名校全真題庫</span>
         </div>
         <section class="unit-grid">
           ${unitCardsHtml}
@@ -1045,9 +1101,9 @@
     app.querySelectorAll('[data-start-unit]').forEach(btn => {
       btn.addEventListener('click', () => {
         const uId = btn.getAttribute('data-start-unit');
-        if (uId === 'EXAM_MID1') {
+        if (isExamUnitId(uId)) {
           const sel = app.querySelector(`[data-exam-select="${uId}"]`);
-          const school = sel ? sel.value : (state.examSchool || 'ALL');
+          const school = sel ? sel.value : 'ALL';
           startQuiz('unit', uId, school);
         } else {
           startQuiz('unit', uId);
@@ -1120,15 +1176,17 @@
       let orderedIds = poolIds;
       if (f.explicitIds && f.explicitIds.length > 0) {
         orderedIds = f.explicitIds.filter(id => poolSet.has(id));
-      } else if (f.unit === 'ERROR_BOOK' || f.errorsOnly || f.unit === 'EXAM_MID1') {
-        orderedIds = (f.unit === 'EXAM_MID1' && f.school && f.school !== 'ALL') ? poolIds : shuffle(poolIds);
+      } else if (f.unit === 'ERROR_BOOK' || f.errorsOnly || isExamUnitId(f.unit)) {
+        orderedIds = (isExamUnitId(f.unit) && f.school && f.school !== 'ALL') ? poolIds : shuffle(poolIds);
       }
       r = {
         roundKey: key,
         queueIds: orderedIds,
         cursor: 0,
         answered: {},
+        subAnswered: {},
         examDrafts: {},
+        subExamDrafts: {},
         openRevealed: {},
         openExt: {},
         hideOptions: false,
@@ -1144,6 +1202,8 @@
         if (!keptSet.has(id)) kept.push(id);
       }
       r.queueIds = kept;
+      if (!r.subAnswered) r.subAnswered = {};
+      if (!r.subExamDrafts) r.subExamDrafts = {};
       if (r.cursor >= kept.length) r.cursor = Math.max(0, kept.length - 1);
     }
     return r;
@@ -1158,6 +1218,11 @@
     }
 
     const f = state.arenaFilter;
+    const validSchools = getExamSchoolsForContext(f.unit, f.batch);
+    if (f.school && f.school !== 'ALL' && !validSchools.some(s => s.id === f.school)) {
+      f.school = 'ALL';
+    }
+
     // Cascading guard: if current batch or band became 0 after upstream change, reset cleanly to ALL
     const c1 = MathArena.getCascadeStats(QUESTION_BANK, state, f);
     if (!f.explicitIds && f.batch !== 'ALL' && (c1.batchCounts[f.batch] || 0) === 0) {
@@ -1179,7 +1244,7 @@
 
     app.innerHTML = MathArena.renderArenaHtml({
       units: UNITS,
-      examSchools: EXAM_SCHOOLS,
+      examSchools: validSchools,
       questionBank: QUESTION_BANK,
       state,
       filter: f,
@@ -1291,7 +1356,9 @@
     if (resetRoundBtn) {
       resetRoundBtn.addEventListener('click', () => {
         round.answered = {};
+        round.subAnswered = {};
         round.examDrafts = {};
+        round.subExamDrafts = {};
         round.openRevealed = {};
         round.openExt = {};
         round.examSubmitted = false;
@@ -1307,8 +1374,10 @@
     if (retryThisBtn && q) {
       retryThisBtn.addEventListener('click', () => {
         delete round.answered[q.id];
+        if (round.subAnswered) delete round.subAnswered[q.id];
         delete round.openRevealed[q.id];
         delete round.examDrafts[q.id];
+        if (round.subExamDrafts) delete round.subExamDrafts[q.id];
         saveArenaLocalState();
         renderArenaView();
       });
@@ -1347,7 +1416,20 @@
       });
     }
 
-    // Original exam crop image toggle & lightbox
+    // Inline stemImage & subquestion image lightbox + Original exam crop image toggle
+    const inlineStemImg = document.getElementById('arena-stem-image');
+    if (inlineStemImg && q && q.stemImage) {
+      inlineStemImg.addEventListener('click', () => {
+        openLightbox(q.stemImage, `${q.school || '段考'} - 題目附圖`);
+      });
+    }
+    app.querySelectorAll('[data-zoom-img]').forEach(el => {
+      el.addEventListener('click', () => {
+        const src = el.getAttribute('data-zoom-img');
+        if (src) openLightbox(src, `${(q && q.school) || '段考'} - 題目附圖`);
+      });
+    });
+
     const cropBtn = document.getElementById('btn-arena-crop-toggle');
     if (cropBtn && q) {
       cropBtn.addEventListener('click', () => {
@@ -1365,6 +1447,60 @@
     if (fullPageBtn && q) {
       fullPageBtn.addEventListener('click', () => {
         openLightbox(q.examPageImage, `${q.school || '段考'} - 考卷整頁原圖`);
+      });
+    }
+
+    // Compound group subquestion clicks
+    if (q && nq && nq.isGroup) {
+      app.querySelectorAll('[data-arena-subopt]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (btn.disabled) return;
+          const subId = btn.getAttribute('data-arena-subq');
+          const chosen = btn.getAttribute('data-arena-subopt').toUpperCase();
+          const sub = nq.subQuestions.find(s => s.subId === subId);
+          if (!sub) return;
+
+          if (state.arenaFilter.examMode === 'exam' && !round.examSubmitted) {
+            round.subExamDrafts = round.subExamDrafts || {};
+            round.subExamDrafts[q.id] = round.subExamDrafts[q.id] || {};
+            round.subExamDrafts[q.id][subId] = chosen;
+            saveArenaLocalState();
+            playSfx('click');
+            renderArenaView();
+            return;
+          }
+
+          round.subAnswered = round.subAnswered || {};
+          round.subAnswered[q.id] = round.subAnswered[q.id] || {};
+          if (round.subAnswered[q.id][subId]) return;
+
+          const isCorrect = (chosen === sub.answerKey);
+          round.subAnswered[q.id][subId] = { result: isCorrect ? 'ok' : 'bad', userChoice: chosen };
+          playSfx(isCorrect ? 'ok' : 'bad');
+
+          const subMap = round.subAnswered[q.id];
+          if (nq.subQuestions.every(s => !!subMap[s.subId])) {
+            const allOk = nq.subQuestions.every(s => subMap[s.subId].result === 'ok');
+            let firstTrap = null;
+            if (!allOk) {
+              for (const s of nq.subQuestions) {
+                if (subMap[s.subId].result === 'bad') {
+                  const pickedOpt = s.options.find(o => o.key === subMap[s.subId].userChoice);
+                  if (pickedOpt && pickedOpt.trapCode) {
+                    firstTrap = pickedOpt.trapCode;
+                    break;
+                  }
+                }
+              }
+            }
+            const res = allOk ? 'ok' : 'bad';
+            const choiceTag = allOk ? 'GROUP_OK' : 'GROUP_BAD';
+            recordAnswer(q, res, choiceTag, firstTrap);
+            round.answered[q.id] = { result: res, userChoice: choiceTag };
+          }
+          saveArenaLocalState();
+          renderArenaView();
+        });
       });
     }
 
@@ -1439,16 +1575,47 @@
     const submitExamAndFinish = () => {
       if (state.arenaFilter.examMode === 'exam' && !round.examSubmitted) {
         const drafts = round.examDrafts || {};
+        const subDrafts = round.subExamDrafts || {};
         const draftedIds = Object.keys(drafts);
-        if (draftedIds.length === 0) {
+        const subDraftedIds = Object.keys(subDrafts).filter(id => Object.keys(subDrafts[id] || {}).length > 0);
+        if (draftedIds.length === 0 && subDraftedIds.length === 0) {
           showToast('你還沒有點選任何題目的答案喔！');
           return;
         }
         state.sessionAnswers = [];
         for (const item of pool) {
+          const normItem = MathArena.normalizeQuestion(item, { kidsMath: window.KidsMath, formatMathForKids });
+          if (normItem.isGroup) {
+            const gDraft = subDrafts[item.id];
+            if (!gDraft || Object.keys(gDraft).length === 0) continue;
+            round.subAnswered = round.subAnswered || {};
+            round.subAnswered[item.id] = {};
+            let allOk = true;
+            let firstTrap = null;
+            for (const sub of normItem.subQuestions) {
+              const ch = gDraft[sub.subId];
+              if (!ch) {
+                allOk = false;
+                continue;
+              }
+              const subOk = (ch === sub.answerKey);
+              round.subAnswered[item.id][sub.subId] = { result: subOk ? 'ok' : 'bad', userChoice: ch };
+              if (!subOk) {
+                allOk = false;
+                if (!firstTrap) {
+                  const po = sub.options.find(o => o.key === ch);
+                  if (po && po.trapCode) firstTrap = po.trapCode;
+                }
+              }
+            }
+            const res = allOk ? 'ok' : 'bad';
+            const choiceTag = allOk ? 'GROUP_OK' : 'GROUP_BAD';
+            recordAnswer(item, res, choiceTag, firstTrap);
+            round.answered[item.id] = { result: res, userChoice: choiceTag };
+            continue;
+          }
           const ch = drafts[item.id];
           if (!ch) continue;
-          const normItem = MathArena.normalizeQuestion(item, { kidsMath: window.KidsMath, formatMathForKids });
           if (normItem.hasOptions) {
             const ok = (ch === normItem.answerKey);
             const res = ok ? 'ok' : 'bad';
@@ -1536,7 +1703,7 @@
       state.arenaFilter = {
         unit: unitId || 'U05',
         batch: singleMental ? '純腦力體操' : 'ALL',
-        school: unitId === 'EXAM_MID1' ? (state.examSchool || 'ALL') : 'ALL',
+        school: isExamUnitId(unitId) ? (state.examSchool || 'ALL') : 'ALL',
         band: 'ALL',
         errorsOnly: false,
         examMode: 'instant',
@@ -1612,7 +1779,9 @@
     const round = getOrCreateArenaRound(poolCheck, (mode === 'error_book' || mode === 'unit_error' || mode === 'mental_mixed' || mode === 'mixed'));
     round.cursor = 0;
     round.answered = {};
+    round.subAnswered = {};
     round.examDrafts = {};
+    round.subExamDrafts = {};
     round.openRevealed = {};
     round.examSubmitted = false;
     saveArenaLocalState();
@@ -1735,6 +1904,19 @@
             </div>
           </div>
         `;
+      } else if (nq.isGroup) {
+        choiceHtml = `
+          <div class="review-choice-grid">
+            <div class="review-choice-pill ${isCorrect ? 'correct' : 'wrong'}">
+              <span class="label">題組作答：</span>
+              <b>${isCorrect ? `✅ ${nq.subQuestions.length} 小題全對` : '❌ 題組有小題答錯'}</b>
+            </div>
+            <div class="review-choice-pill correct">
+              <span class="label">標準正解：</span>
+              <b>${nq.answerDisplayHtml}</b>
+            </div>
+          </div>
+        `;
       } else if (nq.hasOptions) {
         const userKey = (ans.userChoice || '').toUpperCase();
         const userOpt = nq.options.find(o => o.key === userKey);
@@ -1771,6 +1953,13 @@
         `;
       }
 
+      const groupSolHtml = nq.isGroup ? nq.subQuestions.map(sub => `
+        <div class="review-sub-sol">
+          <div><b>${sub.label}</b> ${sub.questionHtml} ➔ ${sub.answerDisplayHtml}</div>
+          ${sub.stepBlocksHtml.length > 0 ? `<div class="km-steps-flow">${sub.stepBlocksHtml.map(s => s.html).join('')}</div>` : ''}
+        </div>
+      `).join('') : '';
+
       return `
         <div class="review-item ${!isAnswered ? 'skipped' : ans.result}">
           <div class="review-item-head">
@@ -1786,6 +1975,7 @@
           </div>
 
           <div class="review-q-text">${nq.questionHtml}</div>
+          ${nq.stemImage ? `<div class="review-q-fig"><img src="${nq.stemImage}" alt="題目附圖" class="exam-stem-img"></div>` : ''}
           ${nq.stemFigureHtml ? `<div class="review-q-fig">${nq.stemFigureHtml}</div>` : ''}
 
           ${choiceHtml}
@@ -1795,6 +1985,8 @@
               <h4>🎯 正確答案</h4>
               <div class="ans">${nq.answerDisplayHtml}</div>
             </div>
+
+            ${groupSolHtml}
 
             ${nq.examPurposeHtml ? `
               <div class="box purpose">
@@ -1909,14 +2101,17 @@
   function renderErrorBookView(filterUnit = null) {
     state.view = 'error_book';
     const errorQuestions = QUESTION_BANK.filter(q => state.errorBook.includes(q.id));
-    const displayed = filterUnit ? errorQuestions.filter(q => q.unitId === filterUnit) : errorQuestions;
+    const matchUnit = (q, uId) => (window.MathArena && window.MathArena.matchesUnitFilter)
+      ? window.MathArena.matchesUnitFilter(q, uId)
+      : q.unitId === uId;
+    const displayed = filterUnit ? errorQuestions.filter(q => matchUnit(q, filterUnit)) : errorQuestions;
 
     const unitTabsHtml = [
       `<button class="chip ${!filterUnit ? 'on' : ''}" data-filter-unit="all">全部 (${errorQuestions.length})</button>`,
       ...UNITS.map(u => {
-        const cnt = errorQuestions.filter(q => q.unitId === u.id).length;
+        const cnt = errorQuestions.filter(q => matchUnit(q, u.id)).length;
         if (cnt === 0) return '';
-        const titleText = u.isExam ? `🏆 段考真題 (${cnt})` : `第${u.no}單元 (${cnt})`;
+        const titleText = u.isExam ? `🏆 ${u.title.replace('六年級上_', '')} (${cnt})` : `第${u.no}單元 (${cnt})`;
         return `<button class="chip ${filterUnit === u.id ? 'on' : ''}" data-filter-unit="${u.id}">${titleText}</button>`;
       })
     ].join('');
@@ -1925,7 +2120,7 @@
       const nq = MathArena.normalizeQuestion(q, { kidsMath: window.KidsMath, formatMathForKids });
       const u = UNITS.find(x => x.id === q.unitId) || {};
       const ec = state.errorCounts[q.id] || 1;
-      const unitLabel = u.isExam ? `🏆 六上第一次段考` : `第 ${u.no} 單元 ${u.title}`;
+      const unitLabel = u.isExam ? `🏆 ${u.title.replace('六年級上_', '')}` : `第 ${u.no} 單元 ${u.title}`;
       return `
         <div class="err-item">
           <div>
@@ -2014,12 +2209,15 @@
   function getPrintPool() {
     const hasErrorBook = state.printConfig.unitIds.includes('ERROR_BOOK');
     const normalUnitIds = state.printConfig.unitIds.filter(id => id !== 'ERROR_BOOK');
+    const matchAnyUnit = (q) => normalUnitIds.some(uId => (window.MathArena && window.MathArena.matchesUnitFilter)
+      ? window.MathArena.matchesUnitFilter(q, uId)
+      : q.unitId === uId);
     let pool = [];
     if (hasErrorBook) {
       const errPool = QUESTION_BANK.filter(q => state.errorBook.includes(q.id));
-      pool = (normalUnitIds.length > 0) ? errPool.filter(q => normalUnitIds.includes(q.unitId)) : errPool;
+      pool = (normalUnitIds.length > 0) ? errPool.filter(matchAnyUnit) : errPool;
     } else {
-      pool = QUESTION_BANK.filter(q => normalUnitIds.includes(q.unitId));
+      pool = QUESTION_BANK.filter(matchAnyUnit);
     }
 
     const pBatches = state.printConfig.batches || ['課本原型題', '奧數天梯', '段考真題'];
