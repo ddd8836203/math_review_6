@@ -13,7 +13,7 @@
 })(typeof window !== 'undefined' ? window : globalThis, function () {
   'use strict';
 
-  const VERSION = '3.0.0';
+  const VERSION = '3.1.0';
 
   const SUBJECT_PROFILES = {
     g2_chinese: {
@@ -23,6 +23,12 @@
       bgColor: '#f5f3ff',
       theme: 'light',
       toneRule: '必須全程使用對國小二年級小朋友溫柔、有耐心、鼓勵性的語氣（8歲看得懂的淺白短句），所有重點解說與題目用語避免艱深文法術語。',
+      zhuyinRule: [
+        '**全頁國字強制標註注音（極重要，沒注音二年級看不懂）**：題幹、閱讀短文、選項與 4D 詳解中的每一個國字，都必須使用原生 HTML `<ruby>國<rt>ㄍㄨㄛˊ</rt></ruby>` 標註注音！',
+        '**內建右置直排注音 CSS（零外部字型相依）**：務必在 `<style>` 加入：`ruby { display: inline-flex; flex-direction: row; align-items: center; ruby-align: center; } rt { writing-mode: vertical-rl; text-orientation: upright; font-size: 0.44em; line-height: 1; margin-left: 1px; color: #475569; font-weight: 500; } body.hide-zhuyin rt { display: none; }`（輕聲 `˙` 置於聲韻母最上方；亦支援點擊頂部按鈕 **`🔤 全句注音：開／關`** 切換顯示，預設為開啟）。',
+        '**嚴格防洩題鐵律**：凡題目測驗「國字讀音／多音字／寫注音」時，**被考的那個目標字（例如『請選出「角」字的讀音』中的「角」）絕對不可標注音**（僅該字不放 `<rt>`，句子其餘國字仍須標注音）；凡測驗「看注音寫國字」時，空格只標注音不顯國字！',
+        '**破音字嚴格核對**：輸出 HTML 前請逐字複查多音字／破音字讀音（如還、長、樂、行、覺、著、重、得、為、好、中、發、數、量、轉、空、和、教、背、當等），確保詞義與讀音 100% 正確！'
+      ].join('\n     - '),
       d4VisualRule: 'D4 視覺積木請依題型選用：部首／生字筆畫對照卡片、多音字紅綠燈分流卡、或「誰＋做什麼＋怎麼做」句子積木方塊（使用原生 HTML 表格或圓角卡片，禁止純文字分隔線）。',
       questionTypesRule: '同時包含「選擇題（點擊選項即時批改）」與「紙筆手寫／造句練功題（顯示田字格／造句提示，提供『👀 核對答案』與『✅ 全對熟練 / ⏳ 想很久 / ❌ 需重練』三態自評）」。',
       extraPedagogyRule: '每題詳解內必須額外折疊提供一欄「👨‍👩‍👧 家長陪讀小抄（含 3 個小老師批改檢查點與多音字/形近字記憶口訣）」，且頁面預設字體放大清晰（題幹 >= 19px）。'
@@ -766,12 +772,16 @@
     }
 
     if (mode === 'text') {
+      const textZhuyinLine = cfg.subjectKey === 'g2_chinese'
+        ? '- **二年級注音規範（必守）**：本卷為國小二年級學生使用，請在題幹與選項的國字旁以括號標註注音（例：衣裳（ㄧ ㄕㄤ˙）），但測驗「讀音／多音字」的目標字絕對不可標注音以免洩題！'
+        : '';
       return [
         `你是一位頂尖的「${profile.gradeLabel} ${profile.title}」一對一專屬家教。`,
         `請根據學生【${user.name}】以下真實錯題與作答時間紀錄，用繁體中文完成弱點診斷並出題練習：`,
         `- 篩選範圍：${rangeLabel}｜${batchTag}`,
         `- 出題數量：共 **${targetTotal} 題**（**${varCount} 題同考點變形題** ＋ **${extCount} 題生活／跨單元延伸題**，每題皆不得照抄原題）。`,
         `- 語氣規範：${profile.toneRule}`,
+        ...(textZhuyinLine ? [textZhuyinLine] : []),
         '',
         '## 【請依下列 3 步驟輸出】：',
         '1. **👨‍👩‍👧 錯因總診斷與秒殺口訣**：先歸納 2～3 個核心觀念漏洞（點出為何會被誘答騙到），附上好記口訣。',
@@ -784,6 +794,13 @@
         ...mistakeLines
       ].join('\n');
     }
+
+    const zhuyinSectionLines = profile.zhuyinRule
+      ? [
+          '   - **🔤 二年級注音強制規範**：',
+          `     - ${profile.zhuyinRule}`
+        ]
+      : [];
 
     // Default: Gemini Canvas mode
     return [
@@ -804,6 +821,7 @@
       '',
       '## 三、互動體驗與 4D＋3E 詳解規格（對齊學生平時用的練習網頁）',
       `1. **教學語氣**：${profile.toneRule}`,
+      ...zhuyinSectionLines,
       `2. **頂部可折疊「👨‍👩‍👧 家長版錯因總診斷」**：總結本次錯題的 2～3 個核心漏洞、對應生活類比與必背秒殺口訣。`,
       `3. **一次列齊雙題型互動**：${profile.questionTypesRule}`,
       '   - **選擇題**：點擊選項後即時顯示「✅ 答對」或「❌ 答錯（標出你的錯選與正解）」，並立即展開 4D 詳解卡。',
@@ -909,10 +927,30 @@
       .aix-btn-gemini { background: linear-gradient(135deg, #2563eb, #7c3aed); color: #fff; }
       .aix-btn-ghost { background: #f1f5f9; color: #1e293b; border: 1px solid #cbd5e1; }
       .aix-textarea { width: 100%; box-sizing: border-box; min-height: 290px; padding: 14px; border-radius: 14px; border: 1.5px solid var(--line, #cbd5e1); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.55; background: #f8fafc; color: #0f172a; resize: vertical; }
+      .aix-wrap.is-dark { color: #f8fafc; }
+      .aix-wrap.is-dark .aix-card { background: #1e293b; border-color: #334155; color: #f8fafc; }
+      .aix-wrap.is-dark .aix-sub, .aix-wrap.is-dark .aix-label { color: #cbd5e1; }
+      .aix-wrap.is-dark .aix-pill { background: #0f172a; border-color: #475569; color: #e2e8f0; }
+      .aix-wrap.is-dark .aix-pill.active { background: #0ea5e9; border-color: #0ea5e9; color: #fff; }
+      .aix-wrap.is-dark .aix-date-box, .aix-wrap.is-dark .aix-chk { background: #0f172a; border-color: #334155; color: #e2e8f0; }
+      .aix-wrap.is-dark .aix-date-box input[type="date"], .aix-wrap.is-dark .aix-num-input { background: #1e293b; border-color: #475569; color: #f8fafc; }
+      .aix-wrap.is-dark .aix-calc-bar { background: rgba(14, 165, 233, 0.14); border-color: #0284c7; color: #f8fafc; }
+      .aix-wrap.is-dark .aix-list-box { background: #0f172a; border-color: #334155; }
+      .aix-wrap.is-dark .aix-list-head { background: #1e293b; border-color: #334155; color: #e2e8f0; }
+      .aix-wrap.is-dark .aix-item { border-color: #1e293b; color: #e2e8f0; }
+      .aix-wrap.is-dark .aix-item:hover { background: #1e293b; }
+      .aix-wrap.is-dark .aix-item-stem { color: #f8fafc; }
+      .aix-wrap.is-dark .aix-item-ans { color: #94a3b8; }
+      .aix-wrap.is-dark .aix-btn-ghost { background: #0f172a; color: #e2e8f0; border-color: #475569; }
+      .aix-wrap.is-dark .aix-textarea { background: #0f172a; border-color: #334155; color: #e2e8f0; }
+      .aix-modal-overlay { position: fixed; inset: 0; z-index: 9999; background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(4px); display: flex; align-items: flex-start; justify-content: center; padding: 18px 12px; overflow-y: auto; box-sizing: border-box; }
+      .aix-modal-shell { width: 100%; max-width: 940px; position: relative; }
+      .aix-modal-shell .aix-wrap { padding: 0; }
       @media (max-width: 600px) {
         .aix-card { padding: 14px; border-radius: 16px; }
         .aix-btn { width: 100%; justify-content: center; }
         .aix-head-actions { width: 100%; justify-content: space-between; }
+        .aix-modal-overlay { padding: 8px; }
       }
     `;
     document.head.appendChild(style);
@@ -1085,7 +1123,7 @@
           }).join('');
 
       containerEl.innerHTML = `
-        <div class="aix-wrap">
+        <div class="aix-wrap${profile.theme === 'dark' ? ' is-dark' : ''}">
           <div class="aix-card">
             <div class="aix-head">
               <div>
@@ -1348,6 +1386,45 @@
     };
   }
 
+  function openExportModal(adapter) {
+    if (typeof document === 'undefined' || !adapter) return null;
+    injectStylesOnce();
+    let overlay = document.getElementById('aix-modal-overlay');
+    if (overlay) overlay.remove();
+
+    overlay = document.createElement('div');
+    overlay.id = 'aix-modal-overlay';
+    overlay.className = 'aix-modal-overlay no-print';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+
+    const shell = document.createElement('div');
+    shell.className = 'aix-modal-shell';
+    overlay.appendChild(shell);
+    document.body.appendChild(overlay);
+
+    let ctrl = null;
+    function closeModal() {
+      if (ctrl && typeof ctrl.dispose === 'function') ctrl.dispose();
+      document.removeEventListener('keydown', onKeyDown);
+      if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+      if (typeof adapter.onClose === 'function') adapter.onClose();
+    }
+    function onKeyDown(e) {
+      if (e.key === 'Escape') closeModal();
+    }
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeModal();
+    });
+    document.addEventListener('keydown', onKeyDown);
+
+    const wrappedAdapter = Object.assign({}, adapter, {
+      onBack: closeModal
+    });
+    ctrl = mountExportCenter(shell, wrappedAdapter);
+    return { close: closeModal, refresh: ctrl && ctrl.refresh };
+  }
+
   return {
     VERSION,
     SUBJECT_PROFILES,
@@ -1364,6 +1441,7 @@
     splitIntoBatches,
     buildPromptOutput,
     copyTextSafe,
-    mountExportCenter
+    mountExportCenter,
+    openExportModal
   };
 });
