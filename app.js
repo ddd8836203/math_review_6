@@ -533,6 +533,8 @@
       renderArenaView();
     } else if (state.view === 'print') {
       renderPrintSetupView();
+    } else if (state.view === 'export') {
+      exportToAI();
     } else {
       state.view = 'dashboard';
       renderDashboardView();
@@ -553,6 +555,7 @@
     Object.values(LOCAL_ARENA_KEYS).forEach(baseKey => {
       localStorage.removeItem(getUserStorageKey(baseKey, userId));
     });
+    localStorage.removeItem(getUserStorageKey('g6_math_recent_answer_logs', userId));
     localStorage.setItem(getUserStorageKey(STORAGE_KEYS.updatedAt, userId), String(nowTs));
 
     if (state.currentUser === userId) {
@@ -597,6 +600,7 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(resetPayload),
         });
+        await fetch(`${base}/g6_math_logs/${userId}.json`, { method: 'DELETE' }).catch(() => {});
       } catch (e) {
         console.warn('雲端重置測試帳號失敗：', e);
       }
@@ -1792,6 +1796,83 @@
     renderArenaView();
   }
 
+  function pushMathSlimLog(q, result, userChoice = null, trapCode = null) {
+    if (!q || !q.id) return;
+    const nq = (window.MathArena && window.MathArena.normalizeQuestion)
+      ? window.MathArena.normalizeQuestion(q, { kidsMath: window.KidsMath, formatMathForKids })
+      : null;
+    const u = UNITS.find(x => x.id === q.unitId) || {};
+    const optsStr = nq && nq.hasOptions && Array.isArray(nq.options)
+      ? nq.options.map(o => `[${o.key}] ${o.rawText}${o.key === nq.answerKey ? '*' : ''}`).join(' | ')
+      : '';
+    const trapText = trapCode
+      ? `${trapCode}${nq && nq.primaryTrap && nq.primaryTrap.text ? ' — ' + nq.primaryTrap.text : ''}`
+      : (nq && nq.primaryTrap ? `${nq.primaryTrap.code} — ${nq.primaryTrap.text}` : '');
+    const nowMs = Date.now();
+    const core = window.AIExportCore;
+    const entry = core && typeof core.createSlimLogEntry === 'function'
+      ? core.createSlimLogEntry({
+          ts: nowMs,
+          subj: 'g6_math',
+          id: q.id,
+          unit: u.title || q.unitId || '',
+          cat: q.category || q.batch || '',
+          sch: q.school || '翰林六上數學',
+          q: nq ? nq.questionPlain : String(q.question || ''),
+          opts: optsStr,
+          correct: nq ? nq.answerPlainText : String(q.answer || ''),
+          ans: userChoice || result,
+          res: result,
+          sec: 1,
+          trap: trapText,
+          concept: nq ? (nq.examPurpose || '') : '',
+          extra: { level: q.level || q.stars || 1, unitId: q.unitId || '' }
+        })
+      : {
+          v: 2,
+          ts: nowMs,
+          t: new Date(nowMs).toLocaleString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false }),
+          subj: 'g6_math',
+          id: q.id,
+          unit: u.title || q.unitId || '',
+          cat: q.category || q.batch || '',
+          sch: q.school || '翰林六上數學',
+          q: nq ? nq.questionPlain : String(q.question || ''),
+          opts: optsStr,
+          correct: nq ? nq.answerPlainText : String(q.answer || ''),
+          ans: userChoice || result,
+          res: result,
+          sec: 1,
+          trap: trapText,
+          concept: nq ? (nq.examPurpose || '') : ''
+        };
+
+    const localKey = getUserStorageKey('g6_math_recent_answer_logs', state.currentUser);
+    if (core && typeof core.saveLocalAnswerLog === 'function') {
+      core.saveLocalAnswerLog(localKey, entry, 300);
+    } else {
+      try {
+        const arr = JSON.parse(localStorage.getItem(localKey) || '[]');
+        arr.unshift(entry);
+        if (arr.length > 300) arr.length = 300;
+        localStorage.setItem(localKey, JSON.stringify(arr));
+      } catch (e) {}
+    }
+
+    const base = normalizeCloudUrl(state.cloudDbUrl);
+    if (!base) return;
+    if (core && typeof core.pushLogToFirebase === 'function') {
+      core.pushLogToFirebase(base, 'g6_math_logs', state.currentUser, q.id, entry);
+    } else {
+      const safeId = String(q.id).replace(/[^a-zA-Z0-9_-]/g, '_');
+      fetch(`${base}/g6_math_logs/${state.currentUser}/${entry.ts}_${safeId}.json`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(entry)
+      }).catch(() => {});
+    }
+  }
+
   function recordAnswer(q, result, userChoice = null, trapCodeOverride = null) {
     const existingIndex = state.sessionAnswers.findIndex(a => a.qId === q.id);
     const derivedTrap = trapCodeOverride || (q.trap ? q.trap.code : null);
@@ -1839,6 +1920,7 @@
       }
     }
     saveState();
+    pushMathSlimLog(q, result, userChoice, derivedTrap);
   }
 
   // -------------------------------------------------------
@@ -2540,6 +2622,64 @@
   // AI 閉環匯出：Markdown + 專業教研 Prompt
   // -------------------------------------------------------
   function exportToAI() {
+    state.view = 'export';
+    const appEl = document.getElementById('app');
+    if (appEl && window.AIExportCore && typeof window.AIExportCore.mountExportCenter === 'function') {
+      const unitTitleMap = {};
+      UNITS.forEach(u => { unitTitleMap[u.id] = u.title; });
+      const allQuestionsMap = {};
+      QUESTION_BANK.forEach(q => {
+        if (!q || !q.id) return;
+        const nq = (window.MathArena && window.MathArena.normalizeQuestion)
+          ? window.MathArena.normalizeQuestion(q, { kidsMath: window.KidsMath, formatMathForKids })
+          : null;
+        const optsStr = nq && nq.hasOptions && Array.isArray(nq.options)
+          ? nq.options.map(o => `[${o.key}] ${o.rawText}${o.key === nq.answerKey ? '*' : ''}`).join(' | ')
+          : '';
+        const trapText = nq && nq.primaryTrap ? `${nq.primaryTrap.code || ''} — ${nq.primaryTrap.text || ''}` : '';
+        allQuestionsMap[q.id] = {
+          code: q.id,
+          unit: unitTitleMap[q.unitId] || q.unitId || '綜合單元',
+          cat: q.category || q.batch || '',
+          sch: q.school || '翰林六上數學',
+          q: nq ? nq.questionPlain : String(q.question || ''),
+          opts: optsStr,
+          correct: nq ? nq.answerPlainText : String(q.answer || ''),
+          trap: trapText,
+          concept: nq ? (nq.examPurpose || '') : '',
+          qType: nq && nq.hasOptions ? 'choice' : 'handwrite'
+        };
+      });
+      let localLogs = [];
+      try {
+        localLogs = JSON.parse(localStorage.getItem(getUserStorageKey('g6_math_recent_answer_logs', state.currentUser)) || '[]');
+      } catch (e) {}
+      const slowIds = Object.keys(state.slowCounts || {}).filter(id => (state.slowCounts[id] || 0) > 0);
+
+      window.AIExportCore.mountExportCenter(appEl, {
+        subjectKey: 'g6_math',
+        dbUrl: normalizeCloudUrl(state.cloudDbUrl),
+        logsNode: 'g6_math_logs',
+        uid: state.currentUser,
+        user: getCurrentUserObj(),
+        supportsSlow: true,
+        allQuestionsMap,
+        errorBookIds: state.errorBook || [],
+        errorCounts: state.errorCounts || {},
+        slowCounts: state.slowCounts || {},
+        slowIds,
+        localLogs,
+        legacyHistory: state.fullHistory || [],
+        onBack: () => {
+          state.view = 'dashboard';
+          renderDashboardView();
+        },
+        onToast: showToast,
+        downloadFilenamePrefix: '六上數學AI練習'
+      });
+      return;
+    }
+
     const curUser = getCurrentUserObj();
     const errorQuestions = QUESTION_BANK.filter(q => state.errorBook.includes(q.id));
     const allAnswers = state.fullHistory.flatMap(h => h.answers || []);
